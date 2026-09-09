@@ -13,7 +13,7 @@ This is the Week 1 report. It replaces the standard Weekly Report for this week.
 | Project board exists |  |  |
 | Every member has access |  |  |
 | One planning Issue or document exists |  |  |
-| Team Working Agreement is complete |  |  |
+| Team Working Agreement is complete |https://github.com/CapstoneDesign-Fall2026-UlsanCollege/DJ-Barut/blob/f963a93f47ee61dad9838b5e9984310925db1b98/project_agreement.md  | J.N. Taj Oli |
 
 ## Five candidate project ideas
 
