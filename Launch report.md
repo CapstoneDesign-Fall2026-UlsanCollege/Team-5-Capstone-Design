@@ -1,0 +1,40 @@
+# Week 1 Launch Report
+
+**Team:** DJ Barut
+**Date:** 2026-09-09
+
+This is the Week 1 report. It replaces the standard Weekly Report for this week.
+
+## Team setup
+
+| Check | Evidence link | Confirmed by |
+|---|---|---|
+| Team repository exists |  |  |
+| Project board exists |  |  |
+| Every member has access |  |  |
+| One planning Issue or document exists |  |  |
+| Team Working Agreement is complete |  |  |
+
+## Five candidate project ideas
+
+Link the completed [Five Project Ideas](five-project-ideas.md) document or Issue:
+
+- 
+
+## Individual Week 1 actions
+
+Each student records their preferred idea and one concern after class.
+
+| Student | Preferred idea | One concern | Evidence link |
+|---|---|---|---|
+|Nabin Khadka  |  |  |  |
+|Sumit Adhikari  |  |  |  |
+|Prince Karki |  |  |  |
+|Prabin Rai  |  |  |  |
+|J.N. Taj Oli  |  |  |  |
+
+## Ready for Week 2
+
+- [ ] The team has narrowed the five ideas to two finalists.
+- [ ] Every member can explain the two finalists and the main concern for each.
+- [ ] The Team Working Agreement is linked and confirmed by every member.
