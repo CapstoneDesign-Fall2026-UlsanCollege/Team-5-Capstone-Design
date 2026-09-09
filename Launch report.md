@@ -27,11 +27,11 @@ Each student records their preferred idea and one concern after class.
 
 | Student | Preferred idea | One concern | Evidence link |
 |---|---|---|---|
-|Nabin Khadka  |  |  |  |
-|Sumit Adhikari  |  |  |  |
-|Prince Karki |  |  |  |
-|Prabin Rai  |  |  |  |
-|J.N. Taj Oli  |  |  |  |
+|Nabin Khadka  |Study Planner  |Making the study schedule simple and easy to manage.  |  |
+|Sumit Adhikari  |Budget Planner  |Making expense tracking quick and easy to use.  |  |
+|Prince Karki | Grocery List |Keeping the grocery list simple and easy to use.  |  |
+|Prabin Rai  |College Quiz System  |Creating enough useful questions for different subjects.  |  |
+|J.N. Taj Oli  | Event Reminder |Making reminders reliable and easy to understand.  |  |
 
 ## Ready for Week 2
 
