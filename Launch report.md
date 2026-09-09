@@ -19,7 +19,7 @@ This is the Week 1 report. It replaces the standard Weekly Report for this week.
 
 Link the completed [Five Project Ideas](five-project-ideas.md) document or Issue:
 
-- 
+- https://github.com/CapstoneDesign-Fall2026-UlsanCollege/DJ-Barut/blob/2d38d545d760702e51c88a66e30dcbbf3fe70b41/Five%20Project%20Idea
 
 ## Individual Week 1 actions
 
