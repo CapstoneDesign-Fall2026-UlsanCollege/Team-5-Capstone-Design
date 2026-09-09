@@ -28,7 +28,7 @@ Each student records their preferred idea and one concern after class.
 | Student | Preferred idea | One concern | Evidence link |
 |---|---|---|---|
 |Nabin Khadka  |Study Planner  |Making the study schedule simple and easy to manage.  |  https://github.com/CapstoneDesign-Fall2026-UlsanCollege/DJ-Barut/blob/a9cbd5e1f58f2ccfc70c1b85bf9e7213880ce786/Five%20Project%20Idea|
-|Sumit Adhikari  |Budget Planner  |Making expense tracking quick and easy to use.  |  |
+|Sumit Adhikari  |Budget Planner  |Making expense tracking quick and easy to use.  | https://github.com/CapstoneDesign-Fall2026-UlsanCollege/DJ-Barut/blob/8a2e35841343925e1ac8e6f144b7c7deb26ba96f/Five%20Project%20Idea |
 |Prince Karki | Grocery List |Keeping the grocery list simple and easy to use.  | |
 |Prabin Rai  |College Quiz System  |Creating enough useful questions for different subjects.  |  |
 |J.N. Taj Oli  | Event Reminder |Making reminders reliable and easy to understand.  |https://github.com/CapstoneDesign-Fall2026-UlsanCollege/DJ-Barut/blob/a9cbd5e1f58f2ccfc70c1b85bf9e7213880ce786/Five%20Project%20Idea  |
