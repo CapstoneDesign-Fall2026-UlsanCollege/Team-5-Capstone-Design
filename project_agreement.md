@@ -5,7 +5,7 @@ Complete this when your team forms. Link it in your Week 1 Launch Report and rev
 ## Team and project
 
 - Team name: DJ Barut
-- Project working title: 
+- Project working title: Study Planner
 - Date agreed: 2026-09-09
 
 ## Members, strengths, and availability
