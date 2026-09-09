@@ -11,8 +11,8 @@ This is the Week 1 report. It replaces the standard Weekly Report for this week.
 |---|---|---|
 | Team repository exists |https://github.com/CapstoneDesign-Fall2026-UlsanCollege/DJ-Barut.git  | J.N. Taj Oli |
 | Project board exists | https://github.com/orgs/CapstoneDesign-Fall2026-UlsanCollege/projects/8/views/1 | Prabin Rai |
-| Every member has access |https://github.com/CapstoneDesign-Fall2026-UlsanCollege/DJ-Barut/settings/access  |Prince Karki  |
-| One planning Issue or document exists |  |  |
+| Every member has access |https://github.com/CapstoneDesign-Fall2026-UlsanCollege/DJ-Barut/settings/access  |Prince Karki and Sumit Adhikari  |
+| One planning Issue or document exists |https://github.com/CapstoneDesign-Fall2026-UlsanCollege/DJ-Barut/issues/1  |Nabin Khadka  |
 | Team Working Agreement is complete |https://github.com/CapstoneDesign-Fall2026-UlsanCollege/DJ-Barut/blob/f963a93f47ee61dad9838b5e9984310925db1b98/project_agreement.md  | J.N. Taj Oli |
 
 ## Five candidate project ideas
