@@ -26,7 +26,9 @@ Roles can rotate. Every team must keep the work, evidence, and quality visible.
 | --- | --- | --- |
 | Project / board coordinator |Nabin Khadka | Keep Issues, owners, and next actions current. |
 | Evidence / documentation lead |J.N. Taj Oli | Keep reports, receipts, and docs linked. |
-| Build / quality lead |Prabin Rai | Keep the demo path and testing checks visible. |
+| Build / quality lead |Sumit Adhikari | Keep the demo path and testing checks visible. |
+| Research / Analysis Lead |Prince Karki | Conduct research, analyze information, and provide relevant findings for the project. |
+| Research / Analysis Support|Prabin Rai | Assist with research, data gathering, analysis, and validation of project information. |
 
 ## Communication and meetings
 
