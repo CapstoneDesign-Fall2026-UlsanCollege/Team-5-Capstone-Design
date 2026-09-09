@@ -59,8 +59,8 @@ By signing, each member agrees to follow this plan, raise concerns early, and up
 
 | Student | Signature or GitHub confirmation | Date |
 | --- | --- | --- |
-| Nabin Khadka| |2026-09-08 |
-| Sumit Adhikari| |2026-09-08 |
-| Prince Karki| |2026-09-08 |
-| Prabin Rai| |2026-09-08 |
-| J.N. Taj Oli| |2026-09-08 |
+| Nabin Khadka|@Nabin55 |2026-09-08 |
+| Sumit Adhikari|@adronnie |2026-09-08 |
+| Prince Karki|@princekark |2026-09-08 |
+| Prabin Rai|@RaiPrabin697 |2026-09-08 |
+| J.N. Taj Oli|@jn-oli |2026-09-08 |
