@@ -43,9 +43,9 @@ Write five possible project ideas. Keep each one small.
 
 ## Idea 5
 
-- **Project name:**
-- **Target user:**
-- **Problem:**
-- **Smallest useful version:**
-- **Midterm demo could show:**
-- **Big risk / unknown:**
+- **Project name:Event Reminder
+- **Target user:Students
+- **Problem:Students forget important events such as classes, assignments, meetings, and exams.
+- **Smallest useful version:Add an event with a date and time and display upcoming events.
+- **Midterm demo could show:Create an event and view it in an upcoming-events list.
+- **Big risk / unknown:Making reminders reliable and easy to understand.
