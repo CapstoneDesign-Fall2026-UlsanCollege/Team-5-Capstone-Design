@@ -9,7 +9,7 @@ This is the Week 1 report. It replaces the standard Weekly Report for this week.
 
 | Check | Evidence link | Confirmed by |
 |---|---|---|
-| Team repository exists |  |  |
+| Team repository exists |https://github.com/CapstoneDesign-Fall2026-UlsanCollege/DJ-Barut.git  | J.N. Taj Oli |
 | Project board exists |  |  |
 | Every member has access |  |  |
 | One planning Issue or document exists |  |  |
@@ -27,11 +27,11 @@ Each student records their preferred idea and one concern after class.
 
 | Student | Preferred idea | One concern | Evidence link |
 |---|---|---|---|
-|Nabin Khadka  |Study Planner  |Making the study schedule simple and easy to manage.  |  |
-|Sumit Adhikari  |Budget Planner  |Making expense tracking quick and easy to use.  |  |
-|Prince Karki | Grocery List |Keeping the grocery list simple and easy to use.  |  |
-|Prabin Rai  |College Quiz System  |Creating enough useful questions for different subjects.  |  |
-|J.N. Taj Oli  | Event Reminder |Making reminders reliable and easy to understand.  |  |
+|Nabin Khadka  |Study Planner  |Making the study schedule simple and easy to manage.  |https://github.com/CapstoneDesign-Fall2026-UlsanCollege/DJ-Barut.git  |
+|Sumit Adhikari  |Budget Planner  |Making expense tracking quick and easy to use.  |https://github.com/CapstoneDesign-Fall2026-UlsanCollege/DJ-Barut.git  |
+|Prince Karki | Grocery List |Keeping the grocery list simple and easy to use.  |https://github.com/CapstoneDesign-Fall2026-UlsanCollege/DJ-Barut.git  |
+|Prabin Rai  |College Quiz System  |Creating enough useful questions for different subjects.  |https://github.com/CapstoneDesign-Fall2026-UlsanCollege/DJ-Barut.git  |
+|J.N. Taj Oli  | Event Reminder |Making reminders reliable and easy to understand.  |https://github.com/CapstoneDesign-Fall2026-UlsanCollege/DJ-Barut.git  |
 
 ## Ready for Week 2
 
