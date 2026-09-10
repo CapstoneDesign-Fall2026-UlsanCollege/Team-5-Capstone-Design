@@ -5,6 +5,7 @@
 
 Write five possible project ideas. Keep each one small.
 
+
 ## Idea 1
 
 - **Project name:Study Planner
