@@ -28,7 +28,7 @@ If it is not linked, it does not count.
 | PR(s) / commits | Not applicable this week — planning work |
 | Screenshot / demo | [User Flow Diagram](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/week-02/16726.jpg) |
 | Test/check note | [Storage persistence check](storage-check.md) |
-| Document update | [Design Doc v1](design-doc-v1.md), [Idea Selection Table](idea-selection-table.md) |
+| Document update | [Design Doc v1](../docs/design-doc-v1.md), [Idea Selection Table](idea-selection-table.md) |
 
 ## Individual receipts
 
@@ -38,7 +38,7 @@ If it is not linked, it does not count.
 | Sumit Adhikari | Investigated the MVP front-end approach; compared plain HTML/CSS/JS vs React + Vite | Issue #3 |
 | Prince Karki | Compared existing study-planner and quiz apps to confirm which features are needed | Issue #4 |
 | Prabin Rai | Investigated how a student should create a quiz (manual entry vs reusable question bank) | Issue #5 + [User Flow Diagram](16726.jpg) |
-| J.N. Taj Oli | Investigated whether reminders belong in the MVP; compared in-app reminders vs postponing; updated the Design Doc and Weekly Report | Issue #6 + [Design Doc v1](design-doc-v1.md) |
+| J.N. Taj Oli | Investigated whether reminders belong in the MVP; compared in-app reminders vs postponing; updated the Design Doc and Weekly Report | Issue #6 + [Design Doc v1](../docs/design-doc-v1.md) |
 
 ## Blockers or risks
 

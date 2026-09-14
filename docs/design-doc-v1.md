@@ -98,7 +98,7 @@ Our final demo will prove:
 ## 10. Evidence links
 
 - Planning Issue: [Issue #1](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/1) *(replace with the real planning Issue link)*
-- Weekly Report: [week-02/weekly-report.md](weekly-report.md)
-- User flow sketch: [16726.jpg](16726.jpg)
-- Storage check: [storage-check.md](storage-check.md)
-- Investigation Issues: see the [Weekly Report](weekly-report.md) evidence table
+- Weekly Report: [../week-02/weekly-report.md](../week-02/weekly-report.md)
+- User flow sketch: [../week-02/16726.jpg](../week-02/16726.jpg)
+- Storage check: [../week-02/storage-check.md](../week-02/storage-check.md)
+- Investigation Issues: see the [Weekly Report](../week-02/weekly-report.md) evidence table

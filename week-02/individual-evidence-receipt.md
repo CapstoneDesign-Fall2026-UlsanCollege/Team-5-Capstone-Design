@@ -37,7 +37,7 @@ Post 2-3 receipts per week when contribution tracking matters. Week 2 receipts a
 ## J.N. Taj Oli — Investigation: reminder scope + docs
 
 - **What I did:** Compared in-app reminders vs postponing; updated Design Doc v1 and the Weekly Report with links.
-- **Evidence link:** Issue #6 — **[PENDING: add real Issue #6 link]** and `week-02/design-doc-v1.md`
+- **Evidence link:** Issue #6 — **[PENDING: add real Issue #6 link]** and `docs/design-doc-v1.md`
 - **How I checked it:** Checked every evidence table link per the Week 2 checklist.
 - **What I learned or changed:** Reminders can stay out of scope; the midterm demo sentence now matches the user flow.
 
