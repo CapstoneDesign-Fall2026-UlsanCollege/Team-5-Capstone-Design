@@ -33,7 +33,7 @@ View quiz scores
 
 Draw or describe the smallest user journey you can demonstrate. Put the user's action on each arrow and end with a visible result.
 
-`Start → user action → next state → visible result`
+`Start → Create a subject → Add a study task and deadline → Mark the task as completed → Take a quiz and view the score`
 
 Evidence / sketch link:
 
