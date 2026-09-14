@@ -35,7 +35,7 @@ Draw or describe the smallest user journey you can demonstrate. Put the user's a
 
 `Start → Create a subject → Add a study task and deadline → Mark the task as completed → Take a quiz and view the score`
 
-Evidence / sketch link:
+Evidence / sketch link: https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/ba3600ee29e0d873be4c8d4a1a62a64a3c9459ea/week-02/16726.jpg
 
 
 ## 4. In scope
