@@ -1,52 +1,51 @@
 # Five Project Ideas
 
 **Team:** DJ Barut
-**Week:** 1  
+**Week:** 1
 
 Write five possible project ideas. Keep each one small.
 
-
 ## Idea 1
 
-- **Project name:Study Planner
-- **Target user:College students
-- **Problem:Students find it difficult to organize their study time and remember assignments and exams.
-- **Smallest useful version:Add subjects, study tasks, and deadlines.
-- **Midterm demo could show: study plan and mark completed study tasks.
-- **Big risk / unknown:Making the study schedule simple and easy to manage.
+- **Project name:** Study Planner
+- **Target user:** College students
+- **Problem:** Students find it difficult to organize their study time and remember assignments and exams.
+- **Smallest useful version:** Add subjects, study tasks, and deadlines.
+- **Midterm demo could show:** A study plan and completed study tasks.
+- **Big risk / unknown:** Making the study schedule simple and easy to manage.
 
 ## Idea 2
 
-- **Project name:**Budget Planner
-- **Target user:**Students
-- **Problem:**Students often lose track of their spending and have difficulty staying with their monthly budget.
-- **Smallest useful version:**add income, expenses, and set a monthly budget.
+- **Project name:** Budget Planner
+- **Target user:** Students
+- **Problem:** Students often lose track of their spending and have difficulty staying with their monthly budget.
+- **Smallest useful version:** Add income, expenses, and set a monthly budget.
 - **Midterm demo could show:** Add expenses and display the remaining monthly budget.
-- **Big risk / unknown:**Making expenses tracking quick and easy to use.
+- **Big risk / unknown:** Making expense tracking quick and easy to use.
 
 ## Idea 3
 
-- **Project name:Grocery List
-- **Target user:Students and families
-- **Problem:People forget what they need to buy when going grocery shopping.
-- **Smallest useful version:Add grocery items and check them off when purchased.
-- **Midterm demo could show:Create a grocery list and mark items as bought.
-- **Big risk / unknown:Keeping the list simple and easy to use.
+- **Project name:** Grocery List
+- **Target user:** Students and families
+- **Problem:** People forget what they need to buy when going grocery shopping.
+- **Smallest useful version:** Add grocery items and check them off when purchased.
+- **Midterm demo could show:** Create a grocery list and mark items as bought.
+- **Big risk / unknown:** Keeping the list simple and easy to use.
 
 ## Idea 4
 
-- **Project name:College Quiz System
-- **Target user:College students
-- **Problem:Students need a simple way to practice questions and check their knowledge before exams.
-- **Smallest useful version:Answer multiple-choice questions and display the score
-- **Midterm demo could show:Take a short quiz and view the final score.
-- **Big risk / unknown:Creating enough useful questions for different subjects.
+- **Project name:** College Quiz System
+- **Target user:** College students
+- **Problem:** Students need a simple way to practice questions and check their knowledge before exams.
+- **Smallest useful version:** Answer multiple-choice questions and display the score.
+- **Midterm demo could show:** Take a short quiz and view the final score.
+- **Big risk / unknown:** Creating enough useful questions for different subjects.
 
 ## Idea 5
 
-- **Project name:Event Reminder
-- **Target user:Students
-- **Problem:Students forget important events such as classes, assignments, meetings, and exams.
-- **Smallest useful version:Add an event with a date and time and display upcoming events.
-- **Midterm demo could show:Create an event and view it in an upcoming-events list.
-- **Big risk / unknown:Making reminders reliable and easy to understand.
+- **Project name:** Event Reminder
+- **Target user:** Students
+- **Problem:** Students forget important events such as classes, assignments, meetings, and exams.
+- **Smallest useful version:** Add an event with a date and time and display upcoming events.
+- **Midterm demo could show:** Create an event and view it in an upcoming-events list.
+- **Big risk / unknown:** Making reminders reliable and easy to understand.

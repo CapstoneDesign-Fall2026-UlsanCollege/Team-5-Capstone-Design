@@ -2,7 +2,7 @@
 
 **Team:** DJ Barut 
 **Project name:** Smart Study Companion  
-**Last updated:**  2026-09-14
+**Last updated:**  2026-09-15
 
 ## 1. Project purpose
 
@@ -97,6 +97,8 @@ Our final demo will prove:
 
 ## 10. Evidence links
 
-- Planning Issue:
-- Weekly Report:
-- Demo/proof links:
+- Planning Issue: [Issue #1](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/1) *(replace with the real planning Issue link)*
+- Weekly Report: [week-02/weekly-report.md](weekly-report.md)
+- User flow sketch: [16726.jpg](16726.jpg)
+- Storage check: [storage-check.md](storage-check.md)
+- Investigation Issues: see the [Weekly Report](weekly-report.md) evidence table

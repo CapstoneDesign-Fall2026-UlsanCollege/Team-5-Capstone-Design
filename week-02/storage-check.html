@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>localStorage persistence check</title>
+</head>
+<body>
+<h1>MVP data storage — persistence test</h1>
+<p>Used for the Week 2 uncertainty check. Open this file in a browser, click the button, then reload the page.</p>
+<label>Subject name: <input id="subject" type="text" value="Database"></label>
+<button id="save">1. Save subject to localStorage</button>
+<button id="read">2. Read back subject now</button>
+<pre id="out">No action yet.</pre>
+<script>
+  const KEY = "ssc-subject";
+  const out = document.getElementById("out");
+  document.getElementById("save").onclick = () => {
+    localStorage.setItem(KEY, document.getElementById("subject").value);
+    out.textContent = "Saved: " + localStorage.getItem(KEY);
+  };
+  document.getElementById("read").onclick = () => {
+    out.textContent = "Current value: " + localStorage.getItem(KEY);
+  };
+  if (localStorage.getItem(KEY)) {
+    out.textContent = "After reload, localStorage still contains: " + localStorage.getItem(KEY);
+  }
+</script>
+</body>
+</html>
