@@ -14,9 +14,11 @@ What did your team try to improve this week?
 
 ## What we committed to do
 
-- [x] Select the primary project direction (Coffee Subscription).
-- [x] Complete individual investigations into technical risks.
-- [x] Draft Design Doc v1 and the 3-5 step user flow sketch.
+- We triede to commit and pushed multiple links
+- Made variious files
+- Tired to comit multiple files 
+
+
 
 ## Evidence links
 
