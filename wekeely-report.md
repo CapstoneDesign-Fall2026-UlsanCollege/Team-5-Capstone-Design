@@ -28,7 +28,7 @@ If it is not linked, it does not count.
 | PR(s) / commits | PR to be linked upon merge |
 | Screenshot / demo | https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/week-02/user-flow-sketch.jpeg |
 | Test/check note | |
-| Document update |  |
+| Document update | week-02/design-doc-v1.md |
 
 ## Individual receipts
 
