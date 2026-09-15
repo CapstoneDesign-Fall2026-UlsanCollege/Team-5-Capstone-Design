@@ -25,7 +25,7 @@ If it is not linked, it does not count.
 | Evidence | Link |
 |---|---|
 | Issue(s) | |
-| PR(s) / commits | PR to be linked upon merge |
+| PR(s) / commits | PR to be added  |
 | Screenshot / demo | https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/week-02/user-flow-sketch.jpeg |
 | Test/check note | |
 | Document update | https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/385b68f57ebc48eb17e3d6fbaf3a2c28ae4adc30/week-02/design-doc-v1.md |
