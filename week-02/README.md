@@ -36,7 +36,7 @@ Not applicable yet — planning phase. Setup and run instructions will be added 
 
 ## Demo / proof links
 
-- [User Flow Diagram]([week-02/16726.jpg](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/0b3e6eaf8c119bdbc936059bbabf11ba8e5084ab/week-02/User%20Flow%20Sketch.jpg)
+- [User Flow Diagram](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/0b3e6eaf8c119bdbc936059bbabf11ba8e5084ab/week-02/User%20Flow%20Sketch.jpg)
 
 ## Known problems
 
