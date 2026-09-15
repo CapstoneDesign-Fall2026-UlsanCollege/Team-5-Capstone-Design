@@ -31,7 +31,7 @@ The system calculates and displays the quiz score.
 
 Start -> Add Subject and Study Tasks -> Set Deadline -> Mark Task Completed -> Take Quiz -> View Quiz Score
 
-Evidence / sketch link: To be added after the first wireframe is completed.
+Evidence / sketch link: [User Flow Sketch](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/8cf055c12a04fc0cf1ed9821209f875bb633ea6d/week-02/16726.jpg)
 
 ## 4. In scope
 
