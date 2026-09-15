@@ -43,7 +43,7 @@ If it is not linked, it does not count.
 
 ## Blockers or risks
 
-| Blocker/risk | Owner | Next action |
+| Blocker/risk | Khadka Nabin | Investigation to be added  |
 |---|---|---|
 | Waiting on remaining teammate investigations | Team | Remind teammates to open issues |
 
