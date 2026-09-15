@@ -28,7 +28,7 @@ If it is not linked, it does not count.
 | PR(s) / commits | Not applicable this week — planning work |
 | Screenshot / demo | [User Flow Diagram](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/week-02/16726.jpg) |
 | Test/check note | [Storage persistence check](storage-check.md) |
-| Document update | [Design Doc v1](../docs/design-doc-v1.md), [Idea Selection Table](idea-selection-table.md) |
+| Document update | [Design Doc v1]([../docs/design-doc-v1.md](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/e9186887b603608a61af22d18c1020c6e68737f3/week-02/design-doc-v1.md)), [Idea Selection Table](idea-selection-table.md) |
 
 ## Individual receipts
 
