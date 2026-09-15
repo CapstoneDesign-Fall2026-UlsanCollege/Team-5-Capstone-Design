@@ -14,8 +14,8 @@ What did your team try to improve this week?
 
 ## What we committed to do
 
-- We triede to commit and pushed multiple links
-- Made variious files
+- We tried to commit and push multiple links
+- Made various files
 - Tired to comit multiple files 
 
 
