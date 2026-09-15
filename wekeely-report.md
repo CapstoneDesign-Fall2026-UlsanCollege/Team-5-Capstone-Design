@@ -2,7 +2,7 @@
 
 **Team:** Group 5  
 **Week:** 2  
-**Date:** 2026-09-11  
+**Date:** 2026-09-15 
 
 Use this template in Weeks 2-3, 5-14, and 16. Weeks 1, 4, and 15 have special reports.
 
