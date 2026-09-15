@@ -17,7 +17,7 @@ Smart Study Companion helps college students organize their study tasks, remembe
 
 | Document | Where it lives |
 |---|---|
-| [Design Doc v1](docs/design-doc-v1.md) | Chosen direction, scope, user flow, midterm/final demo sentences, MVP features, risks |
+| [Design Doc v1](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/66878f21adaa0eb4cbbbd54932511937fe6c6688/week-02/design-doc-v1.md) | Chosen direction, scope, user flow, midterm/final demo sentences, MVP features, risks |
 | Weekly Reports | [week-02/weekly-report.md](week-02/weekly-report.md) and later week folders |
 | Idea Selection Table | [week-02/idea-selection-table.md](week-02/idea-selection-table.md) |
 | Investigation Issues | [week-02/investigation-issues.md](week-02/investigation-issues.md) |
