@@ -24,11 +24,11 @@ If it is not linked, it does not count.
 
 | Evidence | Link |
 |---|---|
-| Issue(s) | [#6 Finalize week 2 report](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/team_2_capstone_design/issues/6) |
+| Issue(s) | |
 | PR(s) / commits | PR to be linked upon merge |
-| Screenshot / demo | [User Flow Sketch](user-flow-sketch.jpg) |
-| Test/check note | Checked payment integration documentation (Khalti API). |
-| Document update | [Design Doc v1](design-doc-v1.md), [Idea Selection](idea-selection-table.md) |
+| Screenshot / demo |  |
+| Test/check note | |
+| Document update |  |
 
 ## Individual receipts
 
