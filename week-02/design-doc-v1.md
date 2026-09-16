@@ -2,7 +2,7 @@
 
 **Team:** Team 3  
 **Project name:** Smart Study Companion  
-**Last updated:** 2026-09-10
+**Last updated:** 2026-09-16
 
 ## 1. Project purpose
 Smart Study Companion is a web application for college students. It combines subject management, study tasks, deadlines, task completion, and simple multiple-choice quizzes in one workflow.
@@ -46,6 +46,7 @@ Evidence / sketch link: [User Flow Sketch](https://github.com/CapstoneDesign-Fal
 
 - AI-generated study plans.
 - AI-generated quiz questions.
+- Reminder and notification system.
 - Online classes.
 - Teacher communication.
 - Social networking.
@@ -71,12 +72,12 @@ Smart Study Companion can help a student organize study tasks and deadlines, mar
 | Feature | Required for MVP? | Primary implementation owner | Research, design, or testing support | Issue link |
 |---|---|---|---|---|
 | Subject management                 | Yes               | Khadka Nabin                  | Khadka Nabin: Requirements research                | To be added |
-| Study task management              | Yes               | Oli Jn                  | Taj Oli Jn:Interface design                     | To be added |
+| Study task management              | Yes               | Oli J.N. Taj                  |Oli J.N. Taj:Interface design                     |[Issue#2](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/2)  |
 | Deadline management                | Yes               | Khadka Nabin                  | Adhikari Sumit:Workflow research                    | To be added |
 | Study plan                         | Yes               | Khadka Nabin                  | Karki Prince:Interface design                     | To be added |
-| Task completion                    | Yes               | Oli Jn                  | Rai Prabin:Testing                              | To be added |
+| Task completion                    | Yes               | Oli J.N. Taj                 | Rai Prabin:Testing                              |[Issue#2](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/2) |
 | Multiple-choice quiz               | Yes               | Khadka Nabin                 | Khadka Nabin:Quiz design                          | To be added |
-| Quiz score                         | Yes               | Karki Prince                  | Khadka Nabin:Testing                              | To be added |
+| Quiz score                         | Yes               | Karki Prince                  | Khadka Nabin:Testing                              |[Issue#3](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/3) |
 
 
 
@@ -173,13 +174,13 @@ Student views quiz score
 ## 13. Risks and unknowns
 
 | Risk / unknown | Why it matters | Plan |
-|---|---|---|
-| Risk / unknown                         | Why it matters                                          | Plan                                                          
+|---|---|---|                                                     
 | Study planning becomes too complicated | Students need a simple application that is easy to use. | Keep the study plan as a simple task list with subjects, deadlines, and status. |
 | Too many features                      | Extra features could delay the main project.            | Focus on subjects, tasks, deadlines, completion, and quizzes.                   |
 | Incorrect task status                  | Students could become confused about completed tasks.   | Use simple `Pending` and `Completed` statuses.                                  |
 | Incorrect quiz score                   | The score must match the student's answers.             | Test the quiz with different answers before the demo.                           |
 | Technical stack not yet confirmed      | Development needs a common setup.                       | Agree on the framework and database before development.                         |
+|Reminder feature could increase development complexity|Notification timing and permission behavior may delay the core MVP.|Keep reminders out of the MVP and show upcoming tasks by deadline instead.|
 
 
 ## 14. Main risk mitigation detail
