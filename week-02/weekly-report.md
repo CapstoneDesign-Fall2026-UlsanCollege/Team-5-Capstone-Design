@@ -24,7 +24,7 @@ If it is not linked, it does not count.
 
 | Evidence | Link |
 |---|---|
-| Issue(s) | Investigation Issues:[Nabin Issue](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/6) [Sumit Issue](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/5)[Prabin Issue](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/4) [Prince Issue](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/3) [J.N. Issue](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/2) |
+| Issue(s) | Investigation Issues:[Nabin Issue](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/6), [Sumit Issue](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/5), [Prabin Issue](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/4), [Prince Issue](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/3), [J.N. Issue](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/2) |
 | PR(s) / commits | Not applicable this week — planning work |
 | Screenshot / demo | [User Flow Diagram](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/0b3e6eaf8c119bdbc936059bbabf11ba8e5084ab/week-02/User%20Flow%20Sketch.jpg) |
 | Test/check note | [Storage persistence check](storage-check.md) |
@@ -46,8 +46,7 @@ If it is not linked, it does not count.
 |---|---|---|
 | Storage choice affects the stack decision from Week 3 | Nabin Khadka | Bring localStorage test result to stack comparison |
 | Quiz question authoring could become slow to build | Prabin Rai | Confirm manual question entry for the MVP |
-| Reminder scope not fully agreed | J.N. Taj Oli | Re-check against MVP contract in Week 9 |
-| Evidence links use guessed Issue numbers | J.N. Taj Oli | Replace with real Issue links before submitting |
+| Reminder feature deferred from MVP | J.N. Taj Oli |Keep reminders as a future/stretch feature and focus on the core MVP. |
 
 ## Decision record
 
@@ -65,9 +64,9 @@ Record only decisions that change scope, approach, ownership, or the next plan.
 
 **Check:** Small HTML test using `localStorage` — add a subject, reload the page, and read it back. See [storage-check.md](storage-check.md).
 
-**Result:** *Fill in after running the test — expected: data is still present after reload; success/failure both count as evidence.*
+**Result:** The test successfully preserved the subject and task data after refreshing the browser. The data was still available after reload.
 
-**Decision / next action:** Depends on result — if persistence works, keep localStorage; otherwise reopen Issue #2 and reconsider.
+**Decision / next action:** We will use localStorage as the provisional storage approach for the MVP. We will confirm the final technology stack during the Week 3 stack comparison.
 
 ## Next week's bridge task
 
