@@ -24,6 +24,6 @@ Post 2–3 receipts per week when contribution tracking matters.
 ## Receipt 3, optional
 
 - **What I did:**  Reviewed the main tradeoff of choosing React + Vite: additional setup and new concepts compared with plain JavaScript.
-- **Evidence link:** https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/0d7bb21ba638ecbe1c54d2ea24a10b0b4cd13f3f/week-02/storage-check.html and 
+- **Evidence link:** https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/0d7bb21ba638ecbe1c54d2ea24a10b0b4cd13f3f/week-02/storage-check.html and https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/e4af4d0cab74d369d8e42a6f2f8812fed227799f/week-02/storage-check.md
 - **How I checked it:**  I considered the initial setup time and the need to learn React concepts such as components while also considering the benefits of reusable code.
 - **What I learned or changed:**  I decided that the extra setup is acceptable because the project contains multiple screens with reusable elements. We should scaffold the React + Vite project early in Week 3 so the build tooling does not delay the midterm demo.
