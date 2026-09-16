@@ -3,7 +3,7 @@
 **Student:**  Adhikari Sumit 
 **Team:**  5 DJ Barut
 **Week:**  2
-**Date:**  2026-9-19
+**Date:**  2026-9-16
 
 Post 2–3 receipts per week when contribution tracking matters.
 
@@ -17,7 +17,7 @@ Post 2–3 receipts per week when contribution tracking matters.
 ## Receipt 2
 
 - **What I did:** Considered how the two options would affect code reuse between the planner and quiz screens.
-- **Evidence link:** 
+- **Evidence link:** https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/912c8ce1b6604c0e2adf2cfe1aa5427912e53dda/week-02/design-doc-v1.md
 - **How I checked it:** I identified shared elements such as tasks, question lists, and forms and considered how they could be reused in each approach.
 - **What I learned or changed:**  React components can reduce repetitive code and make it easier to reuse similar UI across different screens. This supports using React + Vite for the project.
 
