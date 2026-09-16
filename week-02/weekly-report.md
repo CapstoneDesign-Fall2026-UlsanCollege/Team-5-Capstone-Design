@@ -25,7 +25,7 @@ If it is not linked, it does not count.
 | Evidence | Link |
 |---|---|
 | Issue(s) | Investigation Issues:[Nabin Issue](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/6), [Sumit Issue](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/5), [Prabin Issue](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/4), [Prince Issue](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/3), [J.N. Issue](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/2) |
-| PR(s) / commits | Not applicable this week — planning work |
+| PR(s) / commits | https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/commit/0adc249cb1088c3160826238956157d721802d55 |
 | Screenshot / demo | [User Flow Diagram](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/0b3e6eaf8c119bdbc936059bbabf11ba8e5084ab/week-02/User%20Flow%20Sketch.jpg) |
 | Test/check note | [Storage persistence check](storage-check.md) |
 | Document update | [Design Doc v1](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/e9186887b603608a61af22d18c1020c6e68737f3/week-02/design-doc-v1.md), [Idea Selection Table](idea-selection-table.md) |
