@@ -10,14 +10,14 @@ Post 2–3 receipts per week when contribution tracking matters.
 ## Receipt 1
 
 - **What I did:** Compared building the app with plain HTML/CSS/JavaScript versus React + Vite. I looked at how each option would handle the planner and quiz screens.
-- **Evidence link:** 
+- **Evidence link:** https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/5
 - **How I checked it:** I compared the amount of setup required, how UI elements would be organized, and how easily tasks, forms, and quiz questions could be reused.
 - **What I learned or changed:** Plain HTML/CSS/JavaScript is simpler to start with, but React + Vite makes it easier to organize the app into reusable components.
 
 ## Receipt 2
 
 - **What I did:** Considered how the two options would affect code reuse between the planner and quiz screens.
-- **Evidence link:**
+- **Evidence link:** 
 - **How I checked it:** I identified shared elements such as tasks, question lists, and forms and considered how they could be reused in each approach.
 - **What I learned or changed:**  React components can reduce repetitive code and make it easier to reuse similar UI across different screens. This supports using React + Vite for the project.
 
