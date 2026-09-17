@@ -42,10 +42,10 @@ Evidence / sketch link: [User Flow Sketch](https://github.com/CapstoneDesign-Fal
 - Simple multiple-choice quizzes.
 - Quiz score calculation.
 - Quiz result display.
-## 5. Out of scope
-
 - AI-generated study plans.
 - AI-generated quiz questions.
+## 5. Out of scope
+
 - Reminder and notification system.
 - Online classes.
 - Teacher communication.
