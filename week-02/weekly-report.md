@@ -1,8 +1,8 @@
 # Weekly Report
 
-**Team:** DJ Barut
-**Week:** 2
-**Date:** 2026-09-15 (updated end-of-class + homework)
+**Team:** DJ Barut  
+**Week:** 2  
+**Date:** 2026-09-17 (updated after design-document review)
 
 Use this template in Weeks 2-3, 5-14, and 16. Weeks 1, 4, and 15 have special reports.
 
@@ -12,10 +12,10 @@ Choose one project direction for Smart Study Companion, define what is in and ou
 
 ## What we committed to do
 
-- [✅] Choose a primary direction and a backup idea (idea-selection-table).
-- [✅] Write Design Doc v1 sections 1-6 and 9 with a 3-5 step user flow.
-- [✅] Create one investigation Issue per member (5 Issues) and link evidence.
-- [✅] Record three team decisions (scope, user flow, approach/risk) + one uncertainty check.
+- [✅] Choose a primary direction and a backup idea in the idea-selection table.
+- [✅] Write and update Design Doc v1 with the project purpose, scope, smallest useful version, user flow, requirements, data model, risks, and demo scenarios.
+- [✅] Create one investigation Issue per member and link the available evidence.
+- [✅] Record team decisions about scope, user flow, storage, and risk.
 - [✅] Add an individual receipt for every member in this report.
 
 ## Evidence links
@@ -24,29 +24,30 @@ If it is not linked, it does not count.
 
 | Evidence | Link |
 |---|---|
-| Issue(s) | Investigation Issues:[Nabin Issue](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/6), [Sumit Issue](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/5), [Prabin Issue](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/4), [Prince Issue](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/3), [J.N. Issue](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/2) |
-| PR(s) / commits | https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/commit/0adc249cb1088c3160826238956157d721802d55 |
+| Issue(s) | [Nabin Issue](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/6), [Sumit Issue](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/5), [Prince Issue](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/3), [Prabin Issue](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/4), [J.N. Taj Oli Issue](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/2) |
+| PR(s) / commits | [Design document update commit](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/commit/8efa9670b52f41c8f0218961d9e2704a511d93c6) |
 | Screenshot / demo | [User Flow Diagram](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/0b3e6eaf8c119bdbc936059bbabf11ba8e5084ab/week-02/User%20Flow%20Sketch.jpg) |
 | Test/check note | [Storage persistence check](storage-check.md) |
-| Document update | [Design Doc v1](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/e9186887b603608a61af22d18c1020c6e68737f3/week-02/design-doc-v1.md), [Idea Selection Table](idea-selection-table.md) |
+| Document update | [Design Doc v1](design-doc-v1.md), [Idea Selection Table](idea-selection-table.md), [Investigation Issues](investigation-issues.md), [Individual Evidence Receipts](individual-evidence-receipt.md) |
 
 ## Individual receipts
 
 | Student | What they did | Evidence link |
 |---|---|---|
-| Nabin Khadka | Investigated where the demo stores data; compared localStorage vs JSON file vs Firebase | [Issue#6](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/6) + [storage note](storage-check.md) |
-| Sumit Adhikari | Investigated the MVP front-end approach; compared plain HTML/CSS/JS vs React + Vite | [Issue#5](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/5) |
-| Prince Karki | Compared existing study-planner and quiz apps to confirm which features are needed | [Issue#3](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/3) |
-| Prabin Rai | Investigated how a student should create a quiz (manual entry vs reusable question bank) | [Issue#4](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/4) + [User Flow Diagram](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/0b3e6eaf8c119bdbc936059bbabf11ba8e5084ab/week-02/User%20Flow%20Sketch.jpg) |
-| J.N. Taj Oli | Investigated whether reminders belong in the MVP; compared in-app reminders vs postponing; updated the Design Doc and Weekly Report | [Issue#2](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/2) + [Design Doc v1](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/e9186887b603608a61af22d18c1020c6e68737f3/week-02/design-doc-v1.md) |
+| Nabin Khadka | Investigated where the demo stores data and compared localStorage, a JSON file, and Firebase. | [Issue #6](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/6) |
+| Sumit Adhikari | Investigated the MVP front-end approach and compared plain HTML/CSS/JavaScript with React + Vite. | [Issue #5](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/5) |
+| Prince Karki | Compared existing study-planner and quiz apps to confirm which features are needed. | [Issue #3](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/3) |
+| Prabin Rai | Investigated manual quiz question entry versus a reusable question bank. | [Issue #4](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/4) |
+| J.N. Taj Oli | Investigated whether reminders belong in the MVP, compared in-app reminders with postponing them, and updated the Design Doc and Weekly Report. | [Issue #2](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/2) |
 
 ## Blockers or risks
 
 | Blocker/risk | Owner | Next action |
 |---|---|---|
-| Storage choice affects the stack decision from Week 3 | Nabin Khadka | Bring localStorage test result to stack comparison |
-| Quiz question authoring could become slow to build | Prabin Rai | Confirm manual question entry for the MVP |
-| Reminder feature deferred from MVP | J.N. Taj Oli |Keep reminders as a future/stretch feature and focus on the core MVP. |
+| Storage choice affects the stack decision from Week 3. | Nabin Khadka | Bring the localStorage test result to the stack comparison. |
+| Quiz question authoring could become slow to build. | Prabin Rai | Confirm manual question entry for the MVP. |
+| AI features could increase the project scope. | Team | Complete and test the core manual workflow before implementing AI generation. |
+| Reminder timing and notification behavior may be difficult to test. | J.N. Taj Oli | Keep reminders as a post-MVP/stretch feature until the core MVP is stable. |
 
 ## Decision record
 
@@ -54,15 +55,17 @@ Record only decisions that change scope, approach, ownership, or the next plan.
 
 | Decision | Why we chose it | Owner | Evidence / Issue link |
 |---|---|---|---|
-| Scope: reminders/notifications postponed, out of scope for MVP | We compared including in-app reminders vs postponing. A reminder system adds scheduling and notification behavior that is not needed to prove the core planner + quiz journey. | J.N. Taj Oli | [Issue#2](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/2) + Design Doc v1 section 5 |
-| User flow: Start → Create subject → Add task + deadline → Mark task completed → Take quiz → View score | We compared this flow with a dashboard-first flow. The chosen 6-step journey ends in a visible result (score) and matches the smallest useful version. | Prabin Rai | [User Flow Diagram](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/0b3e6eaf8c119bdbc936059bbabf11ba8e5084ab/week-02/User%20Flow%20Sketch.jpg) + [Design Doc v1](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/d2232d85d4dcafed3607ac2d93d9accc5b12c0c8/week-02/design-doc-v1.md) |
-| Approach: keep MVP data local (provisional) | We compared localStorage vs a JSON file vs Firebase. localStorage survives a browser refresh with zero server code; Firebase adds accounts and setup we don't need yet. Confirm in Week 3 stack comparison. | Nabin Khadka | [Issue#6](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/6) + [storage-check.md](storage-check.md) |
+| Scope: reminders and notifications are in the project scope but are not required for the MVP. | A reminder system adds scheduling and notification behavior that is not necessary to prove the core planner and quiz workflow. | J.N. Taj Oli | [Issue #2](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/2) |
+| Scope: AI-generated study plans and AI-generated quiz questions are post-MVP features. | The team must first complete and validate the manual study-task and quiz workflow. | Team | [Design Doc v1](design-doc-v1.md) |
+| User flow: Start → Create subject → Add study task and deadline → Review study plan → Mark task completed → Take quiz → View score. | This flow demonstrates the smallest useful version from subject creation through quiz results. | Team | [User Flow Diagram](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/0b3e6eaf8c119bdbc936059bbabf11ba8e5084ab/week-02/User%20Flow%20Sketch.jpg) |
+| Approach: keep MVP data local provisionally. | localStorage survives a browser refresh without server or account setup, while Firebase adds setup and network dependencies. | Nabin Khadka | [Storage persistence check](storage-check.md), [Issue #6](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/6) |
+| Quiz authoring: prefer manual question entry for the MVP. | Manual entry proves the complete create quiz → answer → score journey with less implementation work than a reusable question bank. | Prabin Rai | [Issue #4](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/4) |
 
-## Uncertainty check (homework item 2)
+## Uncertainty check
 
 **Question:** Will quiz and task data survive a browser refresh in a local-first MVP?
 
-**Check:** Small HTML test using `localStorage` — add a subject, reload the page, and read it back. See [storage-check.md](storage-check.md).
+**Check:** A small HTML test using `localStorage` added a subject and task, reloaded the page, and read the data back. See [storage-check.md](storage-check.md).
 
 **Result:** The test successfully preserved the subject and task data after refreshing the browser. The data was still available after reload.
 
@@ -71,5 +74,8 @@ Record only decisions that change scope, approach, ownership, or the next plan.
 ## Next week's bridge task
 
 - Turn the chosen user flow and scope into small implementation Issues for Week 3.
-- Use the investigation findings in the tech-stack comparison.
+- Use the investigation findings in the technology-stack comparison.
+- Confirm the final front-end approach and storage approach.
 - Refine the rough screens into wireframes.
+- Complete any remaining investigation evidence and teammate responses.
+- Keep the core MVP ahead of AI generation and reminder features.
