@@ -71,12 +71,12 @@ Smart Study Companion can help a student organize study tasks and deadlines, mar
 
 | Feature | Required for MVP? | Primary implementation owner | Research, design, or testing support | Issue link |
 |---|---|---|---|---|
-| Subject management                 | Yes               | Khadka Nabin                  | Khadka Nabin: Requirements research                | To be added |
+| Subject management                 | Yes               | Khadka Nabin                  | Khadka Nabin: Requirements research                |[Issue#6](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/6) |
 | Study task management              | Yes               | Oli J.N. Taj                  |Oli J.N. Taj:Interface design                     |[Issue#2](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/2)  |
-| Deadline management                | Yes               | Khadka Nabin                  | Adhikari Sumit:Workflow research                    | To be added |
-| Study plan                         | Yes               | Khadka Nabin                  | Karki Prince:Interface design                     | To be added |
+| Deadline management                | Yes               | Khadka Nabin                  | Adhikari Sumit:Workflow research                    | [Issue#6](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/6) |
+| Study plan                         | Yes               | Khadka Nabin                  | Karki Prince:Interface design                     | [Issue#6](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/6) |
 | Task completion                    | Yes               | Oli J.N. Taj                 | Rai Prabin:Testing                              |[Issue#2](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/2) |
-| Multiple-choice quiz               | Yes               | Khadka Nabin                 | Khadka Nabin:Quiz design                          | To be added |
+| Multiple-choice quiz               | Yes               | Khadka Nabin                 | Khadka Nabin:Quiz design                          | [Issue#6](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/6) |
 | Quiz score                         | Yes               | Karki Prince                  | Khadka Nabin:Testing                              |[Issue#3](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/3) |
 
 
