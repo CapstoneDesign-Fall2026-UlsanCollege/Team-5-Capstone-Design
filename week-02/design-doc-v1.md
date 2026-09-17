@@ -44,9 +44,9 @@ Evidence / sketch link: [User Flow Sketch](https://github.com/CapstoneDesign-Fal
 - Quiz result display.
 - AI-generated study plans.
 - AI-generated quiz questions.
+- Reminder and notification system.
 ## 5. Out of scope
 
-- Reminder and notification system.
 - Online classes.
 - Teacher communication.
 - Social networking.
