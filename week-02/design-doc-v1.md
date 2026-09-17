@@ -1,12 +1,12 @@
 # Design Doc v1
 
-**Team:** Team 3  
+**Team:** DJ Barut  
 **Project name:** Smart Study Companion  
 **Last updated:** 2026-09-17
 
 ## 1. Project purpose
 
-Smart Study Companion is a web application for college students. It combines subject management, study tasks, deadlines, task completion, AI-assisted study planning, and simple multiple-choice quizzes in one workflow.
+Smart Study Companion is a web application for college students. It combines subject management, study tasks, deadlines, task completion, AI-assisted study planning, and simple multiple-choice quizzes to help students stay organized and prepare for exams.
 
 College students may have many study tasks, assignments, and exams to manage. This makes it difficult to remember deadlines and prepare effectively for exams.
 
@@ -27,7 +27,7 @@ The student marks a study task as completed.
 The student takes a simple multiple-choice quiz.
 The system calculates and displays the quiz score.
 
-AI-generated study plans, AI-generated quiz questions, and reminders are in scope for the project but are not required for the smallest useful version. They will be implemented after the core workflow is working and tested.
+AI-generated study plans, AI-generated quiz questions, and reminders are in scope for the project but are not required for the smallest useful version. They will be implemented after the core workflow is complete and validated.
 
 ### Rough user flow
 
@@ -35,7 +35,7 @@ Start -> Add Subject and Study Tasks -> Set Deadline -> Review Study Plan -> Mar
 
 Optional extensions: Generate AI Study Plan -> Review/Edit Generated Tasks; Generate AI Quiz Questions -> Review Questions; Receive Deadline Reminder.
 
-Evidence / sketch link: [User Flow Sketch](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/0b3e6eaf8c119bdbc936059bbabf11ba8e5084ab/week-02/User%20Flow%20Sketch.jpg)
+Evidence / sketch link: [User Flow Sketch](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/0b3e6eaf8c119bdbc936059fbabf11ba8e5084ab/week-02/User%20Flow%20Sketch.jpg)
 
 ## 4. In scope
 
@@ -63,17 +63,17 @@ Evidence / sketch link: [User Flow Sketch](https://github.com/CapstoneDesign-Fal
 
 Our midterm demo will show:
 
-A student adding a Programming subject, creating study tasks with deadlines, marking a task as completed, taking a short multiple-choice quiz, and viewing the quiz score. If the core workflow is complete, the team will also demonstrate an AI-generated study-plan suggestion or deadline reminder.
+A student adding a Programming subject, creating study tasks with deadlines, marking a task as completed, taking a short multiple-choice quiz, and viewing the quiz score. If the core workflow is completed early, the team may also show the optional AI-generated support features.
 
 ## 7. Final demo sentence
 
 Our final demo will prove:
 
-Smart Study Companion can help a student organize study tasks and deadlines, review an AI-generated study plan, mark completed tasks, receive reminders for upcoming deadlines, take a simple or AI-generated quiz, and view the quiz score.
+Smart Study Companion can help a student organize study tasks and deadlines, review an AI-generated study plan, mark completed tasks, receive reminders for upcoming deadlines, take a simple or AI-generated quiz, and review the calculated score.
 
 ## 8. MVP features
 
-The first seven features are required for the core MVP. The last three features are in scope but are planned as additional features after the core MVP unless the team confirms that they can be completed without putting the core workflow at risk.
+The first seven features are required for the core MVP. The last three features are in scope but are planned as additional features after the core MVP unless the team confirms that they can be completed on time.
 
 | Feature | Required for MVP? | Primary implementation owner | Research, design, or testing support | Issue link |
 |---|---|---|---|---|
@@ -224,7 +224,7 @@ Student views quiz score
 |---|---|---|
 | Study planning becomes too complicated | Students need a simple application that is easy to use. | Keep the core study plan as a simple task list with subjects, deadlines, and status. |
 | Too many features | Extra features could delay the main project. | Finish and test the seven core MVP features before implementing AI generation and reminders. |
-| AI-generated content may be inaccurate | Incorrect plans or quiz questions could confuse students. | Allow students to review and edit generated content, validate correct answers, and provide fallback sample content. |
+| AI-generated content may be inaccurate | Incorrect plans or quiz questions could confuse students. | Allow students to review and edit generated content, validate correct answers, and provide fallback manual content. |
 | AI service may fail or be unavailable | The main workflow could be interrupted. | Show a clear error message and keep the core manual workflow available. |
 | Reminder timing may be incorrect | Students may miss deadlines or receive unnecessary notifications. | Use a simple reminder schedule and test it with different deadlines. |
 | Incorrect task status | Students could become confused about completed tasks. | Use simple `Pending` and `Completed` statuses. |
@@ -233,13 +233,13 @@ Student views quiz score
 
 ## 14. Main risk mitigation detail
 
-Initial mitigation: The study planning and quiz features will be kept simple. Study tasks will use clear Pending and Completed statuses. Quiz questions will have predefined correct answers, and the score calculation will be tested with correct, incorrect, and incomplete answer sets.
+Initial mitigation: The study planning and quiz features will be kept simple. Study tasks will use clear `Pending` and `Completed` statuses. Quiz questions will have predefined correct answers, and the quiz calculation will be tested with multiple sample answers before the demo.
 
-For the newly in-scope AI and reminder features, the team will first complete the core manual workflow. AI-generated plans and questions will be reviewable before use, and the application will provide fallback manual content if the AI service is unavailable. Reminders will use a simple deadline-based schedule and will not block task completion if notification delivery fails.
+For the newly in-scope AI and reminder features, the team will first complete the core manual workflow. AI-generated plans and questions will be reviewable before use, and the application will provide a clear fallback when an AI call fails. Reminders will be treated as a stretch feature until the MVP is stable.
 
 ## 15. Midterm demonstration scenario
 
-The team will create a Programming subject with two study tasks. The student will add deadlines to the tasks and mark one task as completed. The student will then take a short multiple-choice quiz and view the quiz score. If the core workflow is stable, the team will additionally demonstrate an AI-generated study-plan suggestion or an upcoming-deadline reminder.
+The team will create a Programming subject with two study tasks. The student will add deadlines to the tasks and mark one task as completed. The student will then take a short multiple-choice quiz and view the score after submission.
 
 ## 16. Evidence links
 
