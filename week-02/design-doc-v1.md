@@ -35,7 +35,7 @@ Start -> Add Subject and Study Tasks -> Set Deadline -> Review Study Plan -> Mar
 
 Optional extensions: Generate AI Study Plan -> Review/Edit Generated Tasks; Generate AI Quiz Questions -> Review Questions; Receive Deadline Reminder.
 
-Evidence / sketch link: [User Flow Sketch](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/0b3e6eaf8c119bdbc936059fbabf11ba8e5084ab/week-02/User%20Flow%20Sketch.jpg)
+Evidence / sketch link: [User Flow Sketch](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/0b3e6eaf8c119bdbc936059bbabf11ba8e5084ab/week-02/User%20Flow%20Sketch.jpg)
 
 ## 4. In scope
 
@@ -63,7 +63,7 @@ Evidence / sketch link: [User Flow Sketch](https://github.com/CapstoneDesign-Fal
 
 Our midterm demo will show:
 
-A student adding a Programming subject, creating study tasks with deadlines, marking a task as completed, taking a short multiple-choice quiz, and viewing the quiz score. If the core workflow is completed early, the team may also show the optional AI-generated support features.
+A student adding a Programming subject, creating study tasks with deadlines, marking a task as completed, taking a short multiple-choice quiz, and viewing the quiz score. Optional AI and reminder features will not be required for the midterm demonstration.
 
 ## 7. Final demo sentence
 
@@ -115,7 +115,7 @@ The first seven features are required for the core MVP. The last three features 
 
 ### Quizzes
 
-- Add simple multiple-choice questions.
+- Add simple multiple-choice questions using manual entry for the MVP.
 - Display answer choices for each question.
 - Allow students to select answers.
 - Submit the quiz.
@@ -229,13 +229,15 @@ Student views quiz score
 | Reminder timing may be incorrect | Students may miss deadlines or receive unnecessary notifications. | Use a simple reminder schedule and test it with different deadlines. |
 | Incorrect task status | Students could become confused about completed tasks. | Use simple `Pending` and `Completed` statuses. |
 | Incorrect quiz score | The score must match the student's answers. | Test the quiz with different answers before the demo. |
-| Technical stack not yet confirmed | Development needs a common setup. | Agree on the framework and database before development. |
+| Technical stack not yet confirmed | Development needs a common setup. | Confirm React + Vite and localStorage during the Week 3 stack comparison. |
 
 ## 14. Main risk mitigation detail
 
-Initial mitigation: The study planning and quiz features will be kept simple. Study tasks will use clear `Pending` and `Completed` statuses. Quiz questions will have predefined correct answers, and the quiz calculation will be tested with multiple sample answers before the demo.
+The study planning and quiz features will be kept simple. Study tasks will use clear `Pending` and `Completed` statuses. Quiz questions will have predefined correct answers, and the quiz calculation will be tested with multiple sample answers before the demo.
 
-For the newly in-scope AI and reminder features, the team will first complete the core manual workflow. AI-generated plans and questions will be reviewable before use, and the application will provide a clear fallback when an AI call fails. Reminders will be treated as a stretch feature until the MVP is stable.
+The team will use localStorage provisionally for the local-first MVP because the persistence test successfully retained subject and task data after a browser refresh. React + Vite is the provisional front-end recommendation because reusable components fit the planner and quiz screens, but the final stack decision will be recorded in Week 3.
+
+For the post-MVP AI and reminder features, generated plans and questions will be reviewable before use. The application will provide a clear fallback when an AI call fails, and reminders will not change task completion status if notification behavior fails.
 
 ## 15. Midterm demonstration scenario
 
@@ -243,19 +245,20 @@ The team will create a Programming subject with two study tasks. The student wil
 
 ## 16. Evidence links
 
-- Planning Issue: To be added.
-- Weekly Report:
-- Idea Selection:
-- Wireframe or prototype proof: To be added.
+- Planning Issues: [Issue #2](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/2), [Issue #3](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/3), [Issue #4](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/4), [Issue #5](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/5), [Issue #6](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/6)
+- Weekly Report: [week-02/weekly-report.md](weekly-report.md)
+- Idea Selection: [week-02/idea-selection-table.md](idea-selection-table.md)
+- User-flow sketch: [User Flow Sketch](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/week-02/User%20Flow%20Sketch.jpg)
+- Storage test: [week-02/storage-check.md](storage-check.md)
+- Evidence receipts: [week-02/individual-evidence-receipt.md](individual-evidence-receipt.md)
 
 ## 17. Open questions for team review
 
-- Which web framework and database will the team use?
-- Will the first version include a login screen, or will it use a simple demo student account?
-- How many subjects should be included in the demonstration?
-- How many questions should the quiz contain?
-- Which team member will own the study-task implementation?
-- Which team members will own AI study-plan generation, AI quiz-question generation, and reminders?
-- Which AI model or service will be used, and what is the fallback if it is unavailable?
-- How often should deadline reminders be displayed or sent?
-- Will AI-generated content require student approval before it is saved?
+- Confirm React + Vite and localStorage as the final Week 3 technology decision.
+- Decide whether the first version uses a login screen or a simple demo student account.
+- Confirm the number of subjects and quiz questions for the demonstration.
+- Assign owners for AI study-plan generation, AI quiz-question generation, and reminders after the core MVP is planned.
+- Choose the AI model or service and document the fallback if it is unavailable.
+- Decide how often deadline reminders should be displayed or sent.
+- Confirm that AI-generated content requires student approval before it is saved.
+
