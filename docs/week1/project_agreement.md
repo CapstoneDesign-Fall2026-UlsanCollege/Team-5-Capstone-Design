@@ -44,7 +44,7 @@ Roles can rotate. Every team must keep the work, evidence, and quality visible.
 - We assign an owner and a small Definition of Done before work begins.
 - We link proof in GitHub and ask for review before merging substantial changes.
 - We give feedback about the work, not the person, and assume good intent.
-- We use the [Project Work Policy](../docs/project-work-policy.md) for privacy, attribution, and AI responsibility.
+- We use the [Project Work Policy](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/course-materials/blob/main/student-starter-kit/docs/project-work-policy.md) for privacy, attribution, and AI responsibility.
 
 ## If work or communication breaks down
 

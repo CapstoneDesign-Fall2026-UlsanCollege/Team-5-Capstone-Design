@@ -28,7 +28,7 @@ If it is not linked, it does not count.
 | PR(s) / commits | [Design document update commit](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/commit/8efa9670b52f41c8f0218961d9e2704a511d93c6) |
 | Screenshot / demo | [User Flow Diagram](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/0b3e6eaf8c119bdbc936059bbabf11ba8e5084ab/week-02/User%20Flow%20Sketch.jpg) |
 | Test/check note | [Storage persistence check](storage-check.md) |
-| Document update | [Design Doc v1](design-doc-v1.md), [Idea Selection Table](idea-selection-table.md), [Investigation Issues](investigation-issues.md), [Individual Evidence Receipts](individual-evidence-receipt.md) |
+| Document update | [Design Doc v1](design-doc-v1.md), [Idea Selection Table](idea-selection-table.md), [Individual Evidence Receipts](individual-evidence-receipt1.md) |
 
 ## Individual receipts
 

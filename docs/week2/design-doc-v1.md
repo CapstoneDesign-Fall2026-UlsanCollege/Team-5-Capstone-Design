@@ -246,11 +246,11 @@ The team will create a Programming subject with two study tasks. The student wil
 ## 16. Evidence links
 
 - Planning Issues: [Issue #2](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/2), [Issue #3](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/3), [Issue #4](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/4), [Issue #5](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/5), [Issue #6](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/6)
-- Weekly Report: [week-02/weekly-report.md](weekly-report.md)
-- Idea Selection: [week-02/idea-selection-table.md](idea-selection-table.md)
-- User-flow sketch: [User Flow Sketch](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/week-02/User%20Flow%20Sketch.jpg)
-- Storage test: [week-02/storage-check.md](storage-check.md)
-- Evidence receipts: [week-02/individual-evidence-receipt.md](individual-evidence-receipt.md)
+- Weekly Report: [Weekly Report](weekly-report.md)
+- Idea Selection: [Idea Selection Table](idea-selection-table.md)
+- User-flow sketch: [User Flow Sketch](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week2/User%20Flow%20Sketch.jpg)
+- Storage test: [Storage check](storage-check.md)
+- Evidence receipts: [Individual Evidence Receipts](individual-evidence-receipt1.md)
 
 ## 17. Open questions for team review
 
