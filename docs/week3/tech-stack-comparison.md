@@ -1,8 +1,8 @@
-# Tech Stack Comparison
+ Tech Stack Comparison
 
-**Team:** DJ Barut
+Team: DJ Barut
 
-**Week:** 3
+Week: 3
 
 We compared two simple options for building the Smart Study Companion. We mainly looked at what the team already knows, what we need to learn, and what we can finish for the midterm.
 
@@ -21,7 +21,7 @@ We compared two simple options for building the Smart Study Companion. We mainly
 | **Main risk** | Learning React takes some time | Code may get messy as the project gets bigger |
 | **First feature** | Add subject and study task | Add subject and study task |
 
-## Stack A
+ Stack A
 
 - **Stack name:** React + Vite + localStorage
 - What can we build with this?: We can make the main screens for subjects, study tasks, the study plan, quizzes, and results.
@@ -31,7 +31,7 @@ We compared two simple options for building the Smart Study Companion. We mainly
 - What could go wrong?: Some team members may need time to get used to React. We may also have problems saving or loading data.
 - Simplest first screen or feature: Add a subject and study task with a deadline.
 
-## Stack B
+ Stack B
 
 - Stack name: HTML/CSS/JavaScript + localStorage
 - What can we build with this?: We can make the same main features using normal web technologies.
@@ -41,7 +41,7 @@ We compared two simple options for building the Smart Study Companion. We mainly
 - What could go wrong?: The code could become harder to manage when we add more features.
 - Simplest first screen or feature: A simple form for adding a subject and study task.
 
-## Decision
+ Decision
 
 We choose:
 
