@@ -79,12 +79,12 @@ The remaining exception is **instructor approval of the selected tech stack**, w
 
 ## Final check
 
-* [ ] Every evidence link resolves for a reader with team-repository access.
-* [ ] The team can explain the project purpose, target user, scope boundary, and candidate slice.
-* [ ] The next work is represented by small Issues with owners and checkable completion criteria.
-* [ ] The team has not posted personal data, secrets, or unapproved real-user data.
-* [ ] This report is linked from the team's Week 3 evidence or Weekly Report.
-* [ ] Instructor approval of the selected tech stack has been checked or explicitly recorded as pending.
+* [] Every evidence link resolves for a reader with team-repository access.
+* [] The team can explain the project purpose, target user, scope boundary, and candidate slice.
+* [] The next work is represented by small Issues with owners and checkable completion criteria.
+* [] The team has not posted personal data, secrets, or unapproved real-user data.
+* [] This report is linked from the team's Week 3 evidence or Weekly Report.
+* [] Instructor approval of the selected tech stack has been checked or explicitly recorded as pending.
 
 ---
 
@@ -114,4 +114,4 @@ Save Data with localStorage
 
 **Sprint 1 starting point:**
 
-> Build the smallest working version of the vertical slice, beginning with subject/task creation and the localStorage test.
+ Build the smallest working version of the vertical slice, beginning with subject/task creation and the localStorage test.
