@@ -4,45 +4,107 @@
 **Week:** 3  
 **Project:** Smart Study Companion
 
-The MVP helps students organize subjects and tasks, track progress, and test their understanding.
+This note summaries the MVP wireframe for the core student workflow.
 
-## 1. Subject & Task Creation
+## Screen / interaction 1
 
-- Add a subject name.
-- Add a task with a title and deadline.
-- Save data in the browser using `localStorage`.
-- Show recently added tasks or an empty state.
+- **Name:** Subject & Task Creation Screen
+- **Target user:** College student managing multiple subjects and deadlines
+- **What the user does:**
+  - Adds a subject name
+  - Creates a study task with a title and due date
+  - Saves the information locally in the browser
+  - Repeats the process for more subjects or tasks
+- **What the screen shows:**
+  - Top bar with the app title and current date
+  - Subject input field and add-subject button
+  - Task form with title, subject, and deadline
+  - Recently added tasks or a simple task summary
+  - Empty state or save confirmation message
+- **Sketch/photo link:** TBD — add a simple mockup later
 
-**First screen to build:** This screen is the simplest and establishes the main user flow.
+### Analysis
 
-## 2. Study Plan / Task Tracker
+- This is the first and simplest screen in the MVP.
+- It supports the main action of creating study data.
+- The UI should be clear and easy to use so students can add tasks quickly.
 
-- View tasks by subject or deadline.
-- Mark tasks as complete or incomplete.
-- Show each task's title, subject, deadline, and status.
-- Display a simple progress summary.
+## Screen / interaction 2
 
-## 3. Quiz & Result
+- **Name:** Study Plan / Task Tracker Screen
+- **Target user:** Student reviewing weekly workload and deadlines
+- **What the user does:**
+  - Opens the study plan after creating tasks
+  - Reviews upcoming deadlines
+  - Marks tasks as complete or incomplete
+  - Filters tasks by subject or status
+- **What the screen shows:**
+  - Subject cards or tabs
+  - Task list sorted by deadline or subject
+  - Task title, deadline, subject, and completion status
+  - Clear difference between completed and pending tasks
+  - Total, completed, and remaining task summary
+- **Sketch/photo link:** TBD — add a simple mockup later
 
-- Choose a subject and answer multiple-choice questions.
-- Submit the quiz.
-- Show the score and number of correct answers.
+### Analysis
 
-## User Flow
+- This is the main value screen of the app.
+- Students can see what to study and when to study it.
+- A simple task list is better than a complex calendar for the MVP.
+
+## Screen / interaction 3
+
+- **Name:** Quiz & Result Screen
+- **Target user:** Student testing understanding after studying
+- **What the user does:**
+  - Opens a quiz for a selected subject
+  - Answers multiple-choice questions
+  - Submits the quiz
+  - Reviews the final score and correct answers
+- **What the screen shows:**
+  - Subject-focused quiz title
+  - One question at a time or grouped answer choices
+  - Clear options and submit button
+  - Progress indicator during the quiz
+  - Final result with score, percent, and total questions
+- **Sketch/photo link:** TBD — add a simple mockup later
+
+### Analysis
+
+- This screen completes the MVP workflow.
+- A student can create tasks, review the plan, and then test understanding.
+- The quiz should stay simple with basic multiple-choice questions.
+
+## Easiest first screen to build
+
+We think the easiest first screen/interaction is:
+
+> Subject & Task Creation Screen
+
+Because:
+
+> It has the fewest moving parts, the clearest flow, and the strongest connection to the MVP. It only needs a basic form and local `localStorage` storage.
+
+## Overall wireframe reasoning
+
+Across all screens, the product should follow a simple flow:
 
 1. Create a subject.
 2. Add tasks with deadlines.
-3. Review and complete tasks.
-4. Take a quiz.
-5. View the result.
+3. Review the study plan.
+4. Complete tasks.
+5. Take a quiz.
+6. See the result.
 
-## Implementation Order
+## Suggested screen order for implementation
 
 1. Subject & Task Creation
 2. Study Plan / Task Tracker
-3. Quiz & Result
+3. Quiz & Result Screen
 
-This simple structure keeps the MVP easy to understand while leaving room for future features such as reminders or AI-generated study plans.
+## Final conclusion
+
+The wireframe supports a focused MVP where a student can manage study tasks by subject, track deadlines, complete work, and test understanding with a short quiz.
 
 ---
 
