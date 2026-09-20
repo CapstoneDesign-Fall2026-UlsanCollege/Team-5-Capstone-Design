@@ -10,7 +10,7 @@ Use one shared report per team in Weeks 2-3, 5-14, and 16. Do not create a separ
 
 What did your team try to improve this week?
 
-> This week, the team focused on launching the project by clarifying the product scope, confirming the MVP direction, and preparing the Sprint 0 evidence package. We finalized the Smart Study Companion concept, defined the initial in-scope and out-of-scope boundaries, and prepared the project baseline for Week 4 development.
+> This week our team focused on launching the project by clarifying the product scope, confirming the MVP direction, and preparing the Sprint 0 evidence package. We finalized the Smart Study Companion concept, defined the initial in-scope and out-of-scope boundaries, and prepared the project baseline for Week 4 development.
 
 ## What we committed to do
 
