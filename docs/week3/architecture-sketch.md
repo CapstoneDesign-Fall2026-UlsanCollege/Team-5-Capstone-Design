@@ -23,14 +23,14 @@ This project uses:
                          └─────────┬──────────┘
                                    │
                                    ▼
-                    ┌────────────────────────────┐
-                    │ Smart Study Companion UI   │
-                    │   React + Vite Application │
-                    └────────────┬─────────���─────┘
-                                 │
-                 ┌───────────────────┼───────────────────┐
-                 │                   │                   │
-                 ▼                   ▼                   ▼
+                    ┌──────────────────────────────┐
+                    │ Smart Study Companion UI    │
+                    │   React + Vite Application  │
+                    └──────────────┬───────────────┘
+                                   │
+                 ┌─────────────────┼─────────────────┐
+                 │                 │                 │
+                 ▼                 ▼                 ▼
       ┌──────────────────┐  ┌──────────────────┐  ┌──────────────────┐
       │ Subject Manager  │  │ Task Planner     │  │ Study Progress   │
       │ - Create subject │  │ - Add tasks      │  │ - View plan      │
@@ -40,23 +40,58 @@ This project uses:
                 └────────────────────────┼────────────────────────┘
                                          │
                                          ▼
-                        ┌────────────────────────────┐
-                        │       Data Layer           │
-                        │ localStorage / browser     │
-                        │ - subjects                 │
-                        │ - tasks                    │
-                        │ - deadlines                │
-                        │ - completion state         │
-                        │ - quiz data                │
-                        └─────────────┬──────────────┘
-                                      │
-                                      ▼
-                             ┌──────────────────┐
-                             │ Quiz Feature     │
-                             │ - MCQ questions  │
-                             │ - Score result   │
-                             └──────────────────┘
+                        ┌──────────────────────────────┐
+                        │         Data Layer           │
+                        │ localStorage / browser       │
+                        │ - subjects                   │
+                        │ - tasks                      │
+                        │ - deadlines                  │
+                        │ - completion status          │
+                        │ - quiz data                  │
+                        └──────────────┬───────────────┘
+                                       │
+                                       ▼
+                              ┌──────────────────┐
+                              │ Quiz Feature     │
+                              │ - MCQ questions  │
+                              │ - Score result   │
+                              └──────────────────┘
 ```
+
+## Core data model
+
+The MVP stores all user state in the browser using `localStorage`.
+
+```json
+{
+  "subjects": [
+    {
+      "id": "subject-1",
+      "name": "Math",
+      "color": "#4f46e5"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "subjectId": "subject-1",
+      "title": "Review chapter 2",
+      "deadline": "2026-09-25",
+      "completed": false
+    }
+  ],
+  "quizResults": [
+    {
+      "id": "quiz-1",
+      "subjectId": "subject-1",
+      "score": 80,
+      "completedAt": "2026-09-20T10:00:00Z"
+    }
+  ]
+}
+```
+
+This keeps the architecture simple for the MVP while still supporting basic persistence and progress tracking.
 
 ## Main parts
 
@@ -83,7 +118,7 @@ This project uses:
 - GitHub repository: [Repo](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design)
 - Project issues: [Issues](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues)
 - Project board: [Project Board](https://github.com/orgs/CapstoneDesign-Fall2026-UlsanCollege/projects)
-- Architecture sketch: [Architecture Sketch](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/59d8f6a263ce2393d7cabd1c257dc6f81319663e/docs/week3/architecture-sketch.md)
+- Architecture sketch: [Architecture Sketch](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week3/architecture-sketch.md)
 
 ## Important decisions
 
@@ -105,7 +140,7 @@ This project uses:
 - Extra features such as AI study plans or reminders may make the MVP too large.
 - The project may become difficult to manage if components are not organized clearly.
 
-## MVP approach
+## MVP assumptions and scope
 
 For the first working prototype, we will focus on:
 
@@ -117,5 +152,13 @@ For the first working prototype, we will focus on:
 6. Add a short multiple-choice quiz
 7. Calculate and show the quiz score
 8. Save the full state using localStorage
+
+The following are explicitly out of scope for this MVP:
+
+- user authentication
+- cloud storage or database backend
+- AI-generated study plans
+- push notifications or reminders
+- multi-device synchronization
 
 We will keep the scope focused on the main workflow first and only add extra features after the core flow works reliably.
