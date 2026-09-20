@@ -80,10 +80,10 @@ This project uses:
 
 ## Evidence links
 
-- GitHub repository: https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design
-- Project issues: https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues
-- Project board: https://github.com/orgs/CapstoneDesign-Fall2026-UlsanCollege/projects
-- Architecture sketch: docs/week3/architecture-sketch.md
+- GitHub repository: [Repo](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design)
+- Project issues: [Issues](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues)
+- Project board: [Project Board](https://github.com/orgs/CapstoneDesign-Fall2026-UlsanCollege/projects)
+- Architecture sketch: [Architecture Sketch](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/59d8f6a263ce2393d7cabd1c257dc6f81319663e/docs/week3/architecture-sketch.md)
 
 ## Important decisions
 
