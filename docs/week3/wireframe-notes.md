@@ -4,7 +4,7 @@
 **Week:** 3  
 **Project:** Smart Study Companion
 
-This note summaries the MVP wireframe for the core student workflow.
+A wireframe can be a rough sketch, screenshot, photo, or simple diagram. It does not need to be beautiful.
 
 ## Screen / interaction 1
 
@@ -21,7 +21,7 @@ This note summaries the MVP wireframe for the core student workflow.
   - Task form with title, subject, and deadline
   - Recently added tasks or a simple task summary
   - Empty state or save confirmation message
-- **Sketch/photo link:** TBD — add a simple mockup later
+- **Sketch/photo link:** TBD
 
 ### Analysis
 
@@ -44,7 +44,7 @@ This note summaries the MVP wireframe for the core student workflow.
   - Task title, deadline, subject, and completion status
   - Clear difference between completed and pending tasks
   - Total, completed, and remaining task summary
-- **Sketch/photo link:** TBD — add a simple mockup later
+- **Sketch/photo link:** TBD
 
 ### Analysis
 
@@ -67,7 +67,7 @@ This note summaries the MVP wireframe for the core student workflow.
   - Clear options and submit button
   - Progress indicator during the quiz
   - Final result with score, percent, and total questions
-- **Sketch/photo link:** TBD — add a simple mockup later
+- **Sketch/photo link:** TBD
 
 ### Analysis
 
@@ -85,28 +85,6 @@ Because:
 
 > It has the fewest moving parts, the clearest flow, and the strongest connection to the MVP. It only needs a basic form and local `localStorage` storage.
 
-## Overall wireframe reasoning
-
-Across all screens, the product should follow a simple flow:
-
-1. Create a subject.
-2. Add tasks with deadlines.
-3. Review the study plan.
-4. Complete tasks.
-5. Take a quiz.
-6. See the result.
-
-## Suggested screen order for implementation
-
-1. Subject & Task Creation
-2. Study Plan / Task Tracker
-3. Quiz & Result Screen
-
 ## Final conclusion
 
 The wireframe supports a focused MVP where a student can manage study tasks by subject, track deadlines, complete work, and test understanding with a short quiz.
-
----
-
-**Updated by:** DJ Barut  
-**Updated for:** Week 3 wireframe analysis
