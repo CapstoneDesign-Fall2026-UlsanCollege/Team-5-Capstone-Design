@@ -1,11 +1,3 @@
----
-name: Week 4 Chuseok Checkpoint
-about: Light asynchronous checkpoint for the Chuseok week
-title: "Week 4 Chuseok Checkpoint — Team DJ Barut"
-labels: weekly-report, week-04
-assignees: ""
----
-
 # Week 4 Checkpoint: Chuseok Report
 
 **Team:** DJ Barut  
@@ -13,8 +5,6 @@ assignees: ""
 **Week:** 4
 
 This is the Week 4 report. It replaces the standard Weekly Report for this week.
-
-This should be light. No required coding. No required team meeting.
 
 ## Project direction
 
