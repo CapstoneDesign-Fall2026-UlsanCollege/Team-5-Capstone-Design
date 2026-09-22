@@ -4,13 +4,13 @@
 **Week:** Week 3  
 **Date:** 2026-09-23
 
-Use one shared report per team in Weeks 2-3, 5-14, and 16. Do not create a separate Weekly Report for each student. Weeks 1, 4, and 15 have special reports. Each student must add their own contribution row with evidence.
+Use one shared report per team in Weeks 2-3, 5-14, and 16. Do not create a separate Weekly Report for each student. Weeks 1, 4, and 15 have special reports. Each student must add their own contribution row.
 
 ## This week's goal
 
 What did your team try to improve this week?
 
-> This week our team focused on launching the project by clarifying the product scope, confirming the MVP direction, and preparing the Sprint 0 evidence package. We finalized the Smart Study Companion MVP around subjects, study tasks, deadlines, task completion, quizzes, and scores, while keeping AI features, reminders, accounts, mobile features, and backend services out of scope.
+> This week our team focused on launching the project by clarifying the product scope, confirming the MVP direction, and preparing the Sprint 0 evidence package. We finalized the Smart Study Companion MVP direction, documented the user flows for the core screens, and organized the Week 3 evidence so the team could move into the first implementation sprint with clear scope and ownership.
 
 ## What we committed to do
 
@@ -27,11 +27,12 @@ If it is not linked, it does not count.
 
 | Evidence | Link |
 |---|---|
-| Issue(s) | [Issue #3 — Shared study-planner and quiz features](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/3), [Issue #18 — Study plan](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/18), [Issue #19 — Quiz and score](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/19) |
+| Issue(s) | [Issue #3 — Shared study-planner and quiz features](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/3), [Issue #18 — Study plan](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/18), [Issue #19 — Quiz scoring](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/19), [Issue #15 — Create wireframes for main screens](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/15) |
 | PR(s) / commits | [Repository commits](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/commits/main) |
 | Screenshot / demo | [Sprint 0 Report](sprint-0-report.md) |
 | Test/check note | [Sprint 0 Report](sprint-0-report.md) |
 | Document update | [Week 3 Docs](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/tree/main/docs/week3) |
+| Chuseok checkpoint issue | Chuseok checkpoint — Week 3 progress and Sprint 1 readiness (team checkpoint issue to be finalized and linked) |
 
 ## Individual contribution entries — one row per student
 
@@ -39,11 +40,11 @@ Keep this section inside the single shared team report. Each student must enter 
 
 | Student | What they did | Evidence link |
 |---|---|---|
-| liftupkhadka555-spec | Helped define the MVP scope, contributed to the project direction, and was assigned ownership for the first set of Sprint 1 issues in the initial issue breakdown. | [Sprint 0 Report](sprint-0-report.md) |
-| Adronnie | Contributed to problem framing and risk planning for the MVP, and owns the technical risk around localStorage persistence and state reliability during the first implementation phase. | [Sprint 0 Report](sprint-0-report.md) |
-| DJ Barut | Coordinated the Week 3 launch activities, reviewed the draft Sprint 0 deliverables, and tracked the pending instructor approval for the selected React + Vite + localStorage stack. | [Sprint 0 Report](sprint-0-report.md) |
-| princekark | Compared the shared features of study-planner and quiz apps, recommended subjects, tasks, deadlines, quizzes, and scores for the MVP, and identified the risk that an upcoming-task list could become unclear without a clear sorting approach. | [Issue #3](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/3) |
-| J.N. Taj Oli | Added the wireframe sketch links for the three core MVP screens and documented the Chuseok checkpoint to support the team’s Week 3 evidence package. | [Wireframe link update commit](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/commit/59105d418c95abe31add7cffac75badf0a588175), [Wireframe sketch commit](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/commit/e6000f91e9db110079d4ea98e410509e450eddf4), [Chuseok checkpoint commit](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/commit/422d1f505085e72e7a5e69e479f9ece669f06cb0) |
+| liftupkhadka555-spec | Helped define the MVP scope, contributed to the project direction, and was assigned ownership for the first set of Sprint 1 issues in the initial issue breakdown. | [Sprint 0 report](sprint-0-report.md), [Issue #1 — Team Planning and Projects Idea](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/1), [Issue #14 — Set up project and choose tech stack](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/14) |
+| Adronnie | Contributed to problem framing and risk planning for the MVP, and owns the technical risk around localStorage persistence and state reliability during the first implementation phase. | [Issue #5 — Which front-end approach should the MVP use?](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/5), [Issue #17 — Design Subjects and Study Tasks](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/17) |
+| DJ Barut | Coordinated the Week 3 launch activities, reviewed the draft Sprint 0 deliverables, and tracked the pending instructor approval for the selected React + Vite + localStorage stack. | [Sprint 0 report](sprint-0-report.md), [Week 3 Docs](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/tree/main/docs/week3) |
+| princekark | Compared the shared features of study-planner and quiz apps, recommended subjects, tasks, deadlines, quizzes, and scores for the MVP, and identified the risk that an upcoming-task list could be confusing without a calendar grid. | [Issue #3 — Shared study-planner and quiz features](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/3), [Issue #19 — Quiz scoring](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/19) |
+| J.N. Taj Oli | Added the wireframe sketch links for the three core MVP screens, documented the Chuseok checkpoint, and linked the Week 3 evidence package to support the team’s Sprint 0 review and Sprint 1 kickoff. | [Week 3 report commit](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/commit/487d20f6d63e5f18a288f82cc6b515449bec04bb), [Wireframe revision commit 1](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/commit/59105d418c95abe31add7cffac75badf0a588175), [Wireframe revision commit 2](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/commit/e6000f91e9db110079d4ea98e410509e450eddf4), [Wireframe revision commit 3](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/commit/422d1f505085e72e7a5e69e479f9ece669f06cb0) |
 
 ## Checkable quiz/study-plan Definition of Done
 
@@ -55,7 +56,7 @@ The following completion check is linked to the assigned quiz work in [Issue #19
 - [ ] Verify that the result shows the number of correct answers and the total number of questions.
 - [ ] Verify that the displayed score matches the selected answers, including a test with at least one incorrect answer.
 
-The equivalent study-plan check in [Issue #18](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/18) is: add two tasks, complete one, refresh the page, and verify that the completion state persists correctly.
+The equivalent study-plan check in [Issue #18](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/18) is: add two tasks, complete one, refresh the page, and verify that the completed status persists.
 
 ## Blockers or risks
 
@@ -71,9 +72,9 @@ Record only decisions that change scope, approach, ownership, or the next plan.
 
 | Decision | Why we chose it | Owner | Evidence / Issue link |
 |---|---|---|---|
-| Selected React + Vite + localStorage as the MVP stack. | It supports a simple frontend-only study planner with fast iteration and fits the project scope for the midterm prototype. | Team DJ Barut | [Tech Stack Comparison](../week3/tech-stack-comparison.md) |
-| Kept the project in scope for a focused study management MVP. | This reduces risk and keeps the team aligned on the vertical slice for the midterm demo. | Team DJ Barut | [Candidate Vertical Slice](candidate-vertical-slice.md) |
-| Kept subjects, tasks, deadlines, quizzes, and scores; postponed calendars, timers, advanced analytics, and sharing. | These features represent the shared core found in study-planner and quiz apps while reducing technical risk for the project. | Team DJ Barut | [Issue #3](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/3) |
+| Selected React + Vite + localStorage as the MVP stack. | It supports a simple frontend-only study planner with fast iteration and fits the project scope for the midterm prototype. | Team DJ Barut | [Issue #14 — Set up project and choose tech stack](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/14) |
+| Kept the project in scope for a focused study management MVP. | This reduces risk and keeps the team aligned on the vertical slice for the midterm demo. | Team DJ Barut | [Candidate Vertical Slice](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/1) |
+| Kept subjects, tasks, deadlines, quizzes, and scores; postponed calendars, timers, advanced analytics, and sharing. | These features represent the shared core found in study-planner and quiz apps while leaving enough room for the midterm vertical slice. | Team DJ Barut | [Issue #3 — Shared study-planner and quiz features](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/3) |
 
 ## Next week's bridge task
 
@@ -81,3 +82,4 @@ Record only decisions that change scope, approach, ownership, or the next plan.
 - Validate the basic subject/task save and reload flow using localStorage.
 - Start Sprint 1 work on the first vertical-slice feature set with clear issue owners.
 - Run the quiz and study-plan Definition of Done checks and link the results to Issues #18 and #19.
+
