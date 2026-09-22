@@ -21,7 +21,7 @@ A wireframe can be a rough sketch, screenshot, photo, or simple diagram. It does
   - Task form with title, subject, and deadline
   - Recently added tasks or a simple task summary
   - Empty state or save confirmation message
-- **Sketch/photo link:** TBD
+- **Sketch/photo link:** [wireframe sketch](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/e6000f91e9db110079d4ea98e410509e450eddf4/docs/week3/wireframe%20sketch.png)
 
 ### Analysis
 
@@ -44,7 +44,7 @@ A wireframe can be a rough sketch, screenshot, photo, or simple diagram. It does
   - Task title, deadline, subject, and completion status
   - Clear difference between completed and pending tasks
   - Total, completed, and remaining task summary
-- **Sketch/photo link:** TBD
+- **Sketch/photo link:** [wireframe sketch](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/e6000f91e9db110079d4ea98e410509e450eddf4/docs/week3/wireframe%20sketch.png)
 
 ### Analysis
 
@@ -67,7 +67,7 @@ A wireframe can be a rough sketch, screenshot, photo, or simple diagram. It does
   - Clear options and submit button
   - Progress indicator during the quiz
   - Final result with score, percent, and total questions
-- **Sketch/photo link:** TBD
+- **Sketch/photo link:** [wireframe sketch](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/e6000f91e9db110079d4ea98e410509e450eddf4/docs/week3/wireframe%20sketch.png)
 
 ### Analysis
 
