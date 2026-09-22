@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Subject and task persistence check</title>
+</head>
+<body>
+  <h1>Subject/task localStorage persistence check</h1>
+  <p>Create one subject and one task, refresh, and verify that both remain.</p>
+  <button id="create">Create subject and task</button>
+  <button id="clear">Clear test data</button>
+  <pre id="out">No test run yet.</pre>
+  <script>
+    const KEY = "ssc-subject-task-persistence-check";
+    const expected = {
+      subject: { name: "Programming" },
+      task: { title: "Read chapter 1", subject: "Programming" }
+    };
+    const out = document.getElementById("out");
+
+    function read() {
+      try { return JSON.parse(localStorage.getItem(KEY) || "null"); }
+      catch { return null; }
+    }
+
+    function isExpected(value) {
+      return value && value.subject && value.task &&
+        value.subject.name === expected.subject.name &&
+        value.task.title === expected.task.title &&
+        value.task.subject === expected.task.subject;
+    }
+
+    function render() {
+      const value = read();
+      if (isExpected(value)) {
+        out.textContent = document.referrer
+          ? "Persistence verified after refresh\\nSubject: " + value.subject.name +
+            "\\nTask: " + value.task.title
+          : "Saved before refresh\\nSubject: " + value.subject.name +
+            "\\nTask: " + value.task.title +
+            "\\nRefresh the page to verify persistence.";
+      } else {
+        out.textContent = "No subject/task test data saved yet.";
+      }
+    }
+
+    document.getElementById("create").onclick = () => {
+      localStorage.setItem(KEY, JSON.stringify(expected));
+      render();
+    };
+    document.getElementById("clear").onclick = () => {
+      localStorage.removeItem(KEY);
+      render();
+    };
+    render();
+  </script>
+</body>
+</html>
