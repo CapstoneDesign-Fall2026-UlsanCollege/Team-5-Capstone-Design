@@ -42,8 +42,8 @@ Keep this section inside the single shared team report. Each student must enter 
 | liftupkhadka555-spec | Helped define the MVP scope, contributed to the project direction, and was assigned ownership for the first set of Sprint 1 issues in the initial issue breakdown. | [Sprint 0 Report](sprint-0-report.md) |
 | Adronnie | Contributed to problem framing and risk planning for the MVP, and owns the technical risk around localStorage persistence and state reliability during the first implementation phase. | [Sprint 0 Report](sprint-0-report.md) |
 | DJ Barut | Coordinated the Week 3 launch activities, reviewed the draft Sprint 0 deliverables, and tracked the pending instructor approval for the selected React + Vite + localStorage stack. | [Sprint 0 Report](sprint-0-report.md) |
-| princekark | Compared the shared features of study-planner and quiz apps, recommended subjects, tasks, deadlines, quizzes, and scores for the MVP, and identified the risk that an upcoming-task list must remain understandable without a calendar grid. | [Issue #3](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/3) |
-| J.N. Taj Oli | Contributed to the team's evidence and documentation work for the Sprint 0 launch package. | [Sprint 0 Report](sprint-0-report.md) |
+| princekark | Compared the shared features of study-planner and quiz apps, recommended subjects, tasks, deadlines, quizzes, and scores for the MVP, and identified the risk that an upcoming-task list could become unclear without a clear sorting approach. | [Issue #3](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/3) |
+| J.N. Taj Oli | Added the wireframe sketch links for the three core MVP screens and documented the Chuseok checkpoint to support the team’s Week 3 evidence package. | [Wireframe link update commit](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/commit/59105d418c95abe31add7cffac75badf0a588175), [Wireframe sketch commit](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/commit/e6000f91e9db110079d4ea98e410509e450eddf4), [Chuseok checkpoint commit](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/commit/422d1f505085e72e7a5e69e479f9ece669f06cb0) |
 
 ## Checkable quiz/study-plan Definition of Done
 
@@ -55,14 +55,14 @@ The following completion check is linked to the assigned quiz work in [Issue #19
 - [ ] Verify that the result shows the number of correct answers and the total number of questions.
 - [ ] Verify that the displayed score matches the selected answers, including a test with at least one incorrect answer.
 
-The equivalent study-plan check in [Issue #18](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/18) is: add two tasks, complete one, refresh the page, and verify that the completed status remains saved.
+The equivalent study-plan check in [Issue #18](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/18) is: add two tasks, complete one, refresh the page, and verify that the completion state persists correctly.
 
 ## Blockers or risks
 
 | Blocker/risk | Owner | Next action |
 |---|---|---|
 | Instructor approval for the selected React + Vite + localStorage stack is still pending. | Team DJ Barut | Ask for confirmation and record any required changes before Sprint 1 implementation begins. |
-| State persistence and localStorage reliability could cause incorrect subject/task data updates if not tested early. | Adronnie | Build and test the initial subject/task save and reload flow before the demo. |
+| State persistence and localStorage reliability could cause incorrect subject/task data updates if not tested early. | Adronnie | Build and test the initial subject/task save and reload flow before adding more UI complexity. |
 | The upcoming-task list could be confusing without a calendar grid. | princekark | Walk a teammate through the deadline-sorted list and record whether the upcoming tasks are understandable. |
 
 ## Decision record
@@ -71,9 +71,9 @@ Record only decisions that change scope, approach, ownership, or the next plan.
 
 | Decision | Why we chose it | Owner | Evidence / Issue link |
 |---|---|---|---|
-| Selected React + Vite + localStorage as the MVP stack. | It supports a simple frontend-only study planner with fast iteration and fits the project scope for the midterm prototype. | Team DJ Barut | [Sprint 0 Report](sprint-0-report.md) |
+| Selected React + Vite + localStorage as the MVP stack. | It supports a simple frontend-only study planner with fast iteration and fits the project scope for the midterm prototype. | Team DJ Barut | [Tech Stack Comparison](../week3/tech-stack-comparison.md) |
 | Kept the project in scope for a focused study management MVP. | This reduces risk and keeps the team aligned on the vertical slice for the midterm demo. | Team DJ Barut | [Candidate Vertical Slice](candidate-vertical-slice.md) |
-| Kept subjects, tasks, deadlines, quizzes, and scores; postponed calendars, timers, advanced analytics, and sharing. | These features represent the shared core found in study-planner and quiz apps while keeping the MVP small enough to validate. | princekark | [Issue #3](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/3) |
+| Kept subjects, tasks, deadlines, quizzes, and scores; postponed calendars, timers, advanced analytics, and sharing. | These features represent the shared core found in study-planner and quiz apps while reducing technical risk for the project. | Team DJ Barut | [Issue #3](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/3) |
 
 ## Next week's bridge task
 
