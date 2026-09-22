@@ -18,44 +18,44 @@ This project uses:
 ## System overview
 
 ```text
-                         ┌────────────────────┐
-                         │      Student        │
-                         └─────────┬──────────┘
-                                   │
-                                   ▼
-                    ┌──────────────────────────────┐
-                    │ Smart Study Companion UI    │
-                    │   React + Vite Application  │
-                    └──────────────┬───────────────┘
-                                   │
-                 ┌─────────────────┼─────────────────┐
-                 │                 │                 │
-                 ▼                 ▼                 ▼
-      ┌──────────────────┐  ┌──────────────────┐  ┌──────────────────┐
-      │ Subject Manager  │  │ Task Planner     │  │ Study Progress   │
-      │ - Create subject │  │ - Add tasks      │  │ - View plan      │
-      │ - Save subject   │  │ - Set deadlines  │  │ - Mark complete  │
-      └─────────┬────────┘  └─────────┬────────┘  └─────────┬────────┘
-                │                        │                        │
-                └────────────────────────┼────────────────────────┘
-                                         │
-                                         ▼
-                        ┌──────────────────────────────┐
-                        │         Data Layer           │
-                        │ localStorage / browser       │
-                        │ - subjects                   │
-                        │ - tasks                      │
-                        │ - deadlines                  │
-                        │ - completion status          │
-                        │ - quiz data                  │
-                        └──────────────┬───────────────┘
-                                       │
-                                       ▼
-                              ┌──────────────────┐
-                              │ Quiz Feature     │
-                              │ - MCQ questions  │
-                              │ - Score result   │
-                              └──────────────────┘
+                          ┌────────────────────┐
+                          │      Student        │
+                          └─────────┬──────────┘
+                                    │
+                                    ▼
+                     ┌──────────────────────────────┐
+                     │ Smart Study Companion UI    │
+                     │   React + Vite Application  │
+                     └──────────────┬───────────────┘
+                                    │
+                  ┌─────────────────┼─────────────────┐
+                  │                 │                 │
+                  ▼                 ▼                 ▼
+       ┌──────────────────┐  ┌──────────────────┐  ┌──────────────────┐
+       │ Subject Manager  │  │ Task Planner     │  │ Study Progress   │
+       │ - Create subject │  │ - Add tasks      │  │ - View plan      │
+       │ - Save subject   │  │ - Set deadlines  │  │ - Mark complete  │
+       └─────────┬────────┘  └─────────┬────────┘  └─────────┬────────┘
+                 │                        │                        │
+                 └────────────────────────┼────────────────────────┘
+                                          │
+                                          ▼
+                         ┌──────────────────────────────┐
+                         │         Data Layer           │
+                         │ localStorage / browser       │
+                         │ - subjects                   │
+                         │ - tasks                      │
+                         │ - deadlines                  │
+                         │ - completion status          │
+                         │ - quiz data                  │
+                         └──────────────┬───────────────┘
+                                        │
+                                        ▼
+                               ┌──────────────────┐
+                               │ Quiz Feature     │
+                               │ - MCQ questions  │
+                               │ - Score result   │
+                               └──────────────────┘
 ```
 
 ## Core data model
@@ -97,10 +97,10 @@ This keeps the architecture simple for the MVP while still supporting basic pers
 
 | Part | What it does | Owner | Risk / uncertainty |
 |---|---|---|---|
-| UI / Frontend | Displays subjects, tasks, the study plan, quiz screens, and results | Nabin55 | Keep the interface simple and easy to understand |
+| UI / Frontend | Displays subjects, tasks, the study plan, quiz screens, and results | Nabin Khadka | Keep the interface simple and easy to understand |
 | Data | Stores subjects, tasks, deadlines, completion status, and quiz data in localStorage | Adronnie | Data may be lost if browser storage is cleared |
 | Logic / React | Handles creating subjects, adding tasks, updating completion, and calculating quiz scores | Prince | State and localStorage updates must stay consistent |
-| Setup / Docs | Project setup, issue tracking, documentation, and architecture updates | Nabin55 | Maintain clear documentation as the app grows |
+| Setup / Docs | Project setup, issue tracking, documentation, and architecture updates | Nabin Khadka | Maintain clear documentation as the app grows |
 
 ## Key interactions
 
