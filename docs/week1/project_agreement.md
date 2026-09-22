@@ -44,7 +44,7 @@ Roles can rotate. Every team must keep the work, evidence, and quality visible.
 - We assign an owner and a small Definition of Done before work begins.
 - We link proof in GitHub and ask for review before merging substantial changes.
 - We give feedback about the work, not the person, and assume good intent.
-- We use the [Project Work Policy](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/course-materials/blob/main/student-starter-kit/docs/project-work-policy.md) for privacy, attribution, and AI responsibility.
+- We use the [Project Work Policy](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/course-materials/blob/main/student-starter-kit/docs/project-work-policy.md) for privacy, attribution, and
 
 ## If work or communication breaks down
 
@@ -59,7 +59,7 @@ By signing, each member agrees to follow this plan, raise concerns early, and up
 
 | Student | Signature or GitHub confirmation | Date |
 | --- | --- | --- |
-| Nabin Khadka|@Nabin55 |2026-09-08 |
+| Nabin Khadka|@liftupkhadka555-spec |2026-09-08 |
 | Sumit Adhikari|@adronnie |2026-09-08 |
 | Prince Karki|@princekark |2026-09-08 |
 | Prabin Rai|@RaiPrabin697 |2026-09-08 |
