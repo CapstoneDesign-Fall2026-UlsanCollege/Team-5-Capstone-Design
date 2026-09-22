@@ -4,13 +4,13 @@
 **Week:** Week 3  
 **Date:** 2026-09-23
 
-Use one shared report per team in Weeks 2-3, 5-14, and 16. Do not create a separate Weekly Report for each student. Weeks 1, 4, and 15 have special reports. Each student must add their own contribution entry.
+Use one shared report per team in Weeks 2-3, 5-14, and 16. Do not create a separate Weekly Report for each student. Weeks 1, 4, and 15 have special reports. Each student must add their own contribution row. Keep all details in the same shared report.
 
 ## This week's goal
 
 What did your team try to improve this week?
 
-> This week our team focused on launching the project by clarifying the product scope, confirming the MVP direction, and preparing the Sprint 0 evidence package. We finalized the Smart Study Companion concept, defined the initial in-scope and out-of-scope boundaries, and prepared the project baseline for Week 4 development.
+> This week our team focused on launching the project by clarifying the product scope, confirming the MVP direction, and preparing the Sprint 0 evidence package. We finalized the Smart Study Companion concept, documented the MVP boundaries, and prepared the Week 3 evidence set for the first milestone review.
 
 ## What we committed to do
 
@@ -33,12 +33,12 @@ If it is not linked, it does not count.
 
 ## Individual contribution entries — one row per student
 
-Keep this section inside the single shared team report. Each student must enter their own row: one sentence describing the contribution and at least one evidence link. Add rows if your team has more than three students.
+Keep this section inside the single shared team report. Each student must enter their own row: one sentence describing the contribution and at least one evidence link. Add rows if your team has more contributors.
 
 | Student | What they did | Evidence link |
 |---|---|---|
-| Nabin55 | Helped define the MVP scope, contributed to the project direction, and was assigned ownership for the first set of Sprint 1 issues in the initial issue breakdown. | [Sprint 0 Report](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week3/sprint-0-report.md) / [Issues](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues) |
-| Adronnie | Contributed to problem framing and risk planning for the MVP, and owns the technical risk around localStorage persistence and state reliability during the first implementation phase. | [Sprint 0 Report](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week3/sprint-0-report.md) / [Issues](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues) |
+| liftupkhadka555-spec | Helped define the MVP scope, contributed to the project direction, and was assigned ownership for the first set of Sprint 1 issues in the initial issue breakdown. | [Sprint 0 Report](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week3/sprint-0-report.md) |
+| Adronnie | Contributed to problem framing and risk planning for the MVP, and owns the technical risk around localStorage persistence and state reliability during the first implementation phase. | [Sprint 0 Report](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week3/sprint-0-report.md) |
 | DJ Barut | Coordinated the Week 3 launch activities, reviewed the draft Sprint 0 deliverables, and tracked the pending instructor approval for the selected React + Vite + localStorage stack. | [Sprint 0 Report](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week3/sprint-0-report.md) |
 
 ## Blockers or risks
