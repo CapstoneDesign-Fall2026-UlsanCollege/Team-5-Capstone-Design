@@ -10,9 +10,15 @@ This `docs/` folder holds the project documentation, organized by week. All cour
 
 | Week | Folder | Key documents |
 |---|---|---|
-| Week 1 | [week1/](week1/README.md) | Launch report, five project ideas, team working agreement |
-| Week 2 | [week2/](week2/README.md) | Overview README, design doc v1, idea selection, weekly report, storage check, evidence receipts |
-| Week 3 | [week3/](week3/README.md) | Weekly report, wireframe notes, two-stack comparison and decision |
+| Week 01 | [week1/](week1/README.md) | Launch report, five project ideas, team working agreement |
+| Week 02 | [week2/](week2/README.md) | Overview README, design doc v1, idea selection, weekly report, storage check, evidence receipts |
+| Week 03 | [week3/](week3/README.md) | [Week 03 contributor update (RaiPrabin697)](week3/week-03.md), weekly report, Sprint 0 report, stack comparison, architecture sketch, wireframes, candidate vertical slice |
+
+## Contributor updates
+
+| Week | Contributor | Document |
+|---|---|---|
+| Week 03 | [RaiPrabin697](week3/week-03.md) | First visible screen, state/flow, and state/flow test evidence |
 
 ## Where other things live
 

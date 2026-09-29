@@ -28,7 +28,7 @@ If it is not linked, it does not count.
 | Issue(s) | [Issue #3 — Shared study-planner and quiz features](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/3), [Issue #18 — Study plan](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/18), [Issue #15 — Create wireframes for main screens](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/15) |
 | PR(s) / commits | [Repository commits](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/commits/main) |
 | Screenshot / demo | [Sprint 0 Report](sprint-0-report.md) |
-| Test/check note | [Prabin state/flow test](prabin-state-flow-test.md) |
+| Test/check note | [Prabin state/flow test](prabin-state-flow-test.md), [Prabin Week 03 update](week-03.md), [Subject/task persistence test](persistence-test.md) |
 | Document update | [Week 3 docs](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/tree/main/docs/week3) |
 | Chuseok checkpoint | [Week 4 Chuseok checkpoint report](../week4/chuseok-checkpoint.md) |
 
@@ -41,7 +41,7 @@ If it is not linked, it does not count.
 | DJ Barut | Coordinated the Week 3 launch activities, reviewed the draft Sprint 0 deliverables, and tracked pending instructor approval for the selected React + Vite + localStorage stack. | [Sprint 0 report](sprint-0-report.md) |
 | princekark | Compared the shared features of study-planner and quiz apps, recommended subjects, tasks, deadlines, quizzes, and scores for the MVP, and identified the risk that an upcoming-task list could be confusing without a calendar grid. | [Issue #3](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/3) |
 | J.N. Taj Oli | Updated the shared project documentation, refined the architecture and Sprint 0 evidence links, reviewed the Week 3 report, and linked the Chuseok checkpoint evidence. | [Chuseok checkpoint](../week4/chuseok-checkpoint.md) |
-| RaiPrabin697 | Investigated manual quiz question entry versus a reusable question bank, helped define the app-structure flow, and added a state/flow test covering subject creation, task completion, quiz scoring, and localStorage reload persistence. | [Issue #4](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/4), [Issue #16](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/16), [state/flow test](prabin-state-flow-test.md) |
+| RaiPrabin697 | Investigated manual quiz question entry versus a reusable question bank, helped define the app-structure flow, added a state/flow test covering subject creation, task completion, quiz scoring, and localStorage reload persistence, and documented the first visible screen (Subject Detail / Study Plan) with its state transitions and evidence status. | [Issue #4](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/4), [Issue #16](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/16), [state/flow test](prabin-state-flow-test.md), [Week 03 update](week-03.md) |
 
 ## Checkable quiz/study-plan Definition of Done
 

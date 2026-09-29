@@ -48,10 +48,12 @@ What could prevent this path from working, and what is the smallest test that wo
 
 ## Evidence links
 
-- Issue list: [GitHub Issues]
-- Wireframe: [Smart Study Companion Wireframes]
-- Architecture sketch: [Architecture Sketch]
-- Stack comparison: [Tech Stack Comparison]
+- Issue list: [GitHub Issues](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues)
+- Wireframe: [wireframe sketch.png](<wireframe sketch.png>) and [wireframe notes](wireframe-notes.md)
+- Architecture sketch: [architecture-sketch.md](architecture-sketch.md)
+- Stack comparison: [tech-stack-comparison.md](tech-stack-comparison.md)
+- State/flow test: [prabin-state-flow-test.md](prabin-state-flow-test.md)
+- First visible screen definition: [week-03.md](week-03.md)
 
 ## Week 5 restart move
 
