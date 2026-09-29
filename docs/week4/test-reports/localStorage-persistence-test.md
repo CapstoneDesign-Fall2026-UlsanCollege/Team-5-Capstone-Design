@@ -42,7 +42,7 @@
 Subject "Programming" should remain visible after refresh if localStorage works correctly.
 
 ### Actual Result
-⏳ **IN PROGRESS** — This step has not yet been executed because the application is not running.
+⏳ **In Progress** — This step has not yet been executed because the application is not running.
 
 ### Evidence
 No real evidence available yet. Once the app is running, screenshots and localStorage dumps will be added here.
@@ -63,7 +63,7 @@ No real evidence available yet. Once the app is running, screenshots and localSt
 Task "Python Basics" should still be present after page refresh if the data is persisted correctly.
 
 ### Actual Result
-⏳ **IN PROGRESS** — The app has not yet been launched for testing.
+⏳ **In Progress** — The app has not yet been launched for testing.
 
 ### Evidence
 No real evidence available yet.
@@ -76,10 +76,10 @@ No real evidence available yet.
 |---|---|---|
 | Subject Creation & Persistence | ⏳ In progress | Requires running app |
 | Task Creation & Persistence | ⏳ In progress | Requires running app |
-| Multiple Tasks & Complex Data | ⏳ Not yet tested | Pending app build |
-| Storage Limits & Edge Cases | ⏳ Not yet tested | Pending app build |
+| Multiple Tasks & Complex Data | ⏳ In progress | Pending app build |
+| Storage Limits & Edge Cases | ⏳ In progress | Pending app build |
 
-### Overall Result: ⏳ IN PROGRESS
+### Overall Result: ⏳ In Progress
 
 ---
 
