@@ -13,11 +13,11 @@
 ## Test Setup
 
 ### Preconditions
-- ⛔ React + Vite project is not running locally
-- ⛔ localStorage cannot be verified in a live browser session
-- ⛔ Subject creation flow has not been tested in the running app
-- ⛔ Study task creation flow has not been tested in the running app
-- ⛔ localStorage save/load behavior has not been validated with actual app data
+-  React + Vite project is not running locally
+-  localStorage cannot be verified in a live browser session
+-  Subject creation flow has not been tested in the running app
+-  Study task creation flow has not been tested in the running app
+-  localStorage save/load behavior has not been validated with actual app data
 
 ### Test Environment
 - **Browser:** Pending
@@ -42,7 +42,7 @@
 Subject "Programming" should remain visible after refresh if localStorage works correctly.
 
 ### Actual Result
-⛔ **Blocked** — This step cannot be executed because the application is not running.
+ **Blocked** — This step cannot be executed because the application is not running.
 
 ### Evidence
 No real evidence available yet. Once the app is running, screenshots and localStorage dumps will be added here.
@@ -63,7 +63,7 @@ No real evidence available yet. Once the app is running, screenshots and localSt
 Task "Python Basics" should still be present after page refresh if the data is persisted correctly.
 
 ### Actual Result
-⛔ **Blocked** — The app has not been launched for testing.
+ **Blocked** — The app has not been launched for testing.
 
 ### Evidence
 No real evidence available yet.
@@ -74,12 +74,12 @@ No real evidence available yet.
 
 | Test Case | Status | Notes |
 |---|---|---|
-| Subject Creation & Persistence | ⛔ Blocked | App not running |
-| Task Creation & Persistence | ⛔ Blocked | App not running |
-| Multiple Tasks & Complex Data | ⛔ Blocked | App not running |
-| Storage Limits & Edge Cases | ⛔ Blocked | App not running |
+| Subject Creation & Persistence |  Blocked | App not running |
+| Task Creation & Persistence |  Blocked | App not running |
+| Multiple Tasks & Complex Data |  Blocked | App not running |
+| Storage Limits & Edge Cases |  Blocked | App not running |
 
-### Overall Result: ⛔ Blocked
+### Overall Result:  Blocked
 
 ---
 
@@ -102,4 +102,4 @@ The test is currently blocked because the React app has not yet been started and
 5. Capture screenshots and localStorage evidence
 6. Update this report with the final result
 
-**Status note:** This report remains blocked until real browser evidence is available.
+**Status note:** This report remains blocked until real browser evidence is available.(soon completed in week_5)
