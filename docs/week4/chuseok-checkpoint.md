@@ -20,9 +20,12 @@ This is the Week 4 report. It replaces the standard Weekly Report for this week.
 
 The MVP will use the following technology stack:
 
-- **Frontend:** React + Vite
-- **Storage:** `localStorage`
-- **Backend:** None for the MVP
+| Component | Technology | Notes |
+|---|---|---|
+| **Frontend** | React + Vite | Component-based UI for reusable screens |
+| **Storage** | `localStorage` | Browser-based persistence; data stored on the device |
+| **Backend** | None for the MVP | Frontend-only prototype; no server required |
+| **External services** | None for the MVP | No Firebase, APIs, or cloud services for now |
 
 All MVP subjects, study tasks, deadlines, completion status, and quiz results will be stored in the browser using `localStorage`. AI-generated study plans, AI-generated quiz questions, reminders, login, cloud storage, and backend services are planned as later features unless the core MVP is complete.
 
@@ -38,6 +41,18 @@ The core MVP flow is:
 4. Mark a task as completed.
 5. Take a multiple-choice quiz.
 6. View the calculated quiz score.
+
+## Out of scope for MVP
+
+The following features are postponed until after the core MVP is complete and validated:
+
+- AI-generated study plans
+- AI-generated quiz questions
+- Reminders and notifications
+- User login and accounts
+- Mobile app features
+- Calendar view
+- Backend services
 
 ## Rough sketch or planned screens
 
@@ -114,6 +129,32 @@ Our main question for Week 5 is how to divide and connect the core MVP slices wi
 5. Define the sample quiz data and score-calculation success criteria.
 6. Keep AI generation, reminders, login, cloud storage, and backend services outside the core midterm scope unless the MVP is complete.
 
+### Track 1: Project setup (Owner: Nabin Khadka)
+
+First task: Set up the React + Vite project scaffolding.
+
+- [ ] Create a new React + Vite project using `npm create vite@latest`
+- [ ] Install required dependencies (React, React DOM, and build tools)
+- [ ] Add a basic project structure: `/src`, `/src/components`, and `/src/styles`
+- [ ] Create a simple root App component and check that the dev server runs
+- [ ] Add setup instructions to the README for team members
+- [ ] Test that all team members can clone, install, and run the project locally
+- [ ] Commit the project scaffolding to the main branch
+
+Definition of done: the project runs with `npm run dev`, team members can clone and run it, and the first vertical slice issues can begin.
+
+### Track 2: First vertical slice — subject and task creation (Owner: Sumit Adhikari)
+
+Start with Issue #17: Design Subjects and Study Tasks.
+
+- [ ] Create a React component for the subject-creation form
+- [ ] Create a React component for the study-task form (title, deadline, subject)
+- [ ] Implement `localStorage` save for subjects and tasks
+- [ ] Test: create a Programming subject, add two tasks, then refresh the page
+- [ ] Verify that the data persists after reload
+
+Definition of done: a student can create a subject, add tasks with deadlines, refresh the page, and still see the saved data.
+
 ## Optional: easiest first screen or interaction
 
 The easiest first interaction is a study dashboard with simple navigation cards for:
@@ -129,5 +170,9 @@ First interaction: select or create a subject, then add a study task with a dead
 ## Evidence and references
 
 - [Design Doc v1](../week2/design-doc-v1.md)
-- [User Flow Sketch](../week2/User%20Flow%20Sketch.jpg)
+- [Architecture Sketch](../week3/architecture-sketch.md)
+- [Tech Stack Comparison](../week3/tech-stack-comparison.md)
+- [Sprint 0 Report](../week3/sprint-0-report.md)
+- [Candidate Vertical Slice](../week3/candidate-vertical-slice.md)
 - [Storage Persistence Check](../week2/storage-check.md)
+- [User Flow Sketch](../week2/User%20Flow%20Sketch.jpg)
