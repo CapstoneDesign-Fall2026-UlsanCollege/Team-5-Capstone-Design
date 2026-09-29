@@ -1,14 +1,34 @@
 # Week 4 Checkpoint: Chuseok Report
 
-**Team:** DJ Barut  
+**Team:** Smart Study Companion  
 **Project:** Smart Study Companion  
 **Week:** 4
 
+## Student roster
+
+| Student |
+|---|
+| Nabin Khadka |
+| Sumit Adhikari |
+| Prince Karki |
+| Prabin Rai |
+| J.N. Taj Oli |
+
 This is the Week 4 report. It replaces the standard Weekly Report for this week.
+
+## Confirmed technology stack
+
+The MVP will use the following technology stack:
+
+- **Frontend:** React + Vite
+- **Storage:** `localStorage`
+- **Backend:** None for the MVP
+
+All MVP subjects, study tasks, deadlines, completion status, and quiz results will be stored in the browser using `localStorage`. AI-generated study plans, AI-generated quiz questions, reminders, login, cloud storage, and backend services are planned as later features unless the core MVP is complete.
 
 ## Project direction
 
-Our team plans to build a simple, user-focused web application that helps college students organize subjects, study tasks, deadlines, and quizzes. The first version will prioritize a clear study workflow and a working navigation flow over advanced functionality.
+Our team plans to build a simple, user-focused web application that helps college students organize subjects, study tasks, deadlines, and quizzes. The first version will prioritize a clear study workflow over advanced features.
 
 The core MVP flow is:
 
@@ -18,8 +38,6 @@ The core MVP flow is:
 4. Mark a task as completed.
 5. Take a multiple-choice quiz.
 6. View the calculated quiz score.
-
-AI-generated study plans, AI-generated quiz questions, reminders, login, and cloud storage are planned as later features after the core workflow is working.
 
 ## Rough sketch or planned screens
 
@@ -66,7 +84,7 @@ If the full application is not ready, we will prepare a clearly labeled prototyp
 
 ## Midterm demo sentence
 
-**Our midterm demo will show:** A student creating a Programming subject, adding study tasks with deadlines, reviewing the study plan, marking one task as completed, and taking a short multiple-choice quiz to view the calculated score. The demonstration will focus on the complete core workflow, clear navigation, and usability rather than on advanced AI or reminder functionality.
+**Our midterm demo will show:** A student creating a Programming subject, adding study tasks with deadlines, reviewing the study plan, marking one task as completed, and taking a short multiple-choice quiz before viewing the calculated score.
 
 ## Minimum midterm requirements
 
@@ -81,10 +99,11 @@ To keep the scope realistic, the midterm version should provide:
 - Correct quiz-score calculation and result display.
 - Clear feedback for successful actions and common validation errors.
 - A short explanation of which features are complete and which are planned for later.
+- The confirmed React + Vite frontend, `localStorage` storage, and no backend for the MVP.
 
 ## One blocker or question for Week 5
 
-Our main question for Week 5 is how to divide and connect the core MVP slices without making the project too large. We need to confirm the interfaces between subject/task management, the study-plan view, task completion, and the quiz flow. We also need to decide how the React + Vite interface will temporarily persist data with localStorage before any later backend or cloud-storage work.
+Our main question for Week 5 is how to divide and connect the core MVP slices without making the project too large. We need to confirm the interfaces between subject/task management, the study-plan view, and the quiz flow while keeping the React state and `localStorage` data consistent.
 
 ## Week 5 priorities
 
@@ -93,7 +112,7 @@ Our main question for Week 5 is how to divide and connect the core MVP slices wi
 3. Implement the easiest vertical slice: create a subject and add a task with a deadline.
 4. Connect task data to the study-plan view and task-completion interaction.
 5. Define the sample quiz data and score-calculation success criteria.
-6. Keep AI generation, reminders, login, and cloud storage outside the core midterm scope unless the MVP is complete.
+6. Keep AI generation, reminders, login, cloud storage, and backend services outside the core midterm scope unless the MVP is complete.
 
 ## Optional: easiest first screen or interaction
 
