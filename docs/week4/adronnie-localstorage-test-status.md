@@ -2,26 +2,26 @@
 
 **Assigned to:** adronnie  
 **Date:** 2026-09-29  
-**Status:** ⏳ PENDING
+**Status:**  PENDING
 
 ## Test Requirement
 
 From [Week 4 Checkpoint](./chuseok-checkpoint.md):
 
-> Test data persistence  
-> Main responsibility: localStorage test
+ Test data persistence  
+ Main responsibility: localStorage test
 > 
-> Open the application.
-> Create one subject, such as Programming.
-> Add one task, such as Python Basics, with a deadline.
-> Refresh the page.
-> Check whether the subject and task are still there.
-> Record the result and link the evidence, or explain the blocker.
-> Expected result: Proof that the subject and task remain after refreshing, or a documented problem.
+ Open the application.
+ Create one subject, such as Programming.
+ Add one task, such as Python Basics, with a deadline.
+ Refresh the page.
+ Check whether the subject and task are still there.
+ Record the result and link the evidence, or explain the blocker.
+ Expected result: Proof that the subject and task remain after refreshing, or a documented problem.
 
 ## Current Status
 
-**⏳ BLOCKED** — Test cannot be executed because:
+** BLOCKED** — Test cannot be executed because:
 
 1. **React + Vite project not yet scaffolded**
    - Track 1 (Project setup, Owner: Nabin Khadka) must complete first
@@ -38,10 +38,10 @@ From [Week 4 Checkpoint](./chuseok-checkpoint.md):
 ## Blocker Details
 
 The test **cannot produce real evidence** until:
-- ✅ React + Vite project is created and runnable
-- ✅ Subject creation feature is implemented
-- ✅ Task creation with deadline feature is implemented
-- ✅ localStorage save/load logic is coded and integrated
+-  React + Vite project is created and runnable
+-  Subject creation feature is implemented
+-  Task creation with deadline feature is implemented
+-  localStorage save/load logic is coded and integrated
 
 This test depends directly on **Track 1** completion (Nabin Khadka's responsibility).
 
@@ -64,8 +64,8 @@ Once the app is running locally:
 
 Once this test is executed with actual app evidence, one of two results:
 
-- ✅ **PASS**: Subject and task persist after page refresh
-- ❌ **FAIL**: Data is lost; document the bug and create an issue
+-  **PASS**: Subject and task persist after page refresh
+-  **FAIL**: Data is lost; document the bug and create an issue
 
 ## No Fake Evidence
 
