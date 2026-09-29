@@ -1,4 +1,4 @@
-# Week 4 Checkpoint: Chuseok Report
+﻿# Week 4 Checkpoint: Chuseok Report
 
 **Team:** Smart Study Companion  
 **Project:** Smart Study Companion  
@@ -27,11 +27,15 @@ The MVP will use the following technology stack:
 | **Backend** | None for the MVP | Frontend-only prototype; no server required |
 | **External services** | None for the MVP | No Firebase, APIs, or cloud services for now |
 
-All MVP subjects, study tasks, deadlines, completion status, and quiz results will be stored in the browser using `localStorage`. AI-generated study plans, AI-generated quiz questions, reminders, [...]
+All MVP subjects, study tasks, deadlines, completion status, and quiz results will be stored in the browser using `localStorage`. AI-generated study plans, AI-generated quiz questions, reminders and notifications, user login, cloud storage, and backend services are all postponed until after the core MVP is complete and validated.
+
+This stack is provisional in one respect only: it is confirmed as the team's choice, and it still needs the instructor's approval recorded before Sprint 1 implementation begins. That approval is tracked as a blocker in the [Week 3 weekly report](../week3/weekly%20report.md).
 
 ## Project direction
 
-Our team plans to build a simple, user-focused web application that helps college students organize subjects, study tasks, deadlines, and quizzes. The first version will prioritize a clear study w[...]
+Our team plans to build a simple, user-focused web application that helps college students organize subjects, study tasks, deadlines, and quizzes. The first version will prioritize a clear study workflow over feature count: a student should be able to see their subjects, track tasks and deadlines, and check their understanding with a short quiz, all in one place.
+
+The problem this addresses is that students spread study work across separate tools, which makes deadlines easy to miss and makes it unclear what to revise before an exam. Smart Study Companion keeps the planner and the quiz in one flow rather than adding AI or social features.
 
 The core MVP flow is:
 
@@ -99,7 +103,7 @@ If the full application is not ready, we will prepare a clearly labeled prototyp
 
 ## Midterm demo sentence
 
-**Our midterm demo will show:** A student creating a Programming subject, adding study tasks with deadlines, reviewing the study plan, marking one task as completed, and taking a short multiple-c[...]
+**Our midterm demo will show:** A student creating a Programming subject, adding study tasks with deadlines, reviewing the study plan, marking one task as completed, and taking a short multiple-choice quiz, then seeing the calculated score.
 
 ## Minimum midterm requirements
 
@@ -118,7 +122,9 @@ To keep the scope realistic, the midterm version should provide:
 
 ## One blocker or question for Week 5
 
-Our main question for Week 5 is how to divide and connect the core MVP slices without making the project too large. We need to confirm the interfaces between subject/task management, the study-pl[...]
+Our main question for Week 5 is how to divide and connect the core MVP slices without making the project too large. We need to confirm the interfaces between subject/task management, the study-plan view, and the quiz flow so that each track can be built and tested independently before the pieces are connected.
+
+The blocking dependency is project setup. The persistence test assigned for this checkpoint cannot run until the React + Vite app is scaffolded and serving locally, because the test must observe real application behaviour rather than a standalone fixture. That dependency is documented in the [localStorage persistence test status](adronnie-localstorage-test-status.md) and the [test report](test-reports/localStorage-persistence-test.md).
 
 ## Week 5 priorities
 
@@ -143,7 +149,7 @@ First task: Set up the React + Vite project scaffolding.
 
 Definition of done: the project runs with `npm run dev`, team members can clone and run it, and the first vertical slice issues can begin.
 
-### Track 2: First vertical slice — subject and task creation (Owner: Sumit Adhikari)
+### Track 2: First vertical slice â€” subject and task creation (Owner: Sumit Adhikari)
 
 Start with Issue #17: Design Subjects and Study Tasks.
 
@@ -177,4 +183,6 @@ First interaction: select or create a subject, then add a study task with a dead
 - [Storage Persistence Check](../week2/storage-check.md)
 - [User Flow Sketch](../week2/User%20Flow%20Sketch.jpg)
 - [Quiz score validation checklist](../tests/quiz-validation.md)
-- Commit: Add quiz score validation checklist and answer key — https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/commit/02f3a14305e03ad6638959417937fbc473aefa5d
+- [Week 4 docs index](README.md)
+- [Week 04 contributor update — Prabin Rai](week-04.md)
+- Commit: Add quiz score validation checklist and answer key â€” https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/commit/02f3a14305e03ad6638959417937fbc473aefa5d
