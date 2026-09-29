@@ -6,18 +6,18 @@
 **Related Issue:** Part of Week 4 checkpoint — Track 2 vertical slice validation  
 **Reference:** [Week 4 Checkpoint](../chuseok-checkpoint.md#track-2-first-vertical-slice--subject-and-task-creation-owner-sumit-adhikari)
 
-**Current Status:** In progress / blocked until the app is running and testable.
+**Current Status:** Blocked — the application is not running, so the persistence test cannot be executed yet.
 
 ---
 
 ## Test Setup
 
 ### Preconditions
-- ⏳ React + Vite project is not yet confirmed to be running locally
-- ⏳ localStorage is not yet verified in a live browser session
-- ⏳ Subject creation flow is not yet validated in the running app
-- ⏳ Study task creation flow is not yet validated in the running app
-- ⏳ localStorage save/load behavior has not been tested with actual app data
+- ⛔ React + Vite project is not running locally
+- ⛔ localStorage cannot be verified in a live browser session
+- ⛔ Subject creation flow has not been tested in the running app
+- ⛔ Study task creation flow has not been tested in the running app
+- ⛔ localStorage save/load behavior has not been validated with actual app data
 
 ### Test Environment
 - **Browser:** Pending
@@ -42,7 +42,7 @@
 Subject "Programming" should remain visible after refresh if localStorage works correctly.
 
 ### Actual Result
-⏳ **In Progress** — This step has not yet been executed because the application is not running.
+⛔ **Blocked** — This step cannot be executed because the application is not running.
 
 ### Evidence
 No real evidence available yet. Once the app is running, screenshots and localStorage dumps will be added here.
@@ -63,7 +63,7 @@ No real evidence available yet. Once the app is running, screenshots and localSt
 Task "Python Basics" should still be present after page refresh if the data is persisted correctly.
 
 ### Actual Result
-⏳ **In Progress** — The app has not yet been launched for testing.
+⛔ **Blocked** — The app has not been launched for testing.
 
 ### Evidence
 No real evidence available yet.
@@ -74,18 +74,18 @@ No real evidence available yet.
 
 | Test Case | Status | Notes |
 |---|---|---|
-| Subject Creation & Persistence | ⏳ In progress | Requires running app |
-| Task Creation & Persistence | ⏳ In progress | Requires running app |
-| Multiple Tasks & Complex Data | ⏳ In progress | Pending app build |
-| Storage Limits & Edge Cases | ⏳ In progress | Pending app build |
+| Subject Creation & Persistence | ⛔ Blocked | App not running |
+| Task Creation & Persistence | ⛔ Blocked | App not running |
+| Multiple Tasks & Complex Data | ⛔ Blocked | App not running |
+| Storage Limits & Edge Cases | ⛔ Blocked | App not running |
 
-### Overall Result: ⏳ In Progress
+### Overall Result: ⛔ Blocked
 
 ---
 
 ## Conclusion
 
-The localStorage persistence test has been planned but has not yet been run in a live browser environment. No final pass/fail result should be recorded until the application is running and test evidence is captured.
+The localStorage persistence test is blocked because the application has not yet been created and launched in a browser. No final pass/fail result should be recorded until the app is running and the refresh test is actually executed.
 
 ### Blocker
 
@@ -100,6 +100,6 @@ The test is currently blocked because the React app has not yet been started and
 3. Save the data to localStorage
 4. Refresh the page and verify persistence
 5. Capture screenshots and localStorage evidence
-6. Update this report with final results
+6. Update this report with the final result
 
-**Status note:** This report remains in progress until real browser evidence is available.
+**Status note:** This report remains blocked until real browser evidence is available.
