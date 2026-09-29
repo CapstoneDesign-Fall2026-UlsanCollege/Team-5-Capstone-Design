@@ -102,4 +102,4 @@ The test is currently blocked because the React app has not yet been started and
 5. Capture screenshots and localStorage evidence
 6. Update this report with the final result
 
-**Status note:** This report remains blocked until real browser evidence is available.(soon completed in week_5)
+**Status note:** This report remains blocked until real browser evidence is available. It is expected to run in Week 5 once the React + Vite app is scaffolded, but it will not be marked passed in advance.
