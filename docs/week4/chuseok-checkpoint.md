@@ -27,11 +27,11 @@ The MVP will use the following technology stack:
 | **Backend** | None for the MVP | Frontend-only prototype; no server required |
 | **External services** | None for the MVP | No Firebase, APIs, or cloud services for now |
 
-All MVP subjects, study tasks, deadlines, completion status, and quiz results will be stored in the browser using `localStorage`. AI-generated study plans, AI-generated quiz questions, reminders, login, cloud storage, and backend services are planned as later features unless the core MVP is complete.
+All MVP subjects, study tasks, deadlines, completion status, and quiz results will be stored in the browser using `localStorage`. AI-generated study plans, AI-generated quiz questions, reminders, [...]
 
 ## Project direction
 
-Our team plans to build a simple, user-focused web application that helps college students organize subjects, study tasks, deadlines, and quizzes. The first version will prioritize a clear study workflow over advanced features.
+Our team plans to build a simple, user-focused web application that helps college students organize subjects, study tasks, deadlines, and quizzes. The first version will prioritize a clear study w[...]
 
 The core MVP flow is:
 
@@ -99,7 +99,7 @@ If the full application is not ready, we will prepare a clearly labeled prototyp
 
 ## Midterm demo sentence
 
-**Our midterm demo will show:** A student creating a Programming subject, adding study tasks with deadlines, reviewing the study plan, marking one task as completed, and taking a short multiple-choice quiz before viewing the calculated score.
+**Our midterm demo will show:** A student creating a Programming subject, adding study tasks with deadlines, reviewing the study plan, marking one task as completed, and taking a short multiple-c[...]
 
 ## Minimum midterm requirements
 
@@ -118,7 +118,7 @@ To keep the scope realistic, the midterm version should provide:
 
 ## One blocker or question for Week 5
 
-Our main question for Week 5 is how to divide and connect the core MVP slices without making the project too large. We need to confirm the interfaces between subject/task management, the study-plan view, and the quiz flow while keeping the React state and `localStorage` data consistent.
+Our main question for Week 5 is how to divide and connect the core MVP slices without making the project too large. We need to confirm the interfaces between subject/task management, the study-pl[...]
 
 ## Week 5 priorities
 
@@ -176,3 +176,5 @@ First interaction: select or create a subject, then add a study task with a dead
 - [Candidate Vertical Slice](../week3/candidate-vertical-slice.md)
 - [Storage Persistence Check](../week2/storage-check.md)
 - [User Flow Sketch](../week2/User%20Flow%20Sketch.jpg)
+- [Quiz score validation checklist](../tests/quiz-validation.md)
+- Commit: Add quiz score validation checklist and answer key — https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/commit/02f3a14305e03ad6638959417937fbc473aefa5d
