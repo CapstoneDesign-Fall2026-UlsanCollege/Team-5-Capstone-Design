@@ -66,6 +66,7 @@ The checkpoint's "Optional: easiest first screen or interaction" section agrees 
 
 ## Next week
 
+- Create the Week 5 documentation/setup structure and README/status files for the project.
 - Nabin Khadka: scaffold the React + Vite app (Track 1) — this unblocks the persistence test.
 - Sumit Adhikari: subject and task creation (Track 2).
 - Adronnie: run the persistence test once the app serves, and replace the Blocked status with an actual result.
@@ -73,6 +74,7 @@ The checkpoint's "Optional: easiest first screen or interaction" section agrees 
 
 ## References
 
+- [Official Week 4 Checkpoint Issue](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/20)
 - [Week 4 Chuseok Checkpoint](chuseok-checkpoint.md)
 - [Week 03 contributor update](../week3/week-03.md)
 - [State/flow test](../week3/prabin-state-flow-test.md)
