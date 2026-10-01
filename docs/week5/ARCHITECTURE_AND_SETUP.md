@@ -1,7 +1,7 @@
 # Smart Study Companion — Architecture and Setup
 
 **Project:** Smart Study Companion  
-**Team:** DJ Barut  
+**Team:** Team 5 
 **Course:** Capstone Design — Fall 2026  
 **Last Updated:** Week 5  
 
@@ -102,7 +102,7 @@ npm run dev
 ```
 Open the browser on:
 ```text
-http://localhost:5173
+
 ```
 
 ---
@@ -141,7 +141,7 @@ python app.py
 
 Default backend URL:
 ```text
-http://localhost:8000
+
 ```
 
 ---
@@ -252,10 +252,10 @@ console.log(data);
 | Feature | Owner |
 |--------|-------|
 | React frontend | Nabin Khadka |
-| Python backend | Nabin Khadka |
+| Python backend | Nabin Khadka/ J.N. Taj Oli |
 | Data storage | Adronnie/ prince |
 | Quiz logic | Rai prabin |
-| Documentation | Jn oli |
+| Documentation | J.N. Taj Oli |
 
 ---
 
@@ -291,5 +291,4 @@ npm run dev
 
 ---
 
-**Version:** 1.0 (Simplified)  
-**Last Updated:** Week 5
+
