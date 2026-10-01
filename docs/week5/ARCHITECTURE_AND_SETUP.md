@@ -1,7 +1,7 @@
 # Smart Study Companion — Architecture and Setup Documentation
 
 **Project:** Smart Study Companion (Study Planner + Quiz Tool)  
-**Team:** DJ Barut, Nabin Khadka, Adronnie, Prince, RaiPrabin697, Sumit Adhikari, J.N. Taj Oli  
+**Team:**  Nabin Khadka, Adronnie, Prince, RaiPrabin697, Sumit Adhikari, J.N. Taj Oli  
 **Last Updated:** Week 5 (October 2026)  
 **Course:** Capstone Design — Fall 2026  
 **Institution:** Ulsan College  
