@@ -1,4 +1,4 @@
-# Week 04 — Prabin Rai
+# Week 04 —
 
 **Week:** 4 — Chuseok Checkpoint
 **Contributor:** [RaiPrabin697](https://github.com/RaiPrabin697)
