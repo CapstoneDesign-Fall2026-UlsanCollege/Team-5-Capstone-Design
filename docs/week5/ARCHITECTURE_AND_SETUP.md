@@ -237,8 +237,8 @@ console.log(data);
 
 ## Testing Checklist
 
-- [ ] Frontend runs on `localhost:5173`
-- [ ] Backend runs on `localhost:8000`
+- [ ] Frontend runs on `pending`
+- [ ] Backend runs on `pending`
 - [ ] Subject can be created
 - [ ] Task can be added
 - [ ] Task can be marked complete
@@ -252,10 +252,10 @@ console.log(data);
 | Feature | Owner |
 |--------|-------|
 | React frontend | Nabin Khadka |
-| Python backend | Adronnie / Prince |
-| Data storage | Adronnie |
-| Quiz logic | Prince |
-| Documentation | RaiPrabin697 |
+| Python backend | Nabin Khadka |
+| Data storage | Adronnie/ prince |
+| Quiz logic | Rai prabin |
+| Documentation | Jn oli |
 
 ---
 
@@ -287,10 +287,7 @@ npm install
 npm run dev
 ```
 
-Open:
-```text
-http://localhost:5173
-```
+
 
 ---
 
