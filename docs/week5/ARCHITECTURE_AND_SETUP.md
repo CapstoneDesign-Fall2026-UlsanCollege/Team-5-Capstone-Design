@@ -237,8 +237,8 @@ console.log(data);
 
 ## Testing Checklist
 
-- [ ] Frontend runs on `pending`
-- [ ] Backend runs on `pending`
+- [ ] Frontend runs on (pending)
+- [ ] Backend runs on (pending)
 - [ ] Subject can be created
 - [ ] Task can be added
 - [ ] Task can be marked complete
@@ -271,7 +271,7 @@ For the midterm, the important focus is:
 
 ---
 
-## Quick Start
+## Quick Start(Notes)
 
 ```bash
 # Backend
