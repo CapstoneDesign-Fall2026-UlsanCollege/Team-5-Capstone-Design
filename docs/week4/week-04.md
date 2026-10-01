@@ -1,7 +1,7 @@
 # Week 04 —
 
 **Week:** 4 — Chuseok Checkpoint
-**Contributor:** [RaiPrabin697](https://github.com/RaiPrabin697)
+**Contributor:** [RaiPrabin67_Memberr](https://github.com/RaiPrabin697)
 **Date:** 2026-09-29
 
 ## Goal
