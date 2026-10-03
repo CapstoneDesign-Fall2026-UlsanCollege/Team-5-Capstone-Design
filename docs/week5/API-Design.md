@@ -865,22 +865,22 @@ For endpoints that return lists, we will add pagination support:
 For the **Midterm Demo (Week 5)**, the API will support:
 
 ### Must Have
-- ✅ Create, read, update, delete subjects
-- ✅ Create, read, update, mark complete, delete tasks
-- ✅ Create, read, update, delete quizzes
-- ✅ Create, read, update, delete questions and answers
-- ✅ Submit quiz and get score
-- ✅ View quiz results
+-  Create, read, update, delete subjects
+-  Create, read, update, mark complete, delete tasks
+-  Create, read, update, delete quizzes
+-  Create, read, update, delete questions and answers
+-  Submit quiz and get score
+-  View quiz results
 
 ### Nice to Have
-- 📋 Study plan endpoint (GET tasks for a subject)
-- 📋 Task filtering by status
+-  Study plan endpoint (GET tasks for a subject)
+-  Task filtering by status
 
 ### Post-MVP (Week 6+)
-- 🔐 User authentication and multi-user support
-- 🤖 AI-generated study plans and quizzes
-- 🔔 Notification/reminder system
-- 📊 Student analytics and progress tracking
+-  User authentication and multi-user support
+-  AI-generated study plans and quizzes
+-  Notification/reminder system
+-  Student analytics and progress tracking
 
 ---
 
