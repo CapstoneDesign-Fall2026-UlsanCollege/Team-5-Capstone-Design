@@ -1,69 +1,93 @@
 # Smart Study Companion
 
-**Team:** DJ Barut
-**Course:** Capstone Design — Fall 2026
-**Last updated:** 2026-09-17
+**A study planner and quiz project for college students.** Organize subjects, track study tasks and deadlines, and prepare for quizzes in one place.
 
-## What this project is
+**Team 5 · Capstone Design · Fall 2026 · Ulsan College**
 
-Smart Study Companion helps college students organize their study tasks, remember assignment and exam deadlines, and prepare for exams with a simple study planner and multiple-choice quiz system in one place. The core MVP focuses on subjects, study tasks, deadlines, task completion, quizzes, and quiz scores.
+> **Project status:** Planning and early implementation documentation. The main branch currently has no application source code. The app-level persistence test is prepared but has not been run.
 
-## Target users
+## Contents
 
-- Primary user: college students
-- Secondary user: none for the MVP
+- [Overview](#overview)
+- [Problem and approach](#problem-and-approach)
+- [Planned MVP](#planned-mvp)
+- [First vertical slice](#first-vertical-slice)
+- [Technology direction](#technology-direction)
+- [Project status](#project-status)
+- [Run the project](#run-the-project)
+- [Documentation](#documentation)
+- [Team](#team)
 
-## Documents
+## Overview
 
-All documentation lives in the [`docs/`](docs/README.md) folder:
+College students manage assignments, exams, and study tasks across multiple subjects. Smart Study Companion is planned as a simple place to organize those responsibilities and review progress. The MVP focuses on subject organization, task deadlines, completion status, and multiple-choice quiz scores.
 
-| Document | Location |
-|---|---|
-| Week 1 (launch report, ideas, agreement) | [docs/week1/](docs/week1/README.md) |
-| Week 2 (design doc, scope, receipts) | [docs/week2/](docs/week2/README.md) |
-| Week 3 (stack decision, wireframes) | [docs/week3/](docs/week3/README.md) |
-| Design Doc v1 | [docs/week2/design-doc-v1.md](docs/week2/design-doc-v1.md) |
-| Week 3 stack decision | [docs/week3/Two-stack-comparison%20and%20decision.md](docs/week3/Two-stack-comparison%20and%20decision.md) |
+## Problem and approach
 
-## Current MVP direction
+| Student need | Planned response |
+| --- | --- |
+| Keep coursework organized by subject | Create and review a subject list |
+| Remember study tasks and due dates | Add tasks with deadlines under a subject |
+| See what is finished | Mark tasks complete and review the study plan |
+| Practice before an exam | Take a multiple-choice quiz and view the score |
 
-The required core workflow is:
+## Planned MVP
+
+The target user flow is:
 
 1. Create a subject.
-2. Add study tasks and deadlines.
-3. Review the study plan.
-4. Mark a task as completed.
+2. Add a study task and deadline.
+3. Review tasks in the study plan.
+4. Mark a task complete.
 5. Take a multiple-choice quiz.
-6. View the calculated quiz score.
+6. View the calculated score.
 
-## Chosen stack
+This describes the intended MVP. Features should be marked complete only when the implementation and linked evidence are available in the repository.
 
-React + Vite + localStorage for the MVP and midterm demo. AI generation, reminders, login, and Firebase cloud storage are post-MVP.
+## First vertical slice
 
-## What works now
+The Week 5 candidate slice is subject and task creation with local persistence. The planned proof is to create a subject, add a task with a deadline, refresh the browser, and confirm that both remain visible.
 
-- Project direction chosen: Smart Study Companion; backup idea: PocketCart.
-- Week 1 launch report, Team Working Agreement, and five project ideas completed.
-- Design Doc v1 with scope, user flow, requirements, data model, and risks.
-- Week 2 investigation Issues and evidence receipts (one per member).
-- LocalStorage persistence checked successfully after a browser refresh.
-- Week 3 stack comparison and wireframes started.
+The repeatable test procedure is in [docs/week5/week-05-prabin-rai.md](docs/week5/week-05-prabin-rai.md). Its current result is **Not run** because the application source is not yet present on main.
 
-## How to run or view it
+## Technology direction
 
-Not applicable yet — planning phase. Setup instructions will be added when the first vertical slice exists (Week 5+).
+The project documentation records **React + Vite + browser localStorage** as the MVP and midterm direction. AI generation, reminders, login, and cloud storage are outside the current MVP scope. Week 5 API, authentication, and database notes should be treated as proposals unless the team and instructor confirm a change to the agreed direction.
 
-## Demo / proof links
+## Project status
 
-- [User Flow Sketch](docs/week2/User%20Flow%20Sketch.jpg)
-- [Storage Persistence Check](docs/week2/storage-check.md)
+| Area | Current state |
+| --- | --- |
+| Project goal and MVP direction | Documented |
+| Week 1–4 planning and checkpoint records | In the documentation folder |
+| Week 5 worklist and technical notes | In progress |
+| Application source on main | Not present in the current repository snapshot |
+| App-level persistence test | Procedure prepared; not run |
+| Demo screenshots | To be added after a real app flow is available |
 
-## Team members
+## Run the project
 
-| Student | Main responsibility |
-|---|---|
-| Nabin Khadka | Project / board coordinator, build |
-| Sumit Adhikari | Build / quality lead |
-| Prince Karki | Research / analysis lead |
-| Prabin Rai | Research / analysis support |
-| J.N. Taj Oli | Evidence / documentation lead |
+There is no application source or verified run command on main yet. Setup instructions will be added after the app scaffold is committed and tested on a teammate’s machine. Do not use the standalone Week 2 storage fixture as proof that the application runs.
+
+## Documentation
+
+All course records and project design notes are organized under [docs/](docs/README.md).
+
+| Week | Materials |
+| --- | --- |
+| [Week 1](docs/week1/README.md) | Launch report, project ideas, team working agreement |
+| [Week 2](docs/week2/README.md) | Scope, design document, user flow, research receipts, storage fixture |
+| [Week 3](docs/week3/README.md) | Stack comparison, architecture, wireframes, candidate vertical slice |
+| [Week 4](docs/week4/README.md) | Chuseok checkpoint and persistence-test blocker |
+| [Week 5](docs/week5/WEEK_5_WORKLIST.md) | Vertical-slice worklist and current implementation tasks |
+| [Week 5 persistence test](docs/week5/week-05-prabin-rai.md) | Test steps, expected results, and current test status |
+
+## Team
+
+| Member | Responsibility |
+| --- | --- |
+| Nabin Khadka | Project and board coordination; build |
+| Sumit Adhikari | Build and quality |
+| Prince Karki | Research and analysis |
+| Prabin Rai | Research and analysis support; persistence-test preparation |
+| J.N. Taj Oli | Evidence and documentation |
