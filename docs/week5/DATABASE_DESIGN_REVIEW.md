@@ -1,77 +1,62 @@
-# Database Design Review — Smart Study Companion
+# Database Design Review
 
 **Project:** Smart Study Companion  
 **Team:** Team 5  
 **Course:** Capstone Design — Fall 2026  
-**Review Date:** Week 5  
-**Reviewer:** Team Consensus  
-**Status:** ✅ APPROVED
+**Week:** 5  
+**Decision:** Approved for MVP implementation
 
 ---
 
-## Executive Summary
+## Review Summary
 
-The proposed database schema for Smart Study Companion is **well-aligned with MVP requirements** and follows sound database design principles for a simple, scalable learning management application.
+We reviewed the current database design for the Smart Study Companion project and agree that it is suitable for the MVP. The design is simple, easy to implement, and matches the project scope: managing subjects, tasks, and quiz results.
 
-**Key Finding:** The design is appropriate for the current scope, uses normalized tables, and supports future expansion to PostgreSQL production deployment.
+The main idea is clear and practical: a student creates a subject, adds study tasks under that subject, and later records quiz results for that subject. This structure is straightforward and fits the current application flow without adding unnecessary complexity.
 
 ---
 
-## Database Design Approval
+## Why the Design Works
 
-### ✅ **Current Data Model — APPROVED**
+### 1. Subject and task relationship
+The `Subject` and `Task` tables are designed in the right way. Each task belongs to one subject, and a subject can have many tasks. This relationship is logical and reflects the real use case of a study planner.
 
-The following entities and their structures are approved for implementation:
+### 2. Task tracking is clear
+The `Task` table includes the most important fields for the app:
+- `subject_id` for linking the task to a subject
+- `title` for task name
+- `deadline` for time planning
+- `completed` for progress tracking
+- `created_at` for record tracking
 
-#### 1. **Subject Table**
+This is enough for the MVP and gives the frontend a clean way to display and update tasks.
+
+### 3. Quiz results are recorded properly
+The `QuizResult` table records the score and total number of questions for each subject. This helps the app track learning progress without making the database too complex.
+
+This design is relevant because the project goal is not a large LMS system; it is a simple study companion with basic quiz functionality.
+
+---
+
+## Approved Data Model
+
 ```sql
 CREATE TABLE Subject (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name VARCHAR(255) NOT NULL,
+    name TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-```
-**Rationale:**
-- Minimal but sufficient for MVP
-- `id` enables foreign key references from tasks
-- `created_at` enables future sorting and audit trails
-- **Status:** ✅ Approved
 
-**Considerations for Future:**
-- Add `description` field for subject details (later phase)
-- Add `user_id` when authentication is implemented
-
----
-
-#### 2. **Task Table**
-```sql
 CREATE TABLE Task (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     subject_id INTEGER NOT NULL,
-    title VARCHAR(255) NOT NULL,
+    title TEXT NOT NULL,
     deadline DATETIME NOT NULL,
-    completed BOOLEAN DEFAULT 0,
+    completed BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (subject_id) REFERENCES Subject(id) ON DELETE CASCADE
 );
-```
-**Rationale:**
-- Foreign key reference maintains referential integrity
-- `completed` boolean supports status tracking
-- `deadline` enables task prioritization and display
-- `created_at` enables sorting and audit trails
-- ON DELETE CASCADE ensures consistency when subjects are removed
-- **Status:** ✅ Approved
 
-**Considerations for Future:**
-- Add `priority` field (LOW, MEDIUM, HIGH)
-- Add `description` field for task details
-- Add `updated_at` field for change tracking
-
----
-
-#### 3. **Quiz Result Table**
-```sql
 CREATE TABLE QuizResult (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     subject_id INTEGER NOT NULL,
@@ -81,212 +66,74 @@ CREATE TABLE QuizResult (
     FOREIGN KEY (subject_id) REFERENCES Subject(id) ON DELETE CASCADE
 );
 ```
-**Rationale:**
-- Tracks individual quiz attempts per subject
-- Foreign key ensures results reference valid subjects
-- Score storage enables performance tracking
-- `completed_at` enables time-based analytics
-- **Status:** ✅ Approved
-
-**Considerations for Future:**
-- Add `percentage_score` for easier display
-- Add `user_id` for multi-user support
-- Add `time_taken` for performance metrics
-- Create separate `Question` and `Answer` tables for detailed tracking
 
 ---
 
-## Database Design Facts & Validation
+## Facts Supporting This Decision
 
-| Aspect | Finding | Status |
-|--------|---------|--------|
-| **Normalization** | 3NF compliant — no data duplication, proper relationships | ✅ Pass |
-| **Foreign Keys** | Properly defined with CASCADE delete | ✅ Pass |
-| **Data Types** | Appropriate (INTEGER, VARCHAR, DATETIME, BOOLEAN) | ✅ Pass |
-| **Primary Keys** | All tables have unique identifiers | ✅ Pass |
-| **Scalability** | Schema supports 1K+ subjects, 10K+ tasks without degradation | ✅ Pass |
-| **MVP Scope** | Covers all required features (subjects, tasks, quiz results) | ✅ Pass |
-| **Production Ready** | Can migrate directly to PostgreSQL with minor syntax adjustments | ✅ Pass |
+- The database matches the MVP requirements.
+- It keeps the data model simple and understandable.
+- It follows the basic rules of relational design.
+- Foreign keys are used correctly to connect tasks and quiz results to subjects.
+- SQLite is acceptable for local testing and small-scale development.
+- The structure can later be migrated to PostgreSQL when the app grows.
 
 ---
 
-## Technical Decisions — Ratified
+## Database Design Facts
 
-### 1. **SQLite for MVP Development** ✅
-- **Decision:** Use SQLite for local development and testing
-- **Rationale:** No server setup required, file-based, meets MVP performance needs
-- **Constraints:** Single-writer, single-device limitation
-- **Status:** Approved for Sprint 1-5
-- **Future:** Migrate to PostgreSQL for multi-device sync (Post-MVP)
-
-### 2. **Python Backend with SQLAlchemy ORM** ✅
-- **Decision:** Use SQLAlchemy for database abstraction
-- **Rationale:** 
-  - ORM reduces raw SQL errors
-  - Supports multiple database backends (SQLite → PostgreSQL)
-  - Type-safe with Python type hints
-- **Status:** Approved
-- **Implementation Notes:**
-  ```python
-  from sqlalchemy import Column, Integer, String, DateTime, Boolean, ForeignKey
-  from sqlalchemy.ext.declarative import declarative_base
-  from sqlalchemy.orm import relationship
-  
-  Base = declarative_base()
-  
-  class Subject(Base):
-      __tablename__ = "subjects"
-      id = Column(Integer, primary_key=True)
-      name = Column(String(255), nullable=False)
-      created_at = Column(DateTime, default=datetime.utcnow)
-  
-  class Task(Base):
-      __tablename__ = "tasks"
-      id = Column(Integer, primary_key=True)
-      subject_id = Column(Integer, ForeignKey("subjects.id", ondelete="CASCADE"), nullable=False)
-      title = Column(String(255), nullable=False)
-      deadline = Column(DateTime, nullable=False)
-      completed = Column(Boolean, default=False)
-      created_at = Column(DateTime, default=datetime.utcnow)
-      subject = relationship("Subject", backref="tasks")
-  
-  class QuizResult(Base):
-      __tablename__ = "quiz_results"
-      id = Column(Integer, primary_key=True)
-      subject_id = Column(Integer, ForeignKey("subjects.id", ondelete="CASCADE"), nullable=False)
-      score = Column(Integer, nullable=False)
-      total_questions = Column(Integer, nullable=False)
-      completed_at = Column(DateTime, default=datetime.utcnow)
-      subject = relationship("Subject", backref="quiz_results")
-  ```
-
-### 3. **API Endpoints Map to Schema** ✅
-- **Decision:** Design REST API to closely follow database tables
-- **Mapping:**
-  | Endpoint | Table | Operation |
-  |----------|-------|-----------|
-  | `GET /subjects` | Subject | SELECT all |
-  | `POST /subjects` | Subject | INSERT |
-  | `GET /subjects/{id}/tasks` | Task | SELECT by subject_id |
-  | `POST /tasks` | Task | INSERT |
-  | `PUT /tasks/{id}` | Task | UPDATE completed |
-  | `GET /quiz/{subject_id}` | QuizResult | SELECT (retrieve questions) |
-  | `POST /quiz-result` | QuizResult | INSERT |
-- **Status:** Approved
+| Item | Review |
+|---|---|
+| Normalization | Reasonably good for a small MVP |
+| Relationship design | Clear and logical |
+| Foreign key use | Correct and appropriate |
+| Data integrity | Good enough for MVP |
+| Simplicity | Strong point of the design |
+| Future scalability | Good, with later database migration possible |
 
 ---
 
-## Constraints & Limitations (Acknowledged)
+## Technical Decision
 
-| Constraint | Impact | Mitigation | Timeline |
-|-----------|--------|-----------|----------|
-| **Single user per browser** | No multi-device sync | Expected for MVP; sync requires backend auth | Post-MVP |
-| **SQLite single-writer** | Concurrent writes fail | Not an issue for single-user MVP | Post-MVP |
-| **No quiz question storage** | Questions hardcoded in app | Acceptable for MVP scope | Sprint 6+ |
-| **No user authentication** | No data privacy between devices | Expected for MVP | Sprint 6+ |
-| **No audit trail** | Cannot track who changed what | Not required for MVP | Later phase |
+### SQLite for MVP
+We agree with using SQLite for the current version. It is lightweight, easy to set up, and does not require a server for early testing. This is a good choice for a small project and matches the current project architecture.
+
+### Python + SQLAlchemy
+Using Python with SQLAlchemy is also a good choice. It helps keep the database code cleaner and makes future migration to PostgreSQL easier.
 
 ---
 
-## Recommended Next Steps
+## Limitations and Future Improvements
 
-### **Before coding (Week 5 completion)**
-- [ ] Team reviews and agrees to this schema (consensus achieved ✅)
-- [ ] Create database initialization script in `backend/init_db.py`
-- [ ] Add sample data seed file for testing
+We also recognize the design has limits, but these are acceptable for the current stage:
 
-### **During development (Weeks 6-7)**
-- [ ] Implement SQLAlchemy models matching schema
-- [ ] Test CRUD operations for each table
-- [ ] Verify foreign key constraints and cascading deletes
-- [ ] Load test with 100+ subjects and 1000+ tasks
+- There is no user authentication yet.
+- The app is designed for a single-user local workflow.
+- The quiz system is still simple and does not yet store detailed question-level data.
+- If the project grows, the database model should be expanded with things like user accounts, more advanced quiz tables, and a stronger production database setup.
 
-### **Before midterm demo (Week 8)**
-- [ ] Verify data persistence across page reloads
-- [ ] Test quiz result calculation and storage
-- [ ] Demonstrate subject → tasks → quiz workflow
-
-### **Post-MVP planning (Sprint 6+)**
-- [ ] Design user authentication schema
-- [ ] Plan PostgreSQL migration
-- [ ] Add `Question` and `Answer` tables for dynamic quiz content
+These are not problems for the MVP. They are future enhancements.
 
 ---
 
-## Database Initialization Script
+## Final Decision
 
-**Location:** `backend/init_db.py`
+We approve this database design for the current project stage.
 
-```python
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from models import Base, Subject, Task, QuizResult
-import os
-
-DATABASE_URL = "sqlite:///./smart_study.db"
-
-def init_database():
-    """Create all tables defined in models.py"""
-    engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
-    Base.metadata.create_all(bind=engine)
-    print("✅ Database initialized successfully at smart_study.db")
-
-def seed_sample_data():
-    """Add sample subjects and tasks for testing"""
-    engine = create_engine(DATABASE_URL)
-    Session = sessionmaker(bind=engine)
-    session = Session()
-    
-    # Create sample subject
-    if session.query(Subject).count() == 0:
-        subject = Subject(name="Python Programming")
-        session.add(subject)
-        session.commit()
-        
-        # Add sample tasks
-        task1 = Task(
-            subject_id=subject.id,
-            title="Learn variables and data types",
-            deadline="2026-10-10",
-            completed=False
-        )
-        task2 = Task(
-            subject_id=subject.id,
-            title="Practice functions and loops",
-            deadline="2026-10-15",
-            completed=False
-        )
-        session.add_all([task1, task2])
-        session.commit()
-        print("✅ Sample data loaded successfully")
-
-if __name__ == "__main__":
-    init_database()
-    seed_sample_data()
-```
+The design is clear, practical, and aligned with the features already described in the project architecture. It is suitable for implementation and should be accepted as the base model for the MVP.
 
 ---
 
-## Approval & Sign-Off
+## Team Agreement
 
-### **Design Review Panel:**
-- ✅ **Backend Lead** (Nabin Khadka / J.N. Taj Oli): Schema is implementable with SQLAlchemy
-- ✅ **Frontend Lead** (Nabin Khadka): API endpoints are clear and fetch-friendly
-- ✅ **Data Lead** (Adronnie / Prince): Relationships support all MVP features
-- ✅ **Quiz Lead** (Rai Prabin): QuizResult table captures required score data
+**Approved by the team for MVP development.**
 
-### **Team Consensus:** 
-**This database design is approved for implementation in Sprint 1-5. The team agrees to proceed with SQLite+SQLAlchemy development targeting PostgreSQL production deployment post-MVP.**
+We agree to proceed with the current design and continue with SQLite-based development for the early stage, while keeping PostgreSQL migration in mind for future expansion.
 
 ---
 
 ## References
 
-- **Architecture Document:** [ARCHITECTURE_AND_SETUP.md](./ARCHITECTURE_AND_SETUP.md)
-- **MVP Scope:** [Sprint 0 Report](../week3/sprint-0-report.md)
-- **Tech Stack Decision:** [Tech Stack Comparison](../week3/tech-stack-comparison.md)
-
----
-
-**Last Reviewed:** Week 5  
-**Next Review:** Week 8 (Post-midterm deployment)
+- Smart Study Companion architecture document
+- Week 5 project design discussion
+- MVP requirements for subjects, tasks, and quiz results
