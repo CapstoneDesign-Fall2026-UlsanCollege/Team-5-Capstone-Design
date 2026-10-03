@@ -9,7 +9,7 @@
 
 [Documentation](docs/README.md) ·
 [Week 5 Worklist](docs/week5/WEEK_5_WORKLIST.md) ·
-[My Documented Work](#prabin-rai---documented-work)
+[Team](#team)
 
 </div>
 
@@ -60,9 +60,9 @@ The Week 5 API, authentication, and database notes should be read as proposals u
 |---|---|---|
 | Week 1 — project launch | Project direction, five candidate ideas, and team working agreement | [Week 1 documentation](docs/week1/README.md) |
 | Week 2 — scope and research | Design Doc v1, user-flow sketch, investigation receipts, and a standalone storage check | [Week 2 documentation](docs/week2/README.md) |
-| Week 3 — first user flow | Subject Detail / Study Plan screen, state transitions, wireframes, architecture notes, and state/flow test evidence | [Week 3 contributor update](docs/week3/week-03.md) |
+| Week 3 — first user flow | Subject Detail / Study Plan screen, state transitions, wireframes, architecture notes, and state/flow test evidence | [Week 3 report](docs/week3/week-03.md) |
 | Week 4 — checkpoint | Team stack decision and the app-setup dependency for real persistence testing | [Week 4 checkpoint](docs/week4/chuseok-checkpoint.md) |
-| Week 5 — vertical slice | Subject/task slice, implementation worklist, and a repeatable persistence test procedure | [Week 5 worklist](docs/week5/WEEK_5_WORKLIST.md) · [Persistence test plan](docs/week5/week-05-prabin-rai.md) |
+| Week 5 — vertical slice | Subject/task slice, implementation worklist, and a repeatable persistence test procedure | [Week 5 worklist](docs/week5/WEEK_5_WORKLIST.md) · [Persistence test procedure](docs/week5/week-05-prabin-rai.md) |
 
 ### Evidence Boundaries
 
@@ -72,7 +72,7 @@ The Week 2 and Week 3 storage fixtures are standalone browser pages. They check 
 
 The current target is a React + Vite frontend that stores MVP data in the browser. The planned data includes subjects, study tasks, completion state, and quiz results. The repository contains design and data-model notes, but no application components or running service on `main` yet.
 
-For the proposed screen flow and state model, see the [Week 3 contributor update](docs/week3/week-03.md), [architecture sketch](docs/week3/architecture-sketch.md), and [wireframe notes](docs/week3/wireframe-notes.md).
+For the proposed screen flow and state model, see the [Week 3 report](docs/week3/week-03.md), [architecture sketch](docs/week3/architecture-sketch.md), and [wireframe notes](docs/week3/wireframe-notes.md).
 
 ## Run the Project
 
@@ -90,25 +90,15 @@ There is no application source or verified local run command on `main` yet. Setu
 | [Week 5](docs/week5/WEEK_5_WORKLIST.md) | Vertical-slice worklist and implementation ownership |
 | [Test plan and status](docs/week5/week-05-prabin-rai.md) | Subject/task refresh test steps, expected results, and current status |
 
-## Prabin Rai — Documented Work
-
-These links describe my documented contributions. They distinguish completed planning and test preparation from application behavior that still needs a real implementation.
-
-| Contribution | Evidence | What it records |
-|---|---|---|
-| Defined the first visible screen and its state flow | [Week 3 update](docs/week3/week-03.md) | Subject selection, task state, refresh behavior, and the limits of the standalone test fixtures |
-| Recorded the Week 4 checkpoint and persistence-test dependency | [Week 4 update](docs/week4/week-04.md) | Current team decision, missing app scaffold, and the next test dependency |
-| Prepared a repeatable Week 5 app-level persistence test | [Week 5 test plan](docs/week5/week-05-prabin-rai.md) | Steps and expected results; test execution is still pending |
-
 ## Team
 
-| Member | Documented responsibility |
-|---|---|
-| Nabin Khadka | Project and board coordination; build |
-| Sumit Adhikari | Build and quality |
-| Prince Karki | Research and analysis |
-| Prabin Rai | Research and analysis support; persistence-test preparation |
-| J.N. Taj Oli | Evidence and documentation |
+| Team member |
+|---|
+| Nabin Khadka |
+| Sumit Adhikari |
+| Prince Karki |
+| Prabin Rai |
+| J.N. Taj Oli |
 
 ## Current Limitations
 
