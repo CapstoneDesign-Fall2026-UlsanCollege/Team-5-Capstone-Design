@@ -608,7 +608,7 @@ These limits make the current schema efficient for the MVP.
 
 ---
 
-**Document Owner:** J.N. Taj Oli  
+**Document Owner:** J.N. Taj Oli/ Adhikari Sumit
 **Last Updated:** 2026-10-03  
 Notes: Had discussed with Adhikari Sumit in Week_4
 **Status:** Ready for team review
