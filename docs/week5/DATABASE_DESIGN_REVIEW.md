@@ -38,7 +38,7 @@ This design is relevant because the project goal is not a large LMS system; it i
 
 ---
 
-## Approved Data Model
+## Approved Data Model(In Our View)
 
 ```sql
 CREATE TABLE Subject (
@@ -137,3 +137,6 @@ We agree to proceed with the current design and continue with SQLite-based devel
 - Smart Study Companion architecture document
 - Week 5 project design discussion
 - MVP requirements for subjects, tasks, and quiz results
+
+## Owner: Karki Prince/Rai Prabin
+- Notes: Project Co-ordinator approve is pending .
