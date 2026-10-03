@@ -17,7 +17,7 @@
 - [ ] Choose one small end-to-end user path the team will show on Thu 2026-10-08.
 - [ ] Name what the user does, what the system does or shows, and what will count as proof.
 - [ ] Confirm the stack (React + Vite + localStorage), or ask the instructor to approve any temporary changes with an owned test and decision date.
--  [] Update the Vertical Slice Plan and link the relevant design, wireframe, and architecture notes.
+-  [ ] Update the Vertical Slice Plan and link the relevant design, wireframe, and architecture notes.
 
 **Candidate slice:** Subject and task creation with localStorage persistence  
 **Proof:** User creates a subject, adds a task with deadline, refreshes the page, and task persists.
