@@ -15,6 +15,7 @@ This document defines the REST API for **Smart Study Companion**. The API enable
 **API Base URL:** `http://localhost:5000` (MVP)  
 **API Version:** v1  
 **Authentication:** None for MVP (anonymous browser-based access with localStorage)
+**Notes:**Project is being run locally , so we are not able to show now .And soon be updated our files with code and evidences 
 
 ---
 
