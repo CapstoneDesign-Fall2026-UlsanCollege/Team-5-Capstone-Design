@@ -1,93 +1,129 @@
+<div align="center">
+
 # Smart Study Companion
 
-**A study planner and quiz project for college students.** Organize subjects, track study tasks and deadlines, and prepare for quizzes in one place.
+### A college study planner and quiz project for organizing subjects, study tasks, and deadlines.
 
-**Team 5 · Capstone Design · Fall 2026 · Ulsan College**
+[![Capstone Project](https://img.shields.io/badge/Capstone-Fall%202026-2563EB)](docs/README.md)
+[![Project Stage](https://img.shields.io/badge/Stage-Planning%20%2F%20Early%20Slice-D97706)](docs/week5/WEEK_5_WORKLIST.md)
 
-> **Project status:** Planning and early implementation documentation. The main branch currently has no application source code. The app-level persistence test is prepared but has not been run.
+[Documentation](docs/README.md) ·
+[Week 5 Worklist](docs/week5/WEEK_5_WORKLIST.md) ·
+[My Documented Work](#prabin-rai---documented-work)
 
-## Contents
+</div>
 
-- [Overview](#overview)
-- [Problem and approach](#problem-and-approach)
-- [Planned MVP](#planned-mvp)
-- [First vertical slice](#first-vertical-slice)
-- [Technology direction](#technology-direction)
-- [Project status](#project-status)
-- [Run the project](#run-the-project)
-- [Documentation](#documentation)
-- [Team](#team)
+---
 
 ## Overview
 
-College students manage assignments, exams, and study tasks across multiple subjects. Smart Study Companion is planned as a simple place to organize those responsibilities and review progress. The MVP focuses on subject organization, task deadlines, completion status, and multiple-choice quiz scores.
+Smart Study Companion is a Capstone Design project for college students who want one simple place to organize coursework and prepare for quizzes. The planned MVP brings subjects, study tasks, deadlines, task completion, and multiple-choice quiz scores into one study flow.
 
-## Problem and approach
+The project is being developed by Team 5 at Ulsan College for Fall 2026. The repository currently records project planning, user flows, design decisions, test fixtures, and Week 5 implementation work. **The `main` branch does not yet contain the application source code.**
 
-| Student need | Planned response |
-| --- | --- |
-| Keep coursework organized by subject | Create and review a subject list |
-| Remember study tasks and due dates | Add tasks with deadlines under a subject |
-| See what is finished | Mark tasks complete and review the study plan |
-| Practice before an exam | Take a multiple-choice quiz and view the score |
+> **Current status:** The team has selected React + Vite with browser `localStorage` for the MVP. Instructor approval is still recorded as a blocker. The app-level subject/task persistence test is prepared but has not been run.
 
-## Planned MVP
+## Planned MVP Experience
 
-The target user flow is:
+The intended student flow is:
 
-1. Create a subject.
-2. Add a study task and deadline.
-3. Review tasks in the study plan.
+1. Create or select a subject.
+2. Add study tasks and deadlines.
+3. Review the study plan.
 4. Mark a task complete.
 5. Take a multiple-choice quiz.
 6. View the calculated score.
 
-This describes the intended MVP. Features should be marked complete only when the implementation and linked evidence are available in the repository.
+| Capability | Planned behavior | Current evidence |
+|---|---|---|
+| Subjects | Create and select a course subject | Screen and flow are documented; application UI is pending |
+| Study tasks | Add a task with a deadline under a subject | Data and user flow are documented; application UI is pending |
+| Study plan | Review tasks and completion state | Wireframe and state transitions are documented |
+| Quiz | Answer multiple-choice questions and view a score | Validation expectations are documented; application flow is pending |
+| Persistence | Keep subject and task state after refresh | Standalone browser fixtures exist; React app behavior has not been tested |
 
-## First vertical slice
+AI question generation, reminders, login, cloud storage, and backend services are outside the current MVP scope.
 
-The Week 5 candidate slice is subject and task creation with local persistence. The planned proof is to create a subject, add a task with a deadline, refresh the browser, and confirm that both remain visible.
+## Technology Direction
 
-The repeatable test procedure is in [docs/week5/week-05-prabin-rai.md](docs/week5/week-05-prabin-rai.md). Its current result is **Not run** because the application source is not yet present on main.
+| Area | Team decision | Status |
+|---|---|---|
+| Frontend | React + Vite | Selected by the team; instructor approval pending |
+| MVP storage | Browser `localStorage` | Selected by the team; instructor approval pending |
+| Backend and external services | None for the MVP | Explicitly out of scope in the Week 4 checkpoint |
 
-## Technology direction
+The Week 5 API, authentication, and database notes should be read as proposals unless the team records an approved change to the MVP decision. See the [Week 4 checkpoint](docs/week4/chuseok-checkpoint.md) for the current decision and blocker.
 
-The project documentation records **React + Vite + browser localStorage** as the MVP and midterm direction. AI generation, reminders, login, and cloud storage are outside the current MVP scope. Week 5 API, authentication, and database notes should be treated as proposals unless the team and instructor confirm a change to the agreed direction.
+## Progress and Evidence
 
-## Project status
+| Milestone | Work recorded so far | Evidence |
+|---|---|---|
+| Week 1 — project launch | Project direction, five candidate ideas, and team working agreement | [Week 1 documentation](docs/week1/README.md) |
+| Week 2 — scope and research | Design Doc v1, user-flow sketch, investigation receipts, and a standalone storage check | [Week 2 documentation](docs/week2/README.md) |
+| Week 3 — first user flow | Subject Detail / Study Plan screen, state transitions, wireframes, architecture notes, and state/flow test evidence | [Week 3 contributor update](docs/week3/week-03.md) |
+| Week 4 — checkpoint | Team stack decision and the app-setup dependency for real persistence testing | [Week 4 checkpoint](docs/week4/chuseok-checkpoint.md) |
+| Week 5 — vertical slice | Subject/task slice, implementation worklist, and a repeatable persistence test procedure | [Week 5 worklist](docs/week5/WEEK_5_WORKLIST.md) · [Persistence test plan](docs/week5/week-05-prabin-rai.md) |
 
-| Area | Current state |
-| --- | --- |
-| Project goal and MVP direction | Documented |
-| Week 1–4 planning and checkpoint records | In the documentation folder |
-| Week 5 worklist and technical notes | In progress |
-| Application source on main | Not present in the current repository snapshot |
-| App-level persistence test | Procedure prepared; not run |
-| Demo screenshots | To be added after a real app flow is available |
+### Evidence Boundaries
 
-## Run the project
+The Week 2 and Week 3 storage fixtures are standalone browser pages. They check the planned sample data across a page refresh, but **they do not demonstrate persistence in a React application**. The application-level test remains **Not run** until the app is available. See the [test procedure and status](docs/week5/week-05-prabin-rai.md).
 
-There is no application source or verified run command on main yet. Setup instructions will be added after the app scaffold is committed and tested on a teammate’s machine. Do not use the standalone Week 2 storage fixture as proof that the application runs.
+## Architecture
+
+The current target is a React + Vite frontend that stores MVP data in the browser. The planned data includes subjects, study tasks, completion state, and quiz results. The repository contains design and data-model notes, but no application components or running service on `main` yet.
+
+For the proposed screen flow and state model, see the [Week 3 contributor update](docs/week3/week-03.md), [architecture sketch](docs/week3/architecture-sketch.md), and [wireframe notes](docs/week3/wireframe-notes.md).
+
+## Run the Project
+
+There is no application source or verified local run command on `main` yet. Setup instructions will be added after the scaffold is committed and the team verifies that another member can run it. The standalone storage fixtures are documentation evidence, not a runnable version of the application.
 
 ## Documentation
 
-All course records and project design notes are organized under [docs/](docs/README.md).
+| Start here | Purpose |
+|---|---|
+| [Documentation index](docs/README.md) | Navigate all project and course records |
+| [Week 1](docs/week1/README.md) | Launch report, project ideas, and team agreement |
+| [Week 2](docs/week2/README.md) | Scope, design, research receipts, and storage fixture |
+| [Week 3](docs/week3/README.md) | Stack comparison, wireframes, architecture, and candidate slice |
+| [Week 4](docs/week4/README.md) | Chuseok checkpoint and current stack decision |
+| [Week 5](docs/week5/WEEK_5_WORKLIST.md) | Vertical-slice worklist and implementation ownership |
+| [Test plan and status](docs/week5/week-05-prabin-rai.md) | Subject/task refresh test steps, expected results, and current status |
 
-| Week | Materials |
-| --- | --- |
-| [Week 1](docs/week1/README.md) | Launch report, project ideas, team working agreement |
-| [Week 2](docs/week2/README.md) | Scope, design document, user flow, research receipts, storage fixture |
-| [Week 3](docs/week3/README.md) | Stack comparison, architecture, wireframes, candidate vertical slice |
-| [Week 4](docs/week4/README.md) | Chuseok checkpoint and persistence-test blocker |
-| [Week 5](docs/week5/WEEK_5_WORKLIST.md) | Vertical-slice worklist and current implementation tasks |
-| [Week 5 persistence test](docs/week5/week-05-prabin-rai.md) | Test steps, expected results, and current test status |
+## Prabin Rai — Documented Work
+
+These links describe my documented contributions. They distinguish completed planning and test preparation from application behavior that still needs a real implementation.
+
+| Contribution | Evidence | What it records |
+|---|---|---|
+| Defined the first visible screen and its state flow | [Week 3 update](docs/week3/week-03.md) | Subject selection, task state, refresh behavior, and the limits of the standalone test fixtures |
+| Recorded the Week 4 checkpoint and persistence-test dependency | [Week 4 update](docs/week4/week-04.md) | Current team decision, missing app scaffold, and the next test dependency |
+| Prepared a repeatable Week 5 app-level persistence test | [Week 5 test plan](docs/week5/week-05-prabin-rai.md) | Steps and expected results; test execution is still pending |
 
 ## Team
 
-| Member | Responsibility |
-| --- | --- |
+| Member | Documented responsibility |
+|---|---|
 | Nabin Khadka | Project and board coordination; build |
 | Sumit Adhikari | Build and quality |
 | Prince Karki | Research and analysis |
 | Prabin Rai | Research and analysis support; persistence-test preparation |
 | J.N. Taj Oli | Evidence and documentation |
+
+## Current Limitations
+
+- The `main` branch has no application source code, so the product cannot be run from this branch yet.
+- Instructor approval for the selected React + Vite + `localStorage` stack is still tracked as a blocker.
+- The app-level persistence test, React screen screenshots, and demo evidence are pending the implementation.
+- Week 5 API, authentication, and database notes need to stay clearly separated from the currently selected no-backend MVP unless a decision changes.
+
+---
+
+<div align="center">
+
+**Capstone Design · Fall 2026 · Ulsan College · Team 5**
+
+[Documentation](docs/README.md) ·
+[Week 5 Worklist](docs/week5/WEEK_5_WORKLIST.md)
+
+</div>
