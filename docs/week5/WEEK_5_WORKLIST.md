@@ -3,6 +3,7 @@
 **Date:** Thu 2026-10-01 to Wed 2026-10-07  
 **Team:** Team 5 (Smart Study Companion)  
 **Midterm Demo Date:** Thu 2026-10-08  
+**Status:** In progress — implementation and validation are underway.
 
 > Choose one small user path, start the first implementation work, and make the proof you will show next week easy to find. Complete the core, link the evidence in GitHub, then choose stretch work that reduces a real risk or improves the product.
 
@@ -12,11 +13,11 @@
 
 ### 1. Choose and define the slice
 
-- [ ] Review the Week 4 Chuseok Checkpoint, Week 3 candidate slice, and current stack comparison.
-- [ ] Choose one small end-to-end user path the team will show on Thu 2026-10-08.
-- [ ] Name what the user does, what the system does or shows, and what will count as proof.
-- [ ] Confirm the stack (React + Vite + localStorage), or ask the instructor to approve any temporary changes with an owned test and decision date.
-- [ ] Update the Vertical Slice Plan and link the relevant design, wireframe, and architecture notes.
+- [x] Review the Week 4 Chuseok Checkpoint, Week 3 candidate slice, and current stack comparison.
+- [x] Choose one small end-to-end user path the team will show on Thu 2026-10-08.
+- [x] Name what the user does, what the system does or shows, and what will count as proof.
+- [x] Confirm the stack (React + Vite + localStorage), or ask the instructor to approve any temporary changes with an owned test and decision date.
+- [x] Update the Vertical Slice Plan and link the relevant design, wireframe, and architecture notes.
 
 **Candidate slice:** Subject and task creation with localStorage persistence  
 **Proof:** User creates a subject, adds a task with deadline, refreshes the page, and task persists.
@@ -25,15 +26,17 @@
 
 ### 2. Make the work owned and buildable
 
-- [ ] **Track 1 (Project Setup)** — Owner: **Nabin Khadka**
-  - [ ] Scaffold React + Vite project
-  - [ ] Set up npm scripts (`npm run dev`, `npm run build`, `npm test`)
-  - [ ] Initialize basic folder structure (`src/`, `src/components/`, `src/pages/`, `src/hooks/`)
+- [ ] **Track 1 (Project Setup)** — Owner: **Nabin Khadka**  
+  Status: In progress  
+  - [x] Scaffold React + Vite project
+  - [x] Set up npm scripts (`npm run dev`, `npm run build`, `npm test`)
+  - [x] Initialize basic folder structure (`src/`, `src/components/`, `src/pages/`, `src/hooks/`)
   - [ ] Add README with setup instructions for other team members
   - [ ] Create initial commit and merge to main
   - **Definition of Done:** `npm run dev` runs successfully on all team members' machines
 
-- [ ] **Track 2 (Subject and Task UI)** — Owner: **Sumit Adhikari**
+- [ ] **Track 2 (Subject and Task UI)** — Owner: **Sumit Adhikari**  
+  Status: In progress  
   - [ ] Create Dashboard component (landing page)
   - [ ] Create Subject List component (displays all subjects)
   - [ ] Create Add Subject form component
@@ -42,7 +45,8 @@
   - [ ] Create Task List component (displays completed and incomplete tasks)
   - **Definition of Done:** UI renders without localStorage; user can see create forms and list screens
 
-- [ ] **Track 3 (localStorage Integration)** — Owner: **Prince Karki**
+- [ ] **Track 3 (localStorage Integration)** — Owner: **Prince Karki**  
+  Status: In progress  
   - [ ] Create custom hook `useLocalStorage` for persistence
   - [ ] Wire localStorage save/load into Subject List (read/write subjects)
   - [ ] Wire localStorage save/load into Task List (read/write tasks)
@@ -50,7 +54,8 @@
   - [ ] Document localStorage data structure (JSON schema for subjects and tasks)
   - **Definition of Done:** Data persists after page refresh; localStorage DevTools shows saved data
 
-- [ ] **Track 4 (localStorage Persistence Test)** — Owner: **Prabin Rai**
+- [ ] **Track 4 (localStorage Persistence Test)** — Owner: **Prabin Rai**  
+  Status: In progress  
   - [ ] Create test case: create subject, add task, refresh, verify persistence
   - [ ] Run test against the running app
   - [ ] Capture screenshots of DevTools localStorage and UI
@@ -58,7 +63,8 @@
   - [ ] Link evidence in the test report
   - **Definition of Done:** Documented test result with screenshots; bugs logged as GitHub issues if found
 
-- [ ] **Track 5 (Documentation & Weekly Report)** — Owner: **J.N. Taj Oli**
+- [ ] **Track 5 (Documentation & Weekly Report)** — Owner: **J.N. Taj Oli**  
+  Status: In progress  
   - [ ] Create Vertical Slice Plan document (link to design and wireframe)
   - [ ] Write setup instructions for running the app locally
   - [ ] Collect evidence from all tracks (commits, PR links, test screenshots)
@@ -70,7 +76,7 @@
 
 ### 3. Evidence to link
 
-- [ ] Stack decision note (already completed in Week 4 Checkpoint)
+- [x] Stack decision note (already completed in Week 4 Checkpoint)
 - [ ] Vertical Slice Plan and links to current design/wireframe/architecture notes
 - [ ] 5 implementation tracks with owners and checkable Definitions of Done
 - [ ] First implementation commit(s) or an owned blocker Issue describing the next action
@@ -125,7 +131,7 @@
 
 Choose at least two stretch items, or propose an equivalent extension. Explain why they matter:
 
-> **Stretch 1 (Technical Readiness):** Add a smoke test (cypress or React Testing Library) that verifies subjects and tasks persist after page refresh.  
+> **Stretch 1 (Technical Readiness):** Add a smoke test (Vitest or React Testing Library) that verifies subjects and tasks persist after page refresh.  
 > **Why:** Automated testing reduces manual retesting and catches regressions early.
 
 > **Stretch 2 (Design & Experience):** Add error states for invalid input (e.g., empty task title, deadline in the past) and show user-friendly error messages.  
@@ -142,11 +148,11 @@ If a core item is incomplete, name the owner, reason, and next action.
 
 | Item | Owner | Reason | Next action | Review point |
 |---|---|---|---|---|
-| Track 1: Project Setup | Nabin Khadka | — | — | Mon 10-04 |
-| Track 2: Subject & Task UI | Sumit Adhikari | — | — | Tue 10-05 |
-| Track 3: localStorage Integration | Prince Karki | — | — | Tue 10-05 |
-| Track 4: Persistence Test | Prabin Rai | — | — | Wed 10-06 |
-| Track 5: Documentation & Report | J.N. Taj Oli | — | — | Wed 10-06 |
+| Track 1: Project Setup | Nabin Khadka | Setup is underway and app shell is being structured | Finish app boot and test routing | Mon 10-04 |
+| Track 2: Subject & Task UI | Sumit Adhikari | UI work is currently in progress | Build forms and list components | Tue 10-05 |
+| Track 3: localStorage Integration | Prince Karki | Persistence logic is pending actual UI wiring | Hook and save/load behavior implementation | Tue 10-05 |
+| Track 4: Persistence Test | Prabin Rai | Test plan is ready; app is now being built | Run real browser validation after app works | Wed 10-06 |
+| Track 5: Documentation & Report | J.N. Taj Oli | Documentation is active while implementation continues | Collect evidence and finalize report | Wed 10-06 |
 
 ---
 
@@ -251,4 +257,4 @@ If any of the following block progress, create a GitHub Issue with the label `qu
 ---
 
 **Last Updated:** 2026-10-03  
-**Status:** Ready for Team 5 to start implementation
+**Status:** In progress — implementation and testing are actively running.
