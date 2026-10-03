@@ -1,11 +1,11 @@
 # Week 5 — Authentication Technical Decision
 
-**Team:** DJ Barut  
+**Team:** Team-5 
 **Project:** Smart Study Companion  
 **Week:** 5  
 **Date:** 2026-10-03  
 **Owner:** Nabin Khadka  
-**Status:** [x] Complete [  ] Pending review  
+**Status:** [] Complete [  ] Pending review  
 
 ---
 
@@ -74,17 +74,17 @@ Since we are not implementing login, data will persist in three scenarios:
 
 ### What works with this decision
 
-- ✅ Simple to implement: No server, no session management, no database.
-- ✅ Fast iteration: Feature work can focus on UI, quiz logic, and state management.
-- ✅ MVP demo: One researcher or team member can demo the app on one device.
-- ✅ Scope clarity: Separates MVP from future multi-user or cloud-sync features.
+-  Simple to implement: No server, no session management, no database.
+-  Fast iteration: Feature work can focus on UI, quiz logic, and state management.
+-  MVP demo: One researcher or team member can demo the app on one device.
+-  Scope clarity: Separates MVP from future multi-user or cloud-sync features.
 
 ### What does **not** work with this decision
 
-- ❌ Multi-device sync: A user's study plan is specific to one browser/device. Adding a task on a phone will not show on a desktop.
-- ❌ Account recovery: If a user clears their browser storage, all data is lost. There is no server backup.
-- ❌ Sharing data: Users cannot share study plans or quiz results with classmates or instructors.
-- ❌ Later-semester use: After the MVP demo, adding login would require restructuring the data layer.
+-  Multi-device sync: A user's study plan is specific to one browser/device. Adding a task on a phone will not show on a desktop.
+-  Account recovery: If a user clears their browser storage, all data is lost. There is no server backup.
+-  Sharing data: Users cannot share study plans or quiz results with classmates or instructors.
+-  Later-semester use: After the MVP demo, adding login would require restructuring the data layer.
 
 ---
 
@@ -118,8 +118,8 @@ This work would be significant, but it is explicitly planned for a later phase a
 | Role | Student | Confirmation | Date |
 |---|---|---|---|
 | Project coordinator | Nabin Khadka | Approved | 2026-10-03 |
-| Documentation lead | J.N. Taj Oli | Reviewed | 2026-10-03 |
-| Build/quality lead | Sumit Adhikari | Approved | 2026-10-03 |
+| Documentation lead | J.N. Taj Oli/prabin Rai | Reviewed | 2026-10-03 |
+| Build/quality lead | Sumit Adhikari/Karki Prince  | Approved | 2026-10-03 |
 
 ---
 
