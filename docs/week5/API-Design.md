@@ -12,7 +12,7 @@
 
 This document defines the REST API for **Smart Study Companion**. The API enables the frontend (React + Vite) to interact with the backend (Python FastAPI/Flask + SQLite) for managing subjects, study tasks, deadlines, study plans, quizzes, and quiz results.
 
-**API Base URL:** `http://localhost:5000` (MVP)  
+**API Base URL:**  (MVP)  
 **API Version:** v1  
 **Authentication:** None for MVP (anonymous browser-based access with localStorage)
 
