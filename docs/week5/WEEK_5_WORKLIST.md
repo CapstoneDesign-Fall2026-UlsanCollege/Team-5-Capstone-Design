@@ -13,29 +13,29 @@
 
 ### 1. Choose and define the slice
 
-- [x] Review the Week 4 Chuseok Checkpoint, Week 3 candidate slice, and current stack comparison.
-- [x] Choose one small end-to-end user path the team will show on Thu 2026-10-08.
-- [x] Name what the user does, what the system does or shows, and what will count as proof.
-- [x] Confirm the stack (React + Vite + localStorage), or ask the instructor to approve any temporary changes with an owned test and decision date.
-- [x] Update the Vertical Slice Plan and link the relevant design, wireframe, and architecture notes.
+- [ ] Review the Week 4 Chuseok Checkpoint, Week 3 candidate slice, and current stack comparison.
+- [ ] Choose one small end-to-end user path the team will show on Thu 2026-10-08.
+- [ ] Name what the user does, what the system does or shows, and what will count as proof.
+- [ ] Confirm the stack (React + Vite + localStorage), or ask the instructor to approve any temporary changes with an owned test and decision date.
+-  [] Update the Vertical Slice Plan and link the relevant design, wireframe, and architecture notes.
 
 **Candidate slice:** Subject and task creation with localStorage persistence  
 **Proof:** User creates a subject, adds a task with deadline, refreshes the page, and task persists.
 
 ---
 
-### 2. Make the work owned and buildable
+### 2. Make the work owned and buildable  (Some features are pending )
 
 - [ ] **Track 1 (Project Setup)** — Owner: **Nabin Khadka**  
   Status: In progress  
-  - [x] Scaffold React + Vite project
-  - [x] Set up npm scripts (`npm run dev`, `npm run build`, `npm test`)
-  - [x] Initialize basic folder structure (`src/`, `src/components/`, `src/pages/`, `src/hooks/`)
+  - [ ] Scaffold React + Vite project
+  - [ ] Set up npm scripts (`npm run dev`, `npm run build`, `npm test`)
+  - [ ] Initialize basic folder structure (`src/`, `src/components/`, `src/pages/`, `src/hooks/`)
   - [ ] Add README with setup instructions for other team members
   - [ ] Create initial commit and merge to main
   - **Definition of Done:** `npm run dev` runs successfully on all team members' machines
 
-- [ ] **Track 2 (Subject and Task UI)** — Owner: **Sumit Adhikari**  
+- [ ] **Track 2 (Subject and Task UI)** — Owner: **Sumit Adhikari**/**Nabin Khadka**  
   Status: In progress  
   - [ ] Create Dashboard component (landing page)
   - [ ] Create Subject List component (displays all subjects)
@@ -45,7 +45,7 @@
   - [ ] Create Task List component (displays completed and incomplete tasks)
   - **Definition of Done:** UI renders without localStorage; user can see create forms and list screens
 
-- [ ] **Track 3 (localStorage Integration)** — Owner: **Prince Karki**  
+- [ ] **Track 3 (localStorage Integration)** — Owner: **Prince Karki**/**J.N Taj Oli**  
   Status: In progress  
   - [ ] Create custom hook `useLocalStorage` for persistence
   - [ ] Wire localStorage save/load into Subject List (read/write subjects)
@@ -63,7 +63,7 @@
   - [ ] Link evidence in the test report
   - **Definition of Done:** Documented test result with screenshots; bugs logged as GitHub issues if found
 
-- [ ] **Track 5 (Documentation & Weekly Report)** — Owner: **J.N. Taj Oli**  
+- [ ] **Track 5 (Documentation & Weekly Report)** — Owner: **J.N. Taj Oli**?**Nabin Khadka_Helper** 
   Status: In progress  
   - [ ] Create Vertical Slice Plan document (link to design and wireframe)
   - [ ] Write setup instructions for running the app locally
@@ -237,11 +237,11 @@ docs/week5/
 | Milestone | Date | Owner | Notes |
 |---|---|---|---|
 | Project setup complete | Fri 10-04 | Nabin Khadka | Track 1 done; app scaffolded |
-| UI components working | Tue 10-05 | Sumit Adhikari | Track 2 done; forms and lists render |
+| UI components working | Tue 10-05 | Sumit Adhikari/J.N Taj Oli | Track 2 done; forms and lists render |
 | localStorage integration done | Tue 10-05 | Prince Karki | Track 3 done; data persists |
-| Persistence test complete | Wed 10-06 | Prabin Rai | Track 4 done; evidence captured |
-| Weekly Report & docs done | Wed 10-06 | J.N. Taj Oli | Track 5 done; ready for submission |
-| **Demo ready** | **Thu 10-08** | **Team** | **Show to instructor** |
+| Persistence test complete | Wed 10-06 | Prabin Rai | Track 4 Pending; evidence captured |
+| Weekly Report & docs done | Wed 10-06 | J.N. Taj Oli | Track 5 pending; Not well prepared  submission |
+| **Demo ready** | **Pending** | **Team** | **Show to instructor** |
 
 ---
 
@@ -253,6 +253,7 @@ If any of the following block progress, create a GitHub Issue with the label `qu
 - Should we use UUIDs or timestamps for entity IDs in localStorage?
 - Is there a preferred testing library (Jest, Vitest, React Testing Library)?
 - Should the app support multiple subjects per view, or one subject at a time on Oct 8?
+- Notes(Some works are pending , Please consider those things )
 
 ---
 
