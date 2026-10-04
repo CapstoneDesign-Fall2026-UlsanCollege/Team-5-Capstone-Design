@@ -49,3 +49,17 @@ Write five possible project ideas. Keep each one small.
 - **Smallest useful version:** Add an event with a date and time and display upcoming events.
 - **Midterm demo could show:** Create an event and view it in an upcoming-events list.
 - **Big risk / unknown:** Making reminders reliable and easy to understand.
+
+## Candidate comparison
+
+| Candidate | Smallest visible proof | Main uncertainty |
+|---|---|---|
+| Study Planner | Subject, task, and deadline shown together | Keeping the schedule simple |
+| Budget Planner | Expense added and remaining budget displayed | Fast expense entry |
+| Grocery List | Item added and marked bought | Avoiding unnecessary complexity |
+| College Quiz System | Short quiz answered and score shown | Useful question content |
+| Event Reminder | Event added to upcoming list | Reliable reminder behavior |
+
+## Decision trail
+
+These are the Week 1 candidates, not five implemented features. The later [selection table](../week2/idea-selection-table.md) records Smart Study Companion and its backup direction. The [design document](../week2/design-doc-v1.md) defines the selected scope.

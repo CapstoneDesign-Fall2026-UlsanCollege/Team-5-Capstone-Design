@@ -44,7 +44,7 @@ Roles can rotate. Every team must keep the work, evidence, and quality visible.
 - We assign an owner and a small Definition of Done before work begins.
 - We link proof in GitHub and ask for review before merging substantial changes.
 - We give feedback about the work, not the person, and assume good intent.
-- We use the [Project Work Policy](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/course-materials/blob/main/student-starter-kit/docs/project-work-policy.md) for privacy, attribution, and
+- We use the [Project Work Policy](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/course-materials/blob/main/student-starter-kit/docs/project-work-policy.md) for privacy, attribution, and responsible project work.
 
 ## If work or communication breaks down
 
@@ -64,3 +64,11 @@ By signing, each member agrees to follow this plan, raise concerns early, and up
 | Prince Karki|@princekark |2026-09-08 |
 | Prabin Rai|@RaiPrabin697 |2026-09-08 |
 | J.N. Taj Oli|@jn-oli |2026-09-08 |
+
+## Maintaining this agreement
+
+The signatures and dates above remain the original confirmations. The working title later became **Smart Study Companion**; see the [Week 2 design](../week2/design-doc-v1.md).
+
+When ownership changes, record the new owner and acceptance check in the Issue, then link it in the shared weekly report. Each member adds their own contribution evidence; a documentation editor does not confirm work on another member’s behalf.
+
+Revisit availability and blockers at the Wednesday meeting. Record any agreed change before treating it as a new team commitment.
