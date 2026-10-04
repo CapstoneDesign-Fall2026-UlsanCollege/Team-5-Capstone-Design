@@ -15,7 +15,7 @@ This is the Week 1 report. It replaces the standard Weekly Report for this week.
 | One planning Issue or document exists |https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/1  |Nabin Khadka  |
 | Team Working Agreement is complete |https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/f963a93f47ee61dad9838b5e9984310925db1b98/project_agreement.md  | J.N. Taj Oli |
 
-> **Note:** repository slug updated from `DJ-Barut` to `Team-5-Capstone-Design`. Re-verify each link once in the browser after pushing.
+> **Note:** repository slug updated from `DJ-Barut` to `Team-5-Capstone-Design`. Historical commit links are retained below; use the weekly index for current document paths.
 
 ## Five candidate project ideas
 
@@ -37,6 +37,14 @@ Each student records their preferred idea and one concern after class.
 
 ## Ready for Week 2
 
-- [✅ ] The team has narrowed the five ideas to two finalists.
-- [✅] Every member can explain the two finalists and the main concern for each.
-- [✅] The Team Working Agreement is linked and confirmed by every member.
+- [x] The team has narrowed the five ideas to two finalists.
+- [x] Every member can explain the two finalists and the main concern for each.
+- [x] The Team Working Agreement is linked and confirmed by every member.
+
+## Launch review
+
+The setup confirmations and member preferences above are the original team record. They establish readiness for project selection, rather than a completed application.
+
+- [Current ideas document](Five_Project_Idea.md)
+- [Current working agreement](project_agreement.md)
+- [Next decision: Week 2 selection](../week2/idea-selection-table.md)
