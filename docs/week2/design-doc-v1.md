@@ -262,3 +262,15 @@ The team will create a Programming subject with two study tasks. The student wil
 - Decide how often deadline reminders should be displayed or sent.
 - Confirm that AI-generated content requires student approval before it is saved.
 
+## Delivery boundary and first-slice acceptance
+
+The full planned MVP includes subjects, tasks, deadlines, completion, quizzes, and scores. The first implementation slice is smaller: **create a subject → add a task with a deadline → refresh → see the same records**.
+
+| Boundary | Acceptance or decision |
+|---|---|
+| First slice | Subject and task remain visible under the correct subject after refresh |
+| Later core work | Completion state and quiz scoring, after the first slice is stable |
+| Post-MVP | AI, notifications, accounts, cloud sync, and backend services |
+| Evidence | Runnable app commit, observed browser result, and linked captures |
+
+The [Week 4 checkpoint](../week4/chuseok-checkpoint.md) records React + Vite with localStorage as the team choice, with instructor approval pending. The [Week 5 slice plan](../week5/VERTICAL_SLICE_PLAN.md) narrows the demonstration. This section records intended behavior, not a successful implementation test.
