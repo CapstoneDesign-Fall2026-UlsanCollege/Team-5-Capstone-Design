@@ -51,3 +51,4 @@ Week 6 asks the team to prove one visible part of the project works. The proof m
 4. Replace all `Pending` fields with actual result details.
 5. Update Issue #17 and, if still blocked, Issue #21 with the honest current status.
 6. Make sure every team member adds one row to the shared Week 6 report.
+7. Use this README as the starting point when reviewing Week 6 evidence.
