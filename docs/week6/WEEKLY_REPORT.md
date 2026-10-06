@@ -53,7 +53,7 @@ Prove one visible part of Smart Study Companion with GitHub evidence: repeatable
 | Decision | Why we chose it | Owner | Evidence / Issue link |
 |---|---|---|---|
 | Use subject/task creation with refresh persistence as the Week 6 proof target. | This matches Week 5's selected vertical slice and Issue #17's Definition of Done. | Team 5 | [Issue #17](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/17); [Week 5 worklist](../week5/WEEK_5_WORKLIST.md) |
-| Record pending or blocked states honestly until the teammate test is run. | Professor's Week 6 checklist says failed or blocked tests are useful evidence if the first failing step and next action are recorded. | Evidence owner | [Tested-by note](TESTED_BY_NOTE.md) |
+| Record pending or blocked states honestly until the teammate test is run. | The Week 6 checklist treats failed or blocked tests as useful evidence if the first failing step and next action are recorded. | Evidence owner | [Tested-by note](TESTED_BY_NOTE.md) |
 
 ## Next week's bridge task
 
