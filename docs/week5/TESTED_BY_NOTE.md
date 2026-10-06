@@ -1,4 +1,4 @@
-# Week 6 Tested-By Note
+# Week 5 Tested-By Note
 
 Use this note when Team 5 claims the Week 6 visible slice works.
 
