@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Study Companion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650;9..144,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="ambient" aria-hidden="true">
+        <div class="glow glow-a"></div>
+        <div class="glow glow-b"></div>
+        <div class="grain"></div>
+    </div>
+
+    <div id="mobile-overlay" class="mobile-overlay" hidden></div>
+
+    <aside id="sidebar" class="sidebar">
+        <div class="brand">
+            <div class="brand-mark" aria-hidden="true">
+                <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <div>
+                <p class="brand-kicker">Companion</p>
+                <p class="brand-name">StudySmart</p>
+            </div>
+            <button id="close-sidebar-btn" class="icon-btn sidebar-close" aria-label="Close menu">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <nav class="side-nav">
+            <a href="#create" class="nav-link is-active" data-view="create">
+                <i class="fa-solid fa-plus"></i>
+                Subjects &amp; Tasks
+            </a>
+            <a href="#plan" class="nav-link" data-view="plan">
+                <i class="fa-solid fa-list-check"></i>
+                Study Plan
+            </a>
+            <a href="#quiz" class="nav-link" data-view="quiz">
+                <i class="fa-solid fa-circle-question"></i>
+                Quiz
+            </a>
+            <a href="wireframes/index.html" class="nav-link">
+                <i class="fa-regular fa-object-ungroup"></i>
+                Wireframes
+            </a>
+        </nav>
+
+        <section class="focus-card" id="focus-card">
+            <p class="eyebrow">Up next</p>
+            <p id="focus-title" class="focus-title">No pending tasks</p>
+            <p id="focus-meta" class="focus-meta">Add a subject, then a task</p>
+        </section>
+
+        <button id="theme-toggle-btn" class="theme-toggle" type="button">
+            <i class="fa-solid fa-moon dark-hidden"></i>
+            <span class="dark-hidden">Dark mode</span>
+            <i class="fa-solid fa-sun light-hidden"></i>
+            <span class="light-hidden">Light mode</span>
+        </button>
+    </aside>
+
+    <main class="shell">
+        <header class="topbar">
+            <div class="topbar-left">
+                <button id="open-sidebar-btn" class="icon-btn menu-btn" aria-label="Open menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div>
+                    <p id="current-date" class="greeting"></p>
+                    <h1 id="page-title">Subjects &amp; Tasks</h1>
+                </div>
+            </div>
+            <div class="topbar-actions">
+                <label class="search-field" id="search-wrap">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input id="search-input" type="search" placeholder="Search subjects or tasks" autocomplete="off">
+                </label>
+                <button id="go-plan-btn" class="btn-ghost" type="button">Open study plan</button>
+                <button id="add-task-btn" class="btn-primary" type="button">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>New task</span>
+                </button>
+            </div>
+        </header>
+
+        <div id="view-create" class="canvas custom-scrollbar">
+            <section class="create-grid">
+                <article class="plan-board">
+                    <p class="eyebrow">Step 1</p>
+                    <h2>Create a subject</h2>
+                    <p class="muted">Add Programming, Math, or any class you are juggling this week.</p>
+                    <form id="subject-form" class="inline-form">
+                        <input id="subject-name" type="text" required placeholder="Subject name" maxlength="40">
+                        <button class="btn-primary" type="submit">Add subject</button>
+                    </form>
+                    <div id="subject-chips" class="chip-row"></div>
+                    <p id="subject-empty" class="muted">No subjects yet. Add one to unlock the task form.</p>
+                </article>
+
+                <article class="plan-board">
+                    <p class="eyebrow">Step 2</p>
+                    <h2>Add a study task</h2>
+                    <p class="muted">Give it a title, pick a subject, and set the deadline immediately.</p>
+                    <form id="create-task-form" class="stack-form">
+                        <label>
+                            Task title
+                            <input id="create-task-name" type="text" required placeholder="e.g. Finish lab 3">
+                        </label>
+                        <label>
+                            Subject
+                            <select id="create-task-subject" required></select>
+                        </label>
+                        <label>
+                            Deadline
+                            <input id="create-task-deadline" type="date" required>
+                        </label>
+                        <button class="btn-primary" type="submit">Save task</button>
+                    </form>
+                </article>
+            </section>
+
+            <section class="plan-board">
+                <div class="board-toolbar">
+                    <h2>Recently added</h2>
+                    <span class="muted" id="recent-count">0 tasks saved locally</span>
+                </div>
+                <div id="recent-tasks" class="recent-list"></div>
+                <div id="create-empty" class="empty-state" hidden>
+                    <div class="empty-art" aria-hidden="true"></div>
+                    <h3>Nothing saved yet</h3>
+                    <p>Create a subject, add a task with a deadline, then open the study plan.</p>
+                </div>
+            </section>
+        </div>
+
+        <div id="view-plan" class="canvas custom-scrollbar" hidden>
+            <section class="hero">
+                <div class="hero-copy">
+                    <p class="eyebrow">Weekly workload</p>
+                    <h2 id="hero-headline">Keep the streak going</h2>
+                    <p id="hero-sub" class="muted">See what is due, mark work complete, then take a quiz.</p>
+                    <div class="hero-pills">
+                        <span class="pill" id="pill-pending">0 pending</span>
+                        <span class="pill pill-warn" id="pill-overdue">0 overdue</span>
+                        <button class="btn-primary" id="start-quiz-btn" type="button">Take a quiz</button>
+                    </div>
+                </div>
+                <div class="progress-orb" aria-label="Overall completion">
+                    <svg viewBox="0 0 120 120">
+                        <circle class="orb-track" cx="60" cy="60" r="50"></circle>
+                        <circle id="orb-fill" class="orb-fill" cx="60" cy="60" r="50"></circle>
+                    </svg>
+                    <div class="orb-label">
+                        <strong id="stat-progress-text">0%</strong>
+                        <span>complete</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="stat-grid">
+                <article class="stat-card">
+                    <span class="stat-icon teal"><i class="fa-solid fa-layer-group"></i></span>
+                    <div>
+                        <p>Total tasks</p>
+                        <strong id="stat-total">0</strong>
+                    </div>
+                </article>
+                <article class="stat-card">
+                    <span class="stat-icon gold"><i class="fa-solid fa-check-double"></i></span>
+                    <div>
+                        <p>Completed</p>
+                        <strong id="stat-completed">0</strong>
+                    </div>
+                </article>
+                <article class="stat-card">
+                    <span class="stat-icon coral"><i class="fa-regular fa-clock"></i></span>
+                    <div>
+                        <p>Pending</p>
+                        <strong id="stat-pending">0</strong>
+                    </div>
+                </article>
+            </section>
+
+            <section class="plan-board">
+                <div class="board-toolbar">
+                    <h2>Task tracker</h2>
+                    <div class="filters" role="tablist" aria-label="Task status">
+                        <button class="filter-btn is-on" data-filter="all" type="button">All <span id="count-all">0</span></button>
+                        <button class="filter-btn" data-filter="pending" type="button">Pending <span id="count-pending">0</span></button>
+                        <button class="filter-btn" data-filter="completed" type="button">Completed <span id="count-completed">0</span></button>
+                    </div>
+                </div>
+                <div id="subject-tabs" class="chip-row"></div>
+                <div id="task-container" class="task-groups"></div>
+                <div id="empty-state" class="empty-state" hidden>
+                    <div class="empty-art" aria-hidden="true"></div>
+                    <h3 id="empty-title">All caught up</h3>
+                    <p id="empty-copy">You have no tasks matching this view.</p>
+                    <button class="btn-ghost" id="empty-goto-create" type="button">Add a new task</button>
+                </div>
+            </section>
+        </div>
+
+        <div id="view-quiz" class="canvas custom-scrollbar" hidden>
+            <section class="plan-board quiz-setup" id="quiz-setup">
+                <p class="eyebrow">Check understanding</p>
+                <h2>Mixed-topic quiz</h2>
+                <p class="muted">Answer 50 multiple-choice questions across programming, math, calculus, physics, and history. Each question has four answer choices.</p>
+                <button id="quiz-start-btn" class="btn-primary" type="button">Start quiz</button>
+            </section>
+
+            <section class="plan-board quiz-play" id="quiz-play" hidden>
+                <div class="board-toolbar">
+                    <h2 id="quiz-title">Quiz</h2>
+                    <span class="pill" id="quiz-progress">Question 1 of 50</span>
+                </div>
+                <p id="quiz-question" class="quiz-question"></p>
+                <div id="quiz-options" class="quiz-options"></div>
+                <div class="modal-actions">
+                    <button id="quiz-back-btn" class="btn-ghost" type="button">Back</button>
+                    <button id="quiz-next-btn" class="btn-primary" type="button">Next</button>
+                </div>
+            </section>
+
+            <section class="plan-board quiz-result" id="quiz-result" hidden>
+                <p class="eyebrow">Result</p>
+                <h2>Quiz complete</h2>
+                <p class="score-big" id="quiz-score">Marks: 0 / 50</p>
+                <p id="quiz-percent" class="muted">0% correct</p>
+                <p id="quiz-review"></p>
+                <div class="modal-actions">
+                    <button id="quiz-retake-btn" class="btn-ghost" type="button">Retake quiz</button>
+                    <button id="quiz-to-plan-btn" class="btn-primary" type="button">Back to study plan</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <div id="task-modal" class="modal" hidden>
+        <div class="modal-backdrop" id="modal-backdrop"></div>
+        <div class="modal-card" id="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+            <div class="modal-head">
+                <h2 id="modal-title">Edit task</h2>
+                <button id="close-modal-btn" class="icon-btn" type="button" aria-label="Close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <form id="task-form">
+                <input type="hidden" id="task-id">
+                <label>
+                    Subject
+                    <select id="task-subject" required></select>
+                </label>
+                <label>
+                    Task name
+                    <input type="text" id="task-name" required>
+                </label>
+                <label>
+                    Deadline
+                    <input type="datetime-local" id="task-deadline" required>
+                </label>
+                <div class="modal-actions">
+                    <button type="button" id="cancel-modal-btn" class="btn-ghost">Cancel</button>
+                    <button type="submit" class="btn-primary">Save task</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="confirm-modal" class="modal" hidden>
+        <div class="modal-backdrop" id="confirm-backdrop"></div>
+        <div class="modal-card confirm-card" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+            <h2 id="confirm-title">Delete this?</h2>
+            <p id="confirm-copy">This cannot be undone.</p>
+            <div class="modal-actions">
+                <button type="button" id="confirm-cancel" class="btn-ghost">Keep it</button>
+                <button type="button" id="confirm-delete" class="btn-danger">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast-stack" class="toast-stack" aria-live="polite" aria-atomic="true"></div>
+    <div id="burst-layer" class="burst-layer" aria-hidden="true"></div>
+    <script src="app.js"></script>
+</body>
+</html>

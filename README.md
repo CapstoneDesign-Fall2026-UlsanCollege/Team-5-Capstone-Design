@@ -19,9 +19,9 @@
 
 Smart Study Companion is a Capstone Design project for college students who want one simple place to organize coursework and prepare for quizzes. The planned MVP brings subjects, study tasks, deadlines, task completion, and multiple-choice quiz scores into one study flow.
 
-The project is being developed by Team 5 at Ulsan College for Fall 2026. The repository currently records project planning, user flows, design decisions, test fixtures, and Week 5 implementation work. **The `main` branch does not yet contain the application source code.**
+The project is being developed by Team 5 at Ulsan College for Fall 2026. This repository contains project documentation, a browser-based frontend prototype, and its wireframes.
 
-> **Current status:** The team has selected React + Vite with browser `localStorage` for the MVP. Instructor approval is still recorded as a blocker. The app-level subject/task persistence test is prepared but has not been run.
+> **Current status:** The team has selected React + Vite with browser `localStorage` for the MVP. Instructor approval is still recorded as a blocker. The frontend currently in `Frontend/` is a plain HTML/CSS/JavaScript prototype, not a React + Vite app. The app-level persistence test has not been run.
 
 ## Planned MVP Experience
 
@@ -36,11 +36,11 @@ The intended student flow is:
 
 | Capability | Planned behavior | Current evidence |
 |---|---|---|
-| Subjects | Create and select a course subject | Screen and flow are documented; application UI is pending |
-| Study tasks | Add a task with a deadline under a subject | Data and user flow are documented; application UI is pending |
-| Study plan | Review tasks and completion state | Wireframe and state transitions are documented |
-| Quiz | Answer multiple-choice questions and view a score | Validation expectations are documented; application flow is pending |
-| Persistence | Keep subject and task state after refresh | Standalone browser fixtures exist; React app behavior has not been tested |
+| Subjects | Create and select a course subject | Available in the browser prototype under `Frontend/` |
+| Study tasks | Add a task with a deadline under a subject | Available in the browser prototype under `Frontend/` |
+| Study plan | Review tasks and completion state | Available in the browser prototype; wireframes are in `Frontend/wireframes/` |
+| Quiz | Answer multiple-choice questions and view a score | Available in the browser prototype; app-level validation is pending |
+| Persistence | Keep subject and task state after refresh | Prototype uses browser `localStorage`; the documented app-level test has not been run |
 
 AI question generation, reminders, login, cloud storage, and backend services are outside the current MVP scope.
 
@@ -70,13 +70,13 @@ The Week 2 and Week 3 storage fixtures are standalone browser pages. They check 
 
 ## Architecture
 
-The current target is a React + Vite frontend that stores MVP data in the browser. The planned data includes subjects, study tasks, completion state, and quiz results. The repository contains design and data-model notes, but no application components or running service on `main` yet.
+The team's selected target remains a React + Vite frontend that stores MVP data in the browser. The repository also includes a runnable plain HTML/CSS/JavaScript prototype in `Frontend/`, with wireframes in `Frontend/wireframes/`. This prototype is not the React + Vite implementation, and there is no backend service.
 
 For the proposed screen flow and state model, see the [Week 3 report](docs/week3/week-03.md), [architecture sketch](docs/week3/architecture-sketch.md), and [wireframe notes](docs/week3/wireframe-notes.md).
 
 ## Run the Project
 
-There is no application source or verified local run command on `main` yet. Setup instructions will be added after the scaffold is committed and the team verifies that another member can run it. The standalone storage fixtures are documentation evidence, not a runnable version of the application.
+Open [`Frontend/index.html`](Frontend/index.html) in a web browser to run the prototype; no build step is required. The wireframe index is [`Frontend/wireframes/index.html`](Frontend/wireframes/index.html). The prototype stores data in the browser's `localStorage`. The separate storage fixtures are documentation evidence, and the documented app-level persistence test remains to be run.
 
 ## Documentation
 
@@ -102,9 +102,9 @@ There is no application source or verified local run command on `main` yet. Setu
 
 ## Current Limitations
 
-- The `main` branch has no application source code, so the product cannot be run from this branch yet.
+- The current frontend is a plain HTML/CSS/JavaScript prototype, not the selected React + Vite implementation.
 - Instructor approval for the selected React + Vite + `localStorage` stack is still tracked as a blocker.
-- The app-level persistence test, React screen screenshots, and demo evidence are pending the implementation.
+- The app-level persistence test and React screen screenshots are pending the React implementation.
 - Week 5 API, authentication, and database notes need to stay clearly separated from the currently selected no-backend MVP unless a decision changes.
 
 ---
