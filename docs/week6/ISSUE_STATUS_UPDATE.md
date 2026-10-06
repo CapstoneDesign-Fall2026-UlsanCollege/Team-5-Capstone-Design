@@ -65,4 +65,4 @@ Next review date:
 - Do not mark Issue #17 complete until the teammate test has an actual result and proof link.
 - If the test fails, record the first failing step and keep the issue open.
 - If a screenshot or video includes personal data, replace it with synthetic test data before linking it.
-- Link this Week 6 package from the issue update so the professor can find the evidence trail.
+- Link this Week 6 package from the issue update so the evidence trail is easy to review.
