@@ -5,7 +5,7 @@
 **Role focus:** Evidence Owner  
 **Status:** Evidence package prepared; visible-slice proof is pending the team's runnable app and teammate test.
 
-## Professor requirement
+## Week 6 evidence target
 
 Week 6 asks the team to prove one visible part of the project works. The proof must be linked in GitHub with a repeatable test, actual result, tested-by note, issue status, and shared weekly report evidence.
 
