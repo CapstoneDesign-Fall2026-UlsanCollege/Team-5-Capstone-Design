@@ -62,7 +62,7 @@ The API design document defines the MVP endpoints for:
 
 The design remains intentionally simple and REST-oriented. It keeps the data model clean, supports future growth, and matches the project scope without adding server-side authentication or a complex backend layer.
 
-### 3. Database design
+### 3. Database design (Local Storage)
 The database design document defines a relational model centered on:
 
 - User (future-oriented)
