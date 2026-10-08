@@ -17,6 +17,7 @@ This folder is the project documentation hub. It keeps weekly records, testing e
 | [Demo guide](demo/README.md) | Midterm and final demo evidence planning |
 | [Decision log](decisions/README.md) | Stack, scope, API, auth, and database decisions |
 | [Handoff guide](handoff/README.md) | Setup notes and maintainer guidance |
+| [Final docs audit](DOCS_AUDIT.md) | Final link and wording review |
 
 ## Weekly Records
 
