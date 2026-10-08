@@ -1,22 +1,30 @@
-# Week 4 docs
+# Week 4 Documentation Index
 
-**Team:** DJ Barut
-**Project:** Smart Study Companion
-**Week:** 4 — Chuseok Checkpoint
+**Team:** Team 5  
+**Focus:** Checkpoint, selected stack, known limits, and persistence-test status
 
-This folder collects the Week 4 materials in the project docs area. Week 4 replaces the standard Weekly Report with the required, ungraded Chuseok Checkpoint.
+[Project README](../../README.md) · [Docs hub](../README.md)
 
-## Checkpoint
+## Week 4 Summary
 
-- [Week 4 Chuseok Checkpoint](chuseok-checkpoint.md) — confirmed stack, project direction, planned screens, midterm demo sentence, and Week 5 tracks
+Week 4 records the checkpoint status and the selected direction for the MVP. It also keeps the persistence-test boundary clear: fixture evidence exists, while full app-level evidence needed a runnable app or prototype.
 
-## Tests and evidence
+## Checkpoint Documents
 
-- [localStorage persistence test status — Adronnie](adronnie-localstorage-test-status.md) — blocked, waiting on the React app
-- [localStorage persistence test report](test-reports/localStorage-persistence-test.md) — full test cases, currently blocked
-- [Subject/task persistence fixture](../week2/storage-check-subject-task.html) — runnable browser fixture used before the app existed
-- [Week 03 contributor update](../week3/week-03.md) — first visible screen and state/flow definition
+| Document | Purpose | Status |
+|---|---|---|
+| [Week 4 checkpoint](chuseok-checkpoint.md) | Stack, direction, planned screens, demo sentence, and Week 5 tracks | Recorded |
+| [Week 04 contributor update](week-04.md) | Contributor status and consistency notes | Recorded |
 
-## State of the project
+## Tests And Evidence
 
-The stack is confirmed (React + Vite + `localStorage`, no backend). The application has not been scaffolded yet, so no in-app test result exists. Evidence claims in this folder reflect that.
+| Evidence | Link | Status |
+|---|---|---|
+| localStorage persistence status | [adronnie-localstorage-test-status.md](adronnie-localstorage-test-status.md) | Recorded |
+| localStorage persistence report | [test-reports/localStorage-persistence-test.md](test-reports/localStorage-persistence-test.md) | Recorded |
+| Subject/task fixture | [../week2/storage-check-subject-task.html](../week2/storage-check-subject-task.html) | Recorded |
+| Week 3 user-flow evidence | [../week3/week-03.md](../week3/week-03.md) | Recorded |
+
+## Current Reading
+
+The selected direction is React + Vite with browser `localStorage`, no backend for the MVP. The repository now also contains a plain HTML/CSS/JavaScript prototype in `Frontend/`, so older blocked language should be read in its original week context.
