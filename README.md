@@ -51,38 +51,43 @@ AI question generation, reminders, login, backend services, cloud sync, and user
 
 Week 6 should stay marked as pending until the team records who tested the feature, what they expected, what actually happened, and a proof link such as a screenshot, demo, PR, or commit.
 
-## Run the Project
+## Run the Prototype
 
-Open [`Frontend/index.html`](Frontend/index.html) in a web browser to run the prototype; no build step is required. The wireframe index is [`Frontend/wireframes/index.html`](Frontend/wireframes/index.html). The prototype stores data in the browser's `localStorage`. The separate storage fixtures are documentation evidence, and the documented app-level persistence test remains to be run.
+Open [`Frontend/index.html`](Frontend/index.html) in a browser. No build step is required.
+
+The prototype stores study data in browser `localStorage`. To reset the demo state, clear the browser storage for the page or use a fresh browser profile.
 
 ## Documentation
 
-| Start here | Purpose |
+| Area | Purpose |
 |---|---|
-| [Documentation index](docs/README.md) | Navigate all project and course records |
-| [Week 1](docs/week1/README.md) | Launch report, project ideas, and team agreement |
-| [Week 2](docs/week2/README.md) | Scope, design, research receipts, and storage fixture |
-| [Week 3](docs/week3/README.md) | Stack comparison, wireframes, architecture, and candidate slice |
-| [Week 4](docs/week4/README.md) | Chuseok checkpoint and current stack decision |
-| [Week 5](docs/week5/WEEK_5_WORKLIST.md) | Vertical-slice worklist and implementation ownership |
-| [Test plan and status](docs/week5/week-05-prabin-rai.md) | Subject/task refresh test steps, expected results, and current status |
+| [Documentation hub](docs/README.md) | Main navigation for all project records |
+| [Project status](docs/PROJECT_STATUS.md) | Ready, pending, blocked, and out-of-scope items |
+| [Docs roadmap](docs/DOCS_ROADMAP.md) | Week 1-16 documentation plan |
+| [Contribution ledger](docs/CONTRIBUTION_LEDGER.md) | Member contribution rows and evidence links |
+| [Testing docs](docs/tests/README.md) | Manual testing strategy and evidence links |
+| [Demo guide](docs/demo/README.md) | Midterm and final demo evidence checklist |
+| [Decision log](docs/decisions/README.md) | Stack, auth, API, database, and scope decisions |
+| [Handoff guide](docs/handoff/README.md) | Setup notes, known limits, and maintainer guidance |
 
 ## Team
 
-| Team member |
-|---|
-| Nabin Khadka |
-| Sumit Adhikari |
-| Prince Karki |
-| Prabin Rai |
-| J.N. Taj Oli |
+| Member | Current documented focus |
+|---|---|
+| Nabin Khadka | Project direction, setup coordination, and launch evidence |
+| Sumit Adhikari | Frontend flow, visual structure, and prototype support |
+| Prince Karki | Research, storage notes, and technical documentation support |
+| Prabin Rai | Evidence organization, testing notes, and documentation polish |
+| J.N. Taj Oli | Team documentation support and weekly evidence review |
+
+Contribution rows should be updated when a member adds a commit, PR, issue update, screenshot, demo, or tested-by note.
 
 ## Current Limitations
 
-- The current frontend is a plain HTML/CSS/JavaScript prototype, not the selected React + Vite implementation.
-- Instructor approval for the selected React + Vite + `localStorage` stack is still tracked as a blocker.
-- The app-level persistence test and React screen screenshots are pending the React implementation.
-- Week 5 API, authentication, and database notes need to stay clearly separated from the currently selected no-backend MVP unless a decision changes.
+- The current runnable prototype is plain HTML/CSS/JavaScript, not a React + Vite implementation.
+- The Week 6 independent tested-by result is prepared but not filled in.
+- Screenshot or video proof should be linked only after it exists.
+- Week 5 API, authentication, and database notes are planning references, not proof that backend features are implemented.
 
 ---
 
@@ -91,6 +96,7 @@ Open [`Frontend/index.html`](Frontend/index.html) in a web browser to run the pr
 **Capstone Design · Fall 2026 · Ulsan College · Team 5**
 
 [Documentation](docs/README.md) ·
-[Week 5 Worklist](docs/week5/WEEK_5_WORKLIST.md)
+[Prototype](Frontend/index.html) ·
+[Week 6 Evidence](docs/Week6/README.md)
 
 </div>
