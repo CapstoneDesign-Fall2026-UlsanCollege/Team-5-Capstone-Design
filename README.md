@@ -7,43 +7,36 @@
 [![Capstone](https://img.shields.io/badge/Capstone-Fall%202026-2563EB)](docs/README.md)
 [![Prototype](https://img.shields.io/badge/Prototype-Frontend%20Available-16A34A)](Frontend/index.html)
 [![Docs](https://img.shields.io/badge/Docs-Week%206%20Ready-9333EA)](docs/README.md)
+[![Storage](https://img.shields.io/badge/Storage-localStorage-0F766E)](docs/tests/README.md)
 
 [Open Prototype](Frontend/index.html) ·
 [Wireframes](Frontend/wireframes/index.html) ·
 [Documentation](docs/README.md) ·
-[Team](#team)
+[Project Status](docs/PROJECT_STATUS.md) ·
+[Week 6 Evidence](docs/Week6/README.md)
 
 </div>
 
 ---
+
 ## Overview
 
-Smart Study Companion is a Capstone Design project for college students who want one simple place to organize coursework and prepare for quizzes. The planned MVP brings subjects, study tasks, deadlines, task completion, and multiple-choice quiz scores into one study flow.
+Smart Study Companion is Team 5's Fall 2026 capstone project. The product goal is simple: help a student choose a subject, plan study tasks, track completion, and practice with a short quiz in one visible flow.
 
-The project is being developed by Team 5 at Ulsan College for Fall 2026. This repository contains project documentation, a browser-based frontend prototype, and its wireframes.
+This repository currently contains documentation, wireframes, and a runnable browser prototype. The prototype in `Frontend/` is plain HTML, CSS, and JavaScript. It is useful for demonstrating the study flow and `localStorage` behavior, while the selected long-term frontend direction remains React + Vite unless the team records a new decision.
 
-> **Current status:** The team has selected React + Vite with browser `localStorage` for the MVP. Instructor approval is still recorded as a blocker. The frontend currently in `Frontend/` is a plain HTML/CSS/JavaScript prototype, not a React + Vite app. The app-level persistence test has not been run.
+## MVP Experience
 
-## Planned MVP Experience
-
-The intended student flow is:
-
-1. Create or select a subject.
-2. Add study tasks and deadlines.
-3. Review the study plan.
-4. Mark a task complete.
-5. Take a multiple-choice quiz.
-6. View the calculated score.
-
-| Capability | Planned behavior | Current evidence |
+| Step | Student action | Current repository evidence |
 |---|---|---|
-| Subjects | Create and select a course subject | Available in the browser prototype under `Frontend/` |
-| Study tasks | Add a task with a deadline under a subject | Available in the browser prototype under `Frontend/` |
-| Study plan | Review tasks and completion state | Available in the browser prototype; wireframes are in `Frontend/wireframes/` |
-| Quiz | Answer multiple-choice questions and view a score | Available in the browser prototype; app-level validation is pending |
-| Persistence | Keep subject and task state after refresh | Prototype uses browser `localStorage`; the documented app-level test has not been run |
+| 1 | Create or select a subject | Available in [`Frontend/index.html`](Frontend/index.html) |
+| 2 | Add a study task and deadline | Available in [`Frontend/index.html`](Frontend/index.html) |
+| 3 | Review the study plan | Available in the prototype and [wireframes](Frontend/wireframes/index.html) |
+| 4 | Mark work complete | Available in the prototype |
+| 5 | Take a quiz | Available in the prototype |
+| 6 | View score feedback | Available in the prototype |
 
-AI question generation, reminders, login, cloud storage, and backend services are outside the current MVP scope.
+AI question generation, reminders, login, backend services, cloud sync, and user accounts are outside the current MVP scope.
 
 ## Technology Direction
 
