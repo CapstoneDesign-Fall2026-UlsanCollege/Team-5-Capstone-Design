@@ -2,19 +2,20 @@
 
 # Smart Study Companion
 
-### A college study planner and quiz project for organizing subjects, study tasks, and deadlines.
+### A browser-based study planner prototype for subjects, tasks, deadlines, completion tracking, and quiz practice.
 
-[![Capstone Project](https://img.shields.io/badge/Capstone-Fall%202026-2563EB)](docs/README.md)
-[![Project Stage](https://img.shields.io/badge/Stage-Planning%20%2F%20Early%20Slice-D97706)](docs/week5/WEEK_5_WORKLIST.md)
+[![Capstone](https://img.shields.io/badge/Capstone-Fall%202026-2563EB)](docs/README.md)
+[![Prototype](https://img.shields.io/badge/Prototype-Frontend%20Available-16A34A)](Frontend/index.html)
+[![Docs](https://img.shields.io/badge/Docs-Week%206%20Ready-9333EA)](docs/README.md)
 
+[Open Prototype](Frontend/index.html) ·
+[Wireframes](Frontend/wireframes/index.html) ·
 [Documentation](docs/README.md) ·
-[Week 5 Worklist](docs/week5/WEEK_5_WORKLIST.md) ·
 [Team](#team)
 
 </div>
 
 ---
-
 ## Overview
 
 Smart Study Companion is a Capstone Design project for college students who want one simple place to organize coursework and prepare for quizzes. The planned MVP brings subjects, study tasks, deadlines, task completion, and multiple-choice quiz scores into one study flow.
