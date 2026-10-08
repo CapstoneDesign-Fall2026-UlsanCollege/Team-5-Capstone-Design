@@ -38,35 +38,18 @@ This repository currently contains documentation, wireframes, and a runnable bro
 
 AI question generation, reminders, login, backend services, cloud sync, and user accounts are outside the current MVP scope.
 
-## Technology Direction
+## Current Evidence Dashboard
 
-| Area | Team decision | Status |
-|---|---|---|
-| Frontend | React + Vite | Selected by the team; instructor approval pending |
-| MVP storage | Browser `localStorage` | Selected by the team; instructor approval pending |
-| Backend and external services | None for the MVP | Explicitly out of scope in the Week 4 checkpoint |
+| Week | Focus | Evidence status | Link |
+|---|---|---|---|
+| Week 1 | Project launch and team agreement | Recorded | [Week 1 docs](docs/week1/README.md) |
+| Week 2 | Scope, user flow, and storage fixture | Recorded | [Week 2 docs](docs/week2/README.md) |
+| Week 3 | Candidate vertical slice and wireframes | Recorded | [Week 3 docs](docs/week3/README.md) |
+| Week 4 | Checkpoint and stack decision | Recorded | [Week 4 docs](docs/week4/README.md) |
+| Week 5 | Vertical-slice worklist and manual test plan | Recorded, app-level result pending | [Week 5 docs](docs/week5/README.md) |
+| Week 6 | Independent tested-by evidence package | Prepared, real result pending | [Week 6 docs](docs/Week6/README.md) |
 
-The Week 5 API, authentication, and database notes should be read as proposals unless the team records an approved change to the MVP decision. See the [Week 4 checkpoint](docs/week4/chuseok-checkpoint.md) for the current decision and blocker.
-
-## Progress and Evidence
-
-| Milestone | Work recorded so far | Evidence |
-|---|---|---|
-| Week 1 — project launch | Project direction, five candidate ideas, and team working agreement | [Week 1 documentation](docs/week1/README.md) |
-| Week 2 — scope and research | Design Doc v1, user-flow sketch, investigation receipts, and a standalone storage check | [Week 2 documentation](docs/week2/README.md) |
-| Week 3 — first user flow | Subject Detail / Study Plan screen, state transitions, wireframes, architecture notes, and state/flow test evidence | [Week 3 report](docs/week3/week-03.md) |
-| Week 4 — checkpoint | Team stack decision and the app-setup dependency for real persistence testing | [Week 4 checkpoint](docs/week4/chuseok-checkpoint.md) |
-| Week 5 — vertical slice | Subject/task slice, implementation worklist, and a repeatable persistence test procedure | [Week 5 worklist](docs/week5/WEEK_5_WORKLIST.md) · [Persistence test procedure](docs/week5/week-05-prabin-rai.md) |
-
-### Evidence Boundaries
-
-The Week 2 and Week 3 storage fixtures are standalone browser pages. They check the planned sample data across a page refresh, but **they do not demonstrate persistence in a React application**. The application-level test remains **Not run** until the app is available. See the [test procedure and status](docs/week5/week-05-prabin-rai.md).
-
-## Architecture
-
-The team's selected target remains a React + Vite frontend that stores MVP data in the browser. The repository also includes a runnable plain HTML/CSS/JavaScript prototype in `Frontend/`, with wireframes in `Frontend/wireframes/`. This prototype is not the React + Vite implementation, and there is no backend service.
-
-For the proposed screen flow and state model, see the [Week 3 report](docs/week3/week-03.md), [architecture sketch](docs/week3/architecture-sketch.md), and [wireframe notes](docs/week3/wireframe-notes.md).
+Week 6 should stay marked as pending until the team records who tested the feature, what they expected, what actually happened, and a proof link such as a screenshot, demo, PR, or commit.
 
 ## Run the Project
 
