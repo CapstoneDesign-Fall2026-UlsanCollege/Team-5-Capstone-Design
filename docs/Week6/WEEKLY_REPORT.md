@@ -3,7 +3,7 @@
 **Team:** Team 5 (Smart Study Companion)  
 **Week:** 6  
 **Date:** Thu 2026-10-08 to Wed 2026-10-14  
-**Report Status:** In Progress
+**Report Status:** In Progress 
 
 ---
 
