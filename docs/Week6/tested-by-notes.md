@@ -16,6 +16,23 @@
 | Demo 4 | Quiz flow | Subject-based quiz logic and result flow are visible and usable. | Pass / observed |
 | Demo 5 | Persistence and final proof | Refresh/check behavior should be confirmed to ensure data persists after reload. | In progress |
 
+## Demo images
+
+### Demo 1
+![Demo 1](https://raw.githubusercontent.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/main/docs/Week6/Demo%201.png)
+
+### Demo 2
+![Demo 2](https://raw.githubusercontent.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/main/docs/Week6/Demo2.png)
+
+### Demo 3
+![Demo 3](https://raw.githubusercontent.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/main/docs/Week6/Demo%203.png)
+
+### Demo 4
+![Demo 4](https://raw.githubusercontent.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/main/docs/Week6/Demo%204.png)
+
+### Demo 5
+![Demo 5](https://raw.githubusercontent.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/main/docs/Week6/Demo%205.png)
+
 ## Check steps
 
 1. Open the app and review the main study-planner screen.
