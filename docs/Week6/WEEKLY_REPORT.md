@@ -104,7 +104,7 @@ If a core item is incomplete, record the owner, reason, and next action below:
 
 | Item | Owner | Reason | Next action | Review point |
 |---|---|---|---|---|
-| *(To be filled in if applicable)* | | | | |
+| Theme color, Database  |Nabin Khadka , Adhikari Ronnie |Building in progress |Group Building  | Prabin Rai, Adhikari Ronnie will test |
 
 ---
 
