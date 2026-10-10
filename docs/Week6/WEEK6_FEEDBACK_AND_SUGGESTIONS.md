@@ -3,8 +3,7 @@
 
 **Report Date:** 2026-10-10  
 **Reporting Period:** Week 6 (2026-10-08 to 2026-10-14)  
-**Report Status:** Completed  
-**Prepared by:** Copilot Analysis  
+**Prepared by:** Karki Prince  
 
 ---
 
@@ -16,7 +15,7 @@ This feedback report provides constructive suggestions based on the Week 6 weekl
 
 ## 1. Strengths Demonstrated
 
-### 1.1 Successful End-to-End Validation ✓
+### 1.1 Successful End-to-End Validation 
 - **What's Working:** The team completed a real, structured end-to-end test with a teammate who was not part of the implementation.
 - **Evidence:** Five demo screenshots (Demo 1–5) show progression through the student workflow.
 - **Impact:** This demonstrates genuine testing rigor and provides confidence that the core user path functions.
@@ -317,7 +316,7 @@ Several placeholders and incomplete sections in the reports:
 
 ## 3. Feedback on Testing Process
 
-### 3.1 Testing Rigor — Positive ✓
+### 3.1 Testing Rigor — Positive 
 The team followed a structured testing approach:
 1. Clear test steps defined upfront
 2. Expected result stated before execution
@@ -389,7 +388,7 @@ These tests are not required for Week 6, but they'll make the midterm demo more 
 
 | Field | Value |
 |---|---|
-| Report Author | Copilot Analysis (princekark) |
+| Report Author | Karki Prince  |
 | Report Date | 2026-10-10 |
 | Feedback Period | Week 6 (2026-10-08 to 2026-10-14) |
 | Source Files | WEEKLY_REPORT.md, SPRINT_2_FORMAL_REPORT.md, SPRINT_2_WEEK_6.md, WEEK6_WORKLIST.md |
