@@ -3,7 +3,7 @@
 
 Report Date: 2026-10-10
 Reporting Period: Week 6 (2026-10-08 to 2026-10-14)
-Prepared by: Karki Prince
+
 
 ---
 
@@ -182,11 +182,11 @@ These checks are optional, but they will make the final demonstration more credi
 |---|---|---|
 | Audit UI/theme colors across all screens | Sumit Adhikari | 2026-10-11 |
 | Fix CSS theme system | Sumit Adhikari | 2026-10-12 |
-| Complete Tested-By Note | Prince Karki | 2026-10-11 |
+| Complete Tested-By Note | Nabin Khadka | 2026-10-11 |
 | Add individual contribution rows | All team members | 2026-10-14 |
 | Write the demo script | J.N. Taj Oli | 2026-10-11 |
-| Rehearse the full demo | Full team | 2026-10-13 |
-| Clarify database scope | Sumit Adhikari or Nabin Khadka | 2026-10-11 |
+| Rehearse the full demo | Nabin Khadka | 2026-10-13 |
+| Clarify database scope | Sumit Adhikari | 2026-10-11 |
 | Complete report sections | J.N. Taj Oli | 2026-10-14 |
 
 ---
@@ -203,13 +203,16 @@ Encouragement: Functional, polished, and rehearsed is the strongest combination 
 
 ## Report Metadata
 
-Report Author: Karki Prince
-Report Date: 2026-10-10
-Feedback Period: Week 6 (2026-10-08 to 2026-10-14)
-Source Files: WEEKLY_REPORT.md, SPRINT_2_FORMAL_REPORT.md, SPRINT_2_WEEK_6.md, WEEK6_WORKLIST.md
-Next Review: End of Week 7 (2026-10-17)
-Distributor: Nabin Khadka (Project Coordinator)
+**Report Date:** 2026-10-10
+
+**Feedback Period:** Week 6 (2026-10-08 to 2026-10-14)
+
+**Source Files:** WEEKLY_REPORT.md, SPRINT_2_FORMAL_REPORT.md, SPRINT_2_WEEK_6.md, WEEK6_WORKLIST.md
+
+**Next Review:** End of Week 7 (2026-10-17)
+
+**Distributor:** Nabin Khadka (Project Coordinator)
 
 ---
 
-End of Report
+## Report Owner : Karki Prince 
