@@ -19,7 +19,7 @@ From the repository contents, the app already includes a working browser prototy
 - Data persists locally with browser localStorage
 - Theme and layout support are present
 
-The relevant implementation files are:
+The relevant implementation files are:(old Code , New files will be added soon )
 
 - [Frontend/index.html](../../Frontend/index.html)
 - [Frontend/app.js](../../Frontend/app.js)
@@ -32,7 +32,7 @@ Week 6 is not a full feature build week. It is a validation and evidence week fo
 
 The objective is to answer this question honestly:
 
-> Can a teammate who did not build this flow complete the current study-planning and quiz user path without coaching, and what evidence proves it?
+ Can a teammate who did not build this flow complete the current study-planning and quiz user path without coaching, and what evidence proves it?
 
 ## 3. User flow to test
 
