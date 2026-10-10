@@ -55,12 +55,12 @@ Week 6 focuses on **testing the Week 5 vertical slice** by running a real end-to
 **Expected result:**  
 The user can complete the entire study flow from subject selection → task → study plan → completion → subject-based quiz → score without errors.
 
-**Actual result:**  
-<img width="1911" height="897" alt="Demo 1" src="https://github.com/user-attachments/assets/2b2aac5b-cdad-4e6d-a9db-c2eada98b2f9" />
+**Actual result:**  (Main Page)
+https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/6c992289e488531853e851c1b7cca5b3da254f84/docs/Week6/Demo%201.png****
 
 
 **Proof link / screenshot:**  
-https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/Week6/Demo%201.png?raw=true
+https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/6c992289e488531853e851c1b7cca5b3da254f84/docs/Week6/Demo%201.png
 
 **Problems found:** (In theme color) 
 https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/a6d335fc3e1472d3a2efcfab8ff4288248137102/docs/Week6/Demo2.png
