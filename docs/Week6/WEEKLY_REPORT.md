@@ -60,7 +60,7 @@ The user can complete the entire study flow from subject selection → task → 
 
 
 **Proof link / screenshot:**  
-*(To be filled in after test execution)*
+https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/Week6/Demo%201.png?raw=true
 
 **Problems found:**  
 *(To be updated)*
