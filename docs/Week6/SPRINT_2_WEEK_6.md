@@ -62,7 +62,7 @@ This path matches the existing app logic and the project’s current MVP scope.
 
 | Team member | Likely Week 6 role |
 |---|---|
-| Nabin Khadka | Coordination, issue tracking, proof collection |
+| Nabin Khadka | Coordination,Building,issue tracking, proof collection |
 | Sumit Adhikari | Frontend validation and UI-flow review |
 | Prince Karki | Test execution and bug observation |
 | Prabin Rai | Evidence note and validation support |
