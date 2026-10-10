@@ -1,4 +1,4 @@
-# Week 6 Evidence Package
+# Week 6 Evidence Package 
 
 Week 6 is focused on proving one small visible behavior with clear evidence. This folder keeps the tested-by note and related proof checklist together.
 
