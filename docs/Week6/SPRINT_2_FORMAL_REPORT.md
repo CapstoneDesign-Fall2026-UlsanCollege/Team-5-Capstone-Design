@@ -148,9 +148,7 @@ Overall, the sprint was successful and provides a strong base for future improve
 
 ---
 
-Prepared by:  
-Team 5  
-Capstone Design Project  
-Ulsan College
+Document Owner:  Adhikari Ronnie
+
 
 Document Status: Completed
