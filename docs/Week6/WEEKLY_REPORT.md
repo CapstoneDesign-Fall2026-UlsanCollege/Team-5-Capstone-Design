@@ -90,11 +90,11 @@ https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/b
 
 | Student | What they did | Evidence link |
 |---|---|---|
-| liftupkhadka555-spec | *(To be filled in)* | *(To be linked)* |
-| adronnie | *(To be filled in)* | *(To be linked)* |
-| princekark | *(To be filled in)* | *(To be linked)* |
-| RaiPrabin697 | *(To be filled in)* | *(To be linked)* |
-| jn-oli | *(To be filled in)* | *(To be linked)* |
+| liftupkhadka555-spec | Project Instructor |  In progress  |
+| adronnie | Database Handler |  In progress  |
+| princekark | Tester |  In progress |
+| RaiPrabin697 | Tester |  In progress |
+| jn-oli | Documenter | In progress  |
 
 ---
 
@@ -160,5 +160,4 @@ If core work is complete, consider these extensions to strengthen testing and mi
 3. **By Wednesday:** Update the Evidence links section with final PRs, screenshots, and any blockers.
 4. **Final check:** Verify that all team members are represented and all links are active.
 
-**Report owner:** J.N. Taj Oli (Evidence / documentation lead)  
-**Last updated:** *(To be updated as work progresses)*
+**Report owner:** Nabin Khadka , Co-Ordinator (Taj JN oli)
