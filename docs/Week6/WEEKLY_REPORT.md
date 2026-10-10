@@ -62,8 +62,8 @@ The user can complete the entire study flow from subject selection → task → 
 **Proof link / screenshot:**  
 https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/Week6/Demo%201.png?raw=true
 
-**Problems found:**  
-*(To be updated)*
+**Problems found:** (In theme color) 
+https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/a6d335fc3e1472d3a2efcfab8ff4288248137102/docs/Week6/Demo2.png
 
 **Next action:**  
 *(To be updated)*
