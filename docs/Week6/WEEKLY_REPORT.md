@@ -56,7 +56,8 @@ Week 6 focuses on **testing the Week 5 vertical slice** by running a real end-to
 The user can complete the entire study flow from subject selection → task → study plan → completion → subject-based quiz → score without errors.
 
 **Actual result:**  
-*(To be filled in after test execution)*
+<img width="1911" height="897" alt="Demo 1" src="https://github.com/user-attachments/assets/2b2aac5b-cdad-4e6d-a9db-c2eada98b2f9" />
+
 
 **Proof link / screenshot:**  
 *(To be filled in after test execution)*
