@@ -3,7 +3,7 @@
 **Date:** Thu 2026-10-08 to Wed 2026-10-14<br>
 **Team:** 4
 
-> Show one visible behavior, ask a teammate who did not build it to test the behavior, and record what actually happened. Keep an unfinished behavior marked incomplete; a failed test is useful evidence for the next Issue.
+ Show one visible behavior, ask a teammate who did not build it to test the behavior, and record what actually happened. Keep an unfinished behavior marked incomplete; a failed test is useful evidence for the next Issue.
 
 ## Core work — complete all
 
