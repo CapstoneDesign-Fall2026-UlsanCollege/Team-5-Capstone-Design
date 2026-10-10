@@ -66,7 +66,7 @@ https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/b
 https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/a6d335fc3e1472d3a2efcfab8ff4288248137102/docs/Week6/Demo2.png
 
 **Next action:**  
-*(To be updated)*
+Soon to be updated- By Nabin Khadka 
 
 ---
 
