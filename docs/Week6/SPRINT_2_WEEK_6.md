@@ -102,7 +102,7 @@ These files should be updated based on the actual results of the Week 6 test.
 
 ## 9. Sprint 2 connection
 
-This Week 6 plan supports the broader Sprint 2 goal described in [docs/Week7/README.md](../Week7/README.md):
+This Week 6 plan supports the broader Sprint 2 goal described in the [midterm demo path](./MIDTERM_DEMO_PATH.md):
 
 - improve prototype reliability,
 - strengthen the demo path,
