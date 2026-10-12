@@ -98,7 +98,7 @@ for now assign the UI owner, and repeat the same demo path after the visual fix.
 | adronnie | Technical support and database/backend scope discussion | [Week 6 feedback](WEEK6_FEEDBACK_AND_SUGGESTIONS.md) |
 | princekark | Tester role and feedback/report ownership | [Week 6 feedback](WEEK6_FEEDBACK_AND_SUGGESTIONS.md) |
 | RaiPrabin697 | Tester/evidence support and documentation consistency review | [Week 6 tested-by note](tested-by-notes.md) |
-| jn-oli |Reviewed and updated the Week 6 weekly report, checked documentation and evidence links, and recorded missing evidence or Issue-status mismatches. |  |
+| jn-oli |Reviewed and updated the Week 6 Weekly Report, checked the evidence links, documented the theme inconsistency found during demo review, and identified missing tester confirmation and Issue-status updates. Prepared the next actions for fixing the theme issue and repeating the end-to-end test.| [blocker-issue](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/25), [weekly-report](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/b475dfc5fd1b0a4af554030672bc8db6ad165a39/docs/Week6/WEEKLY_REPORT.md), [issue23](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/23) |
 
 ---
 
