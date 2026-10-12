@@ -43,7 +43,7 @@ Week 6 focuses on **testing the Week 5 vertical slice** by running a real end-to
 
 ### End-to-End Student User Path Test
 
-**Related Issue:** [Issue #23 — Complete End-to-End Student User Path Test Validation](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/23)
+**Implemented Issue:** [Issue #23 — Complete End-to-End Student User Path Test Validation](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/23)
 
 **Test steps** (from Tested-By Note):
 
@@ -71,7 +71,7 @@ The prototype opens and the end-to-end student path is visible. Screenshots show
 Theme/color inconsistency is visible [Issue 25](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/25).
 
 **Next action:**  
-for now assign the UI owner, and repeat the same demo path after the visual fix.
+Identified a visual/theme inconsistency in Smart Study Companion. We need to fix the styling and repeat the same demo path to verify that the application still works correctly after the changes.
 
 ---
 
@@ -79,14 +79,14 @@ for now assign the UI owner, and repeat the same demo path after the visual fix.
 
 | Evidence type | Link | Status |
 |---|---|---|
-| **Tested-By Note** | [docs/Week6/tested-by-notes.md](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/Week6/tested-by-notes.md) | Evidence linked; exact tester confirmation still needed |
+| **Tested-By Note** | [docs/Week6/tested-by-notes.md](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/2f12cab1b69a9e96c1c65f776e9df758f9bb5285/docs/Week6/tested-by-notes.md) | Done |
 | **Implementation Issue** | [Issue #23 — Bug: Complete End-to-End Student User Path Test Validation](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/23) | Open |
 | **Related Feature Issue** | [Issue #25 ](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/25) | Open |
 | **Week 5 worklist** | [docs/week5/WEEK_5_WORKLIST.md](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week5/WEEK_5_WORKLIST.md) | Recorded |
 | **Week 6 worklist** | [docs/Week6/WEEK6_WORKLIST.md](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/Week6/WEEK6_WORKLIST.md) | Updated by this report |
-| **Commit or PR** | This PR: docs evidence and midterm readiness update | In review |
+| **Commit or PR** | [Commit-Links](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/commits/main/) | Linked |
 | **Screenshot/Demo/Video** | Demo 1-5 screenshots linked above | Recorded |
-| **Bug or blocker Issue** | Theme/color issue should be tracked from Demo 2 | Needs issue/status update |
+| **Bug or blocker Issue** | [Issue](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/25) | updated |
 
 ---
 
