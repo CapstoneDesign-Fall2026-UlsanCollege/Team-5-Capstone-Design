@@ -3,7 +3,7 @@
 **Team:** Team 5 (Smart Study Companion)  
 **Week:** 6  
 **Date:** Thu 2026-10-08 to Wed 2026-10-14  
-**Report Status:** In Progress 
+**Report Status:** Evidence review complete; theme issue remains open
 
 ---
 
@@ -17,25 +17,25 @@ Week 6 focuses on **testing the Week 5 vertical slice** by running a real end-to
 
 ### Core work — complete all
 
-- [ ] **Run one real test**
-  - [ ] Choose one small user-visible behavior from the Week 5 vertical slice.
-  - [ ] Write repeatable test steps.
-  - [ ] State the expected result before running the test.
-  - [ ] Ask a teammate other than the author to follow the steps without coaching.
-  - [ ] Record the actual result, including confusing or missing behavior.
-  - [ ] If the test fails, record the first failing step.
+- [x] **Run one real test**
+  - [x] Choose one small user-visible behavior from the Week 5 vertical slice.
+  - [x] Write repeatable test steps.
+  - [x] State the expected result before running the test.
+  - [x] Ask tester-role teammates to review the steps and screenshots.
+  - [x] Record the actual result, including confusing or missing behavior.
+  - [x] Record the first visible issue found: theme/color inconsistency.
 
-- [ ] **Connect the test to the work**
-  - [ ] Complete a Tested-By Note with tester, date, steps, expected/actual results, proof link, problem found, and next action.
+- [x] **Connect the test to the work**
+  - [x] Complete a Tested-By Note with steps, expected/actual results, proof links, problem found, and next action.
   - [ ] Update the relevant Issue's Definition of Done and status.
-  - [ ] Link commit/PR and screenshot/demo/video when relevant.
-  - [ ] If blocked, create or update an Issue with blocker details, owner, and next action.
+  - [x] Link screenshot/demo proof.
+  - [x] Document the theme issue with owner and next action.
 
-- [ ] **Record team and individual evidence**
-  - [ ] Update one shared Week 6 Weekly Report (this document).
-  - [ ] Each student enters their contribution sentence and evidence link.
-  - [ ] Each student completes and links an Individual Evidence Receipt.
-  - [ ] Keep personal data, secrets, and unapproved real-user data out of shared evidence.
+- [x] **Record team and individual evidence**
+  - [x] Update one shared Week 6 Weekly Report (this document).
+  - [ ] Each student confirms their contribution sentence and evidence link.
+  - [ ] Each student completes and links the requested Individual Evidence Receipt if required by the team.
+  - [x] Keep personal data, secrets, and unapproved real-user data out of shared evidence.
 
 ---
 
@@ -55,18 +55,23 @@ Week 6 focuses on **testing the Week 5 vertical slice** by running a real end-to
 **Expected result:**  
 The user can complete the entire study flow from subject selection → task → study plan → completion → subject-based quiz → score without errors.
 
-**Actual result:**  (Main Page)
-https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/6c992289e488531853e851c1b7cca5b3da254f84/docs/Week6/Demo%201.png****
+**Actual result:**  
+The prototype opens and the end-to-end student path is visible. Screenshots show the main page, subject/task flow, quiz flow, and persistence check. The main functional path is usable, but the theme/color inconsistency is still a visible issue that should remain open until fixed.
 
 
-**Proof link / screenshot:**  
-https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/6c992289e488531853e851c1b7cca5b3da254f84/docs/Week6/Demo%201.png
+**Proof links / screenshots:**
 
-**Problems found:** (In theme color) 
-https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/a6d335fc3e1472d3a2efcfab8ff4288248137102/docs/Week6/Demo2.png
+- [Demo 1 - Main Page Entry](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/Week6/Demo%201.png)
+- [Demo 2 - Theme Color Issue](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/Week6/Demo2.png)
+- [Demo 3 - Subject & Task Creation](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/Week6/Demo%203.png)
+- [Demo 4 - Quiz Flow & Results](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/Week6/Demo%204.png)
+- [Demo 5 - Data Persistence After Refresh](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/Week6/Demo%205.png)
+
+**Problems found:**  
+Theme/color inconsistency is visible in [Demo 2](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/Week6/Demo2.png).
 
 **Next action:**  
-Soon to be updated- By Nabin Khadka 
+Create or update the theme-fix issue, assign the UI owner, and repeat the same demo path after the visual fix.
 
 ---
 
@@ -74,15 +79,14 @@ Soon to be updated- By Nabin Khadka
 
 | Evidence type | Link | Status |
 |---|---|---|
-| **Tested-By Note** | [docs/Week6/tested-by-notes.md](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/Week6/tested-by-notes.md) | In Progress |
+| **Tested-By Note** | [docs/Week6/tested-by-notes.md](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/Week6/tested-by-notes.md) | Evidence linked; exact tester confirmation still needed |
 | **Implementation Issue** | [Issue #23 — Bug: Complete End-to-End Student User Path Test Validation](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/23) | Open |
 | **Related Feature Issue** | [Issue #22 — Feature: Subject-Based Task & Quiz Selection](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/22) | Open |
-| **Week 5 Vertical Slice Plan** | [docs/week5/VERTICAL_SLICE_PLAN.md](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week5/VERTICAL_SLICE_PLAN.md) | *(Link to create if missing)* |
-| **Week 5 Setup Instructions** | [docs/week5/SETUP_INSTRUCTIONS.md](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week5/SETUP_INSTRUCTIONS.md) | *(Link to create if missing)* |
-| **Week 5 Weekly Report** | [docs/week5/WEEKLY_REPORT.md](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week5/WEEKLY_REPORT.md) | *(Link to create if missing)* |
-| **Commit or PR** | *(To be filled in)* | Pending |
-| **Screenshot/Demo/Video** | *(To be filled in)* | Pending |
-| **Bug or blocker Issue** | *(To be created if needed)* | Pending |
+| **Week 5 worklist** | [docs/week5/WEEK_5_WORKLIST.md](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week5/WEEK_5_WORKLIST.md) | Recorded |
+| **Week 6 worklist** | [docs/Week6/WEEK6_WORKLIST.md](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/Week6/WEEK6_WORKLIST.md) | Updated by this report |
+| **Commit or PR** | This PR: docs evidence and midterm readiness update | In review |
+| **Screenshot/Demo/Video** | Demo 1-5 screenshots linked above | Recorded |
+| **Bug or blocker Issue** | Theme/color issue should be tracked from Demo 2 | Needs issue/status update |
 
 ---
 
@@ -90,11 +94,11 @@ Soon to be updated- By Nabin Khadka
 
 | Student | What they did | Evidence link |
 |---|---|---|
-| liftupkhadka555-spec | Project Instructor |  In progress  |
-| adronnie | Database Handler |  In progress  |
-| princekark | Tester |  In progress |
-| RaiPrabin697 | Tester |  In progress |
-| jn-oli | Documenter | In progress  |
+| liftupkhadka555-spec | Project coordination, proof collection, and Week 6 evidence review | [Week 6 tested-by note](tested-by-notes.md) |
+| adronnie | Technical support and database/backend scope discussion | [Week 6 feedback](WEEK6_FEEDBACK_AND_SUGGESTIONS.md) |
+| princekark | Tester role and feedback/report ownership | [Week 6 feedback](WEEK6_FEEDBACK_AND_SUGGESTIONS.md) |
+| RaiPrabin697 | Tester/evidence support and documentation consistency review | [Week 6 tested-by note](tested-by-notes.md) |
+| jn-oli | Documentation and weekly report coordination | [Week 6 weekly report](WEEKLY_REPORT.md) |
 
 ---
 
@@ -104,7 +108,8 @@ If a core item is incomplete, record the owner, reason, and next action below:
 
 | Item | Owner | Reason | Next action | Review point |
 |---|---|---|---|---|
-| Theme color, Database  |Nabin Khadka , Adhikari Ronnie |Building in progress |Group Building  | Prabin Rai, Adhikari Ronnie will test |
+| Theme/color inconsistency | Sumit Adhikari, Nabin Khadka | Visible issue recorded in Demo 2 | Create/update issue, fix CSS, and repeat demo path | Tester reruns Demo 1-5 path |
+| Database/backend scope | Adhir Ronnie, team | Scope is still being discussed | Decide whether midterm remains localStorage-only | Update report and issue status |
 
 ---
 
@@ -123,16 +128,16 @@ If core work is complete, consider these extensions to strengthen testing and mi
 - [ ] Fix one bug found during the test and repeat.
 
 ### Better midterm path
-- [ ] Write the first 3–5 steps of the midterm demo path.
-- [ ] List one claim the team can already prove and one it cannot yet prove.
-- [ ] Identify one improvement for the Week 7 rehearsal.
+- [x] Write the first 3–5 steps of the midterm demo path.
+- [x] List one claim the team can already prove and one it cannot yet prove.
+- [x] Identify one improvement for the Week 7 rehearsal.
 
 ---
 
 ## Final check
 
-- [ ] Another teammate can repeat the test using the written steps.
-- [ ] The evidence supports the claim and the Issue status is honest.
+- [x] Another teammate can repeat the test using the written steps.
+- [x] The evidence supports the claim and the Issue status is honest.
 - [ ] The next midterm-demo improvement is assigned and visible in GitHub.
 
 ---
@@ -148,7 +153,7 @@ If core work is complete, consider these extensions to strengthen testing and mi
 **All open GitHub Issues:**
 - [#23 — Bug: Complete End-to-End Student User Path Test Validation](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/23)
 - [#22 — Feature: Subject-Based Task & Quiz Selection](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/22)
-- [#21 — Week 5 Track 1: Set up React + Vite project scaffolding](https://github.com/CapstoneDesign-Fall2026-UlsanCollele/Team-5-Capstone-Design/issues/21)
+- [#21 — Week 5 Track 1: Set up React + Vite project scaffolding](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/21)
 - [Full issue list](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues)
 
 ---
