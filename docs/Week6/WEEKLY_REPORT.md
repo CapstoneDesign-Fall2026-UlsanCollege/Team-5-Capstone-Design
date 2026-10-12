@@ -98,7 +98,7 @@ Create or update the theme-fix issue, assign the UI owner, and repeat the same d
 | adronnie | Technical support and database/backend scope discussion | [Week 6 feedback](WEEK6_FEEDBACK_AND_SUGGESTIONS.md) |
 | princekark | Tester role and feedback/report ownership | [Week 6 feedback](WEEK6_FEEDBACK_AND_SUGGESTIONS.md) |
 | RaiPrabin697 | Tester/evidence support and documentation consistency review | [Week 6 tested-by note](tested-by-notes.md) |
-| jn-oli | Documentation and weekly report coordination | [Week 6 weekly report](WEEKLY_REPORT.md) |
+| jn-oli |Reviewed and updated the Week 6 weekly report, checked documentation and evidence links, and recorded missing evidence or Issue-status mismatches. |  |
 
 ---
 
