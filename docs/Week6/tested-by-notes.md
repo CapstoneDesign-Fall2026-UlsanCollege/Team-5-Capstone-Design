@@ -3,7 +3,7 @@
 ## What we checked
 
 - **Behavior / related Issue:** End-to-End Student User Path test validation
-- **Tested by:** Prince Karki and Prabin Rai are recorded as tester roles in the Week 6 weekly report. Confirm the exact teammate who ran each screenshot step before final submission.
+- **Tested by:** RaiPrabin697 
 - **Date:** 2026-10-08
 
 ## Demo review summary
