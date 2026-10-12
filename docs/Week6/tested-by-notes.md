@@ -3,7 +3,7 @@
 ## What we checked
 
 - **Behavior / related Issue:** End-to-End Student User Path test validation
-- **Tested by:** Team member tester (not the author of the implementation)
+- **Tested by:** Prince Karki and Prabin Rai are recorded as tester roles in the Week 6 weekly report. Confirm the exact teammate who ran each screenshot step before final submission.
 - **Date:** 2026-10-08
 
 ## Demo review summary
@@ -54,7 +54,6 @@
 
 ---
 
-**Tested-By Note Status:**  Complete - All demos reviewed and linked. Ready for Week 6 Weekly Report.
+**Tested-By Note Status:** Evidence reviewed and linked. One visual/theme issue remains open, and the exact independent tester name should be confirmed before final submission.
 
 **Document Owner:** Nabin Khadka 
-
