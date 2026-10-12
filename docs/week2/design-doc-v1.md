@@ -273,4 +273,4 @@ The full planned MVP includes subjects, tasks, deadlines, completion, quizzes, a
 | Post-MVP | AI, notifications, accounts, cloud sync, and backend services |
 | Evidence | Runnable app commit, observed browser result, and linked captures |
 
-The [Week 4 checkpoint](../week4/chuseok-checkpoint.md) records React + Vite with localStorage as the team choice, with instructor approval pending. The [Week 5 slice plan](../week5/VERTICAL_SLICE_PLAN.md) narrows the demonstration. This section records intended behavior, not a successful implementation test.
+The [Week 4 checkpoint](../week4/chuseok-checkpoint.md) records React + Vite with localStorage as the team choice, with final team review pending. The [Week 5 slice plan](../week5/VERTICAL_SLICE_PLAN.md) narrows the demonstration. This section records intended behavior, not a successful implementation test.
