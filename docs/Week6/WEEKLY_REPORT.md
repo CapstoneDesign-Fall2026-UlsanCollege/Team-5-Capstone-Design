@@ -68,10 +68,10 @@ The prototype opens and the end-to-end student path is visible. Screenshots show
 - [Demo 5 - Data Persistence After Refresh](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/Week6/Demo%205.png)
 
 **Problems found:**  
-Theme/color inconsistency is visible [Issue](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/23).
+Theme/color inconsistency is visible [Issue 25](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/25).
 
 **Next action:**  
-Create or update the theme-fix issue, assign the UI owner, and repeat the same demo path after the visual fix.
+for now assign the UI owner, and repeat the same demo path after the visual fix.
 
 ---
 
@@ -132,16 +132,6 @@ If core work is complete, consider these extensions to strengthen testing and mi
 - [x] List one claim the team can already prove and one it cannot yet prove.
 - [x] Identify one improvement for the Week 7 rehearsal.
 
----
-
-## Final check
-
-- [x] Another teammate can repeat the test using the written steps.
-- [x] The evidence supports the claim and the Issue status is honest.
-- [ ] The next midterm-demo improvement is assigned and visible in GitHub.
-
----
-
 ## Context and links
 
 **Previous reports and planning:**
@@ -158,11 +148,7 @@ If core work is complete, consider these extensions to strengthen testing and mi
 
 ---
 
-## How to update this report
+**Next week's bridge task:**
 
-1. **During Week 6:** Team members run the test and fill in the Tested-By Note.
-2. **By Wednesday:** Each student adds their contribution row and evidence link.
-3. **By Wednesday:** Update the Evidence links section with final PRs, screenshots, and any blockers.
-4. **Final check:** Verify that all team members are represented and all links are active.
-
-**Report owner:** Nabin Khadka , Co-Ordinator (Taj JN oli)
+-Fix the theme/color inconsistency and repeat the same end-to-end student demo path.
+-Prepare the Week 7 rehearsal using the confirmed working workflow and identify one improvement based on the retest.
