@@ -43,7 +43,7 @@ Week 6 focuses on **testing the Week 5 vertical slice** by running a real end-to
 
 ### End-to-End Student User Path Test
 
-**Related Issue:** [Issue #23 — Bug: Complete End-to-End Student User Path Test Validation](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/23)
+**Related Issue:** [Issue #23 — Complete End-to-End Student User Path Test Validation](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/23)
 
 **Test steps** (from Tested-By Note):
 
