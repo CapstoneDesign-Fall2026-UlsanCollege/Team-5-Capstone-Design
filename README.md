@@ -47,9 +47,9 @@ AI question generation, reminders, login, backend services, cloud sync, and user
 | Week 3 | Candidate vertical slice and wireframes | Recorded | [Week 3 docs](docs/week3/README.md) |
 | Week 4 | Checkpoint and stack decision | Recorded | [Week 4 docs](docs/week4/README.md) |
 | Week 5 | Vertical-slice worklist and manual test plan | Recorded, app-level result pending | [Week 5 docs](docs/week5/README.md) |
-| Week 6 | Independent tested-by evidence package | Prepared, real result pending | [Week 6 docs](docs/Week6/README.md) |
+| Week 6 | End-to-end tested-by evidence package | Tested with screenshot proof; theme issue remains open | [Week 6 docs](docs/Week6/README.md) |
 
-Week 6 should stay marked as pending until the team records who tested the feature, what they expected, what actually happened, and a proof link such as a screenshot, demo, PR, or commit.
+Week 6 evidence now includes screenshots for the main page, subject/task flow, quiz flow, and persistence check. The theme/color inconsistency remains open and should be tracked as a follow-up issue before the midterm demo.
 
 ## Run the Prototype
 
@@ -66,9 +66,8 @@ The prototype stores study data in browser `localStorage`. To reset the demo sta
 | [Docs roadmap](docs/DOCS_ROADMAP.md) | Week 1-16 documentation plan |
 | [Contribution ledger](docs/CONTRIBUTION_LEDGER.md) | Member contribution rows and evidence links |
 | [Testing docs](docs/tests/README.md) | Manual testing strategy and evidence links |
-| [Demo guide](docs/demo/README.md) | Midterm and final demo evidence checklist |
-| [Decision log](docs/decisions/README.md) | Stack, auth, API, database, and scope decisions |
-| [Handoff guide](docs/handoff/README.md) | Setup notes, known limits, and maintainer guidance |
+| [Week 6 midterm demo path](docs/Week6/MIDTERM_DEMO_PATH.md) | Short demo script and fallback path |
+| [Week 6 issue status update](docs/Week6/ISSUE_STATUS_UPDATE.md) | Suggested issue/DoD wording for #22 and #23 |
 
 ## Team
 
@@ -85,8 +84,9 @@ Contribution rows should be updated when a member adds a commit, PR, issue updat
 ## Current Limitations
 
 - The current runnable prototype is plain HTML/CSS/JavaScript, not a React + Vite implementation.
-- The Week 6 independent tested-by result is prepared but not filled in.
-- Screenshot or video proof should be linked only after it exists.
+- Week 6 screenshot proof exists for the main end-to-end flow.
+- The exact independent test runner should be confirmed in the tested-by note before final submission.
+- The theme/color issue is visible and still needs a fix or tracked issue update.
 - Week 5 API, authentication, and database notes are planning references, not proof that backend features are implemented.
 
 ---
