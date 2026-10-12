@@ -2,7 +2,7 @@
 
 **Team:** Team 5  
 **Term:** Fall 2026  
-**Last updated:** 2026-10-09
+**Last updated:** 2026-10-12
 
 This folder is the project documentation hub. It keeps weekly records, testing evidence, decision notes, demo planning, and handoff material in one place.
 
@@ -14,10 +14,9 @@ This folder is the project documentation hub. It keeps weekly records, testing e
 | [Documentation roadmap](DOCS_ROADMAP.md) | Week 1-16 documentation plan |
 | [Contribution ledger](CONTRIBUTION_LEDGER.md) | Member rows and evidence links |
 | [Testing documentation](tests/README.md) | Manual testing strategy and proof checklist |
-| [Demo guide](demo/README.md) | Midterm and final demo evidence planning |
-| [Decision log](decisions/README.md) | Stack, scope, API, auth, and database decisions |
-| [Handoff guide](handoff/README.md) | Setup notes and maintainer guidance |
-| [Final docs audit](DOCS_AUDIT.md) | Final link and wording review |
+| [Week 6 evidence package](Week6/README.md) | Tested-by note, screenshots, report, and next actions |
+| [Week 6 midterm demo path](Week6/MIDTERM_DEMO_PATH.md) | Rehearsal path and fallback proof |
+| [Week 6 issue status update](Week6/ISSUE_STATUS_UPDATE.md) | Suggested issue and Definition of Done updates |
 
 ## Weekly Records
 
@@ -28,7 +27,7 @@ This folder is the project documentation hub. It keeps weekly records, testing e
 | Week 3 | Candidate vertical slice and wireframes | [Week 3 index](week3/README.md) |
 | Week 4 | Checkpoint and stack decision | [Week 4 index](week4/README.md) |
 | Week 5 | Vertical-slice worklist and test planning | [Week 5 index](week5/README.md) |
-| Week 6 | Tested-by evidence package | [Week 6 index](Week6/README.md) |
+| Week 6 | Tested-by evidence package and midterm readiness | [Week 6 index](Week6/README.md) |
 
 ## Current Evidence Trail
 
@@ -37,7 +36,9 @@ This folder is the project documentation hub. It keeps weekly records, testing e
 | Runnable prototype | [Frontend prototype](../Frontend/index.html) | Available locally |
 | Wireframes | [Wireframe index](../Frontend/wireframes/index.html) | Available locally |
 | Manual testing strategy | [Testing docs](tests/README.md) | Prepared |
-| Week 6 tested-by note | [Tested-by note](Week6/tested-by-notes.md) | Template ready, result pending |
+| Week 6 tested-by note | [Tested-by note](Week6/tested-by-notes.md) | Tested with screenshot proof; theme issue open |
+| Week 6 weekly report | [Weekly report](Week6/WEEKLY_REPORT.md) | Updated for evidence review |
+| Midterm demo path | [Midterm demo path](Week6/MIDTERM_DEMO_PATH.md) | Ready for rehearsal |
 | Contribution tracking | [Contribution ledger](CONTRIBUTION_LEDGER.md) | Ready for weekly updates |
 
 ## Documentation Rules
