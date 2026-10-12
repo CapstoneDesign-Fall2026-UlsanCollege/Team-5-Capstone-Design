@@ -68,7 +68,7 @@ The prototype opens and the end-to-end student path is visible. Screenshots show
 - [Demo 5 - Data Persistence After Refresh](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/Week6/Demo%205.png)
 
 **Problems found:**  
-Theme/color inconsistency is visible in [Demo 2](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/Week6/Demo2.png).
+Theme/color inconsistency is visible [Issue](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/23).
 
 **Next action:**  
 Create or update the theme-fix issue, assign the UI owner, and repeat the same demo path after the visual fix.
@@ -81,7 +81,7 @@ Create or update the theme-fix issue, assign the UI owner, and repeat the same d
 |---|---|---|
 | **Tested-By Note** | [docs/Week6/tested-by-notes.md](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/Week6/tested-by-notes.md) | Evidence linked; exact tester confirmation still needed |
 | **Implementation Issue** | [Issue #23 — Bug: Complete End-to-End Student User Path Test Validation](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/23) | Open |
-| **Related Feature Issue** | [Issue #22 — Feature: Subject-Based Task & Quiz Selection](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/22) | Open |
+| **Related Feature Issue** | [Issue #25 ](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/25) | Open |
 | **Week 5 worklist** | [docs/week5/WEEK_5_WORKLIST.md](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week5/WEEK_5_WORKLIST.md) | Recorded |
 | **Week 6 worklist** | [docs/Week6/WEEK6_WORKLIST.md](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/Week6/WEEK6_WORKLIST.md) | Updated by this report |
 | **Commit or PR** | This PR: docs evidence and midterm readiness update | In review |
@@ -109,7 +109,7 @@ If a core item is incomplete, record the owner, reason, and next action below:
 | Item | Owner | Reason | Next action | Review point |
 |---|---|---|---|---|
 | Theme/color inconsistency | Sumit Adhikari, Nabin Khadka | Visible issue recorded in Demo 2 | Create/update issue, fix CSS, and repeat demo path | Tester reruns Demo 1-5 path |
-| Database/backend scope | Adhir Ronnie, team | Scope is still being discussed | Decide whether midterm remains localStorage-only | Update report and issue status |
+| Database/backend scope | team | Scope is still being discussed | Decide whether midterm remains localStorage-only | Update report and issue status |
 
 ---
 
