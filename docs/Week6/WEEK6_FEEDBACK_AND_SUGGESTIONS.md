@@ -4,36 +4,35 @@
 Report Date: 2026-10-10
 Reporting Period: Week 6 (2026-10-08 to 2026-10-14)
 
-
 ---
 
 ## Executive Summary
 
-This feedback report provides constructive suggestions based on the Week 6 weekly reports, sprint documentation, and testing evidence. The team has successfully validated the core end-to-end student workflow and identified key areas for improvement. While the functionality is solid, several refinements are needed to strengthen the demo, improve UI consistency, and prepare for the final midterm presentation.
+This feedback report provides constructive suggestions based on the Week 6 weekly report, validation documentation, and testing evidence. The team has validated the visible end-to-end student workflow and identified key areas for improvement. The main flow is visible and usable, while the theme/color inconsistency remains open for midterm readiness.
 
 ---
 
 ## 1. Strengths Demonstrated
 
-### 1.1 Successful End-to-End Validation
-- What is working: The team completed a real, structured end-to-end test with a teammate who was not part of the implementation.
-- Evidence: Five demo screenshots (Demo 1–5) show progression through the student workflow.
-- Impact: This demonstrates genuine testing rigor and provides confidence that the core user path functions.
+### 1.1 End-to-End Validation
+- What is working: The team recorded a structured end-to-end test path.
+- Evidence: Five demo screenshots (Demo 1-5) show progression through the student workflow.
+- Impact: This gives the team proof for the current user-visible path.
 
-### 1.2 Comprehensive Documentation
-- What is working: Multiple complementary reports (Weekly Report, Sprint 2 Formal Report, Sprint 2 Week 6 Plan) show structured planning and reflection.
-- Evidence: Clear test steps, expected vs. actual results, and honest problem identification.
-- Impact: Enables other team members and instructors to understand progress and reproduce the test.
+### 1.2 Documentation Package
+- What is working: The weekly report, formal report, tested-by note, and issue trackers now describe the same test path.
+- Evidence: Clear test steps, expected vs. actual results, proof links, and honest problem identification.
+- Impact: Other team members can understand what was tested and what remains open.
 
-### 1.3 Data Persistence Confirmed
-- What is working: Tasks and quiz data persist after page refresh (Demo 5 proof).
-- Evidence: Refresh test passed, confirming localStorage implementation works.
-- Impact: Critical for a study planner app—users can trust their data is saved.
+### 1.3 Data Persistence Boundary
+- What is working: Demo 5 records browser/localStorage persistence after refresh.
+- Evidence: Refresh test proof is linked in the Week 6 report and tested-by note.
+- Impact: The team can claim same-browser persistence, but should not claim backend, login, cloud sync, or multi-device sync.
 
 ### 1.4 Honest Problem Identification
-- What is working: The team did not hide issues; they documented theme/color inconsistencies found during testing.
-- Evidence: Recorded in SPRINT_2_FORMAL_REPORT.md, Demo 2 screenshot shows visual problems.
-- Impact: Shows maturity and enables focused next-sprint improvements.
+- What is working: The theme/color inconsistency is tracked instead of hidden.
+- Evidence: Demo 2 and Issue #25 identify the remaining visual issue.
+- Impact: The next action is clear and reviewable.
 
 ---
 
@@ -42,97 +41,80 @@ This feedback report provides constructive suggestions based on the Week 6 weekl
 ### 2.1 UI/Theme Consistency
 
 Finding:
-The SPRINT_2_FORMAL_REPORT.md identifies "Theme and Color Inconsistency" and "UI Styling Refinement Needed" as issues. Demo 2 shows visual inconsistencies.
+Demo 2 shows visual/theme inconsistency.
 
 Why this matters:
-- A functional app with inconsistent styling appears unfinished and unprofessional.
-- During the midterm demo, visual polish will influence the instructor's perception.
-- Users may question reliability if the interface feels disjointed.
+- A functional app with inconsistent styling appears unfinished.
+- Visual polish matters for the midterm demo.
+- Users may question reliability if the interface feels inconsistent.
 
 Suggestions:
-1. Create a UI style audit and assign it to Sumit Adhikari.
-2. List all colors, fonts, button styles, spacing, and component sizes currently used in the app.
-3. Compare the design across screens and define one consistent theme.
-4. Replace hardcoded colors with centralized CSS variables.
-5. Test the revised interface across all major screens before the midterm demo.
+1. Use Issue #25 as the canonical theme/color tracker.
+2. Confirm the exact owner login for the CSS/theme fix.
+3. Review colors, fonts, button styles, spacing, and component sizes.
+4. Fix the styling issue and rerun the same five-demo path.
+5. Link updated proof after the rerun.
 
 ### 2.2 Definition of Done Completion
 
 Finding:
-The WEEKLY_REPORT.md includes incomplete checklist items and evidence entries.
+The evidence package needed clearer alignment between the weekly report, tested-by note, and Issue #23.
 
 Why this matters:
-- Incomplete evidence makes it harder to trace which team member did what.
-- Instructors need to see individual contributions for grading.
-- Linking issues, PRs, and Tested-By Notes creates accountability.
+- The report and issue status must tell the same story.
+- Individual contribution rows need visible evidence links.
+- Open items should stay open until proof is added.
 
 Suggestions:
-1. Complete the Tested-By Note with tester, date, steps, expected result, actual result, proof link, problem found, and next action.
-2. Update each related issue's Definition of Done and status to match the Week 6 result.
-3. Complete each student contribution row with evidence links.
-4. Assign a document reviewer to ensure all sections are complete before Week 7.
+1. Keep Issue #23 open until the theme follow-up and final rerun evidence are complete.
+2. Keep Issue #25 open until the theme/CSS fix is verified.
+3. Keep each contribution row tied to a visible evidence link.
+4. Assign a document reviewer to ensure all sections are complete before the midterm review.
 
 ### 2.3 Midterm Demo Readiness
 
 Finding:
-The SPRINT_2_WEEK_6.md and stretch goals mention preparing for the midterm demo, but there is no clear demo path yet.
+The team needs a clear demo path and fallback proof.
 
 Why this matters:
-- The midterm exam is the main deliverable and will be graded on live demo quality.
-- A rehearsed, polished demo is significantly more impressive than an off-the-cuff explanation.
-- The team should identify what they can already prove and what they cannot yet prove.
+- A rehearsed demo is stronger than an improvised explanation.
+- The team should know exactly what it can prove and what remains open.
 
 Suggestions:
-1. Write a clear midterm demo script with a short opening and a step-by-step flow.
+1. Use the existing midterm demo path as the script base.
 2. Show the full student path: app load, subject creation, task creation, completion, quiz, score, and refresh.
-3. Set a time limit so the team can present smoothly within 2–4 minutes.
-4. Prepare a fallback screenshot or recorded demo if the live app has a technical issue.
+3. Keep the demo within 2-4 minutes.
+4. Prepare screenshots as fallback proof if the live app has a technical issue.
 
 ### 2.4 Test Scope Clarification
 
 Finding:
-The test plan describes one user flow but does not clearly separate user-level testing from technical validation.
+The current evidence proves a user-level browser prototype path, not a backend system.
 
 Why this matters:
-- The tester needs to know whether the focus is on user usability or system correctness.
-- Mixing these levels can create confusion and weak test evidence.
+- The team should avoid overstating scope.
+- Same-browser localStorage persistence is different from login, cloud sync, or multi-device sync.
 
 Suggestions:
-1. Define user-level test steps clearly and keep them separate from technical validation.
-2. Give the tester a clean browser state and no extra explanation before the test.
-3. Record expected vs. actual behavior step by step.
-4. Add tester comments for any confusion or hesitation during the flow.
+1. Keep user-level test steps separate from technical implementation notes.
+2. Record expected vs. actual behavior step by step.
+3. Add tester comments for confusion or hesitation during reruns.
+4. Preserve the browser/localStorage boundary in the report.
 
 ### 2.5 Database and Backend Scope
 
 Finding:
-The weekly report indicates that database work is still in progress, but the exact scope is not clearly defined.
+Backend/database scope should remain explicit.
 
 Why this matters:
-- The team needs to know if the app remains localStorage-only for the midterm or if backend integration is planned.
-- Ambiguity can delay the technical roadmap and reduce alignment.
+- The current evidence supports localStorage behavior only.
+- Ambiguous backend language can weaken the evidence package.
 
 Suggestions:
-1. Clarify whether the app will use localStorage only or add a backend layer.
-2. Document the decision in the relevant GitHub issue.
-3. If backend work is needed, break it into smaller tasks for Week 7 and Week 8.
-4. If localStorage is sufficient, mark the database role as complete or reassign it to another task.
-
-### 2.6 Communication and Clarity
-
-Finding:
-Several report sections still contain placeholders and vague next actions.
-
-Why this matters:
-- Ambiguous next actions slow progress and create confusion.
-- Instructors need a complete, clear report to evaluate team progress.
-- Team morale suffers when expectations are unclear.
-
-Suggestions:
-1. Replace placeholder text with clear completed material.
-2. Make the next action concrete: who will do it, what they will do, and when.
-3. Add a short weekly review summary to keep all members aligned.
-4. Assign a proofreader for final report consistency.
+1. State that the current midterm evidence is browser/localStorage-only.
+2. Do not claim backend, login, cloud sync, or multi-device behavior unless separate proof exists.
+3. If backend work becomes necessary later, create a separate future task outside the current Week 6 evidence package.
+4. If localStorage is enough for the current demo, keep that boundary visible.
 
 ---
 
@@ -140,39 +122,40 @@ Suggestions:
 
 ### 3.1 Testing Rigor
 The team followed a structured testing approach:
-1. Clear test steps defined upfront
-2. Expected result stated before execution
-3. A tester who was not the implementer
-4. Screenshots as proof
+1. Clear test steps defined upfront.
+2. Expected result stated before execution.
+3. Tester login and date recorded.
+4. Screenshots used as proof.
 
-Recommendation: Continue this practice for every major feature.
+Recommendation: Continue this practice for each major visible behavior.
 
 ### 3.2 Scope of Testing
-The current testing covers the happy path of the student workflow. To strengthen the midterm demo, the team should consider a few additional checks:
-- Error case: what happens if a task name is missing?
-- Empty state: what does the app look like when first opened?
-- Edge case: what happens when many tasks or subjects are created?
+The current testing covers the happy path of the student workflow. To strengthen the midterm demo, the team can optionally test:
+- Missing task name.
+- Empty first-run state.
+- Many tasks or subjects.
 
-These checks are optional, but they will make the final demonstration more credible.
+These checks are optional and should not replace the main five-demo path.
 
 ---
 
 ## 4. Recommendations by Priority
 
-### Must do by Week 7
-1. Fix the UI/theme consistency issue.
-2. Complete all individual evidence links.
-3. Write and rehearse the midterm demo script.
+### Must do before midterm review
+1. Fix the UI/theme consistency issue tracked in Issue #25.
+2. Confirm the exact theme-fix owner login.
+3. Rerun the same five-demo path after the fix.
+4. Update Issue #23, Issue #25, the tested-by note, and the weekly report with the rerun result.
 
-### Should do by Week 7
-4. Clarify the database/backend scope.
-5. Complete all report sections and remove placeholders.
+### Should do before midterm review
+5. Complete all individual evidence links or mark separate receipts pending.
 6. Document what is proven and what remains unproven.
+7. Keep the localStorage/browser-only boundary explicit.
 
 ### Nice to do later
-7. Test error and edge cases.
-8. Add a small smoke test for the core workflow.
-9. Refine quiz analytics or reporting.
+8. Test error and edge cases.
+9. Add a small smoke test for the core workflow.
+10. Refine quiz analytics or reporting.
 
 ---
 
@@ -180,24 +163,21 @@ These checks are optional, but they will make the final demonstration more credi
 
 | Action | Owner | Due Date |
 |---|---|---|
-| Audit UI/theme colors across all screens | Sumit Adhikari | 2026-10-11 |
-| Fix CSS theme system | Sumit Adhikari | 2026-10-12 |
-| Complete Tested-By Note | Nabin Khadka | 2026-10-11 |
-| Add individual contribution rows | All team members | 2026-10-14 |
-| Write the demo script | J.N. Taj Oli | 2026-10-11 |
-| Rehearse the full demo | Nabin Khadka | 2026-10-13 |
-| Clarify database scope | Sumit Adhikari | 2026-10-11 |
-| Complete report sections | J.N. Taj Oli | 2026-10-14 |
+| Audit UI/theme colors across all screens | owner to confirm in Issue #25 | Before midterm review |
+| Fix CSS theme system | owner to confirm in Issue #25 | Before midterm review |
+| Rerun the five-demo path after the fix | `RaiPrabin697` or assigned tester | Before midterm review |
+| Add individual contribution rows | All current logins | 2026-10-14 |
+| Rehearse the full demo | Team 5 | Before midterm review |
+| Keep backend scope explicit | Team 5 | Before midterm review |
+| Complete report sections | Team 5 | 2026-10-14 |
 
 ---
 
 ## 6. Closing Comments
 
-Overall assessment: Week 6 was a strong validation week. The team executed a real, structured test with a non-implementer, collected proof, and honestly documented findings. This is exactly how professional teams work.
+Overall assessment: Week 6 is a strong validation week because the team recorded a real visible path, proof screenshots, and an honest open issue.
 
-Path forward: The team is well-positioned for the midterm if they fix the UI/theme issue, complete the evidence links, and rehearse the demo script. Those three tasks will improve both the quality and confidence of the final presentation.
-
-Encouragement: Functional, polished, and rehearsed is the strongest combination for a successful demo.
+Path forward: The team is best positioned for the midterm after the theme issue is fixed, the same path is rerun, and the evidence files are updated to match the final result.
 
 ---
 
@@ -209,10 +189,10 @@ Encouragement: Functional, polished, and rehearsed is the strongest combination 
 
 **Source Files:** WEEKLY_REPORT.md, SPRINT_2_FORMAL_REPORT.md, SPRINT_2_WEEK_6.md, WEEK6_WORKLIST.md
 
-**Next Review:** End of Week 7 (2026-10-17)
+**Next Review:** Midterm readiness review
 
 **Distributor:** Nabin Khadka (Project Coordinator)
 
 ---
 
-## Report Owner : Karki Prince 
+## Report Owner: Karki Prince
