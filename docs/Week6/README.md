@@ -14,9 +14,6 @@ Week 6 proves the current visible student path with screenshots and honest follo
 | Feedback report | [WEEK6_FEEDBACK_AND_SUGGESTIONS.md](WEEK6_FEEDBACK_AND_SUGGESTIONS.md) | Recorded |
 | Midterm demo path | [MIDTERM_DEMO_PATH.md](MIDTERM_DEMO_PATH.md) | Ready for rehearsal |
 | Issue status update | [ISSUE_STATUS_UPDATE.md](ISSUE_STATUS_UPDATE.md) | Ready to copy into issues |
-| Kanban board cleanup | [KANBAN_BOARD_CLEANUP.md](KANBAN_BOARD_CLEANUP.md) | Ready for board organization |
-| Theme fix follow-up | [THEME_FIX_FOLLOWUP.md](THEME_FIX_FOLLOWUP.md) | Ready for UI cleanup |
-| PR review checklist | [PR_REVIEW_CHECKLIST.md](PR_REVIEW_CHECKLIST.md) | Ready before merge |
 
 ## Screenshot Proof
 
