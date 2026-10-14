@@ -71,14 +71,16 @@ The main flow is visible and functional, but the Demo 2 theme/color inconsistenc
 Theme/color inconsistency in the visual UI remains open and should be tracked in Issue #25.
 
 ---
-
-## Evidence links
-
-- [Week 6 tested-by note](./tested-by-notes.md)
-- [Issue #23](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/23)
-- [Issue #25](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/25)
-- [Week 6 work checklist](./WEEK6_WORKLIST.md)
-- [Week 6 README](./README.md)
+| Evidence type | Link | Status |
+|---|---|---|
+| **Tested-By Note** | [docs/Week6/tested-by-notes.md](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/2f12cab1b69a9e96c1c65f776e9df758f9bb5285/docs/Week6/tested-by-notes.md) | Done |
+| **Implementation Issue** | [Issue #23 — Bug: Complete End-to-End Student User Path Test Validation](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/23) | Open |
+| **Related Feature Issue** | [Issue #25 ](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/25) | Open |
+| **Week 5 worklist** | [docs/week5/WEEK_5_WORKLIST.md](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week5/WEEK_5_WORKLIST.md) | Recorded |
+| **Week 6 worklist** | [docs/Week6/WEEK6_WORKLIST.md](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/Week6/WEEK6_WORKLIST.md) | Updated by this report |
+| **Commit or PR** | [Commit-Links](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/commits/main/) | Linked |
+| **Screenshot/Demo/Video** | Demo 1-5 screenshots linked above | Recorded |
+| **Bug or blocker Issue** | [Issue](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/25) | updated |
 
 ---
 
@@ -90,7 +92,7 @@ Theme/color inconsistency in the visual UI remains open and should be tracked in
 | Sumit Adhikari | Frontend and theme issue ownership. |
 | Prince Karki | Tester feedback and repeat-test support. |
 | Prabin Rai | Evidence support and documentation review. |
-| J.N. Taj Oli | Documentation consistency and weekly report support. |
+| jn-oli |Reviewed and updated the Week 6 Weekly Report, checked the evidence links, documented the theme inconsistency found during demo review, and identified missing tester confirmation and Issue-status updates. Prepared the next actions for fixing the theme issue and repeating the end-to-end test.| [blocker-issue](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/25), [weekly-report](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/b475dfc5fd1b0a4af554030672bc8db6ad165a39/docs/Week6/WEEKLY_REPORT.md), [issue23](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/23) |
 
 ---
 
