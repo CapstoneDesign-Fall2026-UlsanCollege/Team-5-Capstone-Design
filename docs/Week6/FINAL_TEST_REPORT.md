@@ -4,7 +4,6 @@
 - Project Name: Smart Study Companion
 - Team: Team 5, Capstone Design Project
 - Report Date: 2026-10-14
-- Sprint: Sprint 2
 - Week: Week 6
 
 ## 1. Objective
