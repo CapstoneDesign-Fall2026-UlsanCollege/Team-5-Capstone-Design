@@ -64,7 +64,7 @@ The prototype opens and the end-to-end student path is visible. Screenshots show
 - [Demo 2 - Theme Color Issue](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/Week6/Demo2.png)
 - [Demo 3 - Subject & Task Creation](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/Week6/Demo%203.png)
 - [Demo 4 - Quiz Flow & Results](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/Week6/Demo%204.png)
-- [Demo 5 - Data Persistence After Refresh](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/Week6/Demo%205.png)
+- [Demo 5 - Data Persistence After Refresh]
 
 **Problems found:**  
 Theme/color inconsistency is visible in [Demo 2](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/Week6/Demo2.png).
