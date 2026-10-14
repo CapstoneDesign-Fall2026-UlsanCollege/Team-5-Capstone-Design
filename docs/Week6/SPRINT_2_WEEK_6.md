@@ -32,7 +32,7 @@ Week 6 is not a full feature build week. It is a validation and evidence week fo
 
 The objective is to answer this question honestly:
 
- Can a teammate who did not build this flow complete the current study-planning and quiz user path without coaching, and what evidence proves it?
+Can a teammate who did not build this flow complete the current study-planning and quiz user path without coaching, and what evidence proves it?
 
 ## 3. User flow to test
 
@@ -53,64 +53,46 @@ This path matches the existing app logic and the project’s current MVP scope.
 - The chosen behavior is user-visible and tied to the existing app.
 - Test steps are written clearly enough for another teammate to follow.
 - Expected behavior is stated before the test starts.
-- A teammate other than the author executes the test without coaching.
-- Actual behavior is recorded, including confusion or missing behavior.
-- Proof (screenshot, demo, or recorded step result) is linked in the evidence.
-- Any issue found is documented with owner and next action.
+- The actual behavior is recorded, including any missing or confusing step.
+- A proof artifact is linked in the evidence package.
+- Any issue found is tracked with owner and next action.
 
-## 5. Recommended work split
+## 5. Work split
 
-| Team member | Likely Week 6 role |
+| Login | Week 6 role |
 |---|---|
-| Nabin Khadka | Coordination,Building,issue tracking, proof collection |
-| Sumit Adhikari | Frontend validation and UI-flow review |
-| Prince Karki | Test execution and bug observation |
-| Prabin Rai | Evidence note and validation support |
-| J.N. Taj Oli | Documentation and report consistency |
+| `liftupkhadka555-spec` | Coordination, proof collection, and evidence review |
+| `adronnie` | Formal report ownership and technical scope notes |
+| `princekark` | Repeat-test feedback and report support |
+| `RaiPrabin697` | Tester/evidence support and docs reconciliation |
+| `jn-oli` | Weekly report review, theme issue tracking, and evidence consistency support |
 
 ## 6. Evidence checklist
 
-The team should collect and link the following:
-
-- One tested-by note for the chosen user path
-- One screenshot or demo proof
-- One shared weekly report
-- One issue or blocker note if something fails
-- One commit, PR, or implementation link if available
+- [tested-by note](./tested-by-notes.md)
+- [weekly report](./WEEKLY_REPORT.md)
+- [Issue #23 validation tracker](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/23)
+- [Issue #25 theme tracker](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/25)
+- Demo 1-5 screenshots
+- Contribution rows for all five current logins
 
 ## 7. Risks and notes
 
-The current prototype is a browser-only app using localStorage. That means Week 6 should keep the scope realistic and focus on usability, persistence, and honest validation rather than backend features.
+The current prototype is browser-only and uses localStorage. The current evidence demonstrates the prototype path in the same browser context. It does not prove backend services, login, cloud sync, or multi-device sync.
 
-The likely issues to watch for:
+The open issue to watch:
 
-- unclear empty states
-- confusing labels or subject/task flow
-- inconsistent behavior after refresh
-- quiz flow readability and score clarity
-- duplicate or invalid input handling
+- Theme/color inconsistency in Demo 2.
 
 ## 8. Week 6 deliverables
-
-The deliverables are already reflected in the repository files:
 
 - [WEEK6_WORKLIST.md](./WEEK6_WORKLIST.md)
 - [WEEKLY_REPORT.md](./WEEKLY_REPORT.md)
 - [tested-by-notes.md](./tested-by-notes.md)
+- [SPRINT_2_FORMAL_REPORT.md](./SPRINT_2_FORMAL_REPORT.md)
 
-These files should be updated based on the actual results of the Week 6 test.
-
-## 9. Sprint 2 connection
-
-This Week 6 plan supports the broader Sprint 2 goal described in the [midterm demo path](./MIDTERM_DEMO_PATH.md):
-
-- improve prototype reliability,
-- strengthen the demo path,
-- document what works,
-- and show what still needs future work.
-
-The evidence gathered this week feeds directly into the next sprint decisions.
+These files should stay aligned with the actual test result and open issue status.
 
 ---
 
-**Current repo status:** prototype exists and is runnable; this week is focused on testing and documenting the real behavior.
+**Current repo status:** prototype exists and is runnable; this week is focused on testing, reconciling evidence, and documenting the real behavior.

@@ -1,7 +1,7 @@
 # Week 6 Work Checklist — Test the Vertical Slice
 
 **Date:** Thu 2026-10-08 to Wed 2026-10-14<br>
-**Team:** 5
+**Team:** 4
 
  Show one visible behavior, ask a teammate who did not build it to test the behavior, and record what actually happened. Keep an unfinished behavior marked incomplete; a failed test is useful evidence for the next issue.
 
@@ -58,9 +58,9 @@ The core work is the floor. Choose an extension only if it helps your team test 
 
 ### Better midterm path
 
-- [ ] Write the first 3–5 steps of the midterm demo path.
+- [ ] Write the first 3-5 steps of the midterm demo path.
 - [ ] List one claim the team can already prove and one claim it cannot yet prove.
-- [ ] Identify one improvement that will make the Week 7 rehearsal clearer or more reliable.
+- [ ] Identify one improvement that will make the midterm rehearsal clearer or more reliable.
 
 ## Risks and exceptions
 

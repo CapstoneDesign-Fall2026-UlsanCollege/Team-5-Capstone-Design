@@ -10,9 +10,9 @@ Date: 2026-10-10
 
 ## 1. Introduction
 
-This report documents the progress and evaluation of Sprint 2 for the Smart Study Companion project. The main purpose of this sprint was to validate the core student workflow and confirm that the project functions properly from the user’s perspective.
+This report documents the progress and evaluation of Sprint 2 for the Smart Study Companion project. The main purpose of this sprint was to validate the core student workflow and confirm that the project functions properly from the user's perspective.
 
-The application focuses on helping students organize subjects, tasks, deadlines, and quiz activities in one place. During Sprint 2, the team worked on completing and testing the major features of the system, including subject creation, task tracking, completion status, quiz flow, and persistence of data after refresh.
+The application focuses on helping students organize subjects, tasks, deadlines, and quiz activities in one place. During Sprint 2, the team worked on completing and testing the major features of the system, including subject creation, task tracking, completion status, quiz flow, and persistence after refresh.
 
 This sprint was reviewed by a tester who was not directly involved in implementing the features, which provides a more objective evaluation of the usability and functionality of the application.
 
@@ -50,105 +50,92 @@ These features represent the core workflow for the student user journey and are 
 
 ## 4. Testing and Validation Summary
 
-The app was tested through a set of five demo reviews to confirm whether the end-to-end student flow was valid.
+The app was reviewed through five demo screenshots.
 
 ### Demo 1: Main Page and App Entry
 - Purpose: Check whether the application opens correctly.
-- Result: The app opened successfully and displayed the main study planner interface.
-- Status: Passed
+- Result: The app opened and displayed the main study planner interface.
+- Status: Passed.
 
 ### Demo 2: Theme and Visual Consistency
-- Purpose: Evaluate the design, color theme, and layout consistency.
-- Result: Some visual inconsistencies were noticed in the interface styling.
-- Status: Needs improvement
+- Purpose: Evaluate design, color theme, and layout consistency.
+- Result: A visual/theme inconsistency was recorded.
+- Status: Needs fix in Issue #25.
 
 ### Demo 3: Subject and Task Flow
 - Purpose: Validate subject selection and task creation.
-- Result: The student user could create/select a subject and add a study task with a deadline.
-- Status: Passed
+- Result: The subject/task flow was visible and usable.
+- Status: Passed.
 
 ### Demo 4: Quiz Flow
-- Purpose: Check the quiz logic and result flow.
-- Result: The user could select a subject, answer questions, submit the quiz, and review results.
-- Status: Passed
+- Purpose: Check quiz logic and result flow.
+- Result: The quiz/result flow was visible and usable.
+- Status: Passed.
 
-### Demo 5: Persistence and Final Proof
-- Purpose: Confirm whether data survives a refresh.
-- Result: The task and quiz information remained available after the page was refreshed.
-- Status: Passed
+### Demo 5: Persistence Check
+- Purpose: Confirm whether relevant local data remains after refresh.
+- Result: Persistence was shown in the same browser/localStorage context.
+- Status: Passed.
 
 ---
 
 ## 5. Functional Results
 
-The expected outcome for Sprint 2 was that a student could complete the full workflow from the beginning to the end without major issues.
+The expected outcome was that a student could complete the visible workflow without a major functional error.
 
-The evaluation showed that the overall user flow is functional and mostly successful. Students can:
+The evidence shows that the main flow is visible and usable:
 
-- Open the app
-- Select a subject
-- Add study tasks
-- Mark tasks as complete
-- Take a quiz
-- Review the score
-- Confirm that data remains after refresh
+- Open the app.
+- Select or create a subject.
+- Add a study task.
+- Mark a task complete.
+- Take a quiz.
+- Review the score.
+- Confirm local data remains after refresh in the same browser context.
 
-This indicates that the project has achieved a meaningful functional milestone for the student daily study-planning experience.
+The evidence also shows one open visual issue: the Demo 2 theme/color inconsistency.
 
 ---
 
 ## 6. Problems Identified
 
-Although the main flow worked well, a few issues were observed during validation.
-
 ### 6.1 Theme and Color Inconsistency
-- Severity: Medium
-- Description: The application showed inconsistent styling in some interface components.
-- Impact: This affects visual quality and may reduce the professionalism and polish of the user experience.
-- Owners: Nabin Khadka, Sumit Adhikari
+- Severity: Polish / medium presentation concern.
+- Description: The application shows inconsistent styling in some interface components.
+- Impact: This affects visual quality and may reduce the professionalism of the app during presentation.
+- Tracker: [Issue #25](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/25)
+- Owner: owner to confirm.
 
-### 6.2 Need for UI Styling Refinement
-- Severity: Medium
-- Description: The CSS/theme design needs further refinement to maintain consistent visual presentation across screens.
-- Impact: The interface may look less cohesive, especially in user-facing demo presentations.
-- Owner: Sumit Adhikari (Frontend)
-
-These issues do not block the core functionality, but they are important for creating a better product experience.
+### 6.2 Rerun Needed After Theme Fix
+- Description: After the CSS/theme fix, the same five-demo path should be repeated.
+- Impact: This confirms the visual repair did not change the working subject/task/quiz/persistence behavior.
+- Tracker: Issue #23 and Issue #25.
 
 ---
 
-## 7. Overall Assessment of Sprint 2
+## 7. Overall Assessment
 
-Sprint 2 can be considered a successful and productive sprint. The team completed the major functional requirements for the student flow and validated them through practical demo testing. The app demonstrates that the core planning and quiz features work in a usable way.
-
-The strongest area of progress was the completion of the end-to-end workflow. This is an important milestone because it shows that the application is moving beyond design and prototype work toward real usability.
-
-At the same time, the UI/theme issue should not be ignored. A functional app is not enough; it must also provide a polished and visually consistent experience to the students who will use it.
+Week 6 demonstrates meaningful progress because the core student workflow is visible and supported by screenshot evidence. The report should remain honest: the functional path has evidence, but the theme issue is not complete until it is fixed, rerun, and linked back to the tested-by note and issues.
 
 ---
 
 ## 8. Recommendations and Next Actions
 
-To improve the quality of the project in the next sprint, the following actions are recommended:
-
-1. Fix the visual theme and CSS consistency issues.
-2. Review the app with a design-focused checklist to confirm spacing, colors, and component alignment.
-3. Run the complete student workflow again after UI corrections.
-4. Track the visual issue with a formal GitHub issue for better accountability.
-5. Conduct another round of validation with a tester who is unfamiliar with the implementation.
-6. Document improvements clearly in the weekly report and sprint summary.
+1. Fix the visual theme and CSS consistency issue tracked in Issue #25.
+2. Confirm the exact owner login for the theme fix.
+3. Rerun the same five-demo path after the visual fix.
+4. Confirm localStorage persistence still works after the visual change.
+5. Update Issue #23, Issue #25, the tested-by note, and the weekly report with the rerun result.
+6. Keep the localStorage/browser-only boundary explicit.
 
 ---
 
 ## 9. Conclusion
 
-In summary, Sprint 2 demonstrated solid progress and successful validation of the project’s core study-planning features. The app is functioning effectively for the main student workflow, and the end-to-end process is visible and usable.
-
-Overall, the sprint was successful and provides a strong base for future improvements. The team has achieved meaningful progress and is now ready to refine the design quality and continue toward a more complete final product.
+The Week 6 evidence shows a working visible prototype path for the main student flow and a clear remaining visual issue. The next midterm-readiness step is to fix the theme inconsistency, rerun the same path, and record the result without overstating scope.
 
 ---
 
-Document Owner:  Adhikari Ronnie
+Document Owner: Adhikari Ronnie
 
-
-Document Status: Completed
+Document Status: Evidence reconciled; theme fix remains open
