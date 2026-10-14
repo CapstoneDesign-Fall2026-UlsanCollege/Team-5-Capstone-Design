@@ -90,8 +90,8 @@ Theme/color inconsistency in the visual UI remains open and should be tracked in
 |---|---|
 | Nabin Khadka | Coordination, proof collection, and report review. |
 | Sumit Adhikari | Frontend and theme issue ownership. |
-| Prince Karki | Tester feedback and repeat-test support. |
 | Prabin Rai | Evidence support and documentation review. |
+| princekark | Repeat Tester role and feedback/report ownership | [Week 6 feedback](WEEK6_FEEDBACK_AND_SUGGESTIONS.md) [repeat test](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/23#issuecomment-6128260620) |
 | jn-oli |Reviewed and updated the Week 6 Weekly Report, checked the evidence links, documented the theme inconsistency found during demo review, and identified missing tester confirmation and Issue-status updates. Prepared the next actions for fixing the theme issue and repeating the end-to-end test.| [blocker-issue](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/25), [weekly-report](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/b475dfc5fd1b0a4af554030672bc8db6ad165a39/docs/Week6/WEEKLY_REPORT.md), [issue23](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/23) |
 
 ---
