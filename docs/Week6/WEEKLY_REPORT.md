@@ -88,7 +88,7 @@ Theme/color inconsistency in the visual UI remains open and should be tracked in
 
 | Student | Contribution row | Evidence |
 |---|---| --- |
-| Nabin Khadka | Coordination, proof collection, and report review. (https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/3c441eb147bc80c252ec4b1c61768633d592f797/docs/Week6/tested-by-notes.md|
+| Nabin Khadka | Coordination, proof collection, and report review.|https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/3c441eb147bc80c252ec4b1c61768633d592f797/docs/Week6/tested-by-notes.md |
 | Sumit Adhikari | Frontend and theme issue ownership. |
 | RaiPrabin697 | Tester/evidence support and documentation consistency review, test the user path | [Week 6 tested-by note](tested-by-notes.md)[Related issue](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/23) |
 | princekark | Repeat Tester role and feedback/report ownership | [Week 6 feedback](WEEK6_FEEDBACK_AND_SUGGESTIONS.md) [repeat test](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/23#issuecomment-6128260620) |
