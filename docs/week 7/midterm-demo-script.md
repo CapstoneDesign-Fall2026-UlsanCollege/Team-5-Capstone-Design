@@ -27,7 +27,7 @@
 
 ## Evidence links
 
-- **Repository:** https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design
+- **Repository:** [Repo](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design)
 - **Weekly Report:** [Week 6 Weekly Report](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/Week6/WEEKLY_REPORT.md)
 - **Demo/proof:** [Demo 1 – Main Page](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/Week6/Demo%201.png), [Demo 3 – Subject and Task](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/Week6/Demo%203.png), [Demo 4 – Quiz and Results](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/Week6/Demo%204.png), [Demo 5 – Refresh/Persistence Check](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/Week6/Demo%205.png)
 - **Important PRs/Issues:** [Issue #23 – End-to-End Student User Path Test Validation](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/23), [Issue #22 – Subject-Based Task and Quiz Selection](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/22), [Issue #25 – Related Feature Issue](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/25)
