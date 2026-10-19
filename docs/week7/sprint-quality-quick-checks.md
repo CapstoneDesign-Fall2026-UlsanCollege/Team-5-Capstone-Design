@@ -42,10 +42,3 @@ Complete the section for your current sprint at its final class meeting. These a
 - [ ] Blocker and major-bug status is honest and current.
 - [ ] The Final Readiness Report names any remaining action and owner.
 
-## Upcoming work
-
-- Fix visual theme/color inconsistency and replace Demo 2 screenshot.
-- Re-run tested-by steps with a named tester and update tested-by notes.
-- Add Frontend/README.md with run instructions and known issues.
-- Draft docs/MVP_CONTRACT.md to freeze MVP scope.
-- Populate per-student contribution rows with PR/commit evidence.
