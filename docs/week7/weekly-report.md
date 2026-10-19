@@ -4,8 +4,6 @@
 **Week:** 7  
 **Date:** 2026-10-19  
 
-Use one shared report per team in Weeks 2-3, 5-14, and 16. Do not create a separate Weekly Report for each student. Weeks 1, 4, and 15 have special reports. Each student must add their own contribution row.
-
 ## This week's goal
 
 This week, the team focused on validating the vertical-slice flow and preparing the midterm demo evidence. We aimed to confirm that the subject-task-quiz workflow works, identify remaining issues, and document the evidence trail for the demo.
@@ -45,8 +43,8 @@ If it is not linked, it does not count.
 | Blocker/risk | Owner | Next action |
 |---|---|---|
 | Theme/color inconsistency in the UI | Sumit Adhikari | Fix the visual issue and re-run the demo screenshots |
-| Tester confirmation and exact result validation still pending | J.N. Taj Oli | Confirm tester and update the tested-by note with pass/fail results |
-| Persistence and validation edge cases remain to be verified | Prabin Rai | Re-test focused flows and document the final outcome |
+| Tester confirmation and exact result validation still pending | Prabin Rai | Confirm tester and update the tested-by note with pass/fail results |
+| Persistence and validation edge cases remain to be verified | J.N. Taj OLi | Re-test focused flows and document the final outcome |
 
 ## Decision record
 
