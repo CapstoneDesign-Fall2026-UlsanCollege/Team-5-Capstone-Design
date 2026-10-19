@@ -6,14 +6,13 @@
 ## Opening
 
 - Project name: Smart Study Companion
-- Target users: University students who need a simple tool to plan, practice, and track study sessions
-- Problem: Study planning, practice, and progress tracking are fragmented; students need an integrated, testable companion to run short study sessions and quick assessments.
-
+- Target users: College students who need a simple tool to plan, practice, and track study sessions
+- Problem: Students may have difficulty managing multiple study tasks and deadlines and preparing for quizzes. Our app brings these activities together in one place.
 ## Demo path
 
-1. Open the frontend prototype (Frontend/index.html) as a demo user and show the main landing page.  
-2. Create a subject and a study task, start a timed study session, and complete a short quiz.  
-3. Show persistence after refresh, view quiz results, and open the wireframes and tested-by notes as fallback evidence.
+1. Open the app and select or create a subject. Add a study task with a deadline.  
+2. Open the Study Plan and mark the task as completed. 
+3. Take a quiz related to the selected subject, submit the answers, and view the score. Refresh the page to check whether the relevant data remains available.
 
 ## What works now
 
