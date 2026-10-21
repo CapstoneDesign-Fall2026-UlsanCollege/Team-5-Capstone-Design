@@ -44,4 +44,4 @@ The UI is considered ready for presentation when:
 - final result is documented with screenshots and test notes.
 
 ## Suggested Final Note
-Before the midterm presentation, the team should prioritize UI clarity, workflow consistency, and honest reporting of any unresolved issues. The application should be demonstrated as a working student workflow, not only as a visual prototype.
+Before the midterm presentation, the team should be clear about UI clarity, workflow consistency, and honest reporting of any unresolved issues. The application should be demonstrated as a working student workflow, not only as a visual prototype. See you in Midterm Persentation.
