@@ -175,7 +175,7 @@ The following table lists proposed presentation responsibilities. These are not 
 
 | Team Member | Self-Score | Evidence Link |
 |---|---|---|
-| J.N. Taj Oli | ____ / 4 | Add link |
+| J.N. Taj Oli | ____ / 4 |[PPT Files](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/1cec88a0bc68510e3465bc367c74a678c7ec5335/docs/week7/Smart_Study_Companion_Midterm_Presentation.pptx) |
 | Nabin Khadka | ____ / 4 |[Test Issue](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/37#issue-5945113347),[Screenshoot](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/tree/e9e1eeda66cbc2f1050a36c4747f875acf108334/docs/week7/docs/week7/evidence)|
 | Sumit Adhikari | ____ / 4 |[UI Test](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/4a891e3d650621973eeb60f9439b563a90d876b5/docs/week7/ui-test-suggestions.md)  |
 | Prabin Rai | ____ / 4 |[Test Report](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/a2333d741707088c88f9eb63f06d7b0e85687df5/docs/week7/StudySmart_Week7_Testing_Comparison_Report.docx) |
