@@ -3,7 +3,7 @@
 ## Objective
 This test suggestion focuses on validating the user interface quality of the Smart Study Companion before the midterm presentation. The goal is to confirm that the app is clear, usable, consistent, and ready to demonstrate in a live session.
 
-## Recommended UI Test Checklist
+## Calculation UI Test Checklist
 
 | Test Area | What to Check | Suggested Result |
 |---|---|---|
