@@ -24,6 +24,6 @@ Screenshots demonstrate the displayed interface but do not independently verify 
 - [Issue #22 — Subject-Based Task and Quiz Selection](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/22) (old one _For reference)
 - [Issue #23 — End-to-End Student User Path Test Validation](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/23)
 
-**Prepared by:** Project Coordinator  
+**Prepared by:** Project Coordinator (Nabin Khadka) 
 **Project:** Smart Study Companion — Team 5
 
