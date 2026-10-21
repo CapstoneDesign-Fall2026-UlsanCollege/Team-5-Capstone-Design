@@ -1,4 +1,4 @@
-# UI Test Suggestions for Smart Study Companion
+# UI Test  for Smart Study Companion
 
 ## Objective
 This test suggestion focuses on validating the user interface quality of the Smart Study Companion before the midterm presentation. The goal is to confirm that the app is clear, usable, consistent, and ready to demonstrate in a live session.
