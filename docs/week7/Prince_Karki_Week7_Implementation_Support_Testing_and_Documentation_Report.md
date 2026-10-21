@@ -6,13 +6,13 @@
 **Role:** Implementation Support, Testing, and Documentation  
 **Reporting Period:** Week 7 — Midterm Preparation  
 **Document Status:** Testing and Contribution Record  
-**Evidence Directory:** [docs/week7/docs/week7/evidence](docs/week7/docs/week7/evidence)
+**Evidence Directory:** [docs/week7/docs/week7/evidence](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/tree/main/docs/week7/docs/week7/evidence)
 
 ## 1. Introduction
 
 This report documents the Week 7 contribution of Prince Karki for the Smart Study Companion project. The focus was on supporting the team during midterm preparation, reviewing the prototype workflow, and documenting the available evidence accurately.
 
-The repository already contains the Week 7 screenshots needed for this review. The actual issue was not missing evidence itself, but that the report referenced the images with paths that were not reliable in the rendered Markdown view. This update fixes the image references so the evidence displays correctly in GitHub.
+The repository already contains the Week 7 screenshots needed for this review. The actual issue was not missing evidence itself, but that the report referenced the images with paths that were not reliable in the rendered Markdown view. This update restores the original documentation structure while keeping the repository evidence links intact.
 
 ## 2. Role and Responsibilities
 
@@ -35,31 +35,31 @@ The repository already contains the Week 7 screenshots needed for this review. T
 
 The actual Week 7 evidence files are stored in:
 
-[docs/week7/docs/week7/evidence](docs/week7/docs/week7/evidence)
+https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/tree/main/docs/week7/docs/week7/evidence
 
 ## 4. Working Images
 
 ### Main Dashboard
-![Main Dashboard](docs/week7/docs/week7/evidence/Main%20DashBoard.png)
+![Main Dashboard](https://raw.githubusercontent.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/main/docs/week7/docs/week7/evidence/Main%20DashBoard.png)
 
 ### Add New Task
-![Add New Task](docs/week7/docs/week7/evidence/Add%20New%20Task.png)
+![Add New Task](https://raw.githubusercontent.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/main/docs/week7/docs/week7/evidence/Add%20New%20Task.png)
 
 ### Open Study Task
-![Open Study Task](docs/week7/docs/week7/evidence/open%20study%20task.png)
+![Open Study Task](https://raw.githubusercontent.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/main/docs/week7/docs/week7/evidence/open%20study%20task.png)
 
 ### Open Quiz
-![Open Quiz](docs/week7/docs/week7/evidence/Open%20Quiz.png)
+![Open Quiz](https://raw.githubusercontent.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/main/docs/week7/docs/week7/evidence/Open%20Quiz.png)
 
 ### Quiz Result
-![Quiz Result](docs/week7/docs/week7/evidence/Quiz%20Result.png)
+![Quiz Result](https://raw.githubusercontent.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/main/docs/week7/docs/week7/evidence/Quiz%20Result.png)
 
 ### Dark Mode
-![Dark Mode](docs/week7/docs/week7/evidence/Dark%20Mode%20.png)
+![Dark Mode](https://raw.githubusercontent.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/main/docs/week7/docs/week7/evidence/Dark%20Mode%20.png)
 
 ## 5. Summary
 
-Prince Karki supported the team through implementation review, testing follow-up, and documentation work. The repository contains relevant UI evidence for the dashboard, task creation, task flow, quiz sequence, and result display, and the image references have been corrected so the visual proof is visible in the report.
+Prince Karki supported the team through implementation review, testing follow-up, and documentation work. The repository contains relevant UI evidence for the dashboard, task creation, task flow, quiz sequence, and result display.
 
 Prepared by: Prince Karki (princekark)  
 Role: Implementation Support, Testing, and Documentation  
