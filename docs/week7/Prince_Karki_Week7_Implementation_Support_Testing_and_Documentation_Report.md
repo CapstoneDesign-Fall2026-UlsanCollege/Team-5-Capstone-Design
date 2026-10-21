@@ -20,7 +20,7 @@ All implementation activities, test outcomes, and contribution claims must refle
 
 ## 2. Role and Responsibilities
 
-Prince Karki's responsibilities are organized into three areas.
+I had organized into three areas.
 
 ### 2.1 Implementation Support
 - Assist the team in reviewing the application's existing functionality.
@@ -113,11 +113,8 @@ Procedure:
 
 Expected Result: Data that the application is designed to persist remains available and is displayed consistently after refresh.
 
-Actual Result: [Record separately what happened to the subject, task, completion status, and quiz result.]
+Actual Result: Record separately what happened to the subject, task, completion status, and quiz result.
 
-Status: [Pass / Fail / Blocked / Not Run]
-
-Evidence: [Before-and-after screenshots or issue link]
 
 ### Test Case 7: Missing or Invalid Task Information
 Objective: Determine how the application handles incomplete task information.
@@ -130,11 +127,8 @@ Procedure:
 
 Expected Result: The application handles invalid input appropriately, communicates the problem where necessary, and avoids creating an unintended invalid task.
 
-Actual Result: [Record the observed behavior.]
+Actual Result: Record the observed behavior.
 
-Status: [Pass / Fail / Blocked / Not Run]
-
-Evidence: [Screenshot or issue link]
 
 ### Test Case 8: Missing Data or Refresh Recovery
 Objective: Investigate whether the application handles unavailable or missing data appropriately.
@@ -147,17 +141,15 @@ Procedure:
 
 Expected Result: The application presents an understandable empty, error, or recovery state rather than misleading the user about whether data was saved.
 
-Actual Result: [Record the observed behavior.]
+Actual Result: Record the observed behavior.
 
-Status: [Pass / Fail / Blocked / Not Run]
 
-Evidence: [Screenshot or issue link]
 
 Safety note: Do not delete shared or production data to create a failure scenario. Use a controlled test environment and coordinate with the team when necessary.
 
 ## 8. Summary
 
-Prince Karki contributed to Week 7 by supporting implementation review, validating the primary application flow, and documenting the testing evidence used to assess the project’s readiness for the midterm evaluation. This report provides a clear record of responsibilities, testing objectives, scope, and supporting visual evidence from the repository.
+I am supporting implementation review, validating the primary application flow, and documenting the testing evidence used to assess the project’s readiness for the midterm evaluation. This report provides a clear record of responsibilities, testing objectives, scope, and supporting visual evidence from the repository.
 
 Prepared by: Prince Karki (princekark)  
 Role: Implementation Support, Testing, and Documentation  
