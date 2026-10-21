@@ -5,39 +5,78 @@
 **GitHub Username:** princekark  
 **Role:** Implementation Support, Testing, and Documentation  
 **Reporting Period:** Week 7 — Midterm Preparation  
-**Document Status:** Testing and Contribution Record  
+**Document Status:** Finalized Contribution Record  
 **Evidence Directory:** [docs/week7/docs/week7/evidence](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/tree/main/docs/week7/docs/week7/evidence)
 
 ## 1. Introduction
 
-This report documents the Week 7 contribution of Prince Karki for the Smart Study Companion project. The focus was on supporting the team during midterm preparation, reviewing the prototype workflow, and documenting the available evidence accurately.
+This report documents Prince Karki's individual contribution to the Study Planner Application during Week 7, with a focus on implementation support, application testing, quality assurance, and technical documentation.
 
-The repository already contains the Week 7 screenshots needed for this review. The actual issue was not missing evidence itself, but that the report referenced the images with paths that were not reliable in the rendered Markdown view. This update restores the original documentation structure while keeping the repository evidence links intact.
+The purpose of this report is to provide a clear and verifiable record of the work performed, testing activities undertaken, issues identified, and supporting evidence collected during the midterm preparation period.
+
+The report also supports the team's review of application readiness by distinguishing completed work from pending tests, unresolved defects, and planned improvements.
+
+All implementation activities, test outcomes, and contribution claims must reflect work actually completed and must be supported by appropriate evidence where available.
 
 ## 2. Role and Responsibilities
 
+Prince Karki's responsibilities are organized into three areas.
+
 ### 2.1 Implementation Support
-- Reviewed the current prototype flow and validated that the documented feature path matched the available evidence.
-- Helped identify incomplete or unconfirmed areas before the midterm presentation.
-- Recorded contribution context in the team’s documentation and evidence trail.
+- Assist the team in reviewing the application's existing functionality.
+- Help identify defects, inconsistent behavior, and incomplete workflows.
+- Reproduce reported problems and provide clear information to the responsible developer.
+- Assist with verifying fixes after implementation, where assigned.
+- Record any code, configuration, or documentation changes personally completed.
+- Link relevant commits, pull requests, or GitHub issues to establish traceability.
 
 ### 2.2 Application Testing and Quality Assurance
-- Reviewed the task and quiz workflow against the app screenshots and project reports.
-- Confirmed the main user path: subject flow, task flow, quiz flow, and result review.
-- Documented that screenshots were present while formal execution logs were still incomplete.
+- Test the main subject, task, and quiz workflow.
+- Verify task creation, deadline handling, and task completion.
+- Check whether the quiz corresponds to the selected subject.
+- Verify quiz submission and result presentation.
+- Test whether relevant data persists after refreshing the application.
+- Investigate selected failure scenarios and edge cases.
+- Record expected and actual outcomes for each executed test.
+- Report reproducible defects and assist with retesting fixes.
 
 ### 2.3 Documentation and Reporting
-- Supported the Week 7 reporting trail and evidence review.
-- Used the existing Week 7 files as the basis for an honest contribution summary.
-- Prepared a clear record that distinguishes visual evidence from unverified workflow claims.
+- Maintain accurate test records.
+- Update the existing UI testing checklist with verified results where appropriate.
+- Document defects, reproduction steps, and relevant evidence.
+- Add a traceable contribution entry to the Week 7 Weekly Report.
+- Maintain links to relevant issues, commits, pull requests, and screenshots.
+- Help ensure that the midterm presentation accurately reflects the application's current status.
 
-## 3. Evidence Directory
+## 3. Objectives
+
+The main objectives of this work are to:
+
+- Support the team in improving the reliability of the Study Planner Application.
+- Verify the core user workflow before the midterm presentation.
+- Identify defects and incomplete behavior that may affect the demonstration.
+- Establish a reproducible record of testing activities and outcomes.
+- Improve traceability between testing, defect reporting, implementation support, and documentation.
+- Provide verifiable evidence of individual contribution.
+- Communicate current limitations and recommended follow-up actions to the team.
+
+## 4. Scope of Testing
+
+Testing focuses on the following workflow:
+
+Subject selection → Task creation → Task completion → Subject-based quiz → Quiz submission → Data persistence after refresh
+
+The workflow is intended to verify that the application's main features operate together rather than only functioning as isolated components.
+
+Testing should begin from a known application state. Any relevant prerequisites, existing data, and environment limitations should be recorded before the test begins.
+
+## 5. Evidence Directory
 
 The actual Week 7 evidence files are stored in:
 
 https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/tree/main/docs/week7/docs/week7/evidence
 
-## 4. Working Images
+## 6. Working Images
 
 ### Main Dashboard
 ![Main Dashboard](https://raw.githubusercontent.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/main/docs/week7/docs/week7/evidence/Main%20DashBoard.png)
@@ -57,9 +96,9 @@ https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/t
 ### Dark Mode
 ![Dark Mode](https://raw.githubusercontent.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/main/docs/week7/docs/week7/evidence/Dark%20Mode%20.png)
 
-## 5. Summary
+## 7. Summary
 
-Prince Karki supported the team through implementation review, testing follow-up, and documentation work. The repository contains relevant UI evidence for the dashboard, task creation, task flow, quiz sequence, and result display.
+Prince Karki contributed to Week 7 by supporting implementation review, validating the primary application flow, and documenting the testing evidence used to assess the project’s readiness for the midterm evaluation. This report provides a clear record of responsibilities, testing objectives, scope, and supporting visual evidence from the repository.
 
 Prepared by: Prince Karki (princekark)  
 Role: Implementation Support, Testing, and Documentation  
