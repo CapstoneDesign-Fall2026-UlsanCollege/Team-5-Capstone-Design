@@ -96,7 +96,66 @@ https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/t
 ### Dark Mode
 ![Dark Mode](https://raw.githubusercontent.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/main/docs/week7/docs/week7/evidence/Dark%20Mode%20.png)
 
-## 7. Summary
+## 7. Additional Quality Assurance Test Cases
+
+### Test Case 6: Data Persistence After Refresh
+Objective: Verify that relevant saved data remains available after the application is refreshed.
+
+Procedure:
+
+1. Create a subject or select an existing subject.
+2. Create a task and record its deadline.
+3. Mark the task as completed.
+4. Record the quiz result, if applicable.
+5. Refresh the application.
+6. Revisit the relevant sections.
+7. Check whether the subject, task details, completion status, and other expected persistent data remain available.
+
+Expected Result: Data that the application is designed to persist remains available and is displayed consistently after refresh.
+
+Actual Result: [Record separately what happened to the subject, task, completion status, and quiz result.]
+
+Status: [Pass / Fail / Blocked / Not Run]
+
+Evidence: [Before-and-after screenshots or issue link]
+
+### Test Case 7: Missing or Invalid Task Information
+Objective: Determine how the application handles incomplete task information.
+
+Procedure:
+
+1. Open the task creation form.
+2. Attempt to save a task with a required field missing or invalid, where the interface allows the attempt.
+3. Observe the application's response.
+
+Expected Result: The application handles invalid input appropriately, communicates the problem where necessary, and avoids creating an unintended invalid task.
+
+Actual Result: [Record the observed behavior.]
+
+Status: [Pass / Fail / Blocked / Not Run]
+
+Evidence: [Screenshot or issue link]
+
+### Test Case 8: Missing Data or Refresh Recovery
+Objective: Investigate whether the application handles unavailable or missing data appropriately.
+
+Procedure:
+
+1. Use a safe, reproducible scenario involving missing data or an unsuccessful data retrieval, if the test environment permits.
+2. Observe the interface and any error or recovery message.
+3. Record whether the application remains usable and whether the user can recover.
+
+Expected Result: The application presents an understandable empty, error, or recovery state rather than misleading the user about whether data was saved.
+
+Actual Result: [Record the observed behavior.]
+
+Status: [Pass / Fail / Blocked / Not Run]
+
+Evidence: [Screenshot or issue link]
+
+Safety note: Do not delete shared or production data to create a failure scenario. Use a controlled test environment and coordinate with the team when necessary.
+
+## 8. Summary
 
 Prince Karki contributed to Week 7 by supporting implementation review, validating the primary application flow, and documenting the testing evidence used to assess the project’s readiness for the midterm evaluation. This report provides a clear record of responsibilities, testing objectives, scope, and supporting visual evidence from the repository.
 
