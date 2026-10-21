@@ -177,7 +177,7 @@ The following table lists proposed presentation responsibilities. These are not 
 |---|---|---|
 | J.N. Taj Oli | ____ / 4 | Add link |
 | Nabin Khadka | ____ / 4 |[Test Issue](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/37#issue-5945113347),[Screenshoot](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/tree/e9e1eeda66cbc2f1050a36c4747f875acf108334/docs/week7/docs/week7/evidence)|
-| Sumit Adhikari | ____ / 4 | Add link |
+| Sumit Adhikari | ____ / 4 |[UI Test](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/4a891e3d650621973eeb60f9439b563a90d876b5/docs/week7/ui-test-suggestions.md)  |
 | Prabin Rai | ____ / 4 | Add link |
 | Prince Karki | ____ / 4 |[Testing Report](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/0a97449e30861952ec408639f64501c707434cbc/docs/week7/Prince_Karki_Week7_Implementation_Support_Testing_and_Documentation_Report.md) |
 
