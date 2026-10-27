@@ -2,7 +2,7 @@
 
 **Team:** Team 5  
 **Term:** Fall 2026  
-**Last updated:** 2026-10-12
+**Last updated:** 2026-10-27
 
 This folder is the project documentation hub. It keeps weekly records, testing evidence, decision notes, demo planning, and handoff material in one place.
 
@@ -28,6 +28,7 @@ This folder is the project documentation hub. It keeps weekly records, testing e
 | Week 4 | Checkpoint and stack decision | [Week 4 index](week4/README.md) |
 | Week 5 | Vertical-slice worklist and test planning | [Week 5 index](week5/README.md) |
 | Week 6 | Tested-by evidence package and midterm readiness | [Week 6 index](Week6/README.md) |
+| Week 8 | Post-midterm lesson and personal evidence update | [Week 8 weekly report](week8/weekly-report.md) |
 
 ## Current Evidence Trail
 
