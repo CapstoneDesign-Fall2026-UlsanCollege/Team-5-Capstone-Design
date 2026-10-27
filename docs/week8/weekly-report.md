@@ -3,7 +3,7 @@
 **Team:** Team 5  
 **Week:** 8  
 **Report date:** 2026-10-27  
-**Scope:** Personal evidence update by `RaiPrabin697`; unconfirmed team details remain pending.
+**Scope:** Personal evidence update by `Team_5`; unconfirmed team details remain pending.
 
 ## Project lesson
 
@@ -36,15 +36,7 @@
 
 This test concerns the browser-local prototype only. It does not demonstrate login, a backend, cloud storage, or cross-device synchronization. The theme issue remains tracked separately in [Issue #25](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/25); no theme rerun is claimed here.
 
-## Contributions
 
-| GitHub login | Week 8 contribution/evidence | Status |
-|---|---|---|
-| `RaiPrabin697` | Prepared this Week 8 evidence record and identified missing current test proof. The app test itself was not run. | Report update recorded; app validation pending |
-| `jn-oli` | No Week 8 contribution details confirmed in this report. | Pending member update |
-| `adronnie` | No Week 8 contribution details confirmed in this report. | Pending member update |
-| `princekark` | No Week 8 contribution details confirmed in this report. | Pending member update |
-| `liftupkhadka555-spec` | No Week 8 contribution details confirmed in this report. | Pending member update |
 
 ## Next action
 
