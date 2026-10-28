@@ -2,7 +2,7 @@
 
 **Team:** Team 5  
 **Term:** Fall 2026  
-**Last updated:** 2026-10-27
+**Last updated:** 2026-10-28
 
 This folder is the project documentation hub. It keeps weekly records, testing evidence, decision notes, demo planning, and handoff material in one place.
 
@@ -29,6 +29,7 @@ This folder is the project documentation hub. It keeps weekly records, testing e
 | Week 5 | Vertical-slice worklist and test planning | [Week 5 index](week5/README.md) |
 | Week 6 | Tested-by evidence package and midterm readiness | [Week 6 index](Week6/README.md) |
 | Week 8 | Post-midterm lesson and personal evidence update | [Week 8 weekly report](week8/weekly-report.md) |
+| Week 8 | Login/signup feature proposal | [Login & Signup Feature Suggestions](week8/login_signup_feature_suggestions.md) |
 
 ## Current Evidence Trail
 
@@ -48,3 +49,4 @@ This folder is the project documentation hub. It keeps weekly records, testing e
 - Keep pending work marked as pending until the test or proof is actually complete.
 - If a test is not run, write `Not run` and explain what is missing.
 - Use the root [README](../README.md) for the public project summary and this file for deeper navigation.
+
