@@ -6,24 +6,24 @@
  * progress tracking, standard & rapid quizzes, dark/light theme).
  */
 
-import { supabase } from '../src/lib/supabase.js';
+import { supabase } from './src/lib/supabase.js';
 import {
     getCurrentUser,
     getSession,
     signOut,
     updatePassword,
     onAuthStateChange
-} from '../src/services/auth.js';
-import { getProfile, updateDisplayName } from '../src/services/profile.js';
+} from './src/services/auth.js';
+import { getProfile, updateDisplayName } from './src/services/profile.js';
 import {
     getTasks,
     createTask as apiCreateTask,
     updateTask as apiUpdateTask,
     toggleTask as apiToggleTask,
     deleteTask as apiDeleteTask
-} from '../src/services/tasks.js';
-import { getDefaultSubjects, getAllSubjects } from '../src/services/subjects.js';
-import { getQuizQuestions, saveQuizAttempt } from '../src/services/quiz.js';
+} from './src/services/tasks.js';
+import { getDefaultSubjects, getAllSubjects } from './src/services/subjects.js';
+import { getQuizQuestions, saveQuizAttempt } from './src/services/quiz.js';
 
 // ---- Constants ----
 const THEME_KEY = 'smart_study_theme';

@@ -16,7 +16,7 @@ import {
   updatePassword,
   resendVerification,
   getSession,
-} from '../../src/services/auth.js';
+} from '../src/services/auth.js';
 
 // ---- Helpers ----
 
