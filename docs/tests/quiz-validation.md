@@ -1,53 +1,26 @@
-# Quiz Score Validation — Programming Quiz 1
+# Quiz Validation
 
-**Owner:** Prince Karki  
-**Purpose:** Validate that the application's first quiz result calculates and displays the correct score.
+## Quiz modes
 
-## One specific next action
+The quiz supports five computer-science subjects: Programming, Data Structures & Algorithms, Databases, Computer Networks, and Operating Systems.
 
-Run **Programming — Quiz 1** in the application using the five questions and answer sequence below, then compare the application's result with the expected result.
+- A standard subject quiz presents all 15 questions in that subject's question bank.
+- A rapid subject quiz presents 10 randomly selected questions and ends after 30 seconds.
+- Both modes show the score, percentage, selected answers, correct answers for missed questions, and the latest result in `localStorage` under `smart_study_quiz_last`.
 
-## Fixed quiz and answer key
+## Validation checklist
 
-| Question | Correct answer |
-|---|---|
-| What JavaScript keyword declares a block-scoped variable? | `let` |
-| Which HTML element creates the largest heading? | `<h1>` |
-| Which CSS property changes text color? | `color` |
-| Which React hook manages state in a functional component? | `useState` |
-| Which command initializes a Vite + React project? | `npm create vite@latest` |
+1. Open the Quiz screen and confirm that all five subjects can be selected.
+2. For each subject, start a standard quiz and confirm that it contains 15 questions with four answer choices each.
+3. Complete a standard quiz and confirm that its result shows the correct score out of 15, percentage, and answer review.
+4. For each subject, start a rapid quiz and confirm that it contains 10 questions and starts at 30 seconds.
+5. Confirm that the rapid quiz can be submitted before time expires, and that the timer ends the quiz with unanswered questions counted as incorrect.
+6. Confirm that the saved result includes the subject, mode, correct count, total count, and percentage.
 
-The correct option sequence is **B, A, C, C, B** when the choices are presented in the order used in the quiz.
+## Score calculation
 
-## Expected result
+The percentage is calculated as:
 
-- Correct answers: **5**
-- Total questions: **5**
-- Expected percentage: **(5 / 5) × 100 = 100%**
+`round((correct answers / total questions) × 100)`
 
-## Validation procedure
-
-1. Open the Quiz screen and start **Programming — Quiz 1**.
-2. Select the answer sequence **B, A, C, C, B**.
-3. Submit the quiz.
-4. Record the score shown on the result screen.
-5. Pass the test only if the application displays **5/5 correct** and **100%** (or an equivalent representation).
-6. Check the browser's `localStorage` and confirm that the saved first result contains equivalent values: `correct = 5`, `total = 5`, and `percent = 100`.
-
-## First-result record
-
-Complete this table immediately after the first run:
-
-| Field | Recorded value |
-|---|---|
-| Date/time |  |
-| Browser/device |  |
-| UI score displayed |  |
-| Stored `correct` value |  |
-| Stored `total` value |  |
-| Stored `percent` value |  |
-| Screenshot/evidence link |  |
-| Pass or fail |  |
-| Notes |  |
-
-**Pass criterion:** The displayed score and stored result both match the independently calculated expected result of **5/5 (100%)**. If either differs, record **Fail** and report the actual values.
+For an unanswered rapid quiz question, the selected answer is treated as incorrect and the result review identifies it as not answered.

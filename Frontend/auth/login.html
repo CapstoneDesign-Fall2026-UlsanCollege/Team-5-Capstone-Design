@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in — StudySmart</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650;9..144,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+    <div class="ambient" aria-hidden="true">
+        <div class="glow glow-a"></div>
+        <div class="glow glow-b"></div>
+        <div class="grain"></div>
+    </div>
+
+    <div class="auth-shell">
+        <aside class="auth-brand">
+            <div class="brand">
+                <div class="brand-mark" aria-hidden="true"><i class="fa-solid fa-graduation-cap"></i></div>
+                <div>
+                    <p class="brand-kicker">Companion</p>
+                    <p class="brand-name">StudySmart</p>
+                </div>
+            </div>
+            <h1>Plan subjects, deadlines, and quizzes in one place.</h1>
+            <p>Sign in to keep your study plan with you. Guest data still lives only in this browser.</p>
+            <div class="brand-pills">
+                <span class="pill">Subjects</span>
+                <span class="pill">Tasks</span>
+                <span class="pill">Quiz</span>
+            </div>
+        </aside>
+
+        <main class="auth-main">
+            <section class="auth-card" aria-labelledby="login-title">
+                <p class="eyebrow">Sign in</p>
+                <h2 id="login-title">Welcome back</h2>
+                <p class="muted">Use your school email to open your study plan.</p>
+
+                <div id="form-alert" class="form-alert" role="alert"></div>
+
+                <form id="login-form" class="stack-form" novalidate>
+                    <label>
+                        Email
+                        <input id="email" name="email" type="email" autocomplete="username" inputmode="email" placeholder="you@college.edu" required aria-describedby="email-error">
+                    </label>
+                    <p id="email-error" class="field-error"></p>
+
+                    <label>
+                        Password
+                        <span class="field-wrap">
+                            <input id="password" name="password" type="password" autocomplete="current-password" required aria-describedby="password-error">
+                            <button type="button" class="toggle-secret" data-toggle-password="password" aria-label="Show password">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </span>
+                    </label>
+                    <p id="password-error" class="field-error"></p>
+
+                    <button class="btn-primary" type="submit">Sign In</button>
+                </form>
+
+                <p class="auth-switch">New here? <a href="signup.html">Create account</a></p>
+                <p class="auth-footnote">UI mockup only. This page does not talk to a backend.</p>
+            </section>
+        </main>
+    </div>
+
+    <div id="toast-stack" class="toast-stack"></div>
+    <script src="auth.js"></script>
+</body>
+</html>

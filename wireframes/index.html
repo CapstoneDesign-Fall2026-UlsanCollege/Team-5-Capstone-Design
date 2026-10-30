@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wireframes — Smart Study Companion</title>
+    <link rel="stylesheet" href="wireframe.css">
+</head>
+<body>
+    <header class="wf-topbar">
+        <a href="../index.html">Live app</a>
+        <span>Smart Study Companion</span>
+    </header>
+    <main class="wf-page">
+        <h1>MVP flow</h1>
+        <p class="wf-note">Create a subject, add tasks with deadlines, review the plan, complete work, take a quiz, see the score.</p>
+        <div class="wf-flow">
+            <a class="wf-screen-card" href="subjects.html"><strong>1. Subject &amp; Task Creation</strong><span>Entry screen. Forms + localStorage.</span></a>
+            <div class="wf-arrow">→</div>
+            <a class="wf-screen-card" href="study-plan.html"><strong>2. Study Plan / Tracker</strong><span>Deadlines, complete, filter.</span></a>
+            <div class="wf-arrow">→</div>
+            <a class="wf-screen-card" href="quiz.html"><strong>3. Quiz</strong><span>50 mixed-topic multiple-choice questions.</span></a>
+            <div class="wf-arrow">→</div>
+            <a class="wf-screen-card" href="quiz-result.html"><strong>4. Result</strong><span>Score, percent, retake.</span></a>
+        </div>
+        <section class="wf-frame">
+            <div class="wf-label">Why this order</div>
+            <ul class="wf-list">
+                <li>Subject &amp; Task Creation is the easiest first screen: one subject form, one task form, browser storage.</li>
+                <li>Study Plan is the value screen: pending vs completed, grouped by subject, sorted by deadline.</li>
+                <li>Quiz &amp; Result closes the demo loop: 50 questions, marks and percentage.</li>
+                <li>No login, no cloud, no AI in the MVP.</li>
+            </ul>
+        </section>
+    </main>
+</body>
+</html>

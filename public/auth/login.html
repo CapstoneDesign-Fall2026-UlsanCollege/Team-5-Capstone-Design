@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In — StudySmart</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650;9..144,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+  <!-- Ambient background -->
+  <div class="glow-a" aria-hidden="true"></div>
+  <div class="glow-b" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <main class="auth-shell">
+    <!-- ─── Left Panel ─── -->
+    <section class="auth-panel-left" aria-hidden="true">
+      <div class="auth-brand">
+        <div class="auth-brand-icon">
+          <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+        <p class="auth-brand-kicker">Companion</p>
+        <h1 class="auth-brand-name">StudySmart</h1>
+      </div>
+
+      <div class="auth-panel-copy">
+        <h2 class="auth-panel-headline">Plan subjects, deadlines, and quizzes in one place.</h2>
+        <p class="auth-panel-desc">Your all-in-one study dashboard that keeps you focused, organized, and on track for every exam.</p>
+        <div class="auth-pills">
+          <span class="auth-pill"><i class="fa-solid fa-book"></i> Subjects</span>
+          <span class="auth-pill"><i class="fa-solid fa-list-check"></i> Tasks</span>
+          <span class="auth-pill"><i class="fa-solid fa-brain"></i> Quiz</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Right Panel ─── -->
+    <section class="auth-panel-right">
+      <div class="auth-card">
+        <p class="auth-eyebrow">Sign in</p>
+        <h2 class="auth-heading">Welcome back</h2>
+        <p class="auth-muted">Use your school email to open your study plan.</p>
+
+        <!-- Alert banner (hidden by default) -->
+        <div id="form-alert" class="auth-alert" role="alert" hidden></div>
+
+        <form id="login-form" class="auth-form" novalidate>
+          <!-- Email -->
+          <div class="form-group">
+            <label for="email" class="form-label">Email</label>
+            <div class="input-wrap">
+              <i class="fa-solid fa-envelope input-icon" aria-hidden="true"></i>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="form-input"
+                placeholder="you@college.edu"
+                autocomplete="username"
+                required
+              >
+            </div>
+            <p id="email-error" class="form-error" role="alert"></p>
+          </div>
+
+          <!-- Password -->
+          <div class="form-group">
+            <label for="password" class="form-label">Password</label>
+            <div class="input-wrap">
+              <i class="fa-solid fa-lock input-icon" aria-hidden="true"></i>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                class="form-input"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+                required
+              >
+              <button type="button" class="input-toggle" aria-label="Show password" data-target="password">
+                <i class="fa-solid fa-eye"></i>
+              </button>
+            </div>
+            <p id="password-error" class="form-error" role="alert"></p>
+          </div>
+
+          <div class="form-row form-row-end">
+            <a href="forgot-password.html" class="auth-link">Forgot password?</a>
+          </div>
+
+          <button type="submit" class="btn-primary" id="login-btn">
+            <span class="btn-label">Sign In</span>
+          </button>
+        </form>
+
+        <p class="auth-footer-text">
+          New here? <a href="signup.html" class="auth-link">Create account</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast-stack" class="toast-stack"></div>
+  <script type="module" src="auth-init.js"></script>
+</body>
+</html>

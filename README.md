@@ -2,118 +2,162 @@
 
 # Smart Study Companion
 
-### A college study planner and quiz project for organizing subjects, study tasks, and deadlines.
+### Production-Oriented University Study Management Web Application
+**Full-Stack Architecture · Supabase PostgreSQL · Supabase Auth · Row Level Security (RLS)**
 
-[![Capstone Project](https://img.shields.io/badge/Capstone-Fall%202026-2563EB)](docs/README.md)
-[![Project Stage](https://img.shields.io/badge/Stage-Planning%20%2F%20Early%20Slice-D97706)](docs/week5/WEEK_5_WORKLIST.md)
+[![Status](https://img.shields.io/badge/Architecture-Full--Stack%20Supabase-0f766e)](supabase/migrations/)
+[![Auth](https://img.shields.io/badge/Auth-Supabase%20Auth-2dd4bf)](public/auth/)
+[![Free Tier](https://img.shields.io/badge/Budget-%240%2Fmonth%20Free%20Tier-c27803)](docs/)
 
-[Documentation](docs/README.md) ·
-[Week 5 Worklist](docs/week5/WEEK_5_WORKLIST.md) ·
-[Team](#team)
+[Documentation](docs/README.md) · [Schema Migrations](supabase/migrations/) · [Architecture Plan](docs/week5/ARCHITECTURE_AND_SETUP.md)
 
 </div>
 
 ---
 
-## Overview
+## 1. Overview & Pivot
 
-Smart Study Companion is a Capstone Design project for college students who want one simple place to organize coursework and prepare for quizzes. The planned MVP brings subjects, study tasks, deadlines, task completion, and multiple-choice quiz scores into one study flow.
+Smart Study Companion is an academic study management application designed for university students to organize courses, study tasks, deadlines, and quizzes with real student accounts.
 
-The project is being developed by Team 5 at Ulsan College for Fall 2026. This repository contains project documentation, a browser-based frontend prototype, and its wireframes.
-
-> **Current status:** The team has selected React + Vite with browser `localStorage` for the MVP. Instructor approval is still recorded as a blocker. The frontend currently in `Frontend/` is a plain HTML/CSS/JavaScript prototype, not a React + Vite app. The app-level persistence test has not been run.
-
-## Planned MVP Experience
-
-The intended student flow is:
-
-1. Create or select a subject.
-2. Add study tasks and deadlines.
-3. Review the study plan.
-4. Mark a task complete.
-5. Take a multiple-choice quiz.
-6. View the calculated score.
-
-| Capability | Planned behavior | Current evidence |
-|---|---|---|
-| Subjects | Create and select a course subject | Available in the browser prototype under `Frontend/` |
-| Study tasks | Add a task with a deadline under a subject | Available in the browser prototype under `Frontend/` |
-| Study plan | Review tasks and completion state | Available in the browser prototype; wireframes are in `Frontend/wireframes/` |
-| Quiz | Answer multiple-choice questions and view a score | Available in the browser prototype; app-level validation is pending |
-| Persistence | Keep subject and task state after refresh | Prototype uses browser `localStorage`; the documented app-level test has not been run |
-
-AI question generation, reminders, login, cloud storage, and backend services are outside the current MVP scope.
-
-## Technology Direction
-
-| Area | Team decision | Status |
-|---|---|---|
-| Frontend | React + Vite | Selected by the team; instructor approval pending |
-| MVP storage | Browser `localStorage` | Selected by the team; instructor approval pending |
-| Backend and external services | None for the MVP | Explicitly out of scope in the Week 4 checkpoint |
-
-The Week 5 API, authentication, and database notes should be read as proposals unless the team records an approved change to the MVP decision. See the [Week 4 checkpoint](docs/week4/chuseok-checkpoint.md) for the current decision and blocker.
-
-## Progress and Evidence
-
-| Milestone | Work recorded so far | Evidence |
-|---|---|---|
-| Week 1 — project launch | Project direction, five candidate ideas, and team working agreement | [Week 1 documentation](docs/week1/README.md) |
-| Week 2 — scope and research | Design Doc v1, user-flow sketch, investigation receipts, and a standalone storage check | [Week 2 documentation](docs/week2/README.md) |
-| Week 3 — first user flow | Subject Detail / Study Plan screen, state transitions, wireframes, architecture notes, and state/flow test evidence | [Week 3 report](docs/week3/week-03.md) |
-| Week 4 — checkpoint | Team stack decision and the app-setup dependency for real persistence testing | [Week 4 checkpoint](docs/week4/chuseok-checkpoint.md) |
-| Week 5 — vertical slice | Subject/task slice, implementation worklist, and a repeatable persistence test procedure | [Week 5 worklist](docs/week5/WEEK_5_WORKLIST.md) · [Persistence test procedure](docs/week5/week-05-prabin-rai.md) |
-
-### Evidence Boundaries
-
-The Week 2 and Week 3 storage fixtures are standalone browser pages. They check the planned sample data across a page refresh, but **they do not demonstrate persistence in a React application**. The application-level test remains **Not run** until the app is available. See the [test procedure and status](docs/week5/week-05-prabin-rai.md).
-
-## Architecture
-
-The team's selected target remains a React + Vite frontend that stores MVP data in the browser. The repository also includes a runnable plain HTML/CSS/JavaScript prototype in `Frontend/`, with wireframes in `Frontend/wireframes/`. This prototype is not the React + Vite implementation, and there is no backend service.
-
-For the proposed screen flow and state model, see the [Week 3 report](docs/week3/week-03.md), [architecture sketch](docs/week3/architecture-sketch.md), and [wireframe notes](docs/week3/wireframe-notes.md).
-
-## Run the Project
-
-Open [`Frontend/index.html`](Frontend/index.html) in a web browser to run the prototype; no build step is required. The wireframe index is [`Frontend/wireframes/index.html`](Frontend/wireframes/index.html). The prototype stores data in the browser's `localStorage`. The separate storage fixtures are documentation evidence, and the documented app-level persistence test remains to be run.
-
-## Documentation
-
-| Start here | Purpose |
-|---|---|
-| [Documentation index](docs/README.md) | Navigate all project and course records |
-| [Week 1](docs/week1/README.md) | Launch report, project ideas, and team agreement |
-| [Week 2](docs/week2/README.md) | Scope, design, research receipts, and storage fixture |
-| [Week 3](docs/week3/README.md) | Stack comparison, wireframes, architecture, and candidate slice |
-| [Week 4](docs/week4/README.md) | Chuseok checkpoint and current stack decision |
-| [Week 5](docs/week5/WEEK_5_WORKLIST.md) | Vertical-slice worklist and implementation ownership |
-| [Test plan and status](docs/week5/week-05-prabin-rai.md) | Subject/task refresh test steps, expected results, and current status |
-
-## Team
-
-| Team member |
-|---|
-| Nabin Khadka |
-| Sumit Adhikari |
-| Prince Karki |
-| Prabin Rai |
-| J.N. Taj Oli |
-
-## Current Limitations
-
-- The current frontend is a plain HTML/CSS/JavaScript prototype, not the selected React + Vite implementation.
-- Instructor approval for the selected React + Vite + `localStorage` stack is still tracked as a blocker.
-- The app-level persistence test and React screen screenshots are pending the React implementation.
-- Week 5 API, authentication, and database notes need to stay clearly separated from the currently selected no-backend MVP unless a decision changes.
+### What Changed (The Full-Stack Pivot):
+- **Authentication First**: Student identity management replacing browser-only guest storage.
+- **Persistent Cloud Database**: Supabase PostgreSQL replacing browser `localStorage`.
+- **Row Level Security (RLS)**: Enforced isolation ensuring students cannot view, edit, or delete other students' coursework.
+- **Preserved Core UI & Features**: 5 Computer Science subjects, standard & rapid quizzes, 75 quiz questions, progress tracking, and light/dark theme maintained intact.
 
 ---
 
-<div align="center">
+## 2. Technology Stack
 
-**Capstone Design · Fall 2026 · Ulsan College · Team 5**
+| Layer | Technology | Purpose |
+|---|---|---|
+| **Frontend** | HTML5 / CSS3 / Vanilla JavaScript (ES Modules) | Lightweight, standards-based UI with zero framework bloat |
+| **Auth** | Supabase Auth | Sign in, registration, email verification, password reset |
+| **Database** | Supabase PostgreSQL | Normalized relational database with RLS policies |
+| **Client SDK** | `@supabase/supabase-js` | Browser database & auth queries |
+| **Hosting** | Vercel (Hobby Free Tier) | High-speed global edge static deployment |
+| **Testing** | Automated Test Suite (Python 3 / Vitest) | Schema validation, unit tests, and markup verification |
 
-[Documentation](docs/README.md) ·
-[Week 5 Worklist](docs/week5/WEEK_5_WORKLIST.md)
+---
 
-</div>
+## 3. Project Directory Structure
+
+```
+Smart Study Companion/
+├── public/                      # Static frontend (production root)
+│   ├── index.html               # Student Dashboard (protected view)
+│   ├── styles.css               # Main application styles
+│   ├── app.js                   # Application controller & Supabase synchronization
+│   ├── auth/                    # Authentication UI pages
+│   │   ├── login.html           # Student sign-in
+│   │   ├── signup.html          # Registration with password validation
+│   │   ├── verify.html          # Email confirmation handler
+│   │   ├── forgot-password.html # Password reset request
+│   │   ├── reset-password.html  # Secure password update form
+│   │   ├── auth.css             # Authentication design system
+│   │   └── auth-init.js         # Auth controller & form lifecycle
+│   └── wireframes/              # UI design reference wireframes
+├── src/
+│   ├── lib/
+│   │   └── supabase.js          # Supabase client singleton
+│   ├── services/
+│   │   ├── auth.js              # Authentication service methods
+│   │   ├── profile.js           # Student profile service
+│   │   ├── tasks.js             # Study task CRUD service
+│   │   ├── subjects.js          # Subject catalog & enrollment
+│   │   └── quiz.js              # Quiz questions & attempt tracking
+│   └── auth-guard.js            # Route protection guard
+├── supabase/
+│   └── migrations/              # Versioned SQL migrations with RLS
+│       ├── 001_profiles.sql     # Profiles table linked to auth.users
+│       ├── 002_subjects.sql     # Subjects catalog & enrollment
+│       ├── 003_tasks.sql        # Study tasks with deadlines
+│       ├── 004_quiz_questions.sql # 75 CS multiple-choice questions
+│       ├── 005_quiz_attempts.sql  # Attempt tracking & responses
+│       └── 006_rls_policies.sql   # Comprehensive Row Level Security
+├── tests/
+│   ├── run_tests.py             # Automated test suite
+│   └── unit/                    # Unit test specs
+├── .env.example                 # Template for Supabase credentials
+├── vercel.json                  # Vercel deployment configuration
+├── package.json                 # Project configuration & scripts
+└── README.md
+```
+
+---
+
+## 4. Supabase Setup Guide
+
+### Step 1: Create a Supabase Project (Free Tier)
+1. Go to [https://supabase.com](https://supabase.com) and create a free project.
+2. Note your **Project URL** and **API anon key** from `Settings` → `API`.
+
+### Step 2: Apply Database Migrations
+In the Supabase SQL Editor, run the SQL files in order from `supabase/migrations/`:
+1. `001_profiles.sql` (Creates `profiles` table and auto-creation trigger on new user signup)
+2. `002_subjects.sql` (Creates subjects catalog and seeds the 5 Computer Science subjects)
+3. `003_tasks.sql` (Creates `tasks` table with indexes)
+4. `004_quiz_questions.sql` (Seeds the 75 multiple-choice questions)
+5. `005_quiz_attempts.sql` (Creates attempt tracking and response tables)
+6. `006_rls_policies.sql` (Enables Row Level Security and creates isolation policies)
+
+### Step 3: Configure Environment Variables
+Copy `.env.example` to `.env`:
+```bash
+cp .env.example .env
+```
+Add your credentials:
+```env
+VITE_SUPABASE_URL=https://your-project-ref.supabase.co
+VITE_SUPABASE_ANON_KEY=your-anon-public-key
+```
+
+### Step 4: Configure Auth URL Redirects
+In the Supabase Dashboard under `Authentication` → `URL Configuration`:
+- Set **Site URL** to your deployment URL (or `http://localhost:3000` for development).
+- Add redirect URLs:
+  - `http://localhost:3000/auth/verify.html`
+  - `http://localhost:3000/auth/reset-password.html`
+  - `https://your-domain.vercel.app/auth/verify.html`
+  - `https://your-domain.vercel.app/auth/reset-password.html`
+
+---
+
+## 5. Running Tests
+
+Run the test suite:
+```bash
+python3 tests/run_tests.py
+```
+Expected output:
+```
+============================================================
+  SMART STUDY COMPANION — AUTOMATED TEST SUITE
+============================================================
+Testing Project File Structure...
+  ✓ All required files and directories present.
+Testing Database Schema Migrations...
+  ✓ All 6 SQL migrations valid with complete tables, 75 seeded questions, and RLS on all 7 tables.
+Testing Authentication HTML Pages...
+  ✓ All 5 Auth pages properly structured with required inputs, toggles, and scripts.
+Testing Auth Validation Logic...
+  ✓ Email regex and 8+ char / letter / digit password validation pass.
+Testing Task Metric Calculations...
+  ✓ Task metrics calculation passes (50% completion on 2/4).
+Testing Quiz Scoring Logic...
+  ✓ Quiz scoring calculation passes (2/3 correct = 67%).
+============================================================
+  ALL TESTS PASSED SUCCESSFULLY (6/6)
+============================================================
+```
+
+---
+
+## 6. Deployment to Vercel (Hobby Free Tier)
+
+1. Connect your repository to Vercel.
+2. In Project Settings → Environment Variables, add:
+   - `VITE_SUPABASE_URL`
+   - `VITE_SUPABASE_ANON_KEY`
+3. Set the **Output Directory** to `public` (already configured in `vercel.json`).
+4. Click **Deploy**.

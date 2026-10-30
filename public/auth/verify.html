@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verify Email — StudySmart</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650;9..144,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+  <!-- Ambient background -->
+  <div class="glow-a" aria-hidden="true"></div>
+  <div class="glow-b" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <main class="auth-shell">
+    <!-- ─── Left Panel ─── -->
+    <section class="auth-panel-left" aria-hidden="true">
+      <div class="auth-brand">
+        <div class="auth-brand-icon">
+          <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+        <p class="auth-brand-kicker">Companion</p>
+        <h1 class="auth-brand-name">StudySmart</h1>
+      </div>
+
+      <div class="auth-panel-copy">
+        <h2 class="auth-panel-headline">Almost there.</h2>
+        <p class="auth-panel-desc">Just one more step to unlock your study dashboard.</p>
+      </div>
+    </section>
+
+    <!-- ─── Right Panel ─── -->
+    <section class="auth-panel-right">
+      <div class="auth-card auth-card-verify">
+        <p class="auth-eyebrow">Verify email</p>
+        <h2 class="auth-heading">Check your inbox</h2>
+
+        <!-- Default state -->
+        <div id="verify-default" class="verify-state">
+          <div class="verify-icon" aria-hidden="true">
+            <i class="fa-solid fa-envelope-circle-check"></i>
+          </div>
+          <p class="auth-muted">
+            We sent a confirmation email to the address below. Click the link in the email to verify your account.
+          </p>
+          <p class="verify-email" id="verify-email" aria-live="polite">—</p>
+          <p class="auth-muted auth-muted-sm">
+            Didn't receive it? Check your spam folder or resend.
+          </p>
+          <button type="button" class="btn-ghost" id="resend-btn">
+            <i class="fa-solid fa-rotate-right" aria-hidden="true"></i>
+            <span class="btn-label">Resend verification email</span>
+          </button>
+        </div>
+
+        <!-- Success state -->
+        <div id="verify-success" class="verify-state" hidden>
+          <div class="verify-icon verify-icon-success" aria-hidden="true">
+            <i class="fa-solid fa-circle-check"></i>
+          </div>
+          <p class="auth-status-text auth-status-success">Verification email resent successfully.</p>
+        </div>
+
+        <!-- Error state -->
+        <div id="verify-error" class="verify-state" hidden>
+          <div class="verify-icon verify-icon-error" aria-hidden="true">
+            <i class="fa-solid fa-circle-xmark"></i>
+          </div>
+          <p class="auth-status-text auth-status-error">Something went wrong. Please try again.</p>
+        </div>
+
+        <!-- Expired link state -->
+        <div id="verify-expired" class="verify-state" hidden>
+          <div class="verify-icon verify-icon-warning" aria-hidden="true">
+            <i class="fa-solid fa-clock"></i>
+          </div>
+          <p class="auth-status-text auth-status-warning">
+            This verification link has expired. Click below to request a new one.
+          </p>
+          <button type="button" class="btn-ghost" id="resend-expired-btn">
+            <i class="fa-solid fa-rotate-right" aria-hidden="true"></i>
+            <span class="btn-label">Resend verification email</span>
+          </button>
+        </div>
+
+        <a href="login.html" class="auth-link auth-back-link">
+          <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back to sign in
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast-stack" class="toast-stack"></div>
+  <script type="module" src="auth-init.js"></script>
+</body>
+</html>

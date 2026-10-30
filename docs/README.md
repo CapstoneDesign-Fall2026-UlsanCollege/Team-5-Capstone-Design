@@ -16,6 +16,7 @@ This `docs/` folder holds the project documentation, organized by week. All cour
 | Week 04 | [week4/](week4/README.md) | [Week 04 contributor update (RaiPrabin697)](week4/week-04.md), Chuseok checkpoint, localStorage test status and report |
 | Week 05 | [week5/](week5/WEEK_5_WORKLIST.md) | Vertical-slice worklist, persistence test preparation, setup and technical notes |
 | Week 06 | [week6/](week6/README.md) | Evidence-owner package, tested-by note, shared weekly report, issue status guide, individual evidence receipt |
+| Week 09 | [week9/](week9/README.md) | Login and Signup UI design, validation notes, and mockup images |
 
 ## Contributor updates
 
