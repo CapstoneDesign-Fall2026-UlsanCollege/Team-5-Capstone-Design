@@ -1,6 +1,5 @@
 # Week 9 — Login and Signup UI design
 
-**Owner:** J.N. Taj Oli  
 **Project:** Smart Study Companion  
 **Date:** 2026-10-28  
 **Status:** UI proposal (clickable mockups)  
