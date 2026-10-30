@@ -167,3 +167,4 @@ If the team later assigns backend auth, implement the field names and error code
 3. Follow **Create account**, try a short password and a mismatched confirm.
 4. Watch the three requirement pills update while typing.
 5. Compare the page to the images in `mockups/`.
+   ## Owner: Jn Taj oli
