@@ -1,51 +1,72 @@
 /**
  * Profile Service
  * 
- * CRUD operations for the profiles table. Each profile is linked to
- * a Supabase Auth user via the same UUID.
+ * Supports both live Supabase profiles table and local session profiles.
  */
-import { supabase } from '../lib/supabase.js';
+import { supabase, isConfigured } from '../lib/supabase.js';
 
-/**
- * Get the profile for the authenticated user.
- * @param {string} userId
- * @returns {Promise<{ data: object|null, error: object|null }>}
- */
 export async function getProfile(userId) {
-  const { data, error } = await supabase
-    .from('profiles')
-    .select('*')
-    .eq('id', userId)
-    .single();
-  return { data, error };
+  if (isConfigured) {
+    try {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', userId)
+        .single();
+      return { data, error };
+    } catch (err) {
+      return { data: null, error: err };
+    }
+  }
+
+  // Local mode fallback
+  const session = localStorage.getItem('study_companion_local_session');
+  if (session) {
+    try {
+      const parsed = JSON.parse(session);
+      return {
+        data: {
+          id: userId,
+          full_name: parsed.user?.user_metadata?.full_name || 'Student',
+          created_at: new Date().toISOString(),
+        },
+        error: null,
+      };
+    } catch (_) {}
+  }
+  return { data: { id: userId, full_name: 'Student' }, error: null };
 }
 
-/**
- * Create or update the profile (upsert).
- * Called after signup when the profiles trigger may not yet have fired.
- * @param {{ id: string, full_name: string }} profile
- */
 export async function upsertProfile(profile) {
-  const { data, error } = await supabase
-    .from('profiles')
-    .upsert(profile, { onConflict: 'id' })
-    .select()
-    .single();
-  return { data, error };
+  if (isConfigured) {
+    return supabase
+      .from('profiles')
+      .upsert(profile, { onConflict: 'id' })
+      .select()
+      .single();
+  }
+  return { data: profile, error: null };
 }
 
-/**
- * Update display name.
- * @param {string} userId
- * @param {string} fullName
- */
 export async function updateDisplayName(userId, fullName) {
-  const { data, error } = await supabase
-    .from('profiles')
-    .update({ full_name: fullName, updated_at: new Date().toISOString() })
-    .eq('id', userId)
-    .select()
-    .single();
-  return { data, error };
-}
+  if (isConfigured) {
+    return supabase
+      .from('profiles')
+      .update({ full_name: fullName, updated_at: new Date().toISOString() })
+      .eq('id', userId)
+      .select()
+      .single();
+  }
 
+  // Update local session
+  const session = localStorage.getItem('study_companion_local_session');
+  if (session) {
+    try {
+      const parsed = JSON.parse(session);
+      parsed.user.user_metadata = parsed.user.user_metadata || {};
+      parsed.user.user_metadata.full_name = fullName;
+      localStorage.setItem('study_companion_local_session', JSON.stringify(parsed));
+    } catch (_) {}
+  }
+  return { data: { id: userId, full_name: fullName }, error: null };
+}

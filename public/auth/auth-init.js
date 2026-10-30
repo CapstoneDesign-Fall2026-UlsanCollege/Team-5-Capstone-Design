@@ -340,10 +340,17 @@ function initSignup() {
       return;
     }
 
-    toast('Account created! Please check your email.');
-    setTimeout(() => {
-      window.location.href = `verify.html?email=${encodeURIComponent(email)}`;
-    }, 600);
+    if (data?.session) {
+      toast('Account created! Opening dashboard...');
+      setTimeout(() => {
+        window.location.href = '../index.html';
+      }, 500);
+    } else {
+      toast('Account created! Please check your email.');
+      setTimeout(() => {
+        window.location.href = `verify.html?email=${encodeURIComponent(email)}`;
+      }, 600);
+    }
   });
 }
 
