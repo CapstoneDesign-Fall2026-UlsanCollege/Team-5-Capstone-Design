@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account — StudySmart</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650;9..144,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+  <!-- Ambient background -->
+  <div class="glow-a" aria-hidden="true"></div>
+  <div class="glow-b" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <main class="auth-shell">
+    <!-- ─── Left Panel ─── -->
+    <section class="auth-panel-left" aria-hidden="true">
+      <div class="auth-brand">
+        <div class="auth-brand-icon">
+          <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+        <p class="auth-brand-kicker">Companion</p>
+        <h1 class="auth-brand-name">StudySmart</h1>
+      </div>
+
+      <div class="auth-panel-copy">
+        <h2 class="auth-panel-headline">Start your study space.</h2>
+        <p class="auth-panel-desc">One account for subjects, tasks, and quizzes.</p>
+        <ul class="auth-checklist">
+          <li class="auth-checklist-item">
+            <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+            Organize subjects and deadlines
+          </li>
+          <li class="auth-checklist-item">
+            <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+            Track tasks and study progress
+          </li>
+          <li class="auth-checklist-item">
+            <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+            Generate quizzes from your notes
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ─── Right Panel ─── -->
+    <section class="auth-panel-right">
+      <div class="auth-card">
+        <p class="auth-eyebrow">Create account</p>
+        <h2 class="auth-heading">Join StudySmart</h2>
+
+        <!-- Alert banner (hidden by default) -->
+        <div id="form-alert" class="auth-alert" role="alert" hidden></div>
+
+        <form id="signup-form" class="auth-form" novalidate>
+          <!-- Full Name -->
+          <div class="form-group">
+            <label for="fullname" class="form-label">Full name</label>
+            <div class="input-wrap">
+              <i class="fa-solid fa-user input-icon" aria-hidden="true"></i>
+              <input
+                type="text"
+                id="fullname"
+                name="fullname"
+                class="form-input"
+                placeholder="Jane Doe"
+                minlength="2"
+                autocomplete="name"
+                required
+              >
+            </div>
+            <p id="fullname-error" class="form-error" role="alert"></p>
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label for="email" class="form-label">Email</label>
+            <div class="input-wrap">
+              <i class="fa-solid fa-envelope input-icon" aria-hidden="true"></i>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="form-input"
+                placeholder="you@college.edu"
+                autocomplete="email"
+                required
+              >
+            </div>
+            <p id="email-error" class="form-error" role="alert"></p>
+          </div>
+
+          <!-- Password -->
+          <div class="form-group">
+            <label for="password" class="form-label">Password</label>
+            <div class="input-wrap">
+              <i class="fa-solid fa-lock input-icon" aria-hidden="true"></i>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                class="form-input"
+                placeholder="Create a password"
+                autocomplete="new-password"
+                minlength="8"
+                required
+              >
+              <button type="button" class="input-toggle" aria-label="Show password" data-target="password">
+                <i class="fa-solid fa-eye"></i>
+              </button>
+            </div>
+            <p id="password-error" class="form-error" role="alert"></p>
+            <ul class="password-rules" id="password-rules">
+              <li data-rule="length"><i class="fa-solid fa-circle" aria-hidden="true"></i> 8+ characters</li>
+              <li data-rule="letter"><i class="fa-solid fa-circle" aria-hidden="true"></i> A letter</li>
+              <li data-rule="number"><i class="fa-solid fa-circle" aria-hidden="true"></i> A number</li>
+            </ul>
+          </div>
+
+          <!-- Confirm Password -->
+          <div class="form-group">
+            <label for="confirm-password" class="form-label">Confirm password</label>
+            <div class="input-wrap">
+              <i class="fa-solid fa-lock input-icon" aria-hidden="true"></i>
+              <input
+                type="password"
+                id="confirm-password"
+                name="confirm-password"
+                class="form-input"
+                placeholder="Repeat your password"
+                autocomplete="new-password"
+                required
+              >
+              <button type="button" class="input-toggle" aria-label="Show confirm password" data-target="confirm-password">
+                <i class="fa-solid fa-eye"></i>
+              </button>
+            </div>
+            <p id="confirm-password-error" class="form-error" role="alert"></p>
+          </div>
+
+          <!-- Terms -->
+          <div class="form-group form-group-checkbox">
+            <label class="checkbox-label">
+              <input type="checkbox" id="terms" name="terms" required>
+              <span class="checkbox-custom" aria-hidden="true">
+                <i class="fa-solid fa-check"></i>
+              </span>
+              <span class="checkbox-text">
+                I agree to the <a href="#" class="auth-link">Terms of Service</a> and <a href="#" class="auth-link">Privacy Policy</a>
+                <small class="auth-muted">(drafts — not yet final)</small>
+              </span>
+            </label>
+            <p id="terms-error" class="form-error" role="alert"></p>
+          </div>
+
+          <button type="submit" class="btn-primary" id="signup-btn">
+            <span class="btn-label">Create Account</span>
+          </button>
+        </form>
+
+        <p class="auth-footer-text">
+          Already have an account? <a href="login.html" class="auth-link">Sign in</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast-stack" class="toast-stack"></div>
+  <script type="module" src="auth-init.js"></script>
+</body>
+</html>

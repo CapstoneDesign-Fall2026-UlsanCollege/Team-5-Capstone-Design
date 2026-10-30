@@ -1,107 +1,187 @@
-## Documentation
+# Smart Study Companion
+
+### Production-Oriented University Study Management Web Application
+**Full-Stack Architecture · Supabase PostgreSQL · Supabase Auth · Row Level Security (RLS)**
+
+[![Status](https://img.shields.io/badge/Architecture-Full--Stack%20Supabase-0f766e)](supabase/migrations/)
+[![Auth](https://img.shields.io/badge/Auth-Supabase%20Auth-2dd4bf)](public/auth/)
+[![Free Tier](https://img.shields.io/badge/Budget-%240%2Fmonth%20Free%20Tier-c27803)](docs/)
+[![Automated Tests](https://img.shields.io/badge/Tests-6%2F6%20Passing-success)](tests/)
+
+[Documentation](docs/README.md) · [Schema Migrations](supabase/migrations/) · [Architecture Plan](docs/week5/ARCHITECTURE_AND_SETUP.md) · [Evidence Package](docs/Week6/README.md)
+
+---
+
+## Documentation Navigation
 
 | Area | Purpose |
 |---|---|
-| [Documentation hub](docs/README.md) | Main navigation for all project records |
+| [Documentation hub](docs/README.md) | Main navigation for all project records and weekly documentation |
 | [Project status](docs/PROJECT_STATUS.md) | Ready, pending, blocked, and out-of-scope items |
 | [Documentation roadmap](docs/DOCS_ROADMAP.md) | Week 1-16 documentation plan |
 | [Contribution ledger](docs/CONTRIBUTION_LEDGER.md) | Member contribution rows and evidence links |
 | [Testing documentation](docs/tests/README.md) | Manual testing strategy and proof checklist |
-| [Monday status](docs/MONDAY_STATUS.md) | Monday completion snapshot and milestone summary |
-| [Monday checklist](docs/MONDAY_CHECKLIST.md) | Task checklist for the Monday progress milestone |
+| [Monday status](docs/MONDAY_STATUS.md) | Milestone summary and snapshot |
 | [Week 6 evidence package](docs/Week6/README.md) | Tested-by note, screenshots, report, and next actions |
-| [Week 6 midterm demo path](docs/Week6/MIDTERM_DEMO_PATH.md) | Rehearsal path and fallback proof |
-| [Week 6 issue status update](docs/Week6/ISSUE_STATUS_UPDATE.md) | Suggested issue and Definition of Done wording |
+| [Week 7 Midterm Audit](docs/week7/Midterm_Rehersal_Rubric_Self_Audit.md) | Midterm presentation rubric self-audit |
+| [Week 8 Auth Design](docs/week8/LoginIn_signup_Features.md) | Authentication design proposal |
 
 ---
 
-# Smart Study Companion
+## 1. Overview & Full-Stack Pivot
 
-A browser-based study planner prototype for organizing class subjects, deadlines, study tasks, and quiz practice.
+Smart Study Companion is an academic study management application designed for university students to organize courses, study tasks, deadlines, and quizzes with real student accounts.
 
-[Open the prototype](Frontend/index.html) · [Documentation hub](docs/README.md) · [Evidence package](docs/Week6/README.md)
+### What Changed (The Full-Stack Pivot):
+- **Authentication First**: Student identity management via Supabase Auth replacing browser-only guest storage.
+- **Persistent Cloud Database**: Supabase PostgreSQL replacing browser `localStorage`.
+- **Row Level Security (RLS)**: Enforced isolation ensuring students cannot view, edit, or delete other students' coursework.
+- **Preserved Core UI & Features**: 5 Computer Science subjects, standard & rapid quizzes, 75 quiz questions, progress tracking, and light/dark theme maintained intact.
 
-## Overview
+---
 
-Smart Study Companion brings a focused student study workflow into one interface: organize subjects, plan and complete study tasks, and check understanding with a mixed-topic quiz. This is a local browser prototype, not a production service.
+## 2. Technology Stack
 
-## MVP Experience
+| Layer | Technology | Purpose |
+|---|---|---|
+| **Frontend** | HTML5 / CSS3 / Vanilla JavaScript (ES Modules) | Lightweight, standards-based UI with zero framework bloat |
+| **Auth** | Supabase Auth | Sign in, registration, email verification, password reset |
+| **Database** | Supabase PostgreSQL | Normalized relational database with RLS policies |
+| **Client SDK** | `@supabase/supabase-js` | Browser database & auth queries |
+| **Hosting** | Vercel (Hobby Free Tier) | High-speed global edge static deployment |
+| **Testing** | Automated Test Suite (Python 3 / Vitest) | Schema validation, unit tests, and markup verification |
 
-1. Create or select a subject.
-2. Add a study task with a deadline.
-3. Open the Study Plan, review tasks, and mark work complete.
-4. Take the mixed-topic quiz and review the score.
-5. Refresh the page to check browser-local saved data.
+---
 
-| Capability | Current behavior |
-|---|---|
-| Subjects and tasks | Create subjects and dated tasks; review and update task status. |
-| Study Plan | Review pending, overdue, and completed work. |
-| Quiz | Answer a 50-question multiple-choice quiz and review the result. |
-| Persistence | Keep relevant data in the same browser using localStorage. |
+## 3. Project Directory Structure
 
-### Study Flow
-
-```mermaid
-flowchart LR
-    A[Choose a subject] --> B[Add a study task and deadline]
-    B --> C[Review the Study Plan]
-    C --> D[Update task completion]
-    D --> E[Take the 50-question mixed-topic quiz]
-    E --> F[Review the score]
-    C <--> G[(Browser localStorage)]
-    D --> G
-    F --> G
+```
+Smart Study Companion/
+├── public/                      # Static frontend (production root)
+│   ├── index.html               # Student Dashboard (protected view)
+│   ├── styles.css               # Main application styles
+│   ├── app.js                   # Application controller & Supabase synchronization
+│   ├── auth/                    # Authentication UI pages
+│   │   ├── login.html           # Student sign-in
+│   │   ├── signup.html          # Registration with password validation
+│   │   ├── verify.html          # Email confirmation handler
+│   │   ├── forgot-password.html # Password reset request
+│   │   ├── reset-password.html  # Secure password update form
+│   │   ├── auth.css             # Authentication design system
+│   │   └── auth-init.js         # Auth controller & form lifecycle
+│   └── wireframes/              # UI design reference wireframes
+├── src/
+│   ├── lib/
+│   │   └── supabase.js          # Supabase client singleton
+│   ├── services/
+│   │   ├── auth.js              # Authentication service methods
+│   │   ├── profile.js           # Student profile service
+│   │   ├── tasks.js             # Study task CRUD service
+│   │   ├── subjects.js          # Subject catalog & enrollment
+│   │   └── quiz.js              # Quiz questions & attempt tracking
+│   └── auth-guard.js            # Route protection guard
+├── supabase/
+│   └── migrations/              # Versioned SQL migrations with RLS
+│       ├── 001_profiles.sql     # Profiles table linked to auth.users
+│       ├── 002_subjects.sql     # Subjects catalog & enrollment
+│       ├── 003_tasks.sql        # Study tasks with deadlines
+│       ├── 004_quiz_questions.sql # 75 CS multiple-choice questions
+│       ├── 005_quiz_attempts.sql  # Attempt tracking & responses
+│       └── 006_rls_policies.sql   # Comprehensive Row Level Security
+├── tests/
+│   ├── run_tests.py             # Automated test suite
+│   └── unit/                    # Unit test specs
+├── .env.example                 # Template for Supabase credentials
+├── vercel.json                  # Vercel deployment configuration
+├── package.json                 # Project configuration & scripts
+└── README.md
 ```
 
-Study data stays in the current browser profile; it is not synced to a server or another device.
+---
 
-## Architecture
+## 4. Supabase Setup Guide
 
-The current implementation is a static frontend; no server or package build is needed to open it.
+### Step 1: Create a Supabase Project (Free Tier)
+1. Go to [https://supabase.com](https://supabase.com) and create a free project.
+2. Note your **Project URL** and **API anon key** from `Settings` → `API`.
 
-| Layer | Technology and role |
-|---|---|
-| Interface | HTML, CSS, and JavaScript provide the subjects/tasks, Study Plan, and quiz views. |
-| Browser storage | localStorage keeps app data in the current browser profile; it is not a shared database. |
-| Quiz content | Questions are included in the frontend prototype. |
+### Step 2: Apply Database Migrations
+In the Supabase SQL Editor, run the SQL files in order from `supabase/migrations/`:
+1. `001_profiles.sql` (Creates `profiles` table and auto-creation trigger on new user signup)
+2. `002_subjects.sql` (Creates subjects catalog and seeds the 5 Computer Science subjects)
+3. `003_tasks.sql` (Creates `tasks` table with indexes)
+4. `004_quiz_questions.sql` (Seeds the 75 multiple-choice questions)
+5. `005_quiz_attempts.sql` (Creates attempt tracking and response tables)
+6. `006_rls_policies.sql` (Enables Row Level Security and creates isolation policies)
 
-## Quick Start
+### Step 3: Configure Environment Variables
+Copy `.env.example` to `.env`:
+```bash
+cp .env.example .env
+```
+Add your credentials:
+```env
+VITE_SUPABASE_URL=https://your-project-ref.supabase.co
+VITE_SUPABASE_ANON_KEY=your-anon-public-key
+```
 
-Open [Frontend/index.html](Frontend/index.html) in a modern browser. No package installation, build command, account, or server setup is required.
+### Step 4: Configure Auth URL Redirects
+In the Supabase Dashboard under `Authentication` → `URL Configuration`:
+- Set **Site URL** to your deployment URL (or `http://localhost:3000` for development).
+- Add redirect URLs:
+  - `http://localhost:3000/auth/verify.html`
+  - `http://localhost:3000/auth/reset-password.html`
+  - `https://your-domain.vercel.app/auth/verify.html`
+  - `https://your-domain.vercel.app/auth/reset-password.html`
 
-## Documentation
+---
 
-| Start here | Purpose |
-|---|---|
-| [Documentation hub](docs/README.md) | Navigation to project records and weekly documentation. |
-| [Project status](docs/PROJECT_STATUS.md) | Current ready, pending, and out-of-scope work. |
-| [Testing documentation](docs/tests/README.md) | Manual test strategy and evidence format. |
-| [Contribution ledger](docs/CONTRIBUTION_LEDGER.md) | Member contribution rows and linked evidence. |
-| [Week 6 evidence package](docs/Week6/README.md) | Demo screenshots, report, tested-by note, and follow-up status. |
-| [Midterm demo path](docs/Week6/MIDTERM_DEMO_PATH.md) | Reproducible walkthrough and fallback evidence. |
+## 5. Running Automated Tests
 
-## Evidence and Current Status
+Run the test suite:
+```bash
+python3 tests/run_tests.py
+```
+Expected output:
+```
+============================================================
+  SMART STUDY COMPANION — AUTOMATED TEST SUITE
+============================================================
+Testing Project File Structure...
+  ✓ All required files and directories present.
+Testing Database Schema Migrations...
+  ✓ All 6 SQL migrations valid with complete tables, 75 seeded questions, and RLS on all 7 tables.
+Testing Authentication HTML Pages...
+  ✓ All 5 Auth pages properly structured with required inputs, toggles, and scripts.
+Testing Auth Validation Logic...
+  ✓ Email regex and 8+ char / letter / digit password validation pass.
+Testing Task Metric Calculations...
+  ✓ Task metrics calculation passes (50% completion on 2/4).
+Testing Quiz Scoring Logic...
+  ✓ Quiz scoring calculation passes (2/3 correct = 67%).
+============================================================
+  ALL TESTS PASSED SUCCESSFULLY (6/6)
+============================================================
+```
 
-The Week 6 evidence package records the visible app flow. Its screenshot summary marks the main entry, subject/task, quiz, and refresh/persistence demos as passing; the theme/color demo needs a fix.
+---
 
-| Demo | Evidence | Recorded status |
-|---|---|---|
-| 1 - App entry | [Screenshot](docs/Week6/Demo%201.png) | Pass |
-| 2 - Theme and visual consistency | [Screenshot](docs/Week6/Demo2.png) | Needs fix |
-| 3 - Subject and task flow | [Screenshot](docs/Week6/Demo%203.png) | Pass |
-| 4 - Quiz and results | [Screenshot](docs/Week6/Demo%204.png) | Pass |
-| 5 - Persistence after refresh | [Screenshot](docs/Week6/Demo%205.png) | Pass |
+## 6. Deployment to Vercel (Hobby Free Tier)
 
-See the [Week 6 weekly report](docs/Week6/WEEKLY_REPORT.md) and [tested-by note](docs/Week6/tested-by-notes.md) for test details. Those records do not fully agree on tester identity and contribution confirmation, so treat those details as pending reconciliation. [Issue #23](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/23) remains open for validation follow-up. The visual fix is tracked in open [Issue #25](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/25).
+1. Connect your repository to Vercel.
+2. In Project Settings → Environment Variables, add:
+   - `VITE_SUPABASE_URL`
+   - `VITE_SUPABASE_ANON_KEY`
+3. Set the **Output Directory** to `public` (already configured in `vercel.json`).
+4. Click **Deploy**.
 
-## Team Contributions
+---
 
-The [contribution ledger](docs/CONTRIBUTION_LEDGER.md) records five member contribution areas and evidence links. The current enrolled GitHub logins are jn-oli, adronnie, princekark, RaiPrabin697, and liftupkhadka555-spec. Login-to-name mapping and individual evidence receipts should be confirmed against the linked records before treating attribution as complete.
+## 7. Team Contributions
 
-## Current Limitations
-
-- App data is local to one browser profile; there is no login or cross-device synchronization.
-- The prototype has no backend, cloud database, reminder service, or mobile packaging.
-- The Demo 2 theme/color inconsistency remains open and requires a fix and rerun.
-- Screenshots document a focused workflow; they do not establish broader browser compatibility or production readiness.
+The [contribution ledger](docs/CONTRIBUTION_LEDGER.md) records member contribution areas and evidence links:
+- `jn-oli`
+- `adronnie`
+- `princekark`
+- `RaiPrabin697`
+- `liftupkhadka555-spec`
