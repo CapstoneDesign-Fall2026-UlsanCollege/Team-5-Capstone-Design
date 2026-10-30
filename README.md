@@ -1,5 +1,3 @@
-<div align="center">
-
 # Smart Study Companion
 
 ### Production-Oriented University Study Management Web Application
@@ -8,19 +6,34 @@
 [![Status](https://img.shields.io/badge/Architecture-Full--Stack%20Supabase-0f766e)](supabase/migrations/)
 [![Auth](https://img.shields.io/badge/Auth-Supabase%20Auth-2dd4bf)](public/auth/)
 [![Free Tier](https://img.shields.io/badge/Budget-%240%2Fmonth%20Free%20Tier-c27803)](docs/)
+[![Automated Tests](https://img.shields.io/badge/Tests-6%2F6%20Passing-success)](tests/)
 
-[Documentation](docs/README.md) · [Schema Migrations](supabase/migrations/) · [Architecture Plan](docs/week5/ARCHITECTURE_AND_SETUP.md)
-
-</div>
+[Documentation](docs/README.md) · [Schema Migrations](supabase/migrations/) · [Architecture Plan](docs/week5/ARCHITECTURE_AND_SETUP.md) · [Evidence Package](docs/Week6/README.md)
 
 ---
 
-## 1. Overview & Pivot
+## Documentation Navigation
+
+| Area | Purpose |
+|---|---|
+| [Documentation hub](docs/README.md) | Main navigation for all project records and weekly documentation |
+| [Project status](docs/PROJECT_STATUS.md) | Ready, pending, blocked, and out-of-scope items |
+| [Documentation roadmap](docs/DOCS_ROADMAP.md) | Week 1-16 documentation plan |
+| [Contribution ledger](docs/CONTRIBUTION_LEDGER.md) | Member contribution rows and evidence links |
+| [Testing documentation](docs/tests/README.md) | Manual testing strategy and proof checklist |
+| [Monday status](docs/MONDAY_STATUS.md) | Milestone summary and snapshot |
+| [Week 6 evidence package](docs/Week6/README.md) | Tested-by note, screenshots, report, and next actions |
+| [Week 7 Midterm Audit](docs/week7/Midterm_Rehersal_Rubric_Self_Audit.md) | Midterm presentation rubric self-audit |
+| [Week 8 Auth Design](docs/week8/LoginIn_signup_Features.md) | Authentication design proposal |
+
+---
+
+## 1. Overview & Full-Stack Pivot
 
 Smart Study Companion is an academic study management application designed for university students to organize courses, study tasks, deadlines, and quizzes with real student accounts.
 
 ### What Changed (The Full-Stack Pivot):
-- **Authentication First**: Student identity management replacing browser-only guest storage.
+- **Authentication First**: Student identity management via Supabase Auth replacing browser-only guest storage.
 - **Persistent Cloud Database**: Supabase PostgreSQL replacing browser `localStorage`.
 - **Row Level Security (RLS)**: Enforced isolation ensuring students cannot view, edit, or delete other students' coursework.
 - **Preserved Core UI & Features**: 5 Computer Science subjects, standard & rapid quizzes, 75 quiz questions, progress tracking, and light/dark theme maintained intact.
@@ -123,7 +136,7 @@ In the Supabase Dashboard under `Authentication` → `URL Configuration`:
 
 ---
 
-## 5. Running Tests
+## 5. Running Automated Tests
 
 Run the test suite:
 ```bash
@@ -161,3 +174,14 @@ Testing Quiz Scoring Logic...
    - `VITE_SUPABASE_ANON_KEY`
 3. Set the **Output Directory** to `public` (already configured in `vercel.json`).
 4. Click **Deploy**.
+
+---
+
+## 7. Team Contributions
+
+The [contribution ledger](docs/CONTRIBUTION_LEDGER.md) records member contribution areas and evidence links:
+- `jn-oli`
+- `adronnie`
+- `princekark`
+- `RaiPrabin697`
+- `liftupkhadka555-spec`
