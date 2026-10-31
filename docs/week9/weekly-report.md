@@ -35,9 +35,11 @@ Keep this section inside the single shared team report. Each student must enter 
 
 | Student | What they did | Evidence link |
 |---|---|---|
-|  |  |  |
-|  |  |  |
-|  |  |  |
+|Nabin Khadka  |  |  |
+|Sumit Adhkari  |  |  |
+|Prabin Rai  |  |  |
+|Prince Karki  |  |  |
+|J.N. Taj Oli  |  |  |
 
 ## Blockers or risks
 
