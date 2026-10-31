@@ -1,47 +1,51 @@
-# Week 9 — Database Model Check Report
+# Database Test and Validation Report
 
-**Project:** Smart Study Companion  
-**Team:** Team 5  
-**Course:** Capstone Design — Fall 2026  
-**Date:** 2026-10-31  
-**Status:** Verified against the current repo implementation  
-**Owner:** Adronnie
-
----
-
-## 1. Objective
-
-This report reviews the current database model and full-stack flow for the app’s login, signup, and main application features. The review is based on the actual repository code and migration files in the current project state, not only on the older planning documents.
-
-Scope reviewed:
-- Login and signup flow
-- Supabase authentication setup
-- Protected app route logic
-- Student profile model
-- Subject/task database model
-- Quiz data model and scoring flow
-- Row Level Security (RLS) policy design
-- Documentation consistency with implementation
+Project: Smart Study Companion  
+Team: Team 5  
+Course: Capstone Design — Fall 2026  
+Date: 2026-10-31  
+Status: Formal database review based on repository implementation
 
 ---
 
-## 2. Review method
+## 1. Introduction
 
-The following project files were checked as the source of truth:
+This document presents the database test and validation report for the Smart Study Companion project developed by Team 5. The review is based on the existing repository code and migration files, rather than on earlier design drafts alone.
+
+The purpose of this report is to verify whether the database design supports the project’s full-stack login, signup, study management, and quiz features, and whether the implementation is structurally sound, secure, and aligned with the actual application code.
+
+---
+
+## 2. Objective
+
+The objectives of this database review are to:
+
+- verify the schema used by the application
+- validate the login and signup architecture against the code
+- inspect the student profile, subject, task, and quiz data models
+- check foreign key relationships and access control
+- identify gaps between the design documentation and the implemented code
+- provide a formal assessment and recommendations for improvement
+
+---
+
+## 3. Scope of Review
+
+The following project artifacts were reviewed as the source of truth:
 
 - `README.md`
-- `public/auth/login.html`
-- `public/auth/signup.html`
-- `public/auth/auth-init.js`
-- `public/index.html`
-- `public/app.js`
+- `src/lib/supabase.js`
 - `src/services/auth.js`
 - `src/services/profile.js`
 - `src/services/tasks.js`
 - `src/services/subjects.js`
 - `src/services/quiz.js`
-- `src/lib/supabase.js`
 - `src/auth-guard.js`
+- `public/auth/login.html`
+- `public/auth/signup.html`
+- `public/auth/auth-init.js`
+- `public/index.html`
+- `public/app.js`
 - `supabase/migrations/001_profiles.sql`
 - `supabase/migrations/002_subjects.sql`
 - `supabase/migrations/003_tasks.sql`
@@ -51,315 +55,361 @@ The following project files were checked as the source of truth:
 
 ---
 
-## 3. Executive summary
+## 4. Current Implementation Architecture
 
-The database model is generally sound for the current MVP and matches the app’s purpose:
-- student identity is handled through Supabase Auth
-- the app stores student profile data in the `profiles` table
-- subjects and enrollments are modeled cleanly
-- tasks are tracked with deadlines and completion status
-- quiz attempts and responses are tracked in a structured way
-- RLS policies protect student-owned data from cross-user access
+The repository shows a completed migration from the earlier local prototype model to a Supabase-based full-stack architecture.
 
-The project has already moved from an earlier local-only / custom-auth design toward a proper Supabase full-stack architecture. This is a positive change and aligns with the project description and app requirements.
+### 4.1 Authentication layer
 
-The biggest concern is not the base design, but that the documentation still contains mixed legacy design ideas while the actual codebase uses Supabase Auth + PostgreSQL tables. This can confuse future contributors unless the docs are aligned.
+The implemented system uses:
+- Supabase Auth for login and signup
+- `auth.users` as the primary authentication identity
+- a separate `profiles` table linked to `auth.users(id)`
 
----
+This is the recommended design for a modern full-stack application because it separates:
+- authentication concerns
+- app-user profile data
+- domain data such as tasks and quiz records
 
-## 4. Current implemented architecture
+### 4.2 App data layer
 
-### 4.1 Authentication model
-
-The live authentication flow uses Supabase Auth, not a custom login table.
-
-Validated by:
-- `src/services/auth.js`
-- `public/auth/auth-init.js`
-- `src/auth-guard.js`
-- `src/lib/supabase.js`
-
-The active flow is:
-- `signUp()` → `supabase.auth.signUp()`
-- `signIn()` → `supabase.auth.signInWithPassword()`
-- `resetPassword()` → `supabase.auth.resetPasswordForEmail()`
-- `updatePassword()` → `supabase.auth.updateUser()`
-- session state checked through `getSession()`
-- redirect logic enforced through `auth-guard`
-
-This is considered a good architecture because:
-- passwords are not stored in application tables
-- email verification and password reset are handled by Supabase Auth
-- session and identity management are centralized and safer than custom session logic
-
-### 4.2 Profile model
-
-The profile table is defined in `001_profiles.sql`:
-- `profiles(id, full_name, created_at, updated_at)`
-- `id` references `auth.users(id)`
-- a trigger creates a profile automatically whenever a new auth user is created
-
-This is a clean 1:1 model between authentication identity and app profile.
-
----
-
-## 5. Database model check by domain
-
-### 5.1 Profiles
-
-Status: Good
-
-Table: `profiles`
-
-Fields:
-- `id` (UUID, PK, auth user reference)
-- `full_name`
-- `created_at`
-- `updated_at`
-
-Assessment:
-- correct for app identity
-- easy to join with student-owned records
-- minimal but sufficient for MVP
-
-Issues:
-- no extra student metadata yet (major, year, university, preferred subject, etc.)
-- acceptable for MVP but should be extended if the product grows
-
-### 5.2 Subjects and enrollment
-
-Status: Good
-
-Tables:
+The application stores core features in PostgreSQL tables hosted by Supabase:
+- `profiles`
 - `subjects`
 - `student_subjects`
-
-This is a suitable data model for a study planner because it separates:
-- catalog of subjects
-- student interest / enrollment
-
-The subject catalog is seeded with the 5 default computer science subjects.
-
-Assessment:
-- appropriate for subject-based study tracking
-- supports student personalization
-- easy to expand later with course/semester metadata
-
-### 5.3 Tasks
-
-Status: Good
-
-Table: `tasks`
-
-Fields:
-- `student_id`
-- `subject_id`
-- `title`
-- `deadline`
-- `completed`
-- `created_at`
-- `updated_at`
-
-Assessment:
-- matches the study-planner use case well
-- correct for deadlines and completion tracking
-- indexes are created for student and subject queries
-
-This aligns with the app UI in `public/index.html` and `public/app.js`.
-
-### 5.4 Quiz questions and attempts
-
-Status: Good overall; one security concern
-
-Tables:
+- `tasks`
 - `quiz_questions`
 - `quiz_attempts`
 - `quiz_responses`
 
-Assessment:
-- clean separation between question bank and attempt history
-- supports historical tracking of quiz results
-- each response is recorded for per-question analysis
-
-Concern:
-- the RLS policy exposes `quiz_questions` to authenticated users, and the question row includes `correct_answer`
-- this is acceptable for educational demo purposes, but it is not ideal for secure production scoring
-
-Recommendation:
-- separate quiz bank from scoring logic
-- keep answer keys server-side or in a protected admin-only layer
+This structure supports the project’s actual use case: a student registers an account, selects subjects, creates study tasks, and records quiz attempts.
 
 ---
 
-## 6. RLS review
+## 5. Schema Validation Results
 
-Status: Strong for a student app
+### 5.1 Profile table (`profiles`)
 
-The RLS policies in `006_rls_policies.sql` enforce ownership checks for private tables:
-- `profiles` → student only
-- `student_subjects` → student only
-- `tasks` → student only
-- `quiz_attempts` → student only
-- `quiz_responses` → only for that student’s attempts
+Source: `supabase/migrations/001_profiles.sql`
 
-This is correct and prevents one user from seeing another user’s tasks or attempts.
+The schema defines:
 
-The app also uses authenticated-user read access for public subject and quiz question data.
+```sql
+CREATE TABLE IF NOT EXISTS profiles (
+    id          UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+    full_name   TEXT NOT NULL DEFAULT '',
+    created_at  TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at  TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+```
 
-Security observation:
-- subject catalog information can be read by authenticated users
-- this is fine
-- but client-side access to `correct_answer` is the weakest part of the current design
+Validation:
+- correct use of `UUID` as primary key
+- correct foreign key reference to `auth.users(id)`
+- automatic creation of user profile via trigger after signup
+- profile row is linked directly to the authenticated identity
+
+Assessment: Pass
+
+### 5.2 Subject and enrollment tables (`subjects`, `student_subjects`)
+
+Source: `supabase/migrations/002_subjects.sql`
+
+The schema defines:
+- `subjects` as the catalog of academic subjects
+- `student_subjects` as the many-to-many relationship between students and subjects
+
+Validation:
+- unique subject slug reduces duplication
+- `student_subjects` enforces uniqueness of `(student_id, subject_id)`
+- both tables use proper `UUID` keys and foreign key rules
+- subject seed data contains the 5 default CS subjects
+
+Assessment: Pass
+
+### 5.3 Task table (`tasks`)
+
+Source: `supabase/migrations/003_tasks.sql`
+
+The schema defines:
+
+```sql
+CREATE TABLE IF NOT EXISTS tasks (
+    id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    student_id  UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
+    subject_id  UUID NOT NULL REFERENCES subjects(id) ON DELETE CASCADE,
+    title       TEXT NOT NULL CHECK (char_length(title) >= 1 AND char_length(title) <= 500),
+    deadline    TIMESTAMPTZ NOT NULL,
+    completed   BOOLEAN NOT NULL DEFAULT false,
+    created_at  TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at  TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+```
+
+Validation:
+- task belongs to one student and one subject
+- deadline and completion status are included
+- update timestamp is managed automatically
+- indexes exist for search and filtering by student, subject, deadline, and completion
+
+Assessment: Pass
+
+### 5.4 Quiz question table (`quiz_questions`)
+
+Source: `supabase/migrations/004_quiz_questions.sql`
+
+The table stores the question bank, the multiple choice answers, and the correct answer index.
+
+Validation:
+- subject-linked question bank is properly organized
+- array of options uses JSONB
+- each question belongs to a valid subject
+- a full set of subject-based questions is seeded into the database
+
+Assessment: Pass for MVP structure
+
+### 5.5 Quiz attempts and responses
+
+Source: `supabase/migrations/005_quiz_attempts.sql`
+
+The schema defines:
+- `quiz_attempts` for one record per student attempt
+- `quiz_responses` for per-question answers within each attempt
+
+Validation:
+- attempt data is separated from question bank data
+- response records can be reconstructed into a full attempt summary
+- lifecycle is consistent with the UI’s quiz result flow
+
+Assessment: Pass
 
 ---
 
-## 7. Login/signup flow review
+## 6. Full-Stack Logic Validation
 
-### 7.1 Signup
+### 6.1 Login and signup flow
 
-The signup form is in `public/auth/signup.html` and wired in `public/auth/auth-init.js`.
-
-It validates:
-- full name length
-- email format
-- password length and complexity
-- confirm password match
-- terms acceptance
-
-The app then calls `signUp()` from `src/services/auth.js`.
-
-Assessment:
-- good UI validation
-- good front-end UX
-- the flow is correct for typical auth integration
-
-### 7.2 Login
-
-The login form and flow are implemented in `public/auth/login.html` and `public/auth/auth-init.js`.
-
-It validates:
-- email syntax
-- required password
-- redirects authenticated users away from login pages
-
-The app calls `supabase.auth.signInWithPassword()`.
-
-Assessment:
-- good implementation
-- proper session-based protection
-
-### 7.3 Protected app route
-
-`src/auth-guard.js` ensures that protected pages redirect to login if there is no valid session.
-
-This is a proper pattern and reduces unauthorized access to the dashboard.
-
----
-
-## 8. Documentation vs implementation check
-
-There is a clear mismatch between the older design docs and the real code.
-
-### Legacy docs that describe a different model
-- `docs/week8/database_login & signup.md`
-
-That doc describes a custom database pattern with:
-- `users`
-- `user_sessions`
-- `password_reset_tokens`
-
-This does not match the actual live implementation, which uses:
-- Supabase Auth
-- `auth.users`
-- `profiles`
-
-### Current implementation is in the real app files
+The implemented login and signup flow is in:
+- `public/auth/login.html`
+- `public/auth/signup.html`
+- `public/auth/auth-init.js`
 - `src/services/auth.js`
-- `src/services/profile.js`
-- `supabase/migrations/001_profiles.sql`
 
-This means the project documentation is partially outdated. For maintainability, the team should align the docs with the actual implemented architecture.
+Validation:
+- signup calls `supabase.auth.signUp()`
+- login calls `supabase.auth.signInWithPassword()`
+- password reset and update are implemented through Supabase Auth APIs
+- protected pages are redirected using `src/auth-guard.js`
+
+Result:
+- the app uses a real authentication system instead of a local-only mock flow
+- the flow is consistent with a full-stack application architecture
+
+Assessment: Pass
+
+### 6.2 Session and route protection
+
+Source: `src/auth-guard.js`
+
+This file checks whether a valid Supabase session exists before allowing access to protected pages.
+
+Validation:
+- logged-out users are redirected to login
+- logged-in users are redirected away from auth pages
+- auth state changes are monitored
+
+Assessment: Pass
+
+### 6.3 Student profile handling
+
+Source: `src/services/profile.js`
+
+This service provides:
+- `getProfile()`
+- `upsertProfile()`
+- `updateDisplayName()`
+
+Validation:
+- profile record is created and updated safely
+- profile is attached to the authenticated account
+- UI reads the display name and email from the current Supabase user and profile
+
+Assessment: Pass
+
+### 6.4 Task operations
+
+Source: `src/services/tasks.js`
+
+The service supports:
+- create task
+- update task
+- toggle completion
+- delete task
+- fetch tasks by student and subject
+
+Validation:
+- all operations are connected to the `tasks` table
+- subject and student ownership are enforced by RLS
+- task list is consistent with the application dashboard
+
+Assessment: Pass
+
+### 6.5 Quiz recording flow
+
+Source: `src/services/quiz.js` and `public/app.js`
+
+The app:
+- loads quiz questions by subject
+- displays question options
+- records each quiz attempt in `quiz_attempts`
+- saves individual selected answers in `quiz_responses`
+
+Validation:
+- this is a valid tracking design for educational assessment
+- the architecture matches the quiz performance feature set of the app
+
+Assessment: Pass for function and modeling
 
 ---
 
-## 9. Findings summary
+## 7. Security and Data Integrity Review
 
-| Area | Status | Finding |
+### 7.1 Foreign key integrity
+
+The migration files show proper foreign key usage:
+- `profiles.id` → `auth.users.id`
+- `tasks.student_id` → `profiles.id`
+- `tasks.subject_id` → `subjects.id`
+- `quiz_questions.subject_id` → `subjects.id`
+- `quiz_attempts.student_id` → `profiles.id`
+- `quiz_responses.attempt_id` → `quiz_attempts.id`
+
+This ensures referential integrity and prevents orphan data.
+
+Assessment: Pass
+
+### 7.2 Row Level Security
+
+Source: `supabase/migrations/006_rls_policies.sql`
+
+RLS is enabled on all relevant tables.
+
+Examples:
+- `profiles_select_own`
+- `tasks_select_own`
+- `student_subjects_select_own`
+- `quiz_attempts_select_own`
+- `quiz_responses_select_own`
+
+This ensures users can only access their own data.
+
+Assessment: Pass
+
+### 7.3 Security concern: quiz answer exposure
+
+The policy for `quiz_questions` currently allows authenticated users to read the table and the data includes `correct_answer`.
+
+This is not ideal for a production-grade application because:
+- the client can see the correct answers
+- quiz scoring is effectively readable in the database layer
+- answer checking should ideally happen on the server side
+
+This is the main security issue identified in the current implementation.
+
+Severity: Medium
+
+Recommendation:
+- keep the question bank public only if it is intentional for demo use
+- for production, separate the answer key from the public question bank or protect it through server-side scoring logic
+
+---
+
+## 8. Documentation and Implementation Alignment Review
+
+The repository contains both:
+- current implementation files using Supabase Auth and PostgreSQL
+- older design documents suggesting different models, especially in `docs/week8/database_login & signup.md`
+
+This creates documentation drift.
+
+Examples of outdated or legacy documentation:
+- custom `users` table design
+- `user_sessions` table
+- `password_reset_tokens` model
+
+These ideas are not reflected in the actual implementation. In the current codebase, the app uses `auth.users` and `profiles` instead.
+
+Assessment: Needs documentation correction
+
+---
+
+## 9. Findings Summary
+
+| Category | Result | Comment |
 |---|---|---|
-| Login/signup | Pass | Auth flow is implemented with Supabase Auth and protected routes |
-| User identity | Pass | `profiles` table correctly links to `auth.users` |
-| Task model | Pass | Clean and matches the study planner needs |
-| Subject model | Pass | Good subject catalog + enrollment design |
-| Quiz model | Pass with caveat | Good tracking model; answer exposure should be hardened |
-| RLS | Pass | Good ownership-based enforcement |
-| Documentation consistency | Needs update | Older docs still describe a custom auth model |
+| Authentication model | Pass | Supabase Auth is correctly implemented |
+| User profile model | Pass | `profiles` table correctly links to `auth.users` |
+| Task schema | Pass | Good for deadline-based study planning |
+| Subject enrollment model | Pass | Good many-to-many design |
+| Quiz tracking model | Pass | Good structure for attempts and responses |
+| Row Level Security | Pass | Proper ownership enforcement |
+| Security hardening | Needs improvement | `correct_answer` exposure should be reviewed |
+| Documentation alignment | Needs update | Older docs do not match implemented architecture |
 
 ---
 
-## 10. Risks and recommendations
+## 10. Formal Risk Assessment
 
-### Priority 1 — Quiz answer exposure
+### Risk Level Summary
 
-Recommendation:
-- move grading logic to a backend or Supabase Edge function
-- do not let browser clients read `correct_answer` freely
+| Risk | Severity | Description |
+|---|---|---|
+| Exposed answer keys in quiz questions | Medium | The client can read correct answers from the database |
+| Documentation drift | Medium | Older docs may mislead future developers |
+| Limited profile metadata | Low | Current MVP schema is small but extendable |
 
-### Priority 2 — Documentation alignment
-
-Recommendation:
-- update older auth/database docs to clearly state that the app uses Supabase Auth and `profiles`
-- remove or clearly label old design documents as drafts or legacy notes
-
-### Priority 3 — Future student metadata
-
-Recommendation:
-- add fields like `major`, `student_year`, `university`, `semester`, `preferred_subjects` if the app evolves beyond MVP
+Overall assessment: The database design is appropriate for the project scope and functional requirements, but it should be hardened before final production deployment.
 
 ---
 
-## 11. Final assessment
+## 11. Recommended Improvements
 
-Overall verdict: Acceptable and well-structured for the current MVP.
+1. Harden quiz scoring logic
+   - do not expose `correct_answer` directly to the frontend
+   - move answer validation to a secure backend or Supabase function
 
-The current implementation demonstrates a strong full-stack architecture for a study companion app:
-- secure auth flow
-- logical and usable database schema
-- ownership-based data isolation
-- app data model aligned with business requirements
+2. Align documentation with implementation
+   - remove or relabel legacy auth design docs
+   - clearly document that the live app uses Supabase Auth and `profiles`
 
-The model is not weak; it is simply in a transition state between older design documentation and the actual Supabase-based implementation. Once documentation is synchronized and quiz grading is hardened, the architecture becomes a solid foundation for the next stage of the product.
+3. Expand profile metadata if needed
+   - add fields such as major, year, university, or semester if the app evolves beyond MVP
 
----
+4. Keep schema versioning clean
+   - continue using migration files as the source of truth for schema changes
 
-## 12. Conclusion
-
-The Team 5 project is on the right direction for a real full-stack app. The database model is suitable for login, signup, task management, subject tracking, and quiz tracking. The main improvements needed are:
-1. document alignment,
-2. secure quiz grading,
-3. further profile metadata when needed.
-
-This is a healthy model for an MVP and a strong base for a final student study companion product.
+5. Add automated database checks
+   - include SQL validation checks in CI pipelines for schema and constraints
 
 ---
 
-## 13. Evidence summary
+## 12. Final Conclusion
 
-This report is based on the actual repository state, especially:
-- `README.md`
-- `supabase/migrations/*.sql`
-- `src/services/*.js`
-- `public/auth/*.html`
-- `public/app.js`
-- `src/auth-guard.js`
+The Team 5 Smart Study Companion project uses a valid and practical full-stack database design based on Supabase PostgreSQL and Supabase Auth. The schema correctly supports the project goals: student login and signup, subject management, study task tracking, and quiz attempt recording.
 
-The implementation confirms the project already follows the full-stack Supabase model rather than the older custom session-based design described in some planning documents.
+The design is structurally sound, the relationships are logically correct, and the RLS policies provide proper student-level isolation. The strongest aspect of the design is that it matches the real app functionality and supports the product vision of a modern study planner and quiz tracker.
+
+The main concern is not the overall architecture, but a need for better security hardening around quiz question answer exposure and documentation consistency. Once those two issues are addressed, the database model will be a strong foundation for a more mature and production-ready product.
 
 ---
 
-## 14. Owner note
+## 13. Approval Status
 
-This report is prepared for Week 9 review and is intended to support the team’s validation of the login/signup and app database model.
+Approved for current MVP evaluation: Yes  
+Recommended for production refinement: Yes  
 
-The current design is strong for an MVP and fits the app’s scope, with the above recommendations for security and documentation cleanup.
+This database design is suitable for the Team 5 capstone implementation and demonstrates a sound full-stack approach aligned with the actual codebase.
 
+---
 
+End of report.
