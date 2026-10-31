@@ -23,7 +23,7 @@ If it is not linked, it does not count.
 | Evidence | Link |
 |---|---|
 | Issue(s) |  |
-| PR(s) / commits | [Latest commit](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/commit/c2cf4a01b33d851e00169b83ef1534b2197377f0) · [Recent commits](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/commits/main) |
+| PR(s) / commits | [Recent commits](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/commits/main) |
 | Screenshot / demo |  |
 | Test/check note |  |
 | Document update |  |
