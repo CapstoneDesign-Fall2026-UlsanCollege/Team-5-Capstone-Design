@@ -1,10 +1,8 @@
 # Weekly Report
 
-**Team:**  
-**Week:**  
+**Team:**  5
+**Week:**  9
 **Date:**  
-
-Use one shared report per team in Weeks 2-3, 5-14, and 16. Do not create a separate Weekly Report for each student. Weeks 1, 4, and 15 have special reports. Each student must add their own contribution entry and evidence to the team's report.
 
 ## This week's goal
 
