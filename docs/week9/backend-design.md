@@ -468,8 +468,4 @@ This is already consistent with the repository’s current implementation and is
 
 ## 10. Conclusion
 
-The current Team 5 project already has a strong backend design. It follows a modern, database-first architecture centered on Supabase and uses secure, user-scoped data access patterns.
-
-The fundamental architecture is correct and should be retained for the capstone project. The main improvement to consider later is hardening the quiz-answer logic so that correct answers are not exposed to the frontend in a production environment.
-
-This backend is a good match for a student study planner and quiz app, and it fits the design already represented in the Week 9 documentation and the current repository code.
+We have design till now . New update will be based on after testing report done by our tester and project co_ordinator.
