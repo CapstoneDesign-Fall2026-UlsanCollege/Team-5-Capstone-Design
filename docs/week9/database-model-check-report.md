@@ -1,41 +1,50 @@
-# Formal Technical Report: Smart Study Companion App
+# Database Test and Validation Report
 
 Project: Smart Study Companion  
 Team: Team 5  
 Course: Capstone Design — Fall 2026  
-Date: 2026-11-01  
-Status: Formal repository review and technical assessment
+Date: 2026-10-31  
+Status: Formal database review based on repository implementation
 
 ---
 
-## 1. Executive Summary
+## 1. Introduction
 
-This report provides a formal technical review of the Team 5 Capstone Design project, based on the repository implementation and code structure. The application is a university study-management web platform designed for students to manage subjects, tasks, deadlines, and quizzes through a secure authentication flow.
+This document presents the database test and validation report for the Smart Study Companion project developed by Team 5. The review is based on the existing repository code and migration files, reviewing the implementation status of the current database-backed application.
 
-The project currently follows a modern full-stack architecture using:
-- Supabase Auth for user authentication
-- Supabase PostgreSQL for database storage
-- Row Level Security (RLS) for per-user data isolation
-- Vite for frontend build and local development
-- Vitest for automated testing
-
-The codebase demonstrates a clear separation between frontend logic, service layer, and backend data storage. It is structurally sound and suitable for an MVP/Capstone implementation, with a few production-hardening recommendations regarding security and documentation alignment.
+The purpose of this report is to verify whether the database design supports the project’s full-stack login, signup, study management, and quiz features, and whether the implementation is structurally sound and secure enough for the project’s MVP phase.
 
 ---
 
-## 2. Scope of Review
+## 2. Objective
 
-The assessment was conducted using the repository contents for Team 5, including the following key files and directories:
+The objectives of this database review are to:
+
+- verify the schema used by the application
+- validate the login and signup architecture against the code
+- inspect the student profile, subject, task, and quiz data models
+- check foreign key relationships and access control
+- identify gaps between the design documentation and the implemented code
+- provide a formal assessment and recommendations for improvement
+
+---
+
+## 3. Scope of Review
+
+The following project artifacts were reviewed as the source of truth:
 
 - `README.md`
-- `package.json`
 - `src/lib/supabase.js`
 - `src/services/auth.js`
+- `src/services/profile.js`
 - `src/services/tasks.js`
 - `src/services/subjects.js`
 - `src/services/quiz.js`
 - `src/auth-guard.js`
+- `public/auth/login.html`
+- `public/auth/signup.html`
 - `public/auth/auth-init.js`
+- `public/index.html`
 - `public/app.js`
 - `supabase/migrations/001_profiles.sql`
 - `supabase/migrations/002_subjects.sql`
@@ -44,285 +53,359 @@ The assessment was conducted using the repository contents for Team 5, including
 - `supabase/migrations/005_quiz_attempts.sql`
 - `supabase/migrations/006_rls_policies.sql`
 
-This review covers the implemented application architecture, backend service setup, package dependencies, data model, security, and overall technical quality.
+---
+
+## 4. Current Implementation Architecture
+
+The repository shows a completed migration from the earlier local prototype model to a Supabase-based full-stack architecture.
+
+### 4.1 Authentication layer
+
+The implemented system uses:
+- Supabase Auth for login and signup
+- `auth.users` as the primary authentication identity
+- a separate `profiles` table linked to `auth.users(id)`
+
+This is the recommended design for a modern full-stack application because it separates:
+- authentication concerns
+- app-user profile data
+- domain data such as tasks and quiz records
+
+### 4.2 App data layer
+
+The application stores core features in PostgreSQL tables hosted by Supabase:
+- `profiles`
+- `subjects`
+- `student_subjects`
+- `tasks`
+- `quiz_questions`
+- `quiz_attempts`
+- `quiz_responses`
+
+This structure supports the project’s actual use case: a student registers an account, selects subjects, creates study tasks, and records quiz attempts.
 
 ---
 
-## 3. Project Overview
+## 5. Schema Validation Results
 
-The application is named Smart Study Companion and focuses on academic organization for university students. Its main features include:
-- student account registration and login
-- subject catalog and enrollment
-- schedule/task management with deadlines
-- quiz generation and attempt tracking
-- profile management and session protection
+### 5.1 Profile table (`profiles`)
 
-The current repository structure reflects a conversion from a prototype/local-storage based implementation to a real full-stack system backed by Supabase.
+Source: `supabase/migrations/001_profiles.sql`
+
+The schema defines:
+
+```sql
+CREATE TABLE IF NOT EXISTS profiles (
+    id          UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+    full_name   TEXT NOT NULL DEFAULT '',
+    created_at  TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at  TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+```
+
+Validation:
+- correct use of `UUID` as primary key
+- correct foreign key reference to `auth.users(id)`
+- automatic creation of user profile via trigger after signup
+- profile row is linked directly to the authenticated identity
+
+Assessment: Pass
+
+### 5.2 Subject and enrollment tables (`subjects`, `student_subjects`)
+
+Source: `supabase/migrations/002_subjects.sql`
+
+The schema defines:
+- `subjects` as the catalog of academic subjects
+- `student_subjects` as the many-to-many relationship between students and subjects
+
+Validation:
+- unique subject slug reduces duplication
+- `student_subjects` enforces uniqueness of `(student_id, subject_id)`
+- both tables use proper `UUID` keys and foreign key rules
+- subject seed data contains the 5 default CS subjects
+
+Assessment: Pass
+
+### 5.3 Task table (`tasks`)
+
+Source: `supabase/migrations/003_tasks.sql`
+
+The schema defines:
+
+```sql
+CREATE TABLE IF NOT EXISTS tasks (
+    id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    student_id  UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
+    subject_id  UUID NOT NULL REFERENCES subjects(id) ON DELETE CASCADE,
+    title       TEXT NOT NULL CHECK (char_length(title) >= 1 AND char_length(title) <= 500),
+    deadline    TIMESTAMPTZ NOT NULL,
+    completed   BOOLEAN NOT NULL DEFAULT false,
+    created_at  TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at  TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+```
+
+Validation:
+- task belongs to one student and one subject
+- deadline and completion status are included
+- update timestamp is managed automatically
+- indexes exist for search and filtering by student, subject, deadline, and completion
+
+Assessment: Pass
+
+### 5.4 Quiz question table (`quiz_questions`)
+
+Source: `supabase/migrations/004_quiz_questions.sql`
+
+The table stores the question bank, the multiple choice answers, and the correct answer index.
+
+Validation:
+- subject-linked question bank is properly organized
+- array of options uses JSONB
+- each question belongs to a valid subject
+- a full set of subject-based questions is seeded into the database
+
+Assessment: Pass for MVP structure
+
+### 5.5 Quiz attempts and responses
+
+Source: `supabase/migrations/005_quiz_attempts.sql`
+
+The schema defines:
+- `quiz_attempts` for one record per student attempt
+- `quiz_responses` for per-question answers within each attempt
+
+Validation:
+- attempt data is separated from question bank data
+- response records can be reconstructed into a full attempt summary
+- lifecycle is consistent with the UI’s quiz result flow
+
+Assessment: Pass
 
 ---
 
-## 4. Application Architecture
+## 6. Full-Stack Logic Validation
 
-The project is organized into three key layers:
+### 6.1 Login and signup flow
 
-### 4.1 Frontend Layer
-The frontend is built using standard web technologies:
-- HTML5
-- CSS3
-- Vanilla JavaScript (ES Modules)
+The implemented login and signup flow is in:
+- `public/auth/login.html`
+- `public/auth/signup.html`
+- `public/auth/auth-init.js`
+- `src/services/auth.js`
 
-The repository includes:
-- `public/index.html` for dashboard flow
-- `public/auth/login.html` and `public/auth/signup.html` for authentication UI
-- `public/app.js` for app behavior and UI interactions
-- `src/auth-guard.js` for route protection
+Validation:
+- signup calls `supabase.auth.signUp()`
+- login calls `supabase.auth.signInWithPassword()`
+- password reset and update are implemented through Supabase Auth APIs
+- protected pages are redirected using `src/auth-guard.js`
 
-This approach keeps the app lightweight and simple while still supporting a full-stack architecture through Supabase.
+Result:
+- the app uses a real authentication system instead of a local-only mock flow
+- the flow is consistent with a full-stack application architecture
 
-### 4.2 Service Layer
-The application introduces a structured service layer under `src/services/`:
-- `auth.js` — handles Supabase Auth
-- `profile.js` — manages student profile operations
-- `tasks.js` — CRUD for study tasks
-- `subjects.js` — subject catalog and enrollment logic
-- `quiz.js` — quiz question fetching and result tracking
+Assessment: Pass
 
-This organization improves code readability and keeps data access logic separate from UI code.
+### 6.2 Session and route protection
 
-### 4.3 Backend Layer
-The backend is implemented using Supabase:
-- Supabase Auth handles identity and security
-- Supabase PostgreSQL stores all application records
-- RLS policies restrict each student to their own records
-- SQL migration files define the schema and database logic
+Source: `src/auth-guard.js`
 
-This is a modern and appropriate architecture for a capstone project.
+This file checks whether a valid Supabase session exists before allowing access to protected pages.
+
+Validation:
+- logged-out users are redirected to login
+- logged-in users are redirected away from auth pages
+- auth state changes are monitored
+
+Assessment: Pass
+
+### 6.3 Student profile handling
+
+Source: `src/services/profile.js`
+
+This service provides:
+- `getProfile()`
+- `upsertProfile()`
+- `updateDisplayName()`
+
+Validation:
+- profile record is created and updated safely
+- profile is attached to the authenticated account
+- UI reads the display name and email from the current Supabase user and profile
+
+Assessment: Pass
+
+### 6.4 Task operations
+
+Source: `src/services/tasks.js`
+
+The service supports:
+- create task
+- update task
+- toggle completion
+- delete task
+- fetch tasks by student and subject
+
+Validation:
+- all operations are connected to the `tasks` table
+- subject and student ownership are enforced by RLS
+- task list is consistent with the application dashboard
+
+Assessment: Pass
+
+### 6.5 Quiz recording flow
+
+Source: `src/services/quiz.js` and `public/app.js`
+
+The app:
+- loads quiz questions by subject
+- displays question options
+- records each quiz attempt in `quiz_attempts`
+- saves individual selected answers in `quiz_responses`
+
+Validation:
+- this is a valid tracking design for educational assessment
+- the architecture matches the quiz performance feature set of the app
+
+Assessment: Pass for function and modeling
 
 ---
 
-## 5. Supabase Backend Review
+## 7. Security and Data Integrity Review
 
-### 5.1 Supabase Client Setup
-The project initializes the Supabase client in `src/lib/supabase.js`.
+### 7.1 Foreign key integrity
 
-Key code behavior:
-- imports `createClient` from `@supabase/supabase-js`
-- reads environment variables from Vite config:
-  - `VITE_SUPABASE_URL`
-  - `VITE_SUPABASE_ANON_KEY`
-- enables automatic token refresh and session persistence
+The migration files show proper foreign key usage:
+- `profiles.id` → `auth.users.id`
+- `tasks.student_id` → `profiles.id`
+- `tasks.subject_id` → `subjects.id`
+- `quiz_questions.subject_id` → `subjects.id`
+- `quiz_attempts.student_id` → `profiles.id`
+- `quiz_responses.attempt_id` → `quiz_attempts.id`
 
-This setup is correct for a frontend-first application using Supabase Auth and RLS.
+This ensures referential integrity and prevents orphan data.
 
-### 5.2 Authentication Flow
-The authentication logic is centralized in `src/services/auth.js`.
+Assessment: Pass
 
-Implemented operations include:
-- `signUp()` for registration
-- `signIn()` for user login
-- `signOut()` for session termination
-- `resetPassword()` for password recovery
-- `updatePassword()` for resetting a new password
-- `resendVerification()` for email confirmation
-- `getSession()` and `onAuthStateChange()` for auth monitoring
+### 7.2 Row Level Security
 
-This follows secure and standard Supabase patterns.
+Source: `supabase/migrations/006_rls_policies.sql`
 
-### 5.3 Route Protection
-The application protects pages using `src/auth-guard.js`.
-
-It performs the following checks:
-- if a user is not logged in and attempts to access a protected page, redirect to login
-- if a logged-in user visits auth pages, redirect to the dashboard
-- listen for auth lifecycle changes and redirect accordingly
-
-This is an effective client-side access-control pattern for a browser-based app.
-
-### 5.4 Database Schema
-The backend uses the following main tables defined by migration files:
-
-1. `profiles`
-   - stores student profile information
-   - linked to `auth.users(id)`
-   - automatically created via trigger on signup
-
-2. `subjects`
-   - catalog of academic subjects
-   - seeded with default Computer Science subjects
-
-3. `student_subjects`
-   - many-to-many mapping between students and subjects
-   - prevents duplicate enrollment
-
-4. `tasks`
-   - stores each student’s study tasks
-   - support title, subject, deadline, completion, timestamps
-
-5. `quiz_questions`
-   - holds the question bank for all subjects
-   - includes multiple-choice options and correct answer data
-
-6. `quiz_attempts`
-   - stores a student’s quiz attempt summary
-   - tracks score and completion time
-
-7. `quiz_responses`
-   - stores each selected answer per attempt
-
-This is a practical data model for the project’s educational workflow.
-
-### 5.5 Row Level Security (RLS)
-The migration file `006_rls_policies.sql` enforces strong ownership-based database access.
+RLS is enabled on all relevant tables.
 
 Examples:
-- `profiles_select_own` allows students to read only their own profile
-- `tasks_select_own` allows students to access only their own tasks
-- `quiz_attempts_select_own` restricts attempts to the same student
-- `student_subjects_select_own` prevents cross-user enrollment data exposure
+- `profiles_select_own`
+- `tasks_select_own`
+- `student_subjects_select_own`
+- `quiz_attempts_select_own`
+- `quiz_responses_select_own`
 
-This is a strong backend design feature and demonstrates awareness of secure application development.
+This ensures users can only access their own data.
 
----
+Assessment: Pass
 
-## 6. Packages and Dependencies Used
+### 7.3 Security concern: quiz answer exposure
 
-The project dependency list is defined in `package.json`.
+The policy for `quiz_questions` currently allows authenticated users to read the table and the data includes `correct_answer`.
 
-### 6.1 Runtime Dependencies
-- `@supabase/supabase-js` — official Supabase JavaScript SDK for authentication, database access, and session management
+This is not ideal for a production-grade application because:
+- the client can see the correct answers
+- quiz scoring is effectively readable in the database layer
+- answer checking should ideally happen on the server side
 
-### 6.2 Development Dependencies
-- `vite` — frontend build tool and local dev server
-- `vitest` — JavaScript test runner for unit and validation tests
+This is the main security issue identified in the current implementation.
 
-### 6.3 Project Scripts
-The package contains the following scripts:
-- `npm run dev` — start Vite development server
-- `npm run build` — production build
-- `npm run preview` — preview build locally
-- `npm test` — run Vitest
-- `npm run test:e2e` — Playwright-based end-to-end testing
-
-### 6.4 Package Summary
-The project is intentionally lightweight. It avoids heavy frontend frameworks, which is consistent with the decision to use simple HTML/CSS/JS for an academic MVP. The use of Supabase provides essential backend infrastructure without introducing a large server-side codebase.
-
----
-
-## 7. Code Review Findings by Module
-
-### 7.1 `src/services/auth.js`
-This file is well structured and correctly wraps Supabase Auth APIs. It supports the registration, sign-in, sign-out, password reset, and email verification lifecycle. The service abstraction is good for maintainability.
-
-### 7.2 `src/services/tasks.js`
-This module implements a clean CRUD pattern for student tasks. It allows creating, updating, toggling completion, and deleting tasks. The queries are tied to the current student ID and the subject relationship, which matches the database design.
-
-### 7.3 `src/services/subjects.js`
-This module handles the subject catalog and student enrollment relationship. It uses `student_subjects` and ensures uniqueness using `upsert` with a conflict policy. This is an appropriate design for academic subject selection.
-
-### 7.4 `src/services/quiz.js`
-This module handles quiz question selection and attempt persistence. It fetches questions by subject, shuffles them, and saves quiz attempts and responses to backend tables. The architecture is suitable for educational assessment and progress tracking.
-
-### 7.5 `public/auth/auth-init.js`
-This file is the front-end form controller for all authentication pages. It validates email and password inputs, handles error states, and communicates with Supabase services. The code is user-friendly and consistent with modern web form patterns.
-
-### 7.6 `src/auth-guard.js`
-This module provides route-based protection for the application. It prevents unauthorized access on protected pages and prevents already-authenticated users from re-entering auth screens. This is a practical implementation for a small full-stack app.
-
----
-
-## 8. Security Analysis
-
-### Strengths
-- Supabase Auth is used instead of a custom user-password system
-- `profiles` table is linked to `auth.users`
-- RLS policies protect user-owned records
-- database constraints and foreign keys are used properly
-- session persistence and auth state monitoring are enabled
-
-### Security Observation
-The current implementation exposes `correct_answer` in the `quiz_questions` table and allows authenticated users to read the question bank. This is not ideal for a production-grade application because the client can read the answer key directly from the database.
-
-This represents the main technical risk in the app.
-
-### Recommendation
-For future production readiness, the answer key should be protected or evaluated on the server side using a secure backend function or an edge function instead of returning `correct_answer` to the client.
-
----
-
-## 9. Technical Strengths
-
-The app demonstrates several positive technical characteristics:
-- organized service-based architecture
-- use of cloud backend rather than browser-only storage
-- proper database normalization
-- clear migration-based database evolution
-- secure ownership checks via Supabase RLS
-- lightweight frontend stack appropriate for capstone work
-- testable code structure with Vitest and validation scripts
-
----
-
-## 10. Technical Risks and Recommendations
-
-### 10.1 Quiz Security Risk
-Risk: Medium  
-Issue: `correct_answer` is exposed in `quiz_questions` and accessible to authenticated users.
+Severity: Medium
 
 Recommendation:
-- Keep the public question bank only for demos
-- Move answer validation to a secure backend or edge function
-- Restrict access to answer keys from the client
-
-### 10.2 Documentation Drift
-Risk: Medium  
-Issue: Some older documentation may not match the final Supabase-based implementation.
-
-Recommendation:
-- Align all documentation to the actual architecture
-- Keep README and migration files as the primary source of truth
-
-### 10.3 Production Hardening
-Risk: Low to Medium  
-Issue: The MVP is functional, but additional security and monitoring should be added before production deployment.
-
-Recommendation:
-- add CI checks for database migrations
-- add automated tests for RLS and auth flows
-- separate public demo data from production data
+- keep the question bank public only if it is intentional for demo use
+- for production, separate the answer key from the public question bank or protect it through server-side scoring logic
 
 ---
 
-## 11. Final Assessment
+## 8. Documentation and Implementation Alignment Review
 
-The Team 5 Smart Study Companion project is a well-structured full-stack application using Supabase as the backend infrastructure. The overall architecture is coherent, practical, and suitable for the capstone project scope. The app successfully separates authentication, profile management, tasks, subjects, and quiz data into a clean service and database model.
+The repository contains both:
+- current implementation files using Supabase Auth and PostgreSQL
+- older design documents suggesting different models, especially in `docs/week8/database_login & signup.md`
 
-The most important strengths are:
-- real authentication via Supabase Auth
-- relational database model with normalized tables
-- secure policies using RLS
-- proper management of user-specific resources
-- lightweight and maintainable code structure
+This creates documentation drift.
 
-The primary issue to address before broader production deployment is the exposure of quiz answer keys. Once that concern is resolved, the app will be significantly stronger and more suitable for real-world academic usage.
+Examples of outdated or legacy documentation:
+- custom `users` table design
+- `user_sessions` table
+- `password_reset_tokens` model
+
+These ideas are not reflected in the actual implementation. In the current codebase, the app uses `auth.users` and `profiles` instead.
+
+Assessment: Needs documentation correction
 
 ---
 
-## 12. Formal Conclusion
+## 9. Findings Summary
 
-This report concludes that the Team 5 application demonstrates a valid and technically sound architecture built around Supabase. The team has implemented a functional cloud-backed backend, a logical relational database schema, and an appropriate package stack for a capstone MVP.
+| Category | Result | Comment |
+|---|---|---|
+| Authentication model | Pass | Supabase Auth is correctly implemented |
+| User profile model | Pass | `profiles` table correctly links to `auth.users` |
+| Task schema | Pass | Good for deadline-based study planning |
+| Subject enrollment model | Pass | Good many-to-many design |
+| Quiz tracking model | Pass | Good structure for attempts and responses |
+| Row Level Security | Pass | Proper ownership enforcement |
+| Security hardening | Needs improvement | `correct_answer` exposure should be reviewed |
+| Documentation alignment | Needs update | Older docs do not match implemented architecture |
 
-The project is approved as a current MVP implementation and is considered technically viable for continued development, with emphasis on security refinement and documentation consistency.
+---
+
+## 10. Formal Risk Assessment
+
+### Risk Level Summary
+
+| Risk | Severity | Description |
+|---|---|---|
+| Exposed answer keys in quiz questions | Medium | The client can read correct answers from the database |
+| Documentation drift | Medium | Older docs may mislead future developers |
+| Limited profile metadata | Low | Current MVP schema is small but extendable |
+
+Overall assessment: The database design is appropriate for the project scope and functional requirements, but it should be hardened before final production deployment.
+
+---
+
+## 11. Recommended Improvements
+
+1. Harden quiz scoring logic
+   - do not expose `correct_answer` directly to the frontend
+   - move answer validation to a secure backend or Supabase function
+
+2. Align documentation with implementation
+   - remove or relabel legacy auth design docs
+   - clearly document that the live app uses Supabase Auth and `profiles`
+
+3. Expand profile metadata if needed
+   - add fields such as major, year, university, or semester if the app evolves beyond MVP
+
+4. Keep schema versioning clean
+   - continue using migration files as the source of truth for schema changes
+
+5. Add automated database checks
+   - include SQL validation checks in CI pipelines for schema and constraints
+
+---
+
+## 12. Final Conclusion
+
+The Team 5 Smart Study Companion project uses a valid and practical full-stack database design based on Supabase PostgreSQL and Supabase Auth. The schema correctly supports the project goals: student identity, subject management, task tracking, and quiz analytics.
+
+The design is structurally sound, the relationships are logically correct, and the RLS policies provide proper student-level isolation. The strongest aspect of the design is that it matches the repository implementation.
+
+The main concern is not the overall architecture, but a need for better security hardening around quiz question answer exposure and documentation consistency. Once those two issues are addressed, the project is well-positioned for future maturity.
 
 ---
 
 ## 13. Approval Status
 
-Status: Approved for current capstone MVP implementation  
-Production-readiness: Requires security review and additional hardening  
-Architecture suitability: Strong for project scope  
-Backend implementation: Successfully integrated with Supabase
+Approved for current MVP evaluation: Yes  
+Recommended for production refinement: Yes  
 
----
-
-Prepared by: Team 5 Capstone Design Review  
-Repository reviewed: `CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design`
+This database design is suitable for the Team 5 capstone implementation and demonstrates a sound full-stack approach aligned with the actual codebase.
