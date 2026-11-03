@@ -1,9 +1,25 @@
 # Week 9 — Login and Signup UI design
 
 **Project:** Smart Study Companion  
-**Date:** 2026-10-28  
-**Status:** UI proposal (clickable mockups)  
-**Backend auth:** Not included. Week 5 still records no authentication for the MVP. This work is the screen design the team asked for before Week 9.
+**Date:** 2026-10-28 (UI proposal); analysis updated 2026-11-03  
+**Status:** UI proposal (clickable mockups), reviewed alongside Week 9 implementation and test records  
+**Backend auth:** The mockups in `Frontend/auth/` are standalone UI demonstrations and do not authenticate users. The current application is documented as using Supabase Auth and PostgreSQL; see the [Week 9 team report](weekly-report.md) and [database-model review](database-model-check-report.md). The Week 5 no-auth decision is historical context, not a description of the current implementation.
+
+---
+
+## Week 9 document analysis
+
+This page describes the design intent and behavior of the standalone login/signup mockups. It should not be read as evidence that the whole application has no authentication or that these mockup pages are the production auth flow.
+
+### Findings across this week's records
+
+- **Architecture changed:** Week 5 records the original localStorage/no-auth MVP decision. Week 9 records a Supabase Auth/PostgreSQL implementation. Treat the Week 5 decision and older Week 8 proposals as historical; use the current code, migrations, and Week 9 reports for present-state descriptions.
+- **Separate the two auth artifacts:** `Frontend/auth/login.html` and `signup.html` are clickable design mockups that perform client-side validation only. The application auth pages are documented under `public/auth/` and use the Supabase-backed implementation. A successful mockup submission is not evidence of account creation or a live auth flow.
+- **Testing evidence has limits:** The Week 9 test report records passing unit/static checks and a production build on a modified local working snapshot. Its fresh browser smoke test was not run, and no live Supabase credentials were used. Therefore, live signup, email verification, RLS, cloud persistence, and two-account isolation remain unverified by that report.
+- **Follow-up issues are open:** The database review and upgrade plan note course-catalog/task persistence and quiz-question/answer recording concerns; the review also flags client visibility of quiz answer keys. These are findings to verify and address, not completed fixes.
+- **Setup documentation needs alignment:** The upgrade plan says migration `007_universities.sql` is present while setup instructions list migrations 001–006. Confirm the full ordered migration set on a clean Supabase project before claiming setup is complete.
+
+For details and evidence, see the [Week 9 team report](weekly-report.md), [test report](TEST_REPORT_2026-11-03.md), [database-model review](database-model-check-report.md), and [next-week upgrade plan](NEXT_WEEK_UPGRADE_PLAN.md). The records distinguish implementation review, automated checks, local preview, browser testing, and live Supabase testing; do not treat them as interchangeable evidence.
 
 ---
 
@@ -180,4 +196,3 @@ If the team later assigns backend auth, implement the field names and error code
 5. Compare the page to the images in `mockups/`.
 
 ## Owner: J.N. Taj Oli
-
