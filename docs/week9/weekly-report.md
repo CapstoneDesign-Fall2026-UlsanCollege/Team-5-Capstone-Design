@@ -48,10 +48,10 @@ Entries below are based on the available repository records. “Not recorded” 
 | Student | GitHub login | Week 9 contribution supported by available evidence | Evidence |
 |---|---|---|---|
 | Nabin Khadka | `liftupkhadka555-spec` | Authored the merged Supabase Auth/PostgreSQL migration and login/signup implementation in PR #41; the evidence note also records his local-preview signup/login checks. | [PR #41](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/41); [Nabin’s evidence note](../../Evidence.md) |
-| Sumit Adhkari | `adronnie` | A repository commit records an edit to the Week 9 backend design document. This report does not attribute other Week 9 work without further evidence. | [Backend-design edit commit](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/commit/3d0f66056438585830fd64872ae998edb4a00e9b) |
-| Prabin Rai | `RaiPrabin697` | Week 9 contribution not recorded in the evidence reviewed for this report. His prior-week documentation/testing work is not counted as Week 9 work. | [Contribution ledger (prior-week roles)](../CONTRIBUTION_LEDGER.md); [Week 8 report](../week8/weekly-report.md) |
-| Prince Karki | `princekark` | Week 9 contribution not recorded in the evidence reviewed for this report. His prior-week contribution is not counted as Week 9 work. | [Contribution ledger (prior-week roles)](../CONTRIBUTION_LEDGER.md) |
-| J.N. Taj Oli | `jn-oli` | Authored the Week 9 login/signup UI design and mockup package, which identifies J.N. as owner. Repository history also records Week 9 report edits; those edits are not presented as evidence of browser or Supabase testing. | [Week 9 auth UI design](auth-ui-design.md); [Weekly report](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/8810a615f2470e3f87838261528869e637fcbc1f/docs/week9/weekly-report.md) |
+| Sumit Adhkari | `adronnie` | | |
+| Prabin Rai | `RaiPrabin697` | | |
+| Prince Karki | `princekark` | | |
+| J.N. Taj Oli | `jn-oli` | Authored the Week 9 login/signup UI design and mockup package, which identifies J.N. as owner. | [Week 9 auth UI design](auth-ui-design.md); [Weekly report](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/8810a615f2470e3f87838261528869e637fcbc1f/docs/week9/weekly-report.md) |
 
 ## Blockers, risks, and open verification
 
