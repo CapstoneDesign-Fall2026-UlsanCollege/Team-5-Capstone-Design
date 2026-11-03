@@ -39,3 +39,15 @@ For each executed case, record:
 ## RaiPrabin697 status
 
 This matrix is documentation authored for the Week 9 evidence package. RaiPrabin697 has **not** recorded a fresh signup/sign-in, task reload, or second-account isolation run in this update. The next personal action is to execute those cases in an approved test environment and add date, actual results, and proof only after they are performed.
+
+
+## Related issue links
+
+| Issue | Use in this evidence package | Context |
+|---|---|---|
+| [#37 QA: functional, UI, quiz, and persistence testing](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/37) | Follow-up location for test cases and actual results. | Open when checked; its checklist is not evidence that the cases ran. |
+| [#39 UI Design: Login & Signup](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/39) | Design-history reference for auth UI. | Its description predates the current implementation; do not treat it as live-auth proof. |
+| [#38 Database Design: Login & Signup](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/38) | Database-design history reference. | Its description is a design proposal, not a record of the current database behavior. |
+| [#40 Backend: Login & Signup](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/40) | Backend/auth work history reference. | Keep its proposed scope distinct from any live test result. |
+
+These links are navigation only. This documentation update does not modify the issues or claim their Definition of Done is satisfied.
