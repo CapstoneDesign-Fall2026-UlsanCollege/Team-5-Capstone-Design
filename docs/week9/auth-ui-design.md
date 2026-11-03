@@ -1,86 +1,182 @@
-# Week 9 Team Report
+# Week 9 — Login and Signup UI design
 
-**Team:** 5 — Smart Study Companion  
-**Week:** 9  
-**Report date:** 2026-11-03
+**Project:** Smart Study Companion  
+**Date:** 2026-10-28  
+**Status:** UI proposal (clickable mockups)  
+**Backend auth:** Not included. Week 5 still records no authentication for the MVP. This work is the screen design the team asked for before Week 9.
 
-## Team goal and summary
+---
 
-This week’s documented work advanced the project from the earlier browser-local prototype and auth proposals toward the Supabase-backed application, and brought together the login/signup UI design, database review, implementation evidence, and test documentation used in the Week 9 report. This report summarizes repository evidence; it does not imply that every team member completed every listed activity. Individual attribution is limited to evidence available in the linked records.
+## What this delivers
 
-## Documented Week 9 deliverables
-
-| Deliverable | Evidence and status |
-|---|---|
-| Supabase Auth and PostgreSQL implementation | PR #41 is merged. The root README describes Supabase Auth, PostgreSQL, and RLS as the current architecture. |
-| Login/signup UI proposal and mockups | Week 9 design document identifies J.N. Taj Oli as owner and describes the mockups as UI references. The proposal itself says the mockups do not create real users. |
-| Database-model review | The review describes the implemented schema and RLS, and flags quiz-answer exposure and documentation drift as items needing attention. It is a repository review, not proof of a live end-to-end test. |
-| Automated test report | The dated report records `npm test` (12 tests), the Python checks (6 groups), and `npm run build` as passing on its local working snapshot. See the report for scope and limitations. |
-| Upgrade plan | The plan records code-review findings and proposed follow-up work; its checklist items are plans, not completed features or tests. |
-
-## Evidence links
-
-| Evidence type | Link | What it supports / limitation |
+| Screen | Required controls | Clickable mockup |
 |---|---|---|
-| Pull request | [PR #41 — Supabase Auth and PostgreSQL migration](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/41) | Merged implementation history; does not by itself prove live-user sign-up or data isolation. |
-| Current architecture | [Project README](../../README.md) | Documents the Supabase Auth/PostgreSQL direction and setup instructions. |
-| Auth UI | [Week 9 auth UI design](auth-ui-design.md); [login page](../../public/auth/login.html); [signup page](../../public/auth/signup.html) | UI design, mockups, and current page source; mockup does not create a real user. |
-| Testing | [Week 9 test report](TEST_REPORT_2026-11-03.md); [test documentation](../tests/README.md) | Automated results, manual-test boundaries, and evidence checklist. |
-| Database and follow-up | [Database-model review](database-model-check-report.md); [upgrade plan](NEXT_WEEK_UPGRADE_PLAN.md) | Code/schema review findings and proposed next work. |
-| Local preview evidence | [Nabin Khadka’s evidence note](../../Evidence.md) | Records a local signup-page check and local-preview sign-in to the dashboard by Nabin; explicitly not a live Supabase end-to-end check. |
-| Prior-week context | [Week 8 auth feature design](../week8/LoginIn_signup_Features.md); [Week 8 weekly report](../week8/weekly-report.md) | Earlier design proposal and a Week 8 record that says account support was not yet fully implemented. |
+| Login | Email, password, **Sign In**, **Create Account** link | [Frontend/auth/login.html](../../Frontend/auth/login.html) |
+| Signup | Name, email, password, confirm password, **Create Account** | [Frontend/auth/signup.html](../../Frontend/auth/signup.html) |
 
-## Testing status — keep environments distinct
+Open the HTML files in a browser. Validation runs in the page only. Successful Sign In / Create Account does **not** create a real user.
 
-| Test category | Recorded result | What it does not establish |
-|---|---|---|
-| Automated checks | The 2026-11-03 test report records `npm test` PASS (3 files, 12 tests), `python3 tests/run_tests.py` PASS (6 check groups), and `npm run build` PASS. | The report says the underlying real app logic and live database behavior remain partially unverified. |
-| Local browser preview | Nabin’s evidence note records opening signup and login in the local preview and signing in through the local-preview flow to the dashboard. | This is local-preview evidence only; it is not a fresh live Supabase test. |
-| Fresh browser smoke / end-to-end | The 2026-11-03 report marks its browser smoke test NOT RUN because Vite could not bind to localhost (`listen EPERM`); it also says no Playwright run was performed. | No fresh visual or interactive browser confirmation is claimed here. |
-| Live Supabase | No live credentials were used for the reported checks. | Signup, email verification, RLS behavior, two-user isolation, and cloud persistence remain unverified in that report. |
+---
 
-## Individual contribution evidence
+## Visual direction
 
-Entries below are based on the available repository records. “Not recorded” means this report did not find sufficient Week 9 evidence to describe a contribution; it is not a claim that the person did not contribute.
+The screens reuse the live prototype language from `Frontend/styles.css`:
 
-| Student | GitHub login | Week 9 contribution supported by available evidence | Evidence |
+- Cream canvas `#f3eee4`, ink `#1c1915`, teal `#0f766e`, coral for errors `#c2410c`
+- Dark brand rail `#17211f` (same as the app sidebar)
+- Fraunces headings, Outfit body
+- Frosted card, 22px radius, pill primary button
+
+**Layout:** split screen. Brand story on the left, form card on the right. Under 860px the brand rail stacks on top and the form stays full width.
+
+Do not add Google / GitHub buttons on these screens. OAuth is a later option in [Authentication_Techinical_Decision.md](../week5/Authentication_Techinical_Decision.md), not part of this UI.
+
+---
+
+## Image references (mockups)
+
+Generated visual references for review. Treat the HTML pages as the source of truth for labels and validation; the images show intended look.
+
+### Login (desktop)
+
+![Login desktop mockup](mockups/login-desktop.jpg)
+
+### Signup (desktop)
+
+![Signup desktop mockup](mockups/signup-desktop.jpg)
+
+### Error and password-rule states
+
+![Validation error states](mockups/auth-error-states.jpg)
+
+### Login (mobile)
+
+![Login mobile mockup](mockups/auth-mobile.jpg)
+
+Files:
+
+- [`mockups/login-desktop.jpg`](mockups/login-desktop.jpg)
+- [`mockups/signup-desktop.jpg`](mockups/signup-desktop.jpg)
+- [`mockups/auth-error-states.jpg`](mockups/auth-error-states.jpg)
+- [`mockups/auth-mobile.jpg`](mockups/auth-mobile.jpg)
+
+---
+
+## Field map
+
+### Login
+
+| Field | Type | Autocomplete | Notes |
 |---|---|---|---|
-| Nabin Khadka | `liftupkhadka555-spec` | Authored the merged Supabase Auth/PostgreSQL migration and login/signup implementation in PR #41; the evidence note also records his local-preview signup/sign-in flow. | [Week 9 auth UI design](auth-ui-design.md); [Weekly report](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week9/weekly-report.md); [PR #41](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/41) |
-| Sumit Adhkari | `adronnie` | | |
-| Prabin Rai | `RaiPrabin697` | | |
-| Prince Karki | `princekark` | | |
-| J.N. Taj Oli | `jn-oli` | Authored the Week 9 login/signup UI design and mockup package, and reviewed the report/evidence against the design. Validation review included checking the mockup’s empty/invalid-field, weak-password, mismatched-confirmation, and field-level error states. | [Week 9 auth UI design](auth-ui-design.md); [Login page](../../public/auth/login.html); [Signup page](../../public/auth/signup.html) |
+| Email | `email` | `username` | Required, must look like an email |
+| Password | `password` | `current-password` | Required; show/hide toggle |
+| Sign In | submit | — | Always enabled; errors appear on submit |
+| Create account | link → signup.html | — | Secondary action, not a second button |
 
-## Blockers, risks, and open verification
+### Signup
 
-| Item | Evidence/status | Follow-up |
-|---|---|---|
-| Live auth and RLS validation | Not tested with live Supabase credentials in the Week 9 test report. | Run and document the proposed account, profile, and two-user isolation cases using test accounts with no credentials in the report. |
-| Fresh local browser smoke test | Not run in the test report because the local server could not bind. | Rerun when a local server can start; record tester, date, expected/actual results, and screenshots. |
-| Subject/task persistence mismatch | Upgrade plan reports ten frontend course options versus five seeded subjects and a possible in-memory fallback for unmatched subjects. | Reconcile catalogs and task persistence before claiming end-to-end correctness. |
-| Quiz recording and answer visibility | Upgrade plan identifies quiz questions without database IDs in the active flow; database review flags `correct_answer` exposure. | Verify question/response handling and decide whether server-side scoring is required for the MVP. |
-| Migration setup instructions | Upgrade plan says migration 007 exists but README lists migrations 001–006. | Update setup instructions and verify the full migration sequence on a clean project. |
-| Member attribution gaps | Week 9 evidence was not found for Prabin Rai and Prince Karki in the reviewed materials. | Ask those members to add their own accurate Week 9 description and evidence links. |
+| Field | Type | Autocomplete | Notes |
+|---|---|---|---|
+| Name | `text` | `name` | Required, at least 2 characters |
+| Email | `email` | `email` | Required, valid format |
+| Password | `password` | `new-password` | See rules below; live rule pills |
+| Confirm password | `password` | `new-password` | Must match password |
+| Create Account | submit | — | Always enabled; errors appear on submit |
+| Sign in | link → login.html | — | For existing users |
 
-## Architecture and documentation alignment
+---
 
-Older Week 8 materials include proposals for a generic `/api/auth/*` service, custom authentication/session storage, and earlier no-login/localStorage planning. These are historical proposals, not the live architecture. The current repository documents Supabase Auth and PostgreSQL as the active direction.
+## Password requirements
 
-The Week 9 UI design is a design/mockup artifact. The database review and upgrade plan are repository/code reviews, and the automated test report explicitly limits what its checks prove. Keep those categories separate in the report and in the documentation review.
+Shown as three pills under the password field on signup. Pills turn teal when met, coral when the user has typed something that still fails.
 
-## Team decisions and next actions
+| Rule | Check |
+|---|---|
+| 8+ characters | `length >= 8` |
+| A letter | `/[A-Za-z]/` |
+| A number | `/\d/` |
 
-| Decision / agreed reporting rule | Rationale | Evidence |
-|---|---|---|
-| Describe Supabase Auth and PostgreSQL as the current architecture; label older localStorage/no-auth and generic API designs as historical proposals. | The merged implementation and current README show the live architecture is now Supabase-based. | [Week 9 test report](TEST_REPORT_2026-11-03.md); [Project README](../../README.md) |
-| Report automated, local-preview, browser smoke, and live Supabase checks separately. | They have different evidence and the Week 9 test report records browser/live gaps. | [Week 9 test report](TEST_REPORT_2026-11-03.md) |
-| Treat upgrade-plan acceptance criteria as pending until their tests/evidence are recorded. | The plan is explicitly proposed future work and its checklist remains unchecked. | [Next-week upgrade plan](NEXT_WEEK_UPGRADE_PLAN.md) |
+Confirm password is a separate check: values must be identical.
 
-### Proposed next steps (not completed in this report)
+These rules are meant for a student planner, not a bank. If the team later adds a server, the same rules should be enforced on the server, not only in the browser.
 
-- Rerun browser smoke tests and capture dated screenshots when the local server is available.
-- Perform live Supabase auth, profile, RLS, and data-isolation tests with test accounts.
-- Resolve the course catalog/task persistence and quiz question/response findings in the upgrade plan.
-- Correct setup instructions to include migration 007, then verify the migrations on a clean Supabase project.
-- Have each team member confirm their Week 9 contribution and attach evidence before filling any currently unrecorded row.
+---
 
+## Error copy (use these strings)
+
+Keep messages short, field-specific, and free of blame.
+
+| Situation | Message |
+|---|---|
+| Empty or invalid email | Enter a valid email. |
+| Empty login password | Enter your password. |
+| Wrong login combination (when a backend exists) | Incorrect email or password. |
+| Name too short | Enter your name (at least 2 characters). |
+| Weak password | Must be at least 8 characters and include a letter and a number. |
+| Confirm mismatch | Passwords do not match. |
+| Any submit with errors | Fix the highlighted fields. (banner at top of card) |
+
+Login should not say which of email or password is wrong once a real backend exists. The mockup still checks format locally so empty fields are obvious.
+
+---
+
+## Usability rules
+
+1. **Labels stay visible.** Placeholder is an example (`you@college.edu`), not the only label.
+2. **Show / hide password** on password and confirm fields.
+3. **Do not disable the primary button.** Disabled submit hides the reason the form will not go. Validate on submit and mark `aria-invalid`.
+4. **Errors sit under the field** and are wired with `aria-describedby`. The banner is `role="alert"`.
+5. **`novalidate`** on the form so the custom copy is shown instead of the browser bubble.
+6. **One primary action** per page. Create Account on login is a text link.
+7. **Keyboard:** tab order is fields → show/hide → submit → opposite-page link. Focus ring uses teal.
+8. **Reduced motion:** hover lift is turned off when `prefers-reduced-motion` is set.
+9. **Guest note:** the login brand copy states that guest data stays in the current browser, matching the Week 5 localStorage model until accounts exist.
+
+---
+
+## Owner validation check (J.N. Taj Oli)
+
+The current design should be reviewed with these checks before claiming it matches the intended validation behavior:
+
+- Submit the login form empty: the email field should show `Enter a valid email.` and the password field should show `Enter your password.`.
+- On signup, test an invalid email, a short name, a weak password, and a mismatched confirm password. Each problem should show a short, field-specific error and the alert banner at the top of the card.
+- While typing in the password field, the three rule pills should turn teal when satisfied and coral when the user has entered text that still fails the rule.
+- Confirm that the error text is visible near the correct field, not only in a generic alert, and that the input states reflect `aria-invalid` properly.
+
+---
+
+## Suggested flow (when auth is assigned)
+
+```
+Open app
+  → Login
+      → Sign In (valid) → existing dashboard (Frontend/index.html)
+      → Create account → Signup
+          → Create Account (valid) → Login
+          → Sign in → Login
+```
+
+The HTML mockup follows this path. It does not save accounts.
+
+---
+
+## Out of scope for this owner
+
+- Password hashing, sessions, JWT, or any API
+- Email verification or password reset
+- OAuth
+- Replacing the MVP “no login” decision
+
+If the team later assigns backend auth, implement the field names and error codes above so the UI does not have to change.
+
+---
+
+## How to review
+
+1. Open [Frontend/auth/login.html](../../Frontend/auth/login.html).
+2. Submit empty fields; confirm coral messages.
+3. Follow **Create account**, try a short password and a mismatched confirm.
+4. Watch the three requirement pills update while typing.
+5. Compare the page to the images in `mockups/`.
+
+## Owner: J.N. Taj Oli
