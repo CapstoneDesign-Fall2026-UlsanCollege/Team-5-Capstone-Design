@@ -1,8 +1,7 @@
 # Smart Study Companion Documentation
 
 **Team:** Team 5  
-**Term:** Fall 2026  
-**Last updated:** 2026-10-28
+**Term:** Fall 2026  **Last updated:** 2026-11-04
 
 This folder is the project documentation hub. It keeps weekly records, testing evidence, decision notes, demo planning, and handoff material in one place.
 
@@ -50,3 +49,14 @@ This folder is the project documentation hub. It keeps weekly records, testing e
 - If a test is not run, write `Not run` and explain what is missing.
 - Use the root [README](../README.md) for the public project summary and this file for deeper navigation.
 
+
+
+## Week 9 evidence and demo planning
+
+| Document | Use it for |
+|---|---|
+| [Week 9 shared report](week9/weekly-report.md) | Current documented artifacts, test boundaries, blockers, and RaiPrabin697’s personal documentation record |
+| [Week 9 QA Evidence Matrix](week9/QA_EVIDENCE_MATRIX.md) | Result labels and repeatable auth, task-persistence, browser, and isolation checks; unrun cases remain marked |
+| [Week 9 Final Demo Roadmap](week9/FINAL_DEMO_ROADMAP.md) | Demo journey, acceptance evidence, and fallback criteria |
+
+The new Week 9 matrix and roadmap are planning/evidence documents; they do not indicate that a fresh live test has been performed.

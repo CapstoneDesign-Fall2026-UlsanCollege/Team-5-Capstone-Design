@@ -14,3 +14,12 @@
 ## Documentation Standard
 
 Every claim should link to proof. If proof is missing, mark the item as pending instead of calling it complete.
+
+
+## Week 9 documentation update (2026-11-04)
+
+| Focus | Status | Evidence |
+|---|---|---|
+| QA case matrix, contribution evidence, and demo acceptance/fallback plan | Documentation recorded on branch `docs/week9-rai-evidence`; fresh browser/live account tests remain **Not run** unless separately recorded. | [Week 9 report](week9/weekly-report.md); [QA Evidence Matrix](week9/QA_EVIDENCE_MATRIX.md); [Final Demo Roadmap](week9/FINAL_DEMO_ROADMAP.md) |
+
+This entry updates the roadmap with the current Week 9 documentation record. Earlier planning rows are retained as historical roadmap entries; their statuses are not evidence of implementation or testing.

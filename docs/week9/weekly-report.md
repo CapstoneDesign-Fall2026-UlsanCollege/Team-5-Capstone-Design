@@ -1,8 +1,7 @@
 # Week 9 Team Report
 
-**Team:** 5 — Smart Study Companion  
-**Week:** 9  
-**Report date:** 2026-11-03
+**Team:** 5 — Smart Study Companion  **Week:** 9  
+**Report date:** 2026-11-04
 
 ## Team goal and summary
 
@@ -87,3 +86,34 @@ The Week 9 UI design is a mockup/design artifact, the database review and upgrad
 - Have the team decide and document whether quiz-answer exposure is accepted for the MVP demo or whether to move scoring server-side.
 - Confirm migration 007 and the full migration sequence; correct setup instructions and verify on a clean Supabase project.
 - Have Sumit, Prabin, and Prince confirm their Week 9 contributions and attach evidence. J.N. Taj Oli should record whether the documented validation/error states were personally checked, with date/results, if claiming a completed check.
+
+
+## Week 9 evidence scope
+
+This report separates implementation history, source review, automated checks, local-preview observations, and live-service testing. A passing check in one category must not be presented as proof for another category. RaiPrabin697’s contribution in this update is documentation work; it is not a claim of a fresh application test.
+
+
+## RaiPrabin697 personal Week 9 record
+
+**Updated:** 2026-11-04  
+**Contribution type:** Documentation authored in this branch. This entry does not claim implementation or a fresh application test.
+
+| Contribution | Evidence | Test status / next action |
+|---|---|---|
+| Prepared the Week 9 QA evidence matrix and final-demo roadmap, including reproducible steps, evidence boundaries, privacy-safe proof guidance, and fallback criteria. | [QA Evidence Matrix](QA_EVIDENCE_MATRIX.md); [Final Demo Roadmap](FINAL_DEMO_ROADMAP.md); [documentation PR branch](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/tree/docs/week9-rai-evidence/docs/week9) | **Not run by RaiPrabin697 in this update:** fresh-account signup/sign-in, subject/task creation with reload, and second-account isolation. Next action is to execute these checks in an approved test environment and append date, tester, expected/actual result, and safe proof. Live Supabase/RLS remains unverified by the existing report. |
+
+No credentials or private account values are included in this record. Existing team-member contribution rows above are unchanged.
+
+
+## RaiPrabin697 PR and documentation audit
+
+**PR:** [#42 — Week 9 personal evidence and demo roadmap](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/42) (open; unmerged).
+
+The branch update records RaiPrabin697’s documentation contribution only. The QA matrix and demo roadmap are linked above; the fresh signup/sign-in, task-reload, and two-account isolation cases remain **Not run** by RaiPrabin697 in this update.
+
+### Documentation audit
+
+- The PR file list was checked: all changed paths are under `docs/`; root README, application code, tests, and issue records are unchanged.
+- The new Week 9 matrix, roadmap, report, ledger, documentation hub, roadmap index, and status-page links were checked against existing branch paths. The four issue links in the QA matrix resolve to existing issues; those issues were not edited.
+- No external account credentials or private test-account data were added.
+- No live Supabase or browser-test completion is claimed.
