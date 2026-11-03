@@ -56,6 +56,10 @@ Record only decisions that change scope, approach, ownership, or the next plan.
 | Decision | Why we chose it | Owner | Evidence / Issue link |
 |---|---|---|---|
 |  |  |  |  |
+| Supabase Auth as current authentication architecture | Older documents describe a no-login MVP, while current implementation includes Supabase Auth | Team | |
+| Quiz answer protection | Authenticated users may access correct_answer through database queries | Team | |
+| Live Supabase testing | Local automated tests do not verify cloud authentication or RLS | Testing team | |
+| University migration setup | Migration 007 exists but setup instructions list only 001–006 | Documentation team | |
 
 ## Next week's bridge task
 
