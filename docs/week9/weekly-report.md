@@ -87,3 +87,8 @@ The Week 9 UI design is a mockup/design artifact, the database review and upgrad
 - Have the team decide and document whether quiz-answer exposure is accepted for the MVP demo or whether to move scoring server-side.
 - Confirm migration 007 and the full migration sequence; correct setup instructions and verify on a clean Supabase project.
 - Have Sumit, Prabin, and Prince confirm their Week 9 contributions and attach evidence. J.N. Taj Oli should record whether the documented validation/error states were personally checked, with date/results, if claiming a completed check.
+
+
+## Week 9 evidence scope
+
+This report separates implementation history, source review, automated checks, local-preview observations, and live-service testing. A passing check in one category must not be presented as proof for another category. RaiPrabin697’s contribution in this update is documentation work; it is not a claim of a fresh application test.
