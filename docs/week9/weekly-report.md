@@ -52,7 +52,7 @@ Entries below are limited to evidence in the repository. A design specification 
 | Sumit Adhkari | `adronnie` | Awaiting the student’s Week 9 contribution confirmation and evidence link. | Pending |
 | Prabin Rai | `RaiPrabin697` | Awaiting the student’s Week 9 contribution confirmation and evidence link. | Pending |
 | Prince Karki | `princekark` | Awaiting the student’s Week 9 contribution confirmation and evidence link. | Pending |
-| J.N. Taj Oli | `jn-oli` | Authored the Week 9 login/signup UI design and mockup package. The design specifies field-level validation/error messages, a top-of-card alert, `aria-invalid`/`aria-describedby`, and password-rule indicators that update while typing. These are documented design behaviors; this report does not claim a fresh manual validation run unless separately recorded. | [Week 9 auth UI design](auth-ui-design.md), especially “Error copy,” “Usability rules,” and “Owner validation check.” |
+| J.N. Taj Oli | `jn-oli` | Authored the Week 9 login/signup UI design and mockup package. The design specifies field-level validation/error messages, a top-of-card alert, `aria-invalid`/`aria-describedby`, and password-rule indicators that update while typing. These are documented design behaviors; this report does not claim a fresh manual validation run unless separately recorded. | [Week 9 auth UI design](auth-ui-design.md), [weekly report](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/e0dff121ac2d0ce117b8eec1f3e92a0aa535aa75/docs/week9/weekly-report.md), especially “Error copy,” “Usability rules,” and “Owner validation check.” |
 
 ## Blockers, risks, and open verification
 
