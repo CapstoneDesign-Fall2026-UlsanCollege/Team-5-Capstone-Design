@@ -28,6 +28,14 @@
 
 ---
 
+### On this page
+
+[Overview](#1-overview--full-stack-pivot) · [Technology Stack](#2-technology-stack) · [Project Directory](#3-project-directory-structure) · [Supabase Setup](#4-supabase-setup-guide) · [Automated Tests](#5-running-automated-tests) · [Deployment](#6-deployment-to-vercel-hobby-free-tier) · [Team Contributions](#7-team-contributions)
+
+---
+
+
+
 ## 1. Overview & Full-Stack Pivot
 
 Smart Study Companion is an academic study management application designed for university students to organize courses, study tasks, deadlines, and quizzes with real student accounts.
@@ -53,7 +61,27 @@ Smart Study Companion is an academic study management application designed for u
 
 ---
 
+### System Architecture
+
+```mermaid
+flowchart LR
+    Student[Student] --> Browser[Browser frontend<br/>HTML5 / CSS3 / Vanilla JavaScript]
+    Vercel[Vercel static hosting] -->|serves the app| Browser
+    Browser -->|sign-in and sign-up| Auth[Supabase Auth]
+    Auth -->|authenticated session| Browser
+    Browser -->|authenticated data queries| Database[Supabase PostgreSQL<br/>Row Level Security]
+```
+
+---
+
+
+
 ## 3. Project Directory Structure
+
+<details>
+<summary>View complete project directory structure</summary>
+
+
 
 ```
 Smart Study Companion/
@@ -98,6 +126,9 @@ Smart Study Companion/
 ```
 
 ---
+</details>
+
+
 
 ## 4. Supabase Setup Guide
 
@@ -143,6 +174,11 @@ Run the test suite:
 python3 tests/run_tests.py
 ```
 Expected output:
+
+<details>
+<summary>Show the expected test output</summary>
+
+
 ```
 ============================================================
   SMART STUDY COMPANION — AUTOMATED TEST SUITE
@@ -165,6 +201,9 @@ Testing Quiz Scoring Logic...
 ```
 
 ---
+</details>
+
+
 
 ## 6. Deployment to Vercel (Hobby Free Tier)
 
