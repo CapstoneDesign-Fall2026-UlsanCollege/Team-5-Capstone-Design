@@ -1,8 +1,7 @@
 # Week 9 Team Report
 
 **Team:** 5 — Smart Study Companion  
-**Week:** 9  
-**Report date:** 2026-11-03
+**Week:** 9  **Report date:** 2026-11-04
 
 ## Team goal and summary
 
@@ -92,3 +91,15 @@ The Week 9 UI design is a mockup/design artifact, the database review and upgrad
 ## Week 9 evidence scope
 
 This report separates implementation history, source review, automated checks, local-preview observations, and live-service testing. A passing check in one category must not be presented as proof for another category. RaiPrabin697’s contribution in this update is documentation work; it is not a claim of a fresh application test.
+
+
+## RaiPrabin697 personal Week 9 record
+
+**Updated:** 2026-11-04  
+**Contribution type:** Documentation authored in this branch. This entry does not claim implementation or a fresh application test.
+
+| Contribution | Evidence | Test status / next action |
+|---|---|---|
+| Prepared the Week 9 QA evidence matrix and final-demo roadmap, including reproducible steps, evidence boundaries, privacy-safe proof guidance, and fallback criteria. | [QA Evidence Matrix](QA_EVIDENCE_MATRIX.md); [Final Demo Roadmap](FINAL_DEMO_ROADMAP.md); [documentation PR branch](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/tree/docs/week9-rai-evidence/docs/week9) | **Not run by RaiPrabin697 in this update:** fresh-account signup/sign-in, subject/task creation with reload, and second-account isolation. Next action is to execute these checks in an approved test environment and append date, tester, expected/actual result, and safe proof. Live Supabase/RLS remains unverified by the existing report. |
+
+No credentials or private account values are included in this record. Existing team-member contribution rows above are unchanged.
