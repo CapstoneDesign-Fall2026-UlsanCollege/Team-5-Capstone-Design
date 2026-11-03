@@ -39,7 +39,7 @@ Keep this section inside the single shared team report. Each student must enter 
 | Sumit Adhkari |  |  |  |
 | Prabin Rai |  |  |  |
 | Prince Karki |  |  |  |
-| J.N. Taj Oli |  |  |  |
+| J.N. Taj Oli | Reviewed and improved Week 9 project documentation, prepared the Login/Signup UI design and clickable mockups, documented validation and error states, reviewed testing evidence, identified missing documentation and verification gaps, and coordinated report and evidence updates.  |  |  |
 
 The Week 9 [auth-ui-design.md](auth-ui-design.md) mockup package is owned by J.N. Taj Oli (`jn-oli`); the two text-edit commits above do not claim authorship of the package.
 
