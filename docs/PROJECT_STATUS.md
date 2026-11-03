@@ -1,6 +1,4 @@
-# Project Status
-
-**Last updated:** 2026-10-12
+# Project Status**Last updated:** 2026-11-04
 
 ## Ready
 
@@ -28,3 +26,22 @@
 - AI-generated quiz questions
 - Reminder notifications
 - Mobile app packaging
+
+
+## Week 9 current evidence snapshot
+
+This snapshot supplements the earlier Week 6 status above. Current implementation and test records are summarized in the [Week 9 report](week9/weekly-report.md); the Week 6 prototype screenshots remain historical evidence and are not proof of current Supabase behavior.
+
+### Documentation ready
+
+- [QA Evidence Matrix](week9/QA_EVIDENCE_MATRIX.md) defines reproducible cases and honest result labels.
+- [Final Demo Roadmap](week9/FINAL_DEMO_ROADMAP.md) lists the intended journey, evidence criteria, and fallbacks.
+- RaiPrabin697’s Week 9 contribution is documentation; no fresh application run is claimed.
+
+### Verification pending
+
+- Fresh browser smoke remains not run in the dated report.
+- Live signup/sign-in, email verification, task persistence in Supabase, RLS, and two-account isolation remain unverified in the existing records.
+- Subject catalog/task fallback, quiz attempt persistence, and quiz answer-key exposure need follow-up as described in the [Week 9 report](week9/weekly-report.md) and [upgrade plan](week9/NEXT_WEEK_UPGRADE_PLAN.md).
+
+Do not use the older “Not In Current Scope” list above as a statement of the current architecture; it reflects the earlier Week 6 snapshot.
