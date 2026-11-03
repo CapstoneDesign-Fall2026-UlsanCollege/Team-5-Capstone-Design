@@ -13,3 +13,12 @@ This ledger keeps member contribution rows tied to visible evidence. Update the 
 ## Rule
 
 Only mark a contribution complete when there is a link to a file, screenshot, commit, PR, or issue update.
+
+
+## Week 9 personal record
+
+| Member | Week 9 contribution | Evidence | Test status / next action |
+|---|---|---|---|
+| Prabin Rai (`RaiPrabin697`) | Authored the QA Evidence Matrix and Final Demo Roadmap in the Week 9 docs PR. This is a documentation contribution only. | [Week 9 report](week9/weekly-report.md#raiprabin697-personal-week-9-record); [QA Evidence Matrix](week9/QA_EVIDENCE_MATRIX.md); [Final Demo Roadmap](week9/FINAL_DEMO_ROADMAP.md) | Fresh signup/sign-in, task reload, and second-account isolation checks are **Not run** by Rai in this update. Next action: execute them in a test environment and append actual results and safe proof. |
+
+Only add test completion evidence after execution; do not infer live account behavior from code or design documents.
