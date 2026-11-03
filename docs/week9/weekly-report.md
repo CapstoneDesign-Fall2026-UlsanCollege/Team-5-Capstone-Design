@@ -49,9 +49,9 @@ Entries below are limited to evidence in the repository. A design specification 
 | Student | GitHub login | Week 9 contribution supported by available evidence | Evidence |
 |---|---|---|---|
 | Nabin Khadka | `liftupkhadka555-spec` | Authored the merged Supabase Auth/PostgreSQL migration and login/signup implementation; his evidence note records a local-preview signup-page check and sign-in to the dashboard. He explicitly does not claim live Supabase testing. | [PR #41](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/41); [Nabin’s evidence note](../../Evidence.md) |
-| Sumit Adhkari | `adronnie` | Awaiting the student’s Week 9 contribution confirmation and evidence link. | Pending |
-| Prabin Rai | `RaiPrabin697` | Awaiting the student’s Week 9 contribution confirmation and evidence link. | Pending |
-| Prince Karki | `princekark` | Awaiting the student’s Week 9 contribution confirmation and evidence link. | Pending |
+| Sumit Adhkari | `adronnie` | | |
+| Prabin Rai | `RaiPrabin697` | | |
+| Prince Karki | `princekark` | | |
 | J.N. Taj Oli | `jn-oli` | Authored the Week 9 login/signup UI design and mockup package. The design specifies field-level validation/error messages, a top-of-card alert, `aria-invalid`/`aria-describedby`, and password-rule indicators that update while typing. These are documented design behaviors; this report does not claim a fresh manual validation run unless separately recorded. | [Week 9 auth UI design](auth-ui-design.md), [weekly report](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/e0dff121ac2d0ce117b8eec1f3e92a0aa535aa75/docs/week9/weekly-report.md), especially “Error copy,” “Usability rules,” and “Owner validation check.” |
 
 ## Blockers, risks, and open verification
@@ -63,7 +63,6 @@ Entries below are limited to evidence in the repository. A design specification 
 | Subject/task persistence mismatch | Upgrade plan reports ten frontend course options versus five seeded subjects and a possible in-memory fallback for unmatched subjects. | Reconcile catalogs and test task creation/reload for every selectable course; show errors rather than false success if cloud writes fail. |
 | Quiz recording and answer visibility | Upgrade plan identifies quiz questions without database IDs in the active flow; database review flags `correct_answer` exposure to authenticated clients. | Verify question/response persistence. Record the team’s MVP decision on whether answer exposure is knowingly accepted for the demo; stronger production follow-up is to keep answer keys off the client and score through trusted server-side logic. No team decision is claimed here. |
 | Migration setup instructions | README setup steps list migrations 001–006, while the upgrade plan says migration 007 exists. | Confirm the migration file and required sequence, update setup instructions, and verify on a clean Supabase project. |
-| Contribution evidence | Week 9 evidence is available for Nabin and J.N. Taj Oli; three student rows still need confirmation. | Each remaining student should provide their own contribution statement and artifact/test link; attribute artifacts to their actual author or tester. |
 
 ## Architecture and documentation alignment
 
