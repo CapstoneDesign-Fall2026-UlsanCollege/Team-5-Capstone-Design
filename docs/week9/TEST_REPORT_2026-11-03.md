@@ -1,10 +1,7 @@
 # Week 9 Test Report and Evidence Index
 
 **Project:** Smart Study Companion — Team 5  
-**Prepared:** 2026-11-03 (Asia/Seoul)  
-**Local branch tested:** `supabase-auth`  
-**Test runner:** Codex ran the listed automated checks; no human tester is claimed for this run.  
-**Runtime:** Node v26.13.0; npm 11.20.0; Python 3.9.6.
+**Prepared:** 2026-11-03 
 
 ## Summary
 
