@@ -60,7 +60,6 @@ Entries below are based on the available repository records. “Not recorded” 
 | Subject/task persistence mismatch | Upgrade plan reports ten frontend course options versus five seeded subjects and a possible in-memory fallback for unmatched subjects. | Reconcile catalogs and task persistence before claiming end-to-end correctness. |
 | Quiz recording and answer visibility | Upgrade plan identifies quiz questions without database IDs in the active flow; database review flags `correct_answer` exposure. | Verify question/response handling and decide whether server-side scoring is required for the MVP. |
 | Migration setup instructions | Upgrade plan says migration 007 exists but README lists migrations 001–006. | Update setup instructions and verify the full migration sequence on a clean project. |
-| Member attribution gaps | Week 9 evidence was not found for Prabin Rai and Prince Karki in the reviewed materials. | Ask those members to add their own accurate Week 9 description and evidence links. |
 
 ## Architecture and documentation alignment
 
