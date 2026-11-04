@@ -1,6 +1,7 @@
 # J.N. Taj Oli — Individual Contribution Evidence
 
-**Project:** Smart Study Companion — Team 5  
+**Project:** Smart Study Companion
+**Team:** 5  
 **Date:** November 4, 2026  
 **Contribution:** Login and Signup UI Validation Testing
 
@@ -21,9 +22,9 @@ Reviewed and tested the Login and Signup form validation in the Smart Study Comp
 | Terms and conditions unchecked | Warning displayed asking the user to accept the terms | Passed |
 
 ## Evidence
-
-- Week 9 Login UI validation screenshots.
-- Week 9 Signup UI validation screenshot.
+<img width="1369" height="950" alt="WhatsApp Image 2026-11-04 at 1 27 38 PM" src="https://github.com/user-attachments/assets/57ace423-c31b-46fd-abef-1370ea06d70f" />
+<img width="1365" height="962" alt="WhatsApp Image 2026-11-04 at 1 27 38 PM (1)" src="https://github.com/user-attachments/assets/f4ee9e59-0595-4f33-94c2-d6c1d471ce13" />
+<img width="1362" height="954" alt="WhatsApp Image 2026-11-04 at 1 27 38 PM (2)" src="https://github.com/user-attachments/assets/7cd2d24a-48c4-40b1-9e60-70b4464803ea" />
 
 ## UI Design Reference
 
@@ -32,5 +33,3 @@ Reviewed and tested the Login and Signup form validation in the Smart Study Comp
 ## Summary
 
 I checked the Login and Signup validation states and confirmed that the interface displays appropriate error messages or guidance for invalid email, missing password, weak password, mismatched passwords, and incomplete required fields. Screenshots were captured as evidence of the observed validation states.
-
-**Scope note:** These checks verify the displayed UI validation messages only. They do not establish successful account creation, backend authentication, or live Supabase behavior.
