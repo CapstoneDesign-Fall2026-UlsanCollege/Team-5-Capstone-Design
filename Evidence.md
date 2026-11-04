@@ -20,6 +20,6 @@ These checks verify the local preview only; they do not claim a live Supabase au
 
 ## Authorship boundary
 
-The Week 9 mockup package in [docs/week9/auth-ui-design.md](docs/week9/auth-ui-design.md) is owned by J.N. Taj Oli (`jn-oli`). I do not claim that package as my authorship.
+The Week 9 mockup package in [docs/week9/auth-ui-design.md](docs/week9/auth-ui-design.md) is by Nabin Khadka and Taj JN oil.
 
 Shared report: [docs/week9/weekly-report.md](docs/week9/weekly-report.md).
