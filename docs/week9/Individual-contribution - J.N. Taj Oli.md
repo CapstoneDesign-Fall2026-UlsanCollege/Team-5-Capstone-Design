@@ -10,8 +10,6 @@
 Reviewed and tested the Login and Signup form validation in the Smart Study Companion application.
 
 ## Test environment and scope
-
-- **Date:** November 4, 2026
 - **Pages checked:** The Login and Signup pages.
 - **Environment:** Local browser review of the auth UI pages. The exact page paths/build were not recorded.
 - **Scope:** UI validation only. This check does not verify live Supabase signup or sign-in, database persistence, or end-to-end account creation.
