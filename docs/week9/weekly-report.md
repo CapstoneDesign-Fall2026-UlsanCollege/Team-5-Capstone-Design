@@ -48,10 +48,10 @@ Entries below are limited to evidence in the repository. A design specification 
 | Student | GitHub login | Week 9 contribution supported by available evidence | Evidence |
 |---|---|---|---|
 | Nabin Khadka | `liftupkhadka555-spec` | Authored the merged Supabase Auth/PostgreSQL migration and login/signup implementation; his evidence note records a local-preview signup-page check and sign-in to the dashboard. He explicitly does not claim live Supabase testing. | [PR #41](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/41); [Nabin’s evidence note](../../Evidence.md) |
-| Sumit Adhkari | `adronnie` | | |
+| Sumit Adhkari | `adronnie` | |[Database Model Check](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/c54be0c511a773e5018af2f89e07299d7a20b887/docs/week9/database-model-check-report.md), [Backend design](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/a37fa8da2e3d8d63ef2bccbb9178820696495032/docs/week9/backend-design.md) |
 | Prabin Rai | `RaiPrabin697` | | |
 | Prince Karki | `princekark` | | |
-| J.N. Taj Oli | `jn-oli` | Authored the Week 9 login/signup UI design and mockup package. The design specifies field-level validation/error messages, a top-of-card alert, `aria-invalid`/`aria-describedby`, and password-rule indicators that update while typing. These are documented design behaviors; this report does not claim a fresh manual validation run unless separately recorded. | [Week 9 auth UI design](auth-ui-design.md), [weekly report](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/e0dff121ac2d0ce117b8eec1f3e92a0aa535aa75/docs/week9/weekly-report.md), especially “Error copy,” “Usability rules,” and “Owner validation check.” |
+| J.N. Taj Oli | `jn-oli` | Authored the Week 9 login/signup UI design and mockup package. The design specifies field-level validation/error messages, a top-of-card alert, `aria-invalid`/`aria-describedby`, and password-rule indicators that update while typing. These are documented design behaviors; this report does not claim a fresh manual validation run unless separately recorded. | [Week 9 auth UI design](auth-ui-design.md), [weekly report](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/e0dff121ac2d0ce117b8eec1f3e92a0aa535aa75/docs/week9/weekly-report.md), “Owner validation check.” |
 
 ## Blockers, risks, and open verification
 
