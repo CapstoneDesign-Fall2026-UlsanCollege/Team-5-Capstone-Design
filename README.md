@@ -78,9 +78,6 @@ flowchart LR
 
 ## 3. Project Directory Structure
 
-<details>
-<summary>View complete project directory structure</summary>
-
 
 
 ```
@@ -126,7 +123,6 @@ Smart Study Companion/
 ```
 
 ---
-</details>
 
 
 
