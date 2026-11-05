@@ -1,280 +1,408 @@
 
-# Week 10 — Code Ownership, Slices, and Work List
+# Week 10 — Own a Slice, Steward an Area
 
 **Project:** Smart Study Companion  
 **Team:** Team 5  
 **Date:** November 5, 2026  
-**Status:** Planned / In Progress  
-**Repository:** https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design
-
-## 1. Team Goal
-
-Our Week 10 goal is to establish clear code ownership, improve our application's core features, and introduce systematic automated testing.
-
-Each team member is responsible for a specific development or testing slice, including implementation, verification, documentation, and GitHub evidence.
-
-## 2. Team Slice and Ownership Table
-
-| Team Member | Slice | Area / Ownership | Check | Next Action |
-|---|---|---|---|---|
-| Sumit Adhikari | Database Development | Supabase, database tables, relationships, and data storage | Verify database connectivity, CRUD operations, and access permissions | Design database schema, integrate Supabase, and test data operations |
-| Prabin Rai | Automated Functional Testing | Tasks, quizzes, navigation, and regression testing | Run repeatable tests and document actual pass/fail results | Create automated tests and report bugs |
-| Prince Karki | Authentication and End-to-End Testing | Signup, login, logout, sessions, and user journeys | Verify authentication behavior, session persistence, and protected pages | Develop test cases and execute end-to-end tests |
-| JN Taj Oli | UI/UX and Frontend Development | Interface design, styling, responsiveness, accessibility, and themes | Verify layout consistency, mobile responsiveness, and navigation | Improve frontend design and implement responsive components |
-| Nabin | Frontend and Login Development | Authentication UI, form validation, navigation, and backend integration | Verify signup/login functionality, errors, and authentication flow | Implement and integrate login/signup with Supabase Auth |
-
-## 3. Individual Slices and Responsibilities
-
-### 3.1 Sumit Adhikari — Database Development
-
-**My Slice:** Database Development and Supabase Integration
-
-**Area I Own:**
-- Database design and schema
-- Supabase configuration
-- University, faculty, department, and subject data
-- Student profiles and study records
-- Task, quiz, and progress data storage
-
-**My Check:**
-- Verify database connection.
-- Test Create, Read, Update, and Delete operations.
-- Verify table relationships.
-- Check Row Level Security policies.
-- Confirm student data is stored and retrieved correctly.
-
-**My Next Action:**
-1. Review database requirements.
-2. Design required tables and relationships.
-3. Configure Supabase.
-4. Connect application features to the database.
-5. Test database operations and permissions.
-6. Upload implementation and testing evidence.
-
 **Status:** Planned / In Progress
+
+> **Team planning document:** This document describes our proposed Week 10 ownership, roadmap slices, stewardship checks, and next actions. Test results are not claimed as passed unless they have been executed and supported by evidence.
+
+## 1. Two Connected Responsibilities
+
+Each Team 5 member has two connected responsibilities:
+
+- **Roadmap Slice:** A small, verifiable development or testing behavior that contributes to the next milestone.
+- **Codebase Area:** A repository area that the member helps maintain, review, document, and verify.
+- **Shared Work:** Members coordinate across development, database, design, and testing areas. Ownership does not prevent other members from contributing.
+
+Our primary goal is to stabilize Smart Study Companion's database, authentication, frontend, and core study features through implementation and repeatable testing.
+
+### Assigned Responsibilities
+
+| Member | Roadmap Slice | Area Stewardship | Backup / Handoff |
+|---|---|---|---|
+| Sumit Adhikari | Save and retrieve student study data using Supabase | Database schema, persistence, and security | Nabin reviews the backend/database interface |
+| Prabin Rai | Automate one core task or quiz user journey | Functional and regression testing | Prince reviews and repeats the test |
+| Prince Karki | Verify login, logout, and session restoration | Authentication and end-to-end testing | Nabin handles implementation defects; Prabin reviews tests |
+| JN Taj Oli | Improve and verify responsive study dashboard UI | UI/UX, frontend styling, and accessibility | Nabin supports frontend integration |
+| Nabin | Implement and verify frontend-to-backend authentication flow | Frontend, backend services, APIs, and login | Sumit reviews database access; Prince verifies authentication |
+
+## 2. Team Codebase Area Map
+
+The following boundaries describe logical areas of responsibility. Exact file paths must be confirmed against the current repository.
+
+| Area | Repository Boundary / Components | Stewardship Check | Backup / Handoff |
+|---|---|---|---|
+| Database / Persistence | Supabase schema, migrations, tables, security policies | Data can be saved and read back; unauthorized access is blocked | Sumit → Nabin |
+| Frontend / UI/UX | HTML, CSS, JavaScript, pages, components, themes | Layout works across screen sizes; navigation and controls remain usable | JN Taj → Nabin |
+| Frontend / Backend Integration | Application logic, backend services, API calls, authentication client | Requests return expected results; errors are handled correctly | Nabin → Sumit / JN Taj |
+| Authentication | Login, signup, logout, session restoration | Valid/invalid credentials and protected access are verified | Nabin → Prince |
+| Functional Testing | Automated tests for tasks, quizzes, deadlines, navigation | Tests can be rerun and produce clear pass/fail output | Prabin → Prince |
+| End-to-End Testing | Authentication and cross-feature user journeys | Tests cover successful and failing user paths | Prince → Prabin |
+
+**Note:** Before final submission, each steward should link the actual repository directory or file. Do not treat these logical boundaries as verified file paths.
+
+## 3. Roadmap Slices
+
+Our next milestone is to make the existing Smart Study Companion application more reliable.
+
+We have divided the work into five small, measurable slices.
+
+### Slice 1 — Database Save and Read
+
+**Owner:** Sumit Adhikari
+
+**Area Stewarded:** Database and Supabase Integration
+
+**Roadmap Behavior:**
+
+A signed-in student creates a study task, and the application stores it in the database. The task can be retrieved again for that student.
+
+**Implementation Scope:**
+- Review required task data fields.
+- Prepare or update the database schema.
+- Configure the required table and relationships.
+- Verify insert and read operations.
+- Check student-level data access.
+
+**Explain and Verify:**
+
+**Meets:** Sumit explains how task data reaches the database and demonstrates a successful save/read operation with recorded results.
+
+**Exceeds:** Nabin independently traces the backend-to-database handoff, reproduces the check, and verifies that another student cannot access the task.
+
+| Case | Input | Expected Result | Observed Result |
+|---|---|---|---|
+| Valid task | Task title and deadline | Task is saved and can be read back | Pending |
+| Missing required title | Blank task title | Validation error; invalid task is not saved | Pending |
+| Unauthorized access | Another student's task ID | Access is denied | Pending |
+
+**Check:** Database integration test, save/read evidence, and access-policy verification.
+
+**Next Action:** Complete the database task flow and document actual test results.
+
+**Evidence:** GitHub Issue, database changes, test output, and commit/PR link.
 
 ---
 
-### 3.2 Prabin Rai — Automated Functional Testing
+### Slice 2 — Automated Functional Testing
 
-**My Slice:** Automated Functional and Regression Testing
+**Owner:** Prabin Rai
 
-**Area I Own:**
-- Functional test cases
-- Automated testing scripts
-- Task and deadline testing
-- Quiz functionality testing
-- Navigation and regression testing
+**Area Stewarded:** Functional and Regression Testing
 
-**My Check:**
-- Verify task creation, editing, and deletion.
-- Test quiz submission and scoring.
-- Verify page navigation.
-- Check study progress features.
-- Confirm existing features still work after updates.
+**Roadmap Behavior:**
 
-**My Next Action:**
-1. Identify important application features.
-2. Prepare repeatable functional test cases.
-3. Set up an automated testing framework.
-4. Automate critical test scenarios.
-5. Execute tests and record results.
-6. Open GitHub Issues for identified defects.
+Automatically verify that a student can create a study task and see it in the task list.
 
-**Status:** Planned / In Progress
+**Implementation Scope:**
+- Identify the task creation flow.
+- Prepare automated test cases.
+- Select and configure an appropriate testing framework.
+- Verify valid and invalid task input.
+- Record actual results.
 
----
+**Explain and Verify:**
 
-### 3.3 Prince Karki — Authentication and End-to-End Testing
+**Meets:** Prabin creates an automated task test that checks the expected behavior and documents its execution.
 
-**My Slice:** Authentication and End-to-End Testing
+**Exceeds:** Prince independently runs the test, reproduces its results, and confirms that the failure path is covered.
 
-**Area I Own:**
-- Signup testing
-- Login testing
-- Logout and session testing
-- Authentication error handling
-- End-to-end user journey testing
+| Case | Input | Expected Result | Observed Result |
+|---|---|---|---|
+| Create task | Valid task details | Task appears in task list | Pending |
+| Invalid task | Empty required title | Error displayed; task is not created | Pending |
+| Task persistence | Refresh or reopen the application | Task remains available in the intended storage mode | Pending |
 
-**My Check:**
-- Verify signup using valid information.
-- Test duplicate email registration.
-- Test valid and invalid login attempts.
-- Verify logout functionality.
-- Test session persistence after refresh.
-- Check protected route access.
-- Verify the complete authentication flow.
+**Check:** Repeatable automated test output with expected and actual results.
 
-**My Next Action:**
-1. Prepare authentication test cases.
-2. Coordinate with Nabin.
-3. Test signup and login functionality.
-4. Automate important authentication scenarios.
-5. Run end-to-end tests.
-6. Document actual results and report defects.
+**Next Action:** Create the first automated task flow test and upload its execution evidence.
 
-**Status:** Planned / In Progress
+**Evidence:** Test script, execution logs, screenshots, and GitHub Issue.
 
 ---
 
-### 3.4 JN Taj Oli — UI/UX and Frontend Development
+### Slice 3 — Authentication and End-to-End Testing
 
-**My Slice:** UI/UX Design and Frontend Implementation
+**Owner:** Prince Karki
 
-**Area I Own:**
-- User interface design
-- Frontend styling and components
-- Responsive layouts
-- Dark and light themes
-- Accessibility and usability
-- Design consistency
+**Area Stewarded:** Authentication and End-to-End Testing
 
-**My Check:**
-- Verify consistent design across pages.
-- Check mobile and desktop responsiveness.
-- Verify navigation buttons.
-- Test dark/light theme consistency.
-- Check readability and layout alignment.
-- Verify frontend usability.
+**Roadmap Behavior:**
 
-**My Next Action:**
-1. Review the existing application interface.
-2. Identify UI/UX problems.
-3. Improve frontend HTML, CSS, and JavaScript.
-4. Implement responsive layouts.
-5. Fix theme and navigation issues.
-6. Coordinate frontend changes with Nabin.
-7. Upload screenshots and GitHub commits.
+Verify that a registered student can log in, access the study dashboard, refresh the page, and remain authenticated until logout.
 
-**Status:** Planned / In Progress
+**Implementation Scope:**
+- Prepare valid and invalid login cases.
+- Verify login behavior.
+- Test session restoration after refresh.
+- Verify logout behavior.
+- Check access to protected pages.
+- Automate important scenarios where feasible.
+
+**Explain and Verify:**
+
+**Meets:** Prince executes the authentication flow and records actual expected-versus-observed results.
+
+**Exceeds:** Prabin independently repeats the tests and checks both successful login and authentication failure paths.
+
+| Case | Input | Expected Result | Observed Result |
+|---|---|---|---|
+| Valid login | Registered account credentials | Student reaches dashboard | Pending |
+| Invalid login | Incorrect credentials | Error displayed; access denied | Pending |
+| Session restoration | Refresh after successful login | Session remains valid | Pending |
+| Logout | Click logout | Session ends; protected pages require login | Pending |
+
+**Check:** Authentication test results, logs, and session screenshots.
+
+**Next Action:** Coordinate with Nabin, execute authentication tests, and report implementation defects.
+
+**Evidence:** Test scripts, screenshots, GitHub Issue, and execution results.
 
 ---
 
-### 3.5 Nabin — Frontend and Login Development
+### Slice 4 — UI/UX and Frontend Responsiveness
 
-**My Slice:** Frontend Development and Authentication Implementation
+**Owner:** JN Taj Oli
 
-**Area I Own:**
-- Login and signup pages
-- Frontend form validation
-- Authentication integration
-- Login error handling
-- Page navigation
-- Frontend-to-backend connection
+**Area Stewarded:** UI/UX Design and Frontend Development
 
-**My Check:**
-- Verify login/signup pages load correctly.
-- Check required input validation.
-- Verify successful authentication.
-- Test incorrect credentials.
-- Verify navigation after login/logout.
-- Confirm authentication works across devices.
+**Roadmap Behavior:**
 
-**My Next Action:**
-1. Review existing authentication code.
-2. Improve login and signup interfaces.
-3. Integrate Supabase Auth.
-4. Implement proper validation.
-5. Coordinate testing with Prince Karki.
-6. Fix authentication defects.
-7. Submit commits and testing evidence.
+The study dashboard remains usable on desktop and mobile screens, including navigation, task controls, and theme switching.
 
-**Status:** Planned / In Progress
+**Implementation Scope:**
+- Review existing interface design.
+- Improve page spacing and alignment.
+- Implement responsive frontend changes.
+- Check dark and light themes.
+- Verify accessible controls and navigation.
+- Coordinate UI components with Nabin.
 
-## 4. Week 10 Work Checklist
+**Explain and Verify:**
 
-### Database — Sumit Adhikari
-- [ ] Review database requirements.
-- [ ] Design database schema.
-- [ ] Configure Supabase tables.
-- [ ] Connect application data.
-- [ ] Test CRUD operations.
-- [ ] Verify access permissions.
-- [ ] Upload GitHub evidence.
+**Meets:** JN Taj implements a focused UI improvement and demonstrates expected layout behavior on desktop and mobile.
 
-### Automated Testing — Prabin Rai
-- [ ] Identify critical features.
-- [ ] Prepare functional test cases.
-- [ ] Configure automated testing.
-- [ ] Test tasks and deadlines.
-- [ ] Test quizzes and navigation.
-- [ ] Record test results.
-- [ ] Report bugs and upload evidence.
+**Exceeds:** Nabin independently reviews the UI behavior, verifies that frontend changes do not break functionality, and records remaining limitations.
 
-### Authentication Testing — Prince Karki
+| Case | Input | Expected Result | Observed Result |
+|---|---|---|---|
+| Desktop layout | Open dashboard on desktop | Layout and controls display correctly | Pending |
+| Mobile layout | Open dashboard at mobile viewport | Layout remains readable and usable | Pending |
+| Theme switch | Switch between light and dark | Theme changes consistently | Pending |
+| Navigation | Select dashboard navigation | Correct page or section opens | Pending |
+
+**Check:** Responsive UI verification, screenshots, and functional checks.
+
+**Next Action:** Improve one dashboard UI area and verify the change at desktop and mobile viewport sizes.
+
+**Evidence:** Before/after screenshots, GitHub commits, and test results.
+
+---
+
+### Slice 5 — Full-Stack Authentication Integration
+
+**Owner:** Nabin
+
+**Area Stewarded:** Frontend, Backend, and Login Development
+
+**Roadmap Behavior:**
+
+A student submits valid login credentials through the frontend, the authentication service validates the request, and the application displays the authenticated dashboard.
+
+**Implementation Scope:**
+- Implement frontend login functionality.
+- Connect frontend logic to authentication services.
+- Develop or integrate required backend services/APIs.
+- Handle authentication responses.
+- Implement input validation and error handling.
+- Integrate authenticated data access with the database.
+- Coordinate backend/database integration with Sumit.
+
+**Explain and Verify:**
+
+**Meets:** Nabin explains the login request and response flow, demonstrates the working behavior, and records verification evidence.
+
+**Exceeds:** Prince independently tests the authentication flow, while Sumit reviews its database/data-access handoff and unresolved integration issues.
+
+| Case | Input | Expected Result | Observed Result |
+|---|---|---|---|
+| Valid login | Correct credentials | Authentication succeeds; dashboard opens | Pending |
+| Invalid login | Incorrect password | Error displayed; access denied | Pending |
+| Empty fields | Missing email/password | Validation prevents invalid submission | Pending |
+| Backend failure | Authentication service unavailable | Clear error shown; no false success | Pending |
+| Authorized request | Valid user session | Authorized data request succeeds | Pending |
+
+**Check:** Frontend/backend integration tests, authentication checks, and peer verification.
+
+**Next Action:** Connect frontend login with authentication/backend services and resolve integration failures.
+
+**Evidence:** Commits, API/authentication test results, GitHub Issue, and screenshots.
+
+## 4. Explain and Verify the Integration
+
+The team must understand how the application works across areas.
+
+### Authentication Flow
+
+1. Student enters login credentials in the frontend.
+2. Nabin's application logic submits the authentication request.
+3. Supabase Auth or the configured authentication backend verifies the credentials.
+4. The application receives the authentication result.
+5. The frontend updates the user's authenticated state.
+6. Authorized user data is retrieved through the required database access path.
+7. Prince verifies the complete flow.
+
+### Task Persistence Flow
+
+1. Student enters task details.
+2. The frontend validates the required information.
+3. Application logic sends the data to the configured persistence service.
+4. Supabase stores the authorized task record.
+5. The application retrieves the saved task.
+6. Prabin verifies the user-facing behavior.
+7. Sumit checks database storage and access permissions.
+
+These describe the intended integration flows and do not establish that all steps are already implemented.
+
+## 5. Record Both Forms of Ownership
+
+| Member | Slice Ownership | Area Stewardship | Cross-Area Handoff | Check | Open Action |
+|---|---|---|---|---|---|
+| Sumit | Task database save/read | Database and persistence | Nabin reviews data interface | CRUD and access tests | Complete database verification |
+| Prabin | Automated task behavior | Functional testing | Prince repeats test | Automated pass/fail output | Add repeatable tests |
+| Prince | Login and session verification | Authentication/E2E testing | Nabin resolves implementation issues | Auth test report | Verify full auth flow |
+| JN Taj | Responsive dashboard | UI/UX and frontend | Nabin reviews integration | Responsive UI checks | Improve and verify layout |
+| Nabin | Full-stack login flow | Frontend/backend/authentication | Sumit and Prince review boundaries | Integration and auth tests | Complete backend integration |
+
+Area stewardship is a responsibility to keep the code understandable and testable, not exclusive permission to edit it.
+
+Every slice should receive an independent teammate check before being marked complete.
+
+## 6. AI-Assisted Development and Review
+
+AI tools may be used only when permitted by the course rules.
+
+If AI assistance is used, the responsible member must document:
+
+- What AI was asked to help with.
+- Which code, tests, or documentation were suggested.
+- What the team changed or corrected.
+- How the final result was independently reviewed.
+- Which tests were actually executed.
+- Any remaining uncertainty or limitation.
+
+AI-generated code or test suggestions must not be presented as verified implementation without review and testing.
+
+## 7. Week 10 Work Checklist
+
+### Sumit — Database
+- [ ] Confirm database schema.
+- [ ] Configure required Supabase tables.
+- [ ] Verify database CRUD operations.
+- [ ] Verify database access policies.
+- [ ] Coordinate backend handoff with Nabin.
+- [ ] Record evidence.
+
+### Prabin — Automated Functional Testing
+- [ ] Identify critical task/quiz behaviors.
+- [ ] Create automated test cases.
+- [ ] Test a successful task flow.
+- [ ] Test an invalid-input path.
+- [ ] Execute and document tests.
+- [ ] Request independent verification.
+
+### Prince — Authentication Testing
 - [ ] Prepare authentication test cases.
-- [ ] Test signup/login functionality.
-- [ ] Test incorrect credentials.
-- [ ] Verify logout and session persistence.
-- [ ] Run end-to-end tests.
-- [ ] Record actual pass/fail results.
-- [ ] Upload evidence.
+- [ ] Verify valid and invalid login.
+- [ ] Verify logout.
+- [ ] Check session restoration.
+- [ ] Verify protected access.
+- [ ] Record actual results.
 
-### UI/UX and Frontend — JN Taj Oli
-- [ ] Review current UI/UX.
-- [ ] Improve frontend components.
-- [ ] Implement responsive design.
-- [ ] Verify dark/light themes.
-- [ ] Check navigation and accessibility.
-- [ ] Fix UI issues.
-- [ ] Upload evidence.
+### JN Taj — UI/UX and Frontend
+- [ ] Review current UI design.
+- [ ] Improve a dashboard component.
+- [ ] Verify desktop responsiveness.
+- [ ] Verify mobile responsiveness.
+- [ ] Test theme and navigation.
+- [ ] Upload screenshots.
 
-### Frontend and Login — Nabin
-- [ ] Review existing login code.
-- [ ] Improve login/signup pages.
-- [ ] Integrate Supabase Auth.
-- [ ] Implement validation and errors.
-- [ ] Test authentication navigation.
-- [ ] Resolve reported issues.
+### Nabin — Frontend, Backend, and Login
+- [ ] Review frontend/backend code.
+- [ ] Implement authentication integration.
+- [ ] Verify frontend/backend requests.
+- [ ] Handle validation and error responses.
+- [ ] Coordinate database integration with Sumit.
+- [ ] Fix issues reported by testers.
 - [ ] Upload commits and evidence.
 
-## 5. Team Collaboration
+## 8. Definition of Done
 
-| Members | Collaboration |
-|---|---|
-| Sumit + Nabin | Backend and frontend integration |
-| Nabin + Prince | Authentication implementation and testing |
-| JN Taj + Nabin | Frontend consistency and UI improvements |
-| Prabin + Prince | Automated functional and end-to-end testing |
-| All Members | GitHub documentation, code review, and bug fixing |
+A slice is considered complete when:
 
-## 6. Definition of Done (DoD)
+- [ ] The intended behavior is implemented.
+- [ ] The responsible member can explain the code.
+- [ ] The relevant repository area is documented.
+- [ ] A meaningful successful test is executed.
+- [ ] A relevant error or failure path is checked.
+- [ ] Expected and observed results are recorded.
+- [ ] A second teammate independently verifies the result.
+- [ ] GitHub Issue, commit/PR, and evidence are linked.
+- [ ] Known limitations and open actions are documented.
 
-A task is complete when:
+## 9. What Moves Our Work from Meets to Exceeds?
 
-- [ ] Assigned functionality is implemented.
-- [ ] Code is committed to GitHub.
-- [ ] Relevant automated or manual tests are executed.
-- [ ] Actual test results are documented.
-- [ ] Known defects and limitations are recorded.
-- [ ] GitHub Issue and evidence links are added.
-- [ ] Changes are reviewed by the responsible team member.
+### Slice Ownership
 
-## 7. Evidence Requirements
+**Meets:** The member implements or verifies a small behavior and provides a test result.
 
-Each member must provide:
+**Exceeds:** Another teammate can reproduce the behavior, including its failure path, using documented instructions.
 
-1. **GitHub Issue:** Assigned task link.
-2. **Commit/PR:** Implementation evidence.
-3. **Test Results:** Pass, Fail, or Blocked with explanation.
-4. **Screenshots:** Relevant interface or test evidence.
-5. **Next Action:** Remaining work and known blockers.
+### Area Stewardship
 
-## 8. Next Sprint Priorities
+**Meets:** The member identifies the responsible codebase area and its main verification check.
 
-1. Complete and verify Supabase database integration.
-2. Implement and validate login/signup functionality.
-3. Improve frontend responsiveness and usability.
-4. Add automated functional and authentication tests.
-5. Resolve defects identified during testing.
-6. Document code ownership and evidence.
-7. Prepare a stable application for the final demonstration.
+**Exceeds:** The area has a verified repository boundary, documented checks, and an active backup/learning partner.
 
-## 9. Expected Outcome
+### Integration
 
-By the end of this work period, Team 5 aims to establish clear development ownership, strengthen authentication and database integration, improve the frontend interface, and introduce repeatable automated tests.
+**Meets:** The member explains how their feature connects with the adjacent area.
 
-Every completed task must be supported by actual implementation and verification evidence.
+**Exceeds:** Both sides of the integration are reviewed and verified by relevant teammates.
 
-**Note:** All checklist items are initially unchecked. They must only be marked complete after the work and verification are finished.
+### Testing
 
+**Meets:** The member records expected and actual results for a meaningful test.
+
+**Exceeds:** Tests are repeatable, include failure cases, and are independently reproduced.
+
+### Responsible AI
+
+**Meets:** The member records permitted AI assistance and reviews the generated content.
+
+**Exceeds:** The member identifies what AI suggested, what was changed, and how the final result was verified.
+
+### Open Gaps
+
+**Meets:** The team records unfinished tasks and known limitations.
+
+**Exceeds:** Each important unresolved issue has a named owner, next action, and verification requirement.
+
+## 10. Evidence and Next Actions
+
+Each member must link:
+
+1. Their assigned roadmap GitHub Issue.
+2. Relevant source files or code area.
+3. Implementation commit or Pull Request.
+4. Actual test result, output, or screenshots.
+5. Independent reviewer or backup.
+6. Remaining limitation and next action.
+
+**Evidence Status:** Pending individual updates.
+
+**Next Milestone:** Stabilize database persistence, authentication, frontend usability, and automated verification for the Smart Study Companion final demonstration.
+
+**Important:** Do not mark any test as passed until it has actually been run. Evidence must reflect real repository work and real verification results.
