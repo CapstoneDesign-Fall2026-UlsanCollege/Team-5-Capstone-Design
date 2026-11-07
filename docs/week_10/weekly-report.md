@@ -73,24 +73,14 @@ To make sure every teammate knows exactly what to execute and submit before the 
 - [x] Merge [PR #46](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/46) into `main` and publish live GitHub Pages links.
 
 ### 2. Sumit Adhikari (`@adronnie`) — Slice 1 (Database & Supabase Stewardship)
-- [ ] Inspect [`supabase/migrations/001_initial_schema.sql`](../../supabase/migrations/001_initial_schema.sql) through [`007_universities.sql`](../../supabase/migrations/007_universities.sql).
-- [ ] Run a database save-and-read check for a student task (valid task title + deadline vs. blank title validation vs. unauthorized student ID access).
-- [ ] Update the Slice 1 table in [`docs/week_10/Slice.md`](Slice.md) and your row in Section 4 above with observed results and proof.
 
 ### 3. Prabin Rai (`@RaiPrabin697`) — Slice 2 (Automated Functional Testing)
-- [ ] Pull the latest `main` branch (`git pull origin main`) and run `python3 tests/run_tests.py`.
-- [ ] Record expected vs. actual output for creating a study task, rejecting an empty task title, and verifying task persistence after page refresh.
-- [ ] Peer-verify Prince's authentication test cases and attach terminal output / screenshots to [Issue #37](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/37).
+
 
 ### 4. Prince Karki (`@princekark`) — Slice 3 (Authentication & E2E Testing)
-- [ ] Open the live deployment at https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/auth/signup.html (or `http://localhost:3000/auth/signup.html`).
-- [ ] Test account registration (selecting Country → University), automatic redirect to `#subjects` onboarding, subject enrollment save, session persistence on refresh, and logout.
-- [ ] Peer-verify Nabin's Study Task Analytics (`#analytics`) and post your verification comment with screenshots on [Issue #40](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/40) and [Issue #48](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/48).
+
 
 ### 5. J.N. Taj Oli (`@jn-oli`) — Slice 4 (UI/UX & Frontend Responsiveness)
-- [ ] Open the live dashboard at https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/index.html on both Desktop (`1440px`) and Mobile (`375px`) viewports.
-- [ ] Check layout alignment, sidebar navigation across all 5 views (`Dashboard`, `Study Tasks`, `Subjects & University`, `Study Analytics`, `Quiz Practice`), and Light/Dark mode toggle.
-- [ ] Post desktop and mobile screenshots to [Issue #39](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/39) and add the link to Section 4 above.
 
 ---
 
@@ -113,5 +103,6 @@ To make sure every teammate knows exactly what to execute and submit before the 
 
 ## 7. Next Week's Bridge Task (Week 11 Preparation)
 
-- Complete all independent peer-verification checks across the 5 slices in [`docs/week_10/Slice.md`](Slice.md), close resolved authentication/UI issues with verified screenshot receipts, and run a full team rehearsal of the end-to-end student journey (`Signup → University & Subject Onboarding → Task Creation → Study Task Analytics → Timed Rapid Quiz`).
+planning is going to finish the back end as much as possible
+
 
