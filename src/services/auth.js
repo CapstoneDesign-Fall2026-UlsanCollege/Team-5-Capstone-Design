@@ -1,5 +1,5 @@
 /**
- * Authentication Service
+ * Authentication Service — Smart Study Companion
  * 
  * Supports both live Supabase Auth and Local Preview Mode (when Supabase credentials
  * have not yet been provided by the user).
@@ -8,20 +8,21 @@ import { supabase, isConfigured } from '../lib/supabase.js';
 
 const LOCAL_USER_KEY = 'study_companion_local_user';
 const LOCAL_SESSION_KEY = 'study_companion_local_session';
+const LOCAL_OTP_KEY = 'study_companion_recovery_otp';
 
 /**
  * Sign up a new student account.
  * Uses Supabase Auth if configured, otherwise sets up local preview session.
- * @param {{ email: string, password: string, fullName: string }} params
+ * @param {{ email: string, password: string, fullName: string, country?: string, university?: string }} params
  */
-export async function signUp({ email, password, fullName }) {
+export async function signUp({ email, password, fullName, country = '', university = '' }) {
   if (isConfigured) {
     try {
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
-          data: { full_name: fullName },
+          data: { full_name: fullName, country, university, onboarding_completed: false },
           emailRedirectTo: `${window.location.origin}/auth/verify.html`,
         },
       });
@@ -35,7 +36,7 @@ export async function signUp({ email, password, fullName }) {
   const localUser = {
     id: 'local-student-' + Math.random().toString(36).slice(2, 9),
     email,
-    user_metadata: { full_name: fullName },
+    user_metadata: { full_name: fullName, country, university, onboarding_completed: false },
     created_at: new Date().toISOString(),
   };
 
@@ -87,7 +88,7 @@ export async function signIn({ email, password }) {
     user = {
       id: 'local-student-demo',
       email,
-      user_metadata: { full_name: email.split('@')[0] },
+      user_metadata: { full_name: email.split('@')[0], onboarding_completed: false },
       created_at: new Date().toISOString(),
     };
   }
@@ -115,7 +116,7 @@ export async function signOut() {
 }
 
 /**
- * Send a password reset email.
+ * Send a password reset email or OTP.
  * @param {string} email
  */
 export async function resetPassword(email) {
@@ -124,12 +125,57 @@ export async function resetPassword(email) {
       redirectTo: `${window.location.origin}/auth/reset-password.html`,
     });
   }
-  // Local mode simulation
-  return { data: {}, error: null };
+
+  // Local mode simulation: generate and store a 6-digit preview OTP
+  const demoOtp = '123456';
+  localStorage.setItem(LOCAL_OTP_KEY, JSON.stringify({ email, code: demoOtp, expires: Date.now() + 600000 }));
+  return { data: { previewCode: demoOtp }, error: null };
 }
 
 /**
- * Update password.
+ * Verify OTP (e.g. 6-digit code for password recovery or signup).
+ * @param {{ email: string, token: string, type?: 'recovery' | 'signup' }} params
+ */
+export async function verifyOtp({ email, token, type = 'recovery' }) {
+  if (isConfigured) {
+    try {
+      const { data, error } = await supabase.auth.verifyOtp({
+        email,
+        token,
+        type,
+      });
+      return { data, error };
+    } catch (err) {
+      return { data: null, error: { message: err.message || 'OTP verification failed' } };
+    }
+  }
+
+  // Local mode verification: check saved OTP or allow 123456
+  const stored = localStorage.getItem(LOCAL_OTP_KEY);
+  if (stored) {
+    try {
+      const parsed = JSON.parse(stored);
+      if (parsed.email.toLowerCase() === email.toLowerCase() && (parsed.code === token || token === '123456')) {
+        const dummyUser = { id: 'local-student-recovery', email };
+        const session = { user: dummyUser, access_token: 'local-recovery-token' };
+        localStorage.setItem(LOCAL_SESSION_KEY, JSON.stringify(session));
+        return { data: { user: dummyUser, session }, error: null };
+      }
+    } catch (_) {}
+  }
+
+  if (token === '123456' || token.length === 6) {
+    const dummyUser = { id: 'local-student-recovery', email };
+    const session = { user: dummyUser, access_token: 'local-recovery-token' };
+    localStorage.setItem(LOCAL_SESSION_KEY, JSON.stringify(session));
+    return { data: { user: dummyUser, session }, error: null };
+  }
+
+  return { data: null, error: { message: 'Invalid or expired 6-digit verification code.' } };
+}
+
+/**
+ * Update password for authenticated or OTP-verified user.
  * @param {string} newPassword
  */
 export async function updatePassword(newPassword) {
@@ -146,6 +192,7 @@ export async function updatePassword(newPassword) {
       localStorage.setItem(LOCAL_USER_KEY, JSON.stringify(parsed));
     } catch (_) {}
   }
+  localStorage.removeItem(LOCAL_OTP_KEY);
   return { data: { user: {} }, error: null };
 }
 

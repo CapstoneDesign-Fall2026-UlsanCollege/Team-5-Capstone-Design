@@ -4,6 +4,8 @@
 CREATE TABLE IF NOT EXISTS profiles (
     id          UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
     full_name   TEXT NOT NULL DEFAULT '',
+    country     TEXT NOT NULL DEFAULT '',
+    university  TEXT NOT NULL DEFAULT '',
     created_at  TIMESTAMPTZ NOT NULL DEFAULT now(),
     updated_at  TIMESTAMPTZ NOT NULL DEFAULT now()
 );
@@ -15,10 +17,12 @@ LANGUAGE plpgsql
 SECURITY DEFINER SET search_path = ''
 AS $$
 BEGIN
-    INSERT INTO public.profiles (id, full_name)
+    INSERT INTO public.profiles (id, full_name, country, university)
     VALUES (
         NEW.id,
-        COALESCE(NEW.raw_user_meta_data ->> 'full_name', '')
+        COALESCE(NEW.raw_user_meta_data ->> 'full_name', ''),
+        COALESCE(NEW.raw_user_meta_data ->> 'country', ''),
+        COALESCE(NEW.raw_user_meta_data ->> 'university', '')
     );
     RETURN NEW;
 END;
@@ -46,4 +50,3 @@ CREATE TRIGGER profiles_updated_at
     FOR EACH ROW EXECUTE FUNCTION public.update_updated_at();
 
 COMMENT ON TABLE profiles IS 'Student profiles linked to Supabase Auth identities';
-

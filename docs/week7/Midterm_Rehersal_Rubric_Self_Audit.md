@@ -157,9 +157,9 @@ The following table lists proposed presentation responsibilities. These are not 
 | Team Member | Proposed Responsibility | Evidence to Provide |
 |---|---|---|
 | J.N. Taj Oli (`jn-oli`) | Documentation review, identification of project gaps, and follow-up updates | Relevant commits, documentation changes, issues, or review comments |
-| Nabin Khadka (`RaiPrabin697`) | Project overview, workflow explanation, and coordination of supporting evidence | Actual commits, report contributions, issue updates, or other verifiable work |
+| Nabin Khadka (`liftupkhadka555-spec`) | Project overview, workflow explanation, and coordination of supporting evidence | Actual commits, report contributions, issue updates, or other verifiable work |
 | Sumit Adhikari (`adronnie`) | Frontend/UI follow-up and theme consistency | UI-related commits, screenshots, or issue updates |
-| Prabin Rai (`liftupkhadka555-spec`) | Application testing and test-result documentation | Completed tested-by notes, test results, screenshots, or follow-up issues |
+| Prabin Rai (`RaiPrabin697`) | Application testing and test-result documentation | Completed tested-by notes, test results, screenshots, or follow-up issues |
 | Prince Karki (`princekark`) | Supporting implementation, testing, documentation, or next-step work, as applicable | Actual commits, issue activity, review comments, or documented contributions |
 
 **Assessment checklist:**

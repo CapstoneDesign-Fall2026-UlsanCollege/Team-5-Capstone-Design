@@ -180,8 +180,13 @@ Testing Quiz Scoring Logic...
 ## 7. Team Contributions
 
 The [contribution ledger](docs/CONTRIBUTION_LEDGER.md) records member contribution areas and evidence links:
-- `jn-oli`
-- `adronnie`
-- `princekark`
-- `RaiPrabin697`
-- `liftupkhadka555-spec`
+
+| Student | GitHub login |
+|---|---|
+| Nabin Khadka | `liftupkhadka555-spec` |
+| Sumit Adhikari | `adronnie` |
+| Prince Karki | `princekark` |
+| Prabin Rai | `RaiPrabin697` |
+| J.N. Taj Oli | `jn-oli` |
+
+Nabin Khadka’s current-window evidence: [Evidence.md](Evidence.md), [PR #41](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/41).

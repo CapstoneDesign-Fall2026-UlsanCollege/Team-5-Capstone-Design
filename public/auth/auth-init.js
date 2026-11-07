@@ -2,21 +2,25 @@
  * Auth Pages Initialization — Smart Study Companion
  * 
  * Handles all auth interactions:
- * - Login form submission → Supabase signIn
- * - Signup form submission → Supabase signUp
- * - Forgot password form → Supabase resetPassword
- * - Reset password form → Supabase updatePassword
- * - Verify page → resend verification
+ * - Login form submission -> Supabase signIn with onboarding routing
+ * - Signup form submission -> Supabase signUp with onboarding routing
+ * - Forgot password form -> Supabase resetPassword with link/OTP support
+ * - Reset password form -> Supabase verifyOtp + updatePassword (dual link/code recovery)
+ * - Verify page -> session auto-detection and resend verification
  * - Password toggle, validation rules, loading states
  */
 import {
   signIn,
   signUp,
   resetPassword,
+  verifyOtp,
   updatePassword,
   resendVerification,
   getSession,
+  onAuthStateChange,
 } from '../src/services/auth.js';
+import { getProfile } from '../src/services/profile.js';
+import { universitiesFor, COUNTRIES } from '../src/lib/academic-catalog.js';
 
 // ---- Helpers ----
 
@@ -103,7 +107,6 @@ function passwordValid(value) {
 function updateRuleDisplay(password) {
   const rules = passwordRules(password);
 
-  // Style 1: <ul id="password-rules"><li data-rule="length">...
   const listItems = document.querySelectorAll('#password-rules [data-rule]');
   listItems.forEach((li) => {
     const ruleKey = li.getAttribute('data-rule');
@@ -112,7 +115,6 @@ function updateRuleDisplay(password) {
     li.classList.toggle('is-fail', password.length > 0 && !isMet);
   });
 
-  // Style 2: <span id="rule-length" class="rule">
   const map = {
     'rule-length': rules.length,
     'rule-letter': rules.letter,
@@ -152,7 +154,12 @@ async function checkExistingSession() {
     const session = await getSession();
     const isResetPage = window.location.pathname.includes('reset-password');
     if (session && !isResetPage) {
-      window.location.href = '../index.html';
+      const { data: profile } = await getProfile(session.user.id);
+      if (profile && profile.onboarding_completed) {
+        window.location.href = '../index.html#dashboard';
+      } else {
+        window.location.href = '../index.html#subjects';
+      }
     }
   } catch (err) {
     console.warn('Session check error:', err);
@@ -224,9 +231,18 @@ function initLogin() {
       return;
     }
 
-    toast('Signed in successfully! Opening dashboard...');
-    setTimeout(() => {
-      window.location.href = '../index.html';
+    toast('Signed in successfully! Opening application...');
+    setTimeout(async () => {
+      try {
+        const { data: profile } = await getProfile(data.user.id);
+        if (profile && profile.onboarding_completed) {
+          window.location.href = '../index.html#dashboard';
+        } else {
+          window.location.href = '../index.html#subjects';
+        }
+      } catch (_) {
+        window.location.href = '../index.html';
+      }
     }, 400);
   });
 }
@@ -240,11 +256,39 @@ function initSignup() {
 
   const nameInput = $('fullname') || $('name');
   const emailInput = $('email');
+  const countryInput = $('country');
+  const universityInput = $('university');
   const passwordInput = $('password');
   const confirmInput = $('confirm-password') || $('confirm');
   const termsCheckbox = $('terms');
   const alertBox = $('form-alert');
   const submitBtn = $('signup-btn') || signupForm.querySelector('button[type="submit"]');
+
+  if (countryInput) {
+    // Populate countries dynamically if select is basic
+    if (countryInput.options.length <= 3) {
+      const currentVal = countryInput.value;
+      countryInput.innerHTML =
+        '<option value="">Select your region or country</option>' +
+        COUNTRIES.map((c) => `<option value="${c}">${c}</option>`).join('');
+      if (currentVal) countryInput.value = currentVal;
+    }
+  }
+
+  if (countryInput && universityInput) {
+    const updateUniversities = () => {
+      const universities = universitiesFor(countryInput.value);
+      universityInput.innerHTML =
+        '<option value="">Select your university or college</option>' +
+        universities.map((name) => `<option value="${name}">${name}</option>`).join('');
+      setError(countryInput, '');
+      setError(universityInput, '');
+    };
+
+    countryInput.addEventListener('change', updateUniversities);
+    countryInput.addEventListener('input', updateUniversities);
+    updateUniversities();
+  }
 
   if (passwordInput) {
     ['input', 'change'].forEach((ev) => {
@@ -270,6 +314,8 @@ function initSignup() {
 
     const name = nameInput.value.trim();
     const email = emailInput.value.trim();
+    const country = countryInput?.value || '';
+    const university = universityInput?.value || '';
     const password = passwordInput.value;
     const confirm = confirmInput.value;
     let valid = true;
@@ -286,6 +332,20 @@ function initSignup() {
       valid = false;
     } else {
       setError(emailInput, '');
+    }
+
+    if (!country) {
+      setError(countryInput, 'Select your region or country.');
+      valid = false;
+    } else {
+      setError(countryInput, '');
+    }
+
+    if (!university) {
+      setError(universityInput, 'Select your university or college.');
+      valid = false;
+    } else {
+      setError(universityInput, '');
     }
 
     if (!passwordValid(password)) {
@@ -325,6 +385,8 @@ function initSignup() {
       email,
       password,
       fullName: name,
+      country,
+      university,
     });
 
     setLoading(submitBtn, false);
@@ -341,12 +403,21 @@ function initSignup() {
     }
 
     if (data?.session) {
-      toast('Account created! Opening dashboard...');
-      setTimeout(() => {
-        window.location.href = '../index.html';
+      toast('Account created! Welcome to StudySmart.');
+      setTimeout(async () => {
+        try {
+          const { data: profile } = await getProfile(data.user.id);
+          if (profile && profile.onboarding_completed) {
+            window.location.href = '../index.html#dashboard';
+          } else {
+            window.location.href = '../index.html#subjects';
+          }
+        } catch (_) {
+          window.location.href = '../index.html#subjects';
+        }
       }, 500);
     } else {
-      toast('Account created! Please check your email.');
+      toast('Account created! Please check your email to verify.');
       setTimeout(() => {
         window.location.href = `verify.html?email=${encodeURIComponent(email)}`;
       }, 600);
@@ -368,7 +439,7 @@ function initVerify() {
     verifyEmail.textContent = email;
   }
 
-  // Check URL hash for error conditions (e.g. #error=access_denied&error_code=otp_expired)
+  // Check URL hash for error conditions
   const hash = window.location.hash;
   if (hash.includes('error=') || hash.includes('expired')) {
     const expiredState = $('verify-expired');
@@ -378,6 +449,43 @@ function initVerify() {
       expiredState.hidden = false;
     }
   }
+
+  // Auto-detect verified session from email link or auth event
+  const checkVerifiedSession = async () => {
+    try {
+      const session = await getSession();
+      if (session) {
+        const defaultState = $('verify-default');
+        const expiredState = $('verify-expired');
+        const successState = $('verify-success');
+        if (defaultState) defaultState.hidden = true;
+        if (expiredState) expiredState.hidden = true;
+        if (successState) {
+          successState.hidden = false;
+          successState.innerHTML = `
+            <div class="verify-icon verify-icon-success" aria-hidden="true">
+              <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <p class="auth-status-text auth-status-success">Email confirmed! Redirecting to study setup...</p>
+          `;
+        }
+        toast('Email verified! Opening application...');
+        setTimeout(async () => {
+          const { data: profile } = await getProfile(session.user.id);
+          if (profile && profile.onboarding_completed) {
+            window.location.href = '../index.html#dashboard';
+          } else {
+            window.location.href = '../index.html#subjects';
+          }
+        }, 1000);
+      }
+    } catch (_) {}
+  };
+
+  checkVerifiedSession();
+  onAuthStateChange((event, session) => {
+    if (session) checkVerifiedSession();
+  });
 
   const handleResend = async (btn) => {
     if (!email) {
@@ -437,7 +545,7 @@ function initForgotPassword() {
       return;
     }
 
-    setLoading(submitBtn, true, 'Sending link...');
+    setLoading(submitBtn, true, 'Sending recovery instructions...');
     const { error } = await resetPassword(email);
     setLoading(submitBtn, false);
 
@@ -449,26 +557,58 @@ function initForgotPassword() {
     const requestState = $('forgot-request');
     const successState = $('forgot-success');
     const emailDisplay = $('forgot-email-display');
+    const enterOtpBtn = $('enter-otp-btn');
 
     if (emailDisplay) emailDisplay.textContent = email;
+    if (enterOtpBtn) enterOtpBtn.href = `reset-password.html?email=${encodeURIComponent(email)}`;
     if (requestState) requestState.hidden = true;
     if (successState) successState.hidden = false;
 
-    toast('Password reset link sent! Check your inbox.');
+    toast('Password recovery instructions sent!');
   });
 }
 
 // ================================================================
-// RESET PASSWORD PAGE
+// RESET PASSWORD PAGE (Dual Link & 6-digit OTP Support)
 // ================================================================
 function initResetPassword() {
   const resetForm = $('reset-form');
   if (!resetForm) return;
 
+  const emailInput = $('email');
+  const otpInput = $('otp-code');
   const passwordInput = $('password') || $('new-password');
   const confirmInput = $('confirm-password') || $('confirm');
   const alertBox = $('form-alert');
   const submitBtn = $('reset-btn') || resetForm.querySelector('button[type="submit"]');
+
+  // Pre-fill email from query param if available
+  const params = new URLSearchParams(window.location.search);
+  const emailParam = params.get('email') || '';
+  if (emailInput && emailParam) {
+    emailInput.value = emailParam;
+  }
+
+  // Check if arrived from direct recovery link
+  const hash = window.location.hash;
+  const isLinkRecovery = hash.includes('type=recovery') || hash.includes('access_token') || params.has('code');
+
+  if (isLinkRecovery) {
+    const otpGroup = $('otp-group');
+    const emailGroup = $('email-group');
+    if (otpGroup) otpGroup.style.display = 'none';
+    if (emailGroup && emailParam) emailGroup.style.display = 'none';
+    showAlert(alertBox, 'Email verified via recovery link. Set your new password below.', true);
+  }
+
+  [emailInput, otpInput].forEach((inp) => {
+    if (inp) {
+      inp.addEventListener('input', () => {
+        setError(inp, '');
+        hideAlert(alertBox);
+      });
+    }
+  });
 
   if (passwordInput) {
     ['input', 'change'].forEach((ev) => {
@@ -490,9 +630,23 @@ function initResetPassword() {
     event.preventDefault();
     hideAlert(alertBox);
 
+    const email = emailInput ? emailInput.value.trim() : emailParam;
+    const otpCode = otpInput ? otpInput.value.trim() : '';
     const password = passwordInput.value;
     const confirm = confirmInput.value;
     let valid = true;
+
+    // If not link recovery, check email and otp
+    if (!isLinkRecovery) {
+      if (!email || !EMAIL_PATTERN.test(email)) {
+        setError(emailInput, 'Enter your registered email address.');
+        valid = false;
+      }
+      if (!otpCode || otpCode.length < 6) {
+        setError(otpInput, 'Enter the 6-digit verification code.');
+        valid = false;
+      }
+    }
 
     if (!passwordValid(password)) {
       setError(passwordInput, 'Must be 8+ characters with a letter and a number.');
@@ -515,7 +669,24 @@ function initResetPassword() {
       return;
     }
 
-    setLoading(submitBtn, true, 'Updating password...');
+    setLoading(submitBtn, true, 'Verifying & resetting password...');
+
+    // If OTP provided and not a direct link session, verify OTP first
+    if (!isLinkRecovery && otpCode) {
+      const { error: otpError } = await verifyOtp({
+        email,
+        token: otpCode,
+        type: 'recovery',
+      });
+
+      if (otpError) {
+        setLoading(submitBtn, false);
+        setError(otpInput, otpError.message);
+        showAlert(alertBox, otpError.message || 'Invalid or expired verification code.');
+        return;
+      }
+    }
+
     const { error } = await updatePassword(password);
     setLoading(submitBtn, false);
 
@@ -530,10 +701,10 @@ function initResetPassword() {
     if (formState) formState.hidden = true;
     if (successState) successState.hidden = false;
 
-    toast('Password updated! Redirecting to sign in...');
+    toast('Password updated successfully! Redirecting to sign in...');
     setTimeout(() => {
       window.location.href = 'login.html';
-    }, 2000);
+    }, 1800);
   });
 }
 

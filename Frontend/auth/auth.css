@@ -218,7 +218,8 @@ body { min-height: 100vh; }
     position: relative;
 }
 
-.stack-form input {
+.stack-form input,
+.stack-form select {
     width: 100%;
     border: 1px solid var(--line);
     background: transparent;
@@ -228,12 +229,14 @@ body { min-height: 100vh; }
     font: inherit;
 }
 
-.stack-form input:focus {
+.stack-form input:focus,
+.stack-form select:focus {
     outline: 2px solid var(--teal);
     outline-offset: 1px;
 }
 
-.stack-form input[aria-invalid="true"] {
+.stack-form input[aria-invalid="true"],
+.stack-form select[aria-invalid="true"] {
     border-color: var(--coral);
 }
 

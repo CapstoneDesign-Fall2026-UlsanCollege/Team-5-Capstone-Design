@@ -37,7 +37,7 @@
 | Student | What they contributed | Evidence link |
 |---|---|---|
 | J.N. Taj Oli | Reviewed the Week 6 report and evidence links, documented the theme inconsistency, and identified missing tester confirmation and status updates. | [Weekly Report](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/Week6/WEEKLY_REPORT.md) |
-| Nabin Khadka | Add confirmed implementation or testing contributions. | Add the relevant issue, PR, or commit link. |
+| Nabin Khadka (`liftupkhadka555-spec`) | Midterm: coordination and evidence trail. Current-window implementation: see [Evidence.md](../../Evidence.md) and [PR #41](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/41). | [Week 6 tested-by notes](../Week6/tested-by-notes.md), [Evidence.md](../../Evidence.md) |
 | Sumit Adhikari | Add confirmed implementation or UI contributions. | Add the relevant issue, PR, or commit link. |
 | Prabin Rai | Add confirmed testing, quiz, or research contributions. | Add the relevant issue, PR, or commit link. |
 | Prince Karki | Add confirmed testing, research, or implementation contributions. | Add the relevant issue, PR, or commit link. |
