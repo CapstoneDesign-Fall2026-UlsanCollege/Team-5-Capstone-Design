@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="refresh" content="0; url=public/auth/login.html">
     <title>Smart Study Companion</title>
     <script>
-        window.location.replace('public/auth/login.html');
+        if (!window.location.pathname.includes('/public/')) {
+            window.location.replace('public/index.html' + (window.location.hash || ''));
+        }
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,17 +39,25 @@
         </div>
 
         <nav class="side-nav">
-            <a href="#create" class="nav-link is-active" data-view="create">
-                <i class="fa-solid fa-plus"></i>
-                Subjects &amp; Tasks
+            <a href="#dashboard" class="nav-link is-active" data-view="dashboard">
+                <i class="fa-solid fa-house"></i>
+                Dashboard
             </a>
-            <a href="#plan" class="nav-link" data-view="plan">
+            <a href="#tasks" class="nav-link" data-view="tasks">
                 <i class="fa-solid fa-list-check"></i>
-                Study Plan
+                Study Tasks
+            </a>
+            <a href="#subjects" class="nav-link" data-view="subjects">
+                <i class="fa-solid fa-graduation-cap"></i>
+                Subjects &amp; University
+            </a>
+            <a href="#analytics" class="nav-link" data-view="analytics">
+                <i class="fa-solid fa-chart-line"></i>
+                Study Analytics
             </a>
             <a href="#quiz" class="nav-link" data-view="quiz">
                 <i class="fa-solid fa-circle-question"></i>
-                Quiz
+                Quiz Practice
             </a>
             <a href="wireframes/index.html" class="nav-link">
                 <i class="fa-regular fa-object-ungroup"></i>
@@ -60,6 +69,23 @@
             <p class="eyebrow">Up next</p>
             <p id="focus-title" class="focus-title">No pending tasks</p>
             <p id="focus-meta" class="focus-meta">Add a subject, then a task</p>
+        </section>
+
+        <!-- User Profile Card -->
+        <section class="user-profile-card" id="user-profile-card">
+            <div class="user-avatar" id="user-avatar">?</div>
+            <div class="user-info">
+                <p class="user-name" id="user-display-name">Loading...</p>
+                <p class="user-email" id="user-display-email">student@college.edu</p>
+            </div>
+            <div class="user-actions">
+                <button id="open-profile-btn" class="sidebar-action-btn" type="button" aria-label="Profile settings" title="Profile Settings">
+                    <i class="fa-solid fa-gear"></i>
+                </button>
+                <button id="logout-btn" class="sidebar-action-btn" type="button" aria-label="Sign out" title="Sign Out">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </button>
+            </div>
         </section>
 
         <button id="theme-toggle-btn" class="theme-toggle" type="button">
@@ -78,15 +104,15 @@
                 </button>
                 <div>
                     <p id="current-date" class="greeting"></p>
-                    <h1 id="page-title">Subjects &amp; Tasks</h1>
+                    <h1 id="page-title">Dashboard</h1>
                 </div>
             </div>
             <div class="topbar-actions">
                 <label class="search-field" id="search-wrap">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    <input id="search-input" type="search" placeholder="Search subjects or tasks" autocomplete="off">
+                    <input id="search-input" type="search" placeholder="Search tasks or subjects..." autocomplete="off">
                 </label>
-                <button id="go-plan-btn" class="btn-ghost" type="button">Open study plan</button>
+                <button id="go-plan-btn" class="btn-ghost" type="button">Task Tracker</button>
                 <button id="add-task-btn" class="btn-primary" type="button">
                     <i class="fa-solid fa-plus"></i>
                     <span>New task</span>
@@ -94,61 +120,13 @@
             </div>
         </header>
 
-        <div id="view-create" class="canvas custom-scrollbar">
-            <section class="create-grid">
-                <article class="plan-board subject-picker-board">
-                    <p class="eyebrow">Step 1</p>
-                    <h2>Choose a computer science subject</h2>
-                    <p class="muted">Select a subject to start adding study tasks.</p>
-                    <div id="cs-subject-grid" class="cs-subject-grid"></div>
-                </article>
-
-                <article class="plan-board task-entry-board">
-                    <p class="eyebrow">Step 2</p>
-                    <h2 id="create-task-heading">Add a study task</h2>
-                    <p id="create-task-hint" class="muted">Choose a subject to unlock the task form.</p>
-                    <form id="create-task-form" class="stack-form" hidden>
-                        <input id="create-task-subject" type="hidden">
-                        <label>
-                            Task title
-                            <input id="create-task-name" type="text" required placeholder="e.g. Finish lab 3">
-                        </label>
-                        <label>
-                            Deadline
-                            <input id="create-task-deadline" type="date" required>
-                        </label>
-                        <button id="create-task-submit" class="btn-primary" type="submit">Save task</button>
-                    </form>
-                    <section id="selected-subject-task-list" class="selected-subject-task-list" aria-live="polite" hidden>
-                        <div class="subject-task-list-heading">
-                            <h3 id="selected-subject-task-title">Tasks</h3>
-                            <span id="selected-subject-task-count" class="pill">0 tasks</span>
-                        </div>
-                        <div id="selected-subject-tasks" class="selected-subject-tasks"></div>
-                    </section>
-                </article>
-            </section>
-
-            <section class="plan-board">
-                <div class="board-toolbar">
-                    <h2>Recently added</h2>
-                    <span class="muted" id="recent-count">0 tasks saved locally</span>
-                </div>
-                <div id="recent-tasks" class="recent-list"></div>
-                <div id="create-empty" class="empty-state" hidden>
-                    <div class="empty-art" aria-hidden="true"></div>
-                    <h3>Nothing saved yet</h3>
-                    <p>Choose a computer science subject, add a task with a deadline, then open the study plan.</p>
-                </div>
-            </section>
-        </div>
-
-        <div id="view-plan" class="canvas custom-scrollbar" hidden>
+        <!-- VIEW 1: DASHBOARD -->
+        <div id="view-dashboard" class="canvas custom-scrollbar">
             <section class="hero">
                 <div class="hero-copy">
-                    <p class="eyebrow">Weekly workload</p>
+                    <p class="eyebrow">Weekly Workload</p>
                     <h2 id="hero-headline">Keep the streak going</h2>
-                    <p id="hero-sub" class="muted">See what is due, mark work complete, then take a quiz.</p>
+                    <p id="hero-sub" class="muted">See what is due, mark tasks complete, and monitor your academic progress.</p>
                     <div class="hero-pills">
                         <span class="pill" id="pill-pending">0 pending</span>
                         <span class="pill pill-warn" id="pill-overdue">0 overdue</span>
@@ -191,9 +169,25 @@
                 </article>
             </section>
 
+            <section class="plan-board" style="margin-bottom: 24px;">
+                <div class="board-toolbar">
+                    <h2>Upcoming Deadlines (Next 7 Days)</h2>
+                    <span class="muted" id="deadline-count-text">0 deadlines ahead</span>
+                </div>
+                <div id="dashboard-deadlines-container" class="deadline-list"></div>
+                <div id="dashboard-deadlines-empty" class="empty-state" hidden>
+                    <div class="empty-art" aria-hidden="true"></div>
+                    <h3>No upcoming deadlines</h3>
+                    <p>You have no pending deadlines due in the next 7 days. Great job staying ahead!</p>
+                </div>
+            </section>
+        </div>
+
+        <!-- VIEW 2: STUDY TASKS TRACKER -->
+        <div id="view-tasks" class="canvas custom-scrollbar" hidden>
             <section class="plan-board">
                 <div class="board-toolbar">
-                    <h2>Task tracker</h2>
+                    <h2>Study Task Tracker</h2>
                     <div class="filters" role="tablist" aria-label="Task status">
                         <button class="filter-btn is-on" data-filter="all" type="button">All <span id="count-all">0</span></button>
                         <button class="filter-btn" data-filter="pending" type="button">Pending <span id="count-pending">0</span></button>
@@ -211,9 +205,196 @@
             </section>
         </div>
 
+        <!-- VIEW 3: SUBJECTS & ACADEMIC HIERARCHY -->
+        <div id="view-subjects" class="canvas custom-scrollbar" hidden>
+            <section class="academic-hierarchy-box">
+                <div class="board-toolbar">
+                    <div>
+                        <p class="eyebrow">Academic Hierarchy</p>
+                        <h2>Your Academic Institution</h2>
+                        <p class="muted">Select your country, university, faculty, and major.</p>
+                    </div>
+                </div>
+                <div class="academic-fields-grid">
+                    <label>
+                        Country / Region
+                        <select id="academic-country">
+                            <option value="">Select country...</option>
+                        </select>
+                    </label>
+                    <label>
+                        University / College
+                        <select id="academic-university">
+                            <option value="">Select university...</option>
+                        </select>
+                    </label>
+                    <label>
+                        Faculty / College School
+                        <select id="academic-faculty">
+                            <option value="">Select faculty...</option>
+                        </select>
+                    </label>
+                    <label>
+                        Department / Major
+                        <select id="academic-major">
+                            <option value="">Select major...</option>
+                        </select>
+                    </label>
+                </div>
+            </section>
+
+            <section class="plan-board subject-picker-board" style="position: relative;">
+                <div class="subject-picker-header">
+                    <div>
+                        <p class="eyebrow">Subject Enrollment</p>
+                        <h2>Choose Your Subjects</h2>
+                        <p class="muted">Select all subjects you are studying this semester. Click any card to select/deselect.</p>
+                    </div>
+                    <div class="subject-search-wrap">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input id="subject-search-input" type="search" placeholder="Search subjects by name or topic...">
+                    </div>
+                </div>
+
+                <div class="subject-category-chips" id="subject-category-chips">
+                    <button type="button" class="subject-category-chip is-active" data-cat="all">All Subjects</button>
+                    <button type="button" class="subject-category-chip" data-cat="Core CS">Core CS</button>
+                    <button type="button" class="subject-category-chip" data-cat="Software Dev">Software Dev</button>
+                    <button type="button" class="subject-category-chip" data-cat="Intelligence">AI &amp; Data</button>
+                    <button type="button" class="subject-category-chip" data-cat="Mathematics">Mathematics</button>
+                    <button type="button" class="subject-category-chip" data-cat="Projects">Projects</button>
+                </div>
+
+                <div id="subject-scroll-container" class="subject-scroll-container custom-scrollbar"></div>
+
+                <div class="sticky-action-bar">
+                    <div id="selected-subjects-badge" class="selected-count-badge">
+                        <span class="badge-bubble" id="selected-subjects-count">0</span>
+                        <span id="selected-subjects-label">subjects selected</span>
+                    </div>
+                    <button id="save-subjects-btn" class="btn-primary" type="button">
+                        <i class="fa-solid fa-check"></i>
+                        <span>Save &amp; Continue to Dashboard</span>
+                    </button>
+                </div>
+            </section>
+
+            <section class="create-grid" style="margin-top: 24px;">
+                <article class="plan-board task-entry-board">
+                    <p class="eyebrow">Quick Add</p>
+                    <h2 id="create-task-heading">Add a study task</h2>
+                    <p id="create-task-hint" class="muted">Select a subject above or below to quickly create a study task.</p>
+                    <form id="create-task-form" class="stack-form">
+                        <label>
+                            Subject
+                            <select id="create-task-subject-select" required></select>
+                        </label>
+                        <label>
+                            Task title
+                            <input id="create-task-name" type="text" required placeholder="e.g. Complete chapter 4 problems">
+                        </label>
+                        <label>
+                            Deadline
+                            <input id="create-task-deadline" type="date" required>
+                        </label>
+                        <button id="create-task-submit" class="btn-primary" type="submit">Save task</button>
+                    </form>
+                </article>
+
+                <article class="plan-board">
+                    <div class="board-toolbar">
+                        <h2>Recently Added Tasks</h2>
+                        <span class="muted" id="recent-count">0 tasks saved in cloud database</span>
+                    </div>
+                    <div id="recent-tasks" class="recent-list"></div>
+                    <div id="create-empty" class="empty-state" hidden>
+                        <div class="empty-art" aria-hidden="true"></div>
+                        <h3>Nothing saved yet</h3>
+                        <p>Save your subjects, add tasks with deadlines, and manage them on your dashboard.</p>
+                    </div>
+                </article>
+            </section>
+        </div>
+
+        <!-- VIEW 4: STUDY ANALYTICS -->
+        <div id="view-analytics" class="canvas custom-scrollbar" hidden>
+            <section class="hero" style="margin-bottom: 24px;">
+                <div class="hero-copy">
+                    <p class="eyebrow">Real-Time Performance</p>
+                    <h2>Study Task Analytics</h2>
+                    <p class="muted">Dynamic completion rate, weekly study distribution, and subject-wise progress derived from your tasks.</p>
+                </div>
+                <div class="progress-orb" aria-label="Overall completion">
+                    <svg viewBox="0 0 120 120">
+                        <circle class="orb-track" cx="60" cy="60" r="50"></circle>
+                        <circle id="analytics-orb-fill" class="orb-fill" cx="60" cy="60" r="50"></circle>
+                    </svg>
+                    <div class="orb-label">
+                        <strong id="analytics-progress-text">0%</strong>
+                        <span>completion</span>
+                    </div>
+                </div>
+            </section>
+
+            <div class="analytics-section">
+                <article class="analytics-card">
+                    <div class="analytics-card-title">
+                        <h3>Weekly Activity (Last 7 Days)</h3>
+                        <span class="pill" id="weekly-completed-total">0 completed</span>
+                    </div>
+                    <p class="muted" style="font-size: 13px; margin-bottom: 12px;">Tasks completed per day over the past week.</p>
+                    <div id="weekly-activity-chart" class="weekly-activity-chart"></div>
+                </article>
+
+                <article class="analytics-card">
+                    <div class="analytics-card-title">
+                        <h3>Workload Breakdown</h3>
+                        <span class="pill" id="analytics-task-total">0 tasks</span>
+                    </div>
+                    <div class="subject-progress-list" style="margin-top: 16px;">
+                        <div class="subject-progress-item">
+                            <div class="subject-progress-meta">
+                                <span>Completed Tasks</span>
+                                <strong id="workload-completed-text">0 (0%)</strong>
+                            </div>
+                            <div class="progress-track"><div id="workload-completed-bar" class="progress-fill" style="width: 0%; background: var(--teal);"></div></div>
+                        </div>
+                        <div class="subject-progress-item">
+                            <div class="subject-progress-meta">
+                                <span>Pending Tasks</span>
+                                <strong id="workload-pending-text">0 (0%)</strong>
+                            </div>
+                            <div class="progress-track"><div id="workload-pending-bar" class="progress-fill" style="width: 0%; background: var(--gold);"></div></div>
+                        </div>
+                        <div class="subject-progress-item">
+                            <div class="subject-progress-meta">
+                                <span>Overdue Tasks</span>
+                                <strong id="workload-overdue-text">0 (0%)</strong>
+                            </div>
+                            <div class="progress-track"><div id="workload-overdue-bar" class="progress-fill" style="width: 0%; background: var(--coral);"></div></div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <section class="plan-board">
+                <div class="board-toolbar">
+                    <h2>Subject-Wise Completion Progress</h2>
+                    <span class="muted" id="subject-breakdown-count">0 enrolled subjects</span>
+                </div>
+                <div id="subject-progress-container" class="subject-progress-list" style="margin-top: 14px;"></div>
+                <div id="subject-analytics-empty" class="empty-state" hidden>
+                    <div class="empty-art" aria-hidden="true"></div>
+                    <h3>No subjects or tasks found</h3>
+                    <p>Enroll in subjects and add study tasks to generate detailed performance analytics.</p>
+                </div>
+            </section>
+        </div>
+
+        <!-- VIEW 5: QUIZ -->
         <div id="view-quiz" class="canvas custom-scrollbar" hidden>
             <section class="plan-board quiz-setup" id="quiz-setup">
-                <p class="eyebrow">Check understanding</p>
+                <p class="eyebrow">Check Understanding</p>
                 <h2>Choose your computer science subject</h2>
                 <p class="muted">Practice one subject at a time. Standard quizzes have 15 questions; rapid quizzes have 10 questions and a 30-second limit.</p>
                 <div class="quiz-setup-controls">
@@ -262,6 +443,7 @@
         </div>
     </main>
 
+    <!-- Task Edit Modal -->
     <div id="task-modal" class="modal" hidden>
         <div class="modal-backdrop" id="modal-backdrop"></div>
         <div class="modal-card" id="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
@@ -293,6 +475,7 @@
         </div>
     </div>
 
+    <!-- Confirm Delete Modal -->
     <div id="confirm-modal" class="modal" hidden>
         <div class="modal-backdrop" id="confirm-backdrop"></div>
         <div class="modal-card confirm-card" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
@@ -305,8 +488,48 @@
         </div>
     </div>
 
+    <!-- Student Profile Modal -->
+    <div id="profile-modal" class="modal" hidden>
+        <div class="modal-backdrop" id="profile-backdrop"></div>
+        <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="profile-modal-title">
+            <div class="modal-head">
+                <h2 id="profile-modal-title">Student Profile</h2>
+                <button id="close-profile-btn" class="icon-btn" type="button" aria-label="Close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <form id="profile-name-form">
+                <label>
+                    Email
+                    <input type="email" id="profile-email-input" disabled style="opacity: 0.7;">
+                </label>
+                <label>
+                    Display name
+                    <input type="text" id="profile-name-input" required minlength="2">
+                </label>
+                <div class="modal-actions">
+                    <button type="submit" class="btn-primary">Save profile</button>
+                </div>
+            </form>
+
+            <div class="profile-section">
+                <h3>Change Password</h3>
+                <form id="profile-password-form">
+                    <label>
+                        New password
+                        <input type="password" id="profile-new-password" required minlength="8" placeholder="At least 8 characters">
+                    </label>
+                    <div class="modal-actions">
+                        <button type="submit" class="btn-ghost">Update password</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <div id="toast-stack" class="toast-stack" aria-live="polite" aria-atomic="true"></div>
     <div id="burst-layer" class="burst-layer" aria-hidden="true"></div>
-    <script src="app.js"></script>
+
+    <script type="module" src="app.js"></script>
 </body>
 </html>
