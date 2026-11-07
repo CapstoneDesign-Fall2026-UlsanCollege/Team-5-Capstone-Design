@@ -1,6 +1,5 @@
 # Week 9 — Login and Signup UI design
 
-**Owner:** J.N. Taj Oli  
 **Project:** Smart Study Companion  
 **Date:** 2026-10-28  
 **Status:** UI proposal (clickable mockups)  
@@ -135,6 +134,17 @@ Login should not say which of email or password is wrong once a real backend exi
 
 ---
 
+## Owner validation check (J.N. Taj Oli)
+
+The current design should be reviewed with these checks before claiming it matches the intended validation behavior:
+
+- Submit the login form empty: the email field should show `Enter a valid email.` and the password field should show `Enter your password.`.
+- On signup, test an invalid email, a short name, a weak password, and a mismatched confirm password. Each problem should show a short, field-specific error and the alert banner at the top of the card.
+- While typing in the password field, the three rule pills should turn teal when satisfied and coral when the user has entered text that still fails the rule.
+- Confirm that the error text is visible near the correct field, not only in a generic alert, and that the input states reflect `aria-invalid` properly.
+
+---
+
 ## Suggested flow (when auth is assigned)
 
 ```
@@ -168,3 +178,5 @@ If the team later assigns backend auth, implement the field names and error code
 3. Follow **Create account**, try a short password and a mismatched confirm.
 4. Watch the three requirement pills update while typing.
 5. Compare the page to the images in `mockups/`.
+
+## Owner: J.N. Taj Oli
