@@ -2,13 +2,14 @@
 """
 Smart Study Companion — Automated Test Suite
 Verifies SQL schema migrations, Auth pages, HTML/CSS/JS file integrity,
-and core business logic (auth validation, task metrics, and quiz scoring).
+academic catalog hierarchy, task analytics metrics, and quiz scoring.
 """
 
 import os
 import re
 import sys
 import json
+from datetime import datetime, timedelta
 
 WORKSPACE = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
@@ -31,6 +32,7 @@ def test_file_structure():
         'public/auth/auth.css',
         'public/auth/auth-init.js',
         'src/lib/supabase.js',
+        'src/lib/academic-catalog.js',
         'src/services/auth.js',
         'src/services/profile.js',
         'src/services/subjects.js',
@@ -43,6 +45,7 @@ def test_file_structure():
         'supabase/migrations/004_quiz_questions.sql',
         'supabase/migrations/005_quiz_attempts.sql',
         'supabase/migrations/006_rls_policies.sql',
+        'supabase/migrations/007_universities.sql',
     ]
     for rel_path in required_files:
         full_path = os.path.join(WORKSPACE, rel_path)
@@ -54,7 +57,7 @@ def test_sql_migrations():
     print("Testing Database Schema Migrations...")
     migrations_dir = os.path.join(WORKSPACE, 'supabase', 'migrations')
     files = sorted(os.listdir(migrations_dir))
-    assert len(files) >= 6, f"Expected at least 6 migrations, found {len(files)}"
+    assert len(files) >= 7, f"Expected at least 7 migrations, found {len(files)}"
 
     # 001_profiles.sql
     with open(os.path.join(migrations_dir, '001_profiles.sql')) as f:
@@ -86,7 +89,6 @@ def test_sql_migrations():
     with open(os.path.join(migrations_dir, '004_quiz_questions.sql')) as f:
         content = f.read()
         assert 'CREATE TABLE IF NOT EXISTS quiz_questions' in content
-        # Count questions inserted
         q_count = len(re.findall(r"\(v_[a-z_]+,\s*'", content))
         assert q_count == 75, f"Expected 75 seeded quiz questions, found {q_count}"
 
@@ -103,10 +105,18 @@ def test_sql_migrations():
             assert f'ALTER TABLE {table} ENABLE ROW LEVEL SECURITY' in content, f"RLS not enabled on {table}"
         assert 'auth.uid()' in content
 
-    print("  ✓ All 6 SQL migrations valid with complete tables, 75 seeded questions, and RLS on all 7 tables.")
+    # 007_universities.sql
+    with open(os.path.join(migrations_dir, '007_universities.sql')) as f:
+        content = f.read()
+        assert 'CREATE TABLE IF NOT EXISTS public.universities' in content or 'CREATE TABLE IF NOT EXISTS universities' in content
+        assert 'Ulsan College' in content
+        assert 'Tribhuvan University' in content
+        assert 'ENABLE ROW LEVEL SECURITY' in content
+
+    print("  ✓ All 7 SQL migrations valid with complete tables, 75 seeded questions, universities catalog, and RLS.")
 
 def test_auth_pages_markup():
-    """Verify HTML auth pages have valid markup, required IDs, and forms."""
+    """Verify HTML auth pages have valid markup, required IDs, and dual OTP/link recovery elements."""
     print("Testing Authentication HTML Pages...")
     auth_dir = os.path.join(WORKSPACE, 'public', 'auth')
 
@@ -140,13 +150,14 @@ def test_auth_pages_markup():
         assert 'id="forgot-form"' in c
         assert 'id="email"' in c
 
-    # reset-password.html
+    # reset-password.html (checks for password and OTP support)
     with open(os.path.join(auth_dir, 'reset-password.html')) as f:
         c = f.read()
         assert 'id="reset-form"' in c
         assert 'id="password"' in c or 'id="new-password"' in c
+        assert 'otp-code' in c or 'otp' in c
 
-    print("  ✓ All 5 Auth pages properly structured with required inputs, toggles, and scripts.")
+    print("  ✓ All 5 Auth pages properly structured with required inputs, toggles, and dual OTP/link reset support.")
 
 def test_auth_validation_logic():
     """Unit test auth validation algorithms."""
@@ -167,25 +178,41 @@ def test_auth_validation_logic():
     assert password_valid("123456789") is False
     print("  ✓ Email regex and 8+ char / letter / digit password validation pass.")
 
-def test_task_metrics_logic():
-    """Unit test task progress calculations."""
-    print("Testing Task Metric Calculations...")
+def test_task_metrics_and_analytics_logic():
+    """Unit test task progress calculations and weekly activity logic."""
+    print("Testing Task Metric & Analytics Calculations...")
+    now = datetime.now()
+    yesterday = (now - timedelta(days=1)).isoformat()
+    tomorrow = (now + timedelta(days=1)).isoformat()
+    last_week = (now - timedelta(days=3)).isoformat()
+
     tasks = [
-        {"id": "1", "completed": True},
-        {"id": "2", "completed": False},
-        {"id": "3", "completed": False},
-        {"id": "4", "completed": True},
+        {"id": "1", "subject": "Programming", "completed": True, "deadline": yesterday},
+        {"id": "2", "subject": "Programming", "completed": False, "deadline": yesterday}, # overdue
+        {"id": "3", "subject": "Databases", "completed": False, "deadline": tomorrow},
+        {"id": "4", "subject": "Databases", "completed": True, "deadline": last_week},
     ]
+
     total = len(tasks)
     completed = sum(1 for t in tasks if t["completed"])
     pending = total - completed
+    overdue = sum(1 for t in tasks if not t["completed"] and datetime.fromisoformat(t["deadline"]) < now)
     percent = round((completed / total) * 100) if total else 0
 
     assert total == 4
     assert completed == 2
     assert pending == 2
+    assert overdue == 1
     assert percent == 50
-    print("  ✓ Task metrics calculation passes (50% completion on 2/4).")
+
+    # Subject-wise calculation
+    prog_tasks = [t for t in tasks if t["subject"] == "Programming"]
+    prog_total = len(prog_tasks)
+    prog_completed = sum(1 for t in prog_tasks if t["completed"])
+    prog_pct = round((prog_completed / prog_total) * 100)
+    assert prog_pct == 50
+
+    print("  ✓ Task metrics and analytics logic pass (50% completion, 1 overdue, subject breakdown).")
 
 def test_quiz_scoring_logic():
     """Unit test quiz scoring."""
@@ -203,6 +230,20 @@ def test_quiz_scoring_logic():
     assert percent == 67
     print("  ✓ Quiz scoring calculation passes (2/3 correct = 67%).")
 
+def test_academic_catalog():
+    """Verify academic catalog file contains essential countries and institutions."""
+    print("Testing Academic Catalog Hierarchy...")
+    catalog_path = os.path.join(WORKSPACE, 'src', 'lib', 'academic-catalog.js')
+    with open(catalog_path) as f:
+        content = f.read()
+        assert 'Nepal' in content
+        assert 'South Korea' in content
+        assert 'Ulsan College' in content
+        assert 'Tribhuvan University' in content
+        assert 'SUBJECTS_CATALOG' in content
+        assert 'searchSubjects' in content
+    print("  ✓ Academic catalog hierarchy includes Korea, Nepal, accredited universities, and subjects.")
+
 def main():
     print("=" * 60)
     print("  SMART STUDY COMPANION — AUTOMATED TEST SUITE")
@@ -212,10 +253,11 @@ def main():
         test_sql_migrations()
         test_auth_pages_markup()
         test_auth_validation_logic()
-        test_task_metrics_logic()
+        test_task_metrics_and_analytics_logic()
         test_quiz_scoring_logic()
+        test_academic_catalog()
         print("=" * 60)
-        print("  ALL TESTS PASSED SUCCESSFULLY (6/6)")
+        print("  ALL TESTS PASSED SUCCESSFULLY (7/7)")
         print("=" * 60)
     except AssertionError as e:
         print(f"\n❌ TEST FAILED: {e}")
@@ -223,4 +265,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

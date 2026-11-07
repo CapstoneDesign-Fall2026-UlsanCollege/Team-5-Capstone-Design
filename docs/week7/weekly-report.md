@@ -32,7 +32,7 @@ If it is not linked, it does not count.
 
 | Student | What they did | Evidence link |
 |---|---|---|
-| Nabin Khadka | Coordinated evidence collection and checked that the proof trail matched the project workflow. | [Week 6 tested-by notes](../Week6/tested-by-notes.md) |
+| Nabin Khadka (`liftupkhadka555-spec`) | Coordinated evidence collection and checked that the proof trail matched the project workflow. (This name/login pair is the same student; Nabin Khadka confirms this row is theirs.) | [Week 6 tested-by notes](../Week6/tested-by-notes.md) |
 | Sumit Adhikari | Took ownership of the frontend/UI follow-up and identified the theme/color issue in the demo review. | [Demo 2](../Week6/Demo2.png) |
 | Prince Karki | Supported testing and feedback/report follow-up for the prototype and demo review. | [Week 6 feedback report](../Week6/WEEK6_FEEDBACK_AND_SUGGESTIONS.md) |
 | Prabin Rai | Helped with testing/evidence support and checked the prototype flow against the documented progress. | [Week 6 weekly report](../Week6/WEEKLY_REPORT.md) |

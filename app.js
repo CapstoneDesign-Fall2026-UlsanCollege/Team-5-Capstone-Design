@@ -1,14 +1,57 @@
-const TASKS_KEY = 'smart_study_tasks';
-const SUBJECTS_KEY = 'smart_study_subjects';
+/**
+ * Smart Study Companion — Application Core (ES Module)
+ * 
+ * Backed by Supabase PostgreSQL and Supabase Auth.
+ * Features:
+ * - Direct authentication persistence and onboarding detection
+ * - Multi-tier Academic Hierarchy: Country -> University -> Faculty -> Major -> Subjects
+ * - Scrollable multi-select subject catalog with search & category filters
+ * - Live study task analytics: Total, Completed, Pending, Overdue, Rate, 7-day weekly activity chart, subject-wise progress bars, upcoming deadlines
+ * - Standard 15-question and 10-question / 30-sec Rapid quiz with 75 seeded questions
+ * - Light / Dark mode persistence
+ */
+
+import { supabase } from '../src/lib/supabase.js';
+import {
+    getCurrentUser,
+    getSession,
+    signOut,
+    updatePassword,
+    onAuthStateChange
+} from '../src/services/auth.js';
+import { getProfile, updateDisplayName, upsertProfile } from '../src/services/profile.js';
+import {
+    getTasks,
+    createTask as apiCreateTask,
+    updateTask as apiUpdateTask,
+    toggleTask as apiToggleTask,
+    deleteTask as apiDeleteTask
+} from '../src/services/tasks.js';
+import {
+    getDefaultSubjects,
+    getAllSubjects,
+    getStudentSubjects,
+    saveStudentSubjects
+} from '../src/services/subjects.js';
+import { getQuizQuestions, saveQuizAttempt } from '../src/services/quiz.js';
+import {
+    getCountries,
+    getUniversities,
+    getFaculties,
+    getMajors,
+    SUBJECTS_CATALOG,
+    searchSubjects
+} from '../src/lib/academic-catalog.js';
+
+// ---- Constants ----
 const THEME_KEY = 'smart_study_theme';
-const QUIZ_KEY = 'smart_study_quiz_last';
 
 const CS_SUBJECTS = [
-    { name: 'Programming', icon: 'fa-code', description: 'Languages, logic, and software development' },
-    { name: 'Data Structures & Algorithms', icon: 'fa-diagram-project', description: 'Core structures, searching, and sorting' },
-    { name: 'Databases', icon: 'fa-database', description: 'SQL, data modeling, and storage' },
-    { name: 'Computer Networks', icon: 'fa-network-wired', description: 'Protocols, addressing, and network design' },
-    { name: 'Operating Systems', icon: 'fa-desktop', description: 'Processes, memory, and system resources' }
+    { name: 'Programming Fundamentals', slug: 'programming', icon: 'fa-code', description: 'Languages, logic, and software development' },
+    { name: 'Data Structures & Algorithms', slug: 'data-structures', icon: 'fa-diagram-project', description: 'Core structures, searching, and sorting' },
+    { name: 'Database Management Systems', slug: 'databases', icon: 'fa-database', description: 'SQL, data modeling, and storage' },
+    { name: 'Computer Networks', slug: 'networks', icon: 'fa-network-wired', description: 'Protocols, addressing, and network design' },
+    { name: 'Operating Systems', slug: 'operating-systems', icon: 'fa-desktop', description: 'Processes, memory, and system resources' }
 ];
 
 const QUIZ_BANK = {
@@ -99,28 +142,25 @@ const QUIZ_BANK = {
     ]
 };
 
-let subjects = [];
+// ---- State ----
+let currentUser = null;
+let currentProfile = null;
+let dbSubjects = [];
+let selectedEnrolledSlugs = new Set(['programming', 'data-structures', 'databases']);
 let tasks = [];
-let currentView = 'create';
+let currentView = 'dashboard';
 let currentFilter = 'all';
 let currentSubjectTab = 'all';
 let searchQuery = '';
+let subjectSearchQuery = '';
+let subjectCategoryFilter = 'all';
 let pendingDelete = null;
 let quiz = { subject: '', mode: 'standard', questions: [], index: 0, answers: [], timeLeft: 30, deadline: 0, finished: false };
 let quizTimer = null;
-let selectedCreateSubject = '';
-const QUIZ_SUBJECT_NAMES = {
-    programming: 'Programming',
-    'data-structures': 'Data Structures & Algorithms',
-    databases: 'Databases',
-    networks: 'Computer Networks',
-    'operating-systems': 'Operating Systems'
-};
 
-const generateId = () => Math.random().toString(36).slice(2, 11);
-
+// ---- Utilities ----
 function escapeHtml(value) {
-    return String(value)
+    return String(value ?? '')
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
@@ -133,12 +173,15 @@ function getSubjectColors(subject) {
         { color: '#9f1239' }, { color: '#6d28d9' }, { color: '#0e7490' }
     ];
     let hash = 0;
-    for (let i = 0; i < subject.length; i += 1) hash = subject.charCodeAt(i) + ((hash << 5) - hash);
+    const str = String(subject || 'General');
+    for (let i = 0; i < str.length; i += 1) hash = str.charCodeAt(i) + ((hash << 5) - hash);
     return palettes[Math.abs(hash) % palettes.length];
 }
 
 function formatDate(dateString) {
+    if (!dateString) return 'No date';
     const date = new Date(dateString);
+    if (isNaN(date.getTime())) return dateString;
     if (date.toDateString() === new Date().toDateString()) {
         return `Today, ${date.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' })}`;
     }
@@ -168,15 +211,17 @@ function dateInputValue(daysAhead = 1) {
 }
 
 function toast(message) {
+    const stack = document.getElementById('toast-stack') || document.body;
     const el = document.createElement('div');
     el.className = 'toast';
     el.textContent = message;
-    document.getElementById('toast-stack').appendChild(el);
-    setTimeout(() => el.remove(), 2400);
+    stack.appendChild(el);
+    setTimeout(() => el.remove(), 2600);
 }
 
 function burst(x, y) {
     const layer = document.getElementById('burst-layer');
+    if (!layer) return;
     for (let i = 0; i < 12; i += 1) {
         const spark = document.createElement('span');
         spark.className = 'spark';
@@ -191,71 +236,184 @@ function burst(x, y) {
     }
 }
 
-function persist() {
-    localStorage.setItem(TASKS_KEY, JSON.stringify(tasks));
-    localStorage.setItem(SUBJECTS_KEY, JSON.stringify(subjects));
+// ---- Subject & Task Lookups ----
+function getSubjectId(name) {
+    const found = dbSubjects.find(s => s.name.toLowerCase() === name.toLowerCase());
+    return found ? found.id : null;
 }
 
-function ensureSubject(name) {
-    const trimmed = name.trim();
-    if (!trimmed) return;
-    const exists = subjects.some((subject) => subject.name.toLowerCase() === trimmed.toLowerCase());
-    if (!exists) subjects.push({ id: generateId(), name: trimmed });
-}
-
-function loadData() {
-    const storedTasks = localStorage.getItem(TASKS_KEY);
-    const storedSubjects = localStorage.getItem(SUBJECTS_KEY);
-
-    if (storedTasks) tasks = JSON.parse(storedTasks);
-    if (storedSubjects) subjects = JSON.parse(storedSubjects);
-
-    if (!storedTasks && !storedSubjects) {
-        subjects = [
-            { id: generateId(), name: 'Computer Science' },
-            { id: generateId(), name: 'Calculus' }
-        ];
-        tasks = [
-            { id: generateId(), subject: 'Computer Science', name: 'Finish Data Structures assignment', deadline: new Date(Date.now() + 86400000).toISOString(), completed: false },
-            { id: generateId(), subject: 'Calculus', name: 'Review Chapter 5 notes', deadline: new Date(Date.now() - 3600000).toISOString(), completed: true }
-        ];
-    }
-
-    CS_SUBJECTS.forEach((subject) => ensureSubject(subject.name));
-    tasks.forEach((task) => ensureSubject(task.subject));
-    persist();
+function getSubjectName(id) {
+    const found = dbSubjects.find(s => s.id === id);
+    return found ? found.name : id;
 }
 
 function subjectNames() {
-    return subjects.map((subject) => subject.name).sort((a, b) => a.localeCompare(b));
+    // Return names of active enrolled subjects or default list
+    const enrolled = Array.from(selectedEnrolledSlugs).map(slug => {
+        const sub = SUBJECTS_CATALOG.find(s => s.slug === slug);
+        return sub ? sub.name : slug;
+    });
+    if (enrolled.length > 0) return enrolled.sort((a, b) => a.localeCompare(b));
+    if (dbSubjects.length > 0) return dbSubjects.map(s => s.name).sort((a, b) => a.localeCompare(b));
+    return CS_SUBJECTS.map(s => s.name).sort((a, b) => a.localeCompare(b));
 }
 
 function fillSubjectSelects() {
     const names = subjectNames();
     const options = names.length
         ? names.map((name) => `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`).join('')
-        : '<option value="">Add a subject first</option>';
-    document.getElementById('task-subject').innerHTML = options;
+        : '<option value="General">General</option>';
+    
+    const taskSubject = document.getElementById('task-subject');
+    if (taskSubject) taskSubject.innerHTML = options;
+
+    const quickSelect = document.getElementById('create-task-subject-select');
+    if (quickSelect) quickSelect.innerHTML = options;
 }
 
+// ---- Data Synchronization with Supabase ----
+async function loadUserData() {
+    try {
+        const session = await getSession();
+        if (!session) {
+            window.location.href = 'auth/login.html';
+            return;
+        }
+
+        currentUser = session.user;
+
+        // Load student profile
+        const { data: profile } = await getProfile(currentUser.id);
+        currentProfile = profile;
+        renderUserProfile();
+
+        // Check if student completed onboarding
+        if (!currentProfile?.onboarding_completed && location.hash !== '#quiz') {
+            // First time student: show subjects & hierarchy selection
+            showView('subjects');
+        }
+
+        // Load subjects
+        const { data: enrolled } = await getStudentSubjects(currentUser.id);
+        if (enrolled && enrolled.length > 0) {
+            selectedEnrolledSlugs.clear();
+            enrolled.forEach(s => {
+                const slug = s.slug || (s.subject ? s.subject.slug : null) || (s.name ? s.name.toLowerCase().replace(/[^a-z0-9]+/g, '-') : null);
+                if (slug) selectedEnrolledSlugs.add(slug);
+            });
+        }
+
+        // Load catalog
+        const { data: subjectsData } = await getAllSubjects();
+        if (subjectsData && subjectsData.length > 0) {
+            dbSubjects = subjectsData;
+        } else {
+            dbSubjects = CS_SUBJECTS.map((s, idx) => ({ id: `subj-${idx}`, ...s }));
+        }
+
+        // Load student tasks
+        const { data: tasksData, error: tasksError } = await getTasks(currentUser.id);
+        if (tasksError) {
+            console.warn('Could not load cloud tasks:', tasksError.message);
+        } else if (tasksData) {
+            tasks = tasksData.map(t => ({
+                id: t.id,
+                subject: t.subject ? t.subject.name : (getSubjectName(t.subject_id) || 'General'),
+                subject_id: t.subject_id,
+                name: t.title,
+                deadline: t.deadline,
+                completed: t.completed
+            }));
+        }
+
+        initAcademicHierarchy();
+        render();
+    } catch (err) {
+        console.error('Failed to load user data:', err);
+    }
+}
+
+function renderUserProfile() {
+    const nameEl = document.getElementById('user-display-name');
+    const emailEl = document.getElementById('user-display-email');
+    const avatarEl = document.getElementById('user-avatar');
+
+    const fullName = currentProfile?.full_name || currentUser?.user_metadata?.full_name || 'Student';
+    const email = currentUser?.email || 'student@university.edu';
+
+    if (nameEl) nameEl.textContent = fullName;
+    if (emailEl) emailEl.textContent = email;
+    if (avatarEl) {
+        const initials = fullName.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase() || 'S';
+        avatarEl.textContent = initials;
+    }
+
+    const modalEmail = document.getElementById('profile-email-input');
+    const modalName = document.getElementById('profile-name-input');
+    if (modalEmail) modalEmail.value = email;
+    if (modalName) modalName.value = fullName;
+}
+
+// ---- View Navigation ----
 function showView(view) {
+    if (view === 'create' || view === 'onboarding') view = 'subjects';
+    if (view === 'plan') view = 'tasks';
+    if (!['dashboard', 'tasks', 'subjects', 'analytics', 'quiz'].includes(view)) {
+        view = 'dashboard';
+    }
+
     currentView = view;
-    ['create', 'plan', 'quiz'].forEach((name) => {
-        document.getElementById(`view-${name}`).hidden = name !== view;
+
+    // Show/hide view canvases
+    ['dashboard', 'tasks', 'subjects', 'analytics', 'quiz'].forEach((name) => {
+        const el = document.getElementById(`view-${name}`);
+        if (el) el.hidden = (name !== view);
     });
+
+    // Update nav links
     document.querySelectorAll('.nav-link[data-view]').forEach((link) => {
-        link.classList.toggle('is-active', link.dataset.view === view);
+        const linkView = link.dataset.view;
+        const isActive = (linkView === view) ||
+                         (linkView === 'create' && view === 'subjects') ||
+                         (linkView === 'plan' && view === 'tasks');
+        link.classList.toggle('is-active', isActive);
     });
+
     const titles = {
-        create: 'Subjects & Tasks',
-        plan: 'Study Plan',
-        quiz: 'Quiz & Result'
+        dashboard: 'Student Dashboard',
+        tasks: 'Study Task Tracker',
+        subjects: 'Subjects & University Onboarding',
+        analytics: 'Study Task Analytics & Workload Breakdown',
+        quiz: 'Quiz Practice & Results'
     };
-    document.getElementById('page-title').textContent = titles[view];
-    document.getElementById('search-wrap').hidden = view !== 'plan';
-    document.getElementById('add-task-btn').hidden = view === 'quiz';
-    document.getElementById('go-plan-btn').hidden = view === 'plan';
-    if (location.hash !== `#${view}`) location.hash = view;
+    const titleEl = document.getElementById('page-title');
+    if (titleEl) titleEl.textContent = titles[view] || 'Dashboard';
+
+    const searchWrap = document.getElementById('search-wrap');
+    if (searchWrap) searchWrap.hidden = (view !== 'tasks' && view !== 'dashboard');
+
+    const addTaskBtn = document.getElementById('add-task-btn');
+    if (addTaskBtn) addTaskBtn.hidden = (view === 'quiz');
+
+    const goPlanBtn = document.getElementById('go-plan-btn');
+    if (goPlanBtn) {
+        if (view === 'dashboard') {
+            goPlanBtn.hidden = false;
+            goPlanBtn.textContent = 'Task Tracker';
+            goPlanBtn.onclick = () => showView('tasks');
+        } else if (view === 'tasks') {
+            goPlanBtn.hidden = false;
+            goPlanBtn.textContent = 'Dashboard';
+            goPlanBtn.onclick = () => showView('dashboard');
+        } else {
+            goPlanBtn.hidden = true;
+        }
+    }
+
+    if (location.hash !== `#${view}`) {
+        location.hash = view;
+    }
+
     render();
 }
 
@@ -268,92 +426,177 @@ function visibleTasks() {
     return tasks.filter((task) => {
         if (currentFilter === 'pending' && task.completed) return false;
         if (currentFilter === 'completed' && !task.completed) return false;
+        if (currentFilter === 'overdue' && (task.completed || new Date(task.deadline) >= new Date())) return false;
         if (currentSubjectTab !== 'all' && task.subject !== currentSubjectTab) return false;
         if (query && !`${task.subject} ${task.name}`.toLowerCase().includes(query)) return false;
         return true;
     }).sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
 }
 
-function renderCreate() {
-    const subjectGrid = document.getElementById('cs-subject-grid');
-    subjectGrid.innerHTML = CS_SUBJECTS.map((subject) => {
-        const taskCount = tasks.filter((task) => task.subject === subject.name).length;
-        const colors = getSubjectColors(subject.name);
-        return `<button class="cs-subject-card ${selectedCreateSubject === subject.name ? 'is-selected' : ''}"
-                    type="button" data-create-subject="${escapeHtml(subject.name)}"
-                    aria-pressed="${selectedCreateSubject === subject.name}" style="--subject-accent:${colors.color}">
-            <span class="cs-subject-icon"><i class="fa-solid ${subject.icon}" aria-hidden="true"></i></span>
-            <span class="cs-subject-copy">
-                <strong>${escapeHtml(subject.name)}</strong>
-                <span>${escapeHtml(subject.description)}</span>
-            </span>
-            <span class="cs-subject-count">${taskCount} task${taskCount === 1 ? '' : 's'}</span>
-        </button>`;
-    }).join('');
+// ---- Academic Hierarchy & Subject Selection ----
+let hierarchyListenersAttached = false;
 
-    const taskForm = document.getElementById('create-task-form');
-    const selectedSubject = CS_SUBJECTS.find((subject) => subject.name === selectedCreateSubject);
-    taskForm.hidden = !selectedSubject;
-    document.getElementById('create-task-subject').value = selectedCreateSubject;
-    document.getElementById('create-task-heading').textContent = selectedSubject
-        ? `Add a ${selectedSubject.name} task`
-        : 'Add a study task';
-    document.getElementById('create-task-hint').textContent = selectedSubject
-        ? `Add as many tasks as you need for ${selectedSubject.name}.`
-        : 'Choose a subject to unlock the task form.';
+function initAcademicHierarchy() {
+    const countryEl = document.getElementById('academic-country');
+    const uniEl = document.getElementById('academic-university');
+    const facEl = document.getElementById('academic-faculty');
+    const majorEl = document.getElementById('academic-major');
+    if (!countryEl || !uniEl) return;
 
-    const subjectTasksSection = document.getElementById('selected-subject-task-list');
-    subjectTasksSection.hidden = !selectedSubject;
-    if (selectedSubject) {
-        const subjectTasks = tasks
-            .filter((task) => task.subject === selectedSubject.name)
-            .sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
-        document.getElementById('selected-subject-task-title').textContent = `${selectedSubject.name} tasks`;
-        document.getElementById('selected-subject-task-count').textContent =
-            `${subjectTasks.length} task${subjectTasks.length === 1 ? '' : 's'}`;
-        document.getElementById('selected-subject-tasks').innerHTML = subjectTasks.length
-            ? subjectTasks.map((task) => `
-                <article class="selected-subject-task ${task.completed ? 'is-complete' : ''}">
-                    <span class="selected-subject-task-status" aria-hidden="true">
-                        <i class="fa-solid ${task.completed ? 'fa-circle-check' : 'fa-circle'}"></i>
-                    </span>
-                    <div>
-                        <strong>${escapeHtml(task.name)}</strong>
-                        <span>${formatDate(task.deadline)} · ${task.completed ? 'Completed' : 'Pending'}</span>
-                    </div>
-                </article>
-            `).join('')
-            : '<p class="selected-subject-empty">No tasks for this subject yet. Add one above.</p>';
+    const prevCountry = countryEl.value;
+    const prevUni = uniEl.value;
+    const prevFac = facEl ? facEl.value : '';
+    const prevMajor = majorEl ? majorEl.value : '';
+
+    // Populate countries
+    const countries = getCountries();
+    countryEl.innerHTML = '<option value="">Select country...</option>' +
+        countries.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('');
+
+    // Populate faculties
+    if (facEl) {
+        const faculties = getFaculties();
+        facEl.innerHTML = '<option value="">Select faculty...</option>' +
+            faculties.map(f => `<option value="${escapeHtml(f)}">${escapeHtml(f)}</option>`).join('');
     }
 
-    const recent = [...tasks].reverse().slice(0, 8);
-    document.getElementById('recent-count').textContent = `${tasks.length} task${tasks.length === 1 ? '' : 's'} saved locally`;
-    const list = document.getElementById('recent-tasks');
-    const empty = document.getElementById('create-empty');
-    if (recent.length === 0) {
-        list.innerHTML = '';
-        empty.hidden = false;
-        empty.classList.add('is-visible');
-        return;
+    const updateUniversities = (preferredUni = '') => {
+        const country = countryEl.value;
+        const universities = getUniversities(country);
+        uniEl.innerHTML = '<option value="">Select university...</option>' +
+            universities.map(u => `<option value="${escapeHtml(u)}">${escapeHtml(u)}</option>`).join('');
+        if (preferredUni && universities.includes(preferredUni)) {
+            uniEl.value = preferredUni;
+        }
+    };
+
+    const updateMajors = (preferredMajor = '') => {
+        if (!facEl || !majorEl) return;
+        const faculty = facEl.value;
+        const majors = getMajors(faculty);
+        majorEl.innerHTML = '<option value="">Select major...</option>' +
+            majors.map(m => `<option value="${escapeHtml(m)}">${escapeHtml(m)}</option>`).join('');
+        if (preferredMajor && majors.includes(preferredMajor)) {
+            majorEl.value = preferredMajor;
+        }
+    };
+
+    if (!hierarchyListenersAttached) {
+        countryEl.addEventListener('change', () => updateUniversities(uniEl.value));
+        if (facEl) facEl.addEventListener('change', () => updateMajors(majorEl ? majorEl.value : ''));
+        hierarchyListenersAttached = true;
     }
-    empty.hidden = true;
-    empty.classList.remove('is-visible');
-    list.innerHTML = recent.map((task) => `
-        <article class="recent-item">
-            <div>
-                <strong>${escapeHtml(task.name)}</strong>
-                <p>${escapeHtml(task.subject)} · ${formatDate(task.deadline)} · ${task.completed ? 'Completed' : 'Pending'}</p>
-            </div>
-            <button class="btn-danger recent-delete-btn" type="button" data-delete-recent-task="${task.id}" aria-label="Delete ${escapeHtml(task.name)}">
-                <i class="fa-solid fa-trash" aria-hidden="true"></i>
-                <span>Delete</span>
-            </button>
-        </article>
-    `).join('');
+
+    // Prefill from current selection or loaded profile
+    const targetCountry = prevCountry || currentProfile?.country || '';
+    const targetUni = prevUni || currentProfile?.university || '';
+    const targetFac = prevFac || currentProfile?.faculty || '';
+    const targetMajor = prevMajor || currentProfile?.major || '';
+
+    if (targetCountry) {
+        countryEl.value = targetCountry;
+        updateUniversities(targetUni);
+    }
+    if (targetFac && facEl) {
+        facEl.value = targetFac;
+        updateMajors(targetMajor);
+    }
 }
 
+function renderScrollableSubjects() {
+    const container = document.getElementById('subject-scroll-container');
+    if (!container) return;
+
+    const filtered = searchSubjects(subjectSearchQuery, subjectCategoryFilter);
+
+    if (filtered.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state" style="grid-column: 1 / -1; padding: 24px; text-align: center;">
+                <p class="muted">No subjects match "${escapeHtml(subjectSearchQuery)}". Try another search or filter.</p>
+            </div>
+        `;
+        return;
+    }
+
+    container.innerHTML = filtered.map(subject => {
+        const isSelected = selectedEnrolledSlugs.has(subject.slug);
+        return `
+            <article class="scrollable-subject-card ${isSelected ? 'is-selected' : ''}" data-subject-slug="${escapeHtml(subject.slug)}" tabindex="0" role="checkbox" aria-checked="${isSelected}">
+                <div class="card-top-row">
+                    <span class="card-icon"><i class="fa-solid ${subject.icon}"></i></span>
+                    <span class="card-badge">${escapeHtml(subject.category || 'Core')}</span>
+                    <div class="card-checkbox" aria-hidden="true">
+                        ${isSelected ? '<i class="fa-solid fa-check"></i>' : ''}
+                    </div>
+                </div>
+                <h4>${escapeHtml(subject.name)}</h4>
+                <p>${escapeHtml(subject.description)}</p>
+            </article>
+        `;
+    }).join('');
+
+    updateSelectedSubjectsBadge();
+}
+
+function updateSelectedSubjectsBadge() {
+    const countEl = document.getElementById('selected-subjects-count');
+    const labelEl = document.getElementById('selected-subjects-label');
+    if (!countEl) return;
+    const count = selectedEnrolledSlugs.size;
+    countEl.textContent = count;
+    if (labelEl) {
+        labelEl.textContent = count === 1 ? 'subject selected' : 'subjects selected';
+    }
+}
+
+async function saveAcademicProfileAndSubjects() {
+    if (!currentUser) return;
+
+    const country = document.getElementById('academic-country')?.value || currentProfile?.country || '';
+    const university = document.getElementById('academic-university')?.value || currentProfile?.university || '';
+    const faculty = document.getElementById('academic-faculty')?.value || currentProfile?.faculty || '';
+    const major = document.getElementById('academic-major')?.value || currentProfile?.major || '';
+
+    if (selectedEnrolledSlugs.size === 0) {
+        toast('Please select at least 1 subject to continue.');
+        return;
+    }
+
+    // Convert selected slugs to subject objects
+    const selectedList = SUBJECTS_CATALOG.filter(sub => selectedEnrolledSlugs.has(sub.slug));
+
+    // Save subjects to PostgreSQL / local fallback
+    await saveStudentSubjects(currentUser.id, selectedList);
+
+    // Save profile with onboarding_completed = true
+    await upsertProfile({
+        id: currentUser.id,
+        full_name: currentProfile?.full_name || currentUser.user_metadata?.full_name || 'Student',
+        country,
+        university,
+        faculty,
+        major,
+        onboarding_completed: true
+    });
+
+    currentProfile = {
+        ...(currentProfile || {}),
+        country,
+        university,
+        faculty,
+        major,
+        onboarding_completed: true
+    };
+
+    fillSubjectSelects();
+    toast('Academic profile & subjects saved successfully!');
+    showView('dashboard');
+}
+
+// ---- Task Tracker & Dashboard Analytics ----
 function renderSubjectTabs() {
     const tabs = document.getElementById('subject-tabs');
+    if (!tabs) return;
     const names = subjectNames();
     tabs.innerHTML = [`<button type="button" class="tab-chip ${currentSubjectTab === 'all' ? 'is-on' : ''}" data-subject="all">All subjects</button>`]
         .concat(names.map((name) => `<button type="button" class="tab-chip ${currentSubjectTab === name ? 'is-on' : ''}" data-subject="${escapeHtml(name)}">${escapeHtml(name)}</button>`))
@@ -368,57 +611,75 @@ function updateDashboard() {
     const percentage = total === 0 ? 0 : Math.round((completed / total) * 100);
     const next = nextPendingTask();
 
-    document.getElementById('stat-total').textContent = total;
-    document.getElementById('stat-completed').textContent = completed;
-    document.getElementById('stat-pending').textContent = pending;
-    document.getElementById('stat-progress-text').textContent = `${percentage}%`;
-    document.getElementById('orb-fill').style.strokeDashoffset = String(314 - (314 * percentage) / 100);
-    document.getElementById('pill-pending').textContent = `${pending} pending`;
-    document.getElementById('pill-overdue').textContent = `${overdue} overdue`;
-    document.getElementById('count-all').textContent = total;
-    document.getElementById('count-pending').textContent = pending;
-    document.getElementById('count-completed').textContent = completed;
-    document.getElementById('focus-title').textContent = next ? next.name : 'No pending tasks';
-    document.getElementById('focus-meta').textContent = next ? `${next.subject} · ${relativeDeadline(next.deadline, false)}` : 'Add a subject, then a task';
+    const setTxt = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = val;
+    };
+
+    setTxt('stat-total', total);
+    setTxt('stat-completed', completed);
+    setTxt('stat-pending', pending);
+    setTxt('stat-progress-text', `${percentage}%`);
+
+    const orb = document.getElementById('orb-fill');
+    if (orb) orb.style.strokeDashoffset = String(314 - (314 * percentage) / 100);
+
+    setTxt('pill-pending', `${pending} pending`);
+    setTxt('pill-overdue', `${overdue} overdue`);
+    setTxt('count-all', total);
+    setTxt('count-pending', pending);
+    setTxt('count-completed', completed);
+    setTxt('focus-title', next ? next.name : 'No pending tasks');
+    setTxt('focus-meta', next ? `${next.subject} · ${relativeDeadline(next.deadline, false)}` : 'Add a subject, then a task');
 
     const headline = document.getElementById('hero-headline');
     const sub = document.getElementById('hero-sub');
-    if (percentage === 100 && total > 0) {
-        headline.textContent = 'Plan complete';
-        sub.textContent = 'Take a quiz to check what you learned.';
-    } else if (overdue > 0) {
-        headline.textContent = 'Deadlines need attention';
-        sub.textContent = next ? `Start with “${next.name}”.` : 'Clear overdue work first.';
-    } else {
-        headline.textContent = 'Your weekly plan';
-        sub.textContent = next ? `Next up: ${next.name}.` : 'Create tasks, then track them here.';
+    if (headline && sub) {
+        if (percentage === 100 && total > 0) {
+            headline.textContent = 'Plan complete';
+            sub.textContent = 'All tasks finished! Take a quiz to test your understanding.';
+        } else if (overdue > 0) {
+            headline.textContent = 'Deadlines need attention';
+            sub.textContent = next ? `Start with “${next.name}”.` : 'Clear overdue work first.';
+        } else {
+            headline.textContent = 'Keep the streak going';
+            sub.textContent = next ? `Next up: ${next.name}.` : 'Create tasks, then track them here.';
+        }
     }
+
+    renderUpcomingDeadlines();
 }
 
 function renderTaskList() {
     const filtered = visibleTasks();
     const taskContainer = document.getElementById('task-container');
     const emptyState = document.getElementById('empty-state');
+    if (!taskContainer) return;
+
     taskContainer.innerHTML = '';
 
     if (filtered.length === 0) {
-        emptyState.hidden = false;
-        emptyState.classList.add('is-visible');
-        document.getElementById('empty-title').textContent = searchQuery ? 'No matches' : 'Nothing in this view';
-        document.getElementById('empty-copy').textContent = 'Add a subject and task, or change filters.';
+        if (emptyState) {
+            emptyState.hidden = false;
+            emptyState.classList.add('is-visible');
+            document.getElementById('empty-title').textContent = searchQuery ? 'No matches' : 'Nothing in this view';
+            document.getElementById('empty-copy').textContent = 'Add a study task, or change your filters.';
+        }
         return;
     }
 
-    emptyState.hidden = true;
-    emptyState.classList.remove('is-visible');
+    if (emptyState) {
+        emptyState.hidden = true;
+        emptyState.classList.remove('is-visible');
+    }
 
     const grouped = [];
     const indexMap = new Map();
     filtered.forEach((task) => {
-        const key = task.subject.trim();
+        const key = (task.subject || 'General').trim();
         if (!indexMap.has(key)) {
             indexMap.set(key, grouped.length);
-            grouped.push({ subject: task.subject, tasks: [] });
+            grouped.push({ subject: key, tasks: [] });
         }
         grouped[indexMap.get(key)].tasks.push(task);
     });
@@ -466,13 +727,252 @@ function renderTaskList() {
     });
 }
 
+function renderAnalytics() {
+    const total = tasks.length;
+    const completed = tasks.filter(t => t.completed).length;
+    const pending = total - completed;
+    const overdue = tasks.filter(t => !t.completed && new Date(t.deadline) < new Date()).length;
+    const percentage = total === 0 ? 0 : Math.round((completed / total) * 100);
+
+    const orb = document.getElementById('analytics-orb-fill');
+    if (orb) orb.style.strokeDashoffset = String(314 - (314 * percentage) / 100);
+    const textEl = document.getElementById('analytics-progress-text');
+    if (textEl) textEl.textContent = `${percentage}%`;
+
+    const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+    setTxt('analytics-task-total', `${total} total task${total === 1 ? '' : 's'}`);
+    setTxt('workload-completed-text', `${completed} (${percentage}%)`);
+    setTxt('workload-pending-text', `${pending} (${total ? Math.round((pending / total) * 100) : 0}%)`);
+    setTxt('workload-overdue-text', `${overdue} (${total ? Math.round((overdue / total) * 100) : 0}%)`);
+
+    const setWidth = (id, pct) => { const el = document.getElementById(id); if (el) el.style.width = `${pct}%`; };
+    setWidth('workload-completed-bar', percentage);
+    setWidth('workload-pending-bar', total ? Math.round((pending / total) * 100) : 0);
+    setWidth('workload-overdue-bar', total ? Math.round((overdue / total) * 100) : 0);
+
+    renderWeeklyActivityChart();
+    renderSubjectWiseAnalytics();
+}
+
+function renderWeeklyActivityChart() {
+    const chartEl = document.getElementById('weekly-activity-chart');
+    const totalEl = document.getElementById('weekly-completed-total');
+    if (!chartEl) return;
+
+    const days = [];
+    const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const now = new Date();
+
+    for (let i = 6; i >= 0; i--) {
+        const d = new Date(now);
+        d.setDate(now.getDate() - i);
+        d.setHours(0, 0, 0, 0);
+        days.push(d);
+    }
+
+    const dayCounts = days.map((dayDate) => {
+        const nextDay = new Date(dayDate);
+        nextDay.setDate(dayDate.getDate() + 1);
+
+        return tasks.filter(t => {
+            const tDate = new Date(t.deadline);
+            return tDate >= dayDate && tDate < nextDay;
+        }).length;
+    });
+
+    const maxCount = Math.max(...dayCounts, 1);
+    const weeklyTotal = dayCounts.reduce((a, b) => a + b, 0);
+    if (totalEl) totalEl.textContent = `${weeklyTotal} scheduled`;
+
+    chartEl.innerHTML = days.map((dayDate, idx) => {
+        const count = dayCounts[idx];
+        const isToday = dayDate.toDateString() === now.toDateString();
+        const heightPct = Math.max(14, Math.round((count / maxCount) * 100));
+
+        return `
+            <div class="day-bar-column">
+                <span class="day-bar-count">${count}</span>
+                <div class="day-bar ${isToday ? 'is-today' : ''}" style="height: ${heightPct}%;"></div>
+                <span class="day-bar-label">${dayNames[dayDate.getDay()]}</span>
+            </div>
+        `;
+    }).join('');
+}
+
+function renderSubjectWiseAnalytics() {
+    const container = document.getElementById('subject-progress-container');
+    const emptyEl = document.getElementById('subject-analytics-empty');
+    const countText = document.getElementById('subject-breakdown-count');
+    if (!container) return;
+
+    const subjectsMap = new Map();
+
+    selectedEnrolledSlugs.forEach(slug => {
+        const subObj = SUBJECTS_CATALOG.find(s => s.slug === slug);
+        if (subObj) {
+            subjectsMap.set(subObj.name, { total: 0, completed: 0, overdue: 0, icon: subObj.icon });
+        }
+    });
+
+    tasks.forEach(task => {
+        const key = task.subject || 'General';
+        if (!subjectsMap.has(key)) {
+            subjectsMap.set(key, { total: 0, completed: 0, overdue: 0, icon: 'fa-book' });
+        }
+        const record = subjectsMap.get(key);
+        record.total += 1;
+        if (task.completed) {
+            record.completed += 1;
+        } else if (new Date(task.deadline) < new Date()) {
+            record.overdue += 1;
+        }
+    });
+
+    const subjectEntries = Array.from(subjectsMap.entries());
+
+    if (countText) countText.textContent = `${subjectEntries.length} enrolled subject${subjectEntries.length === 1 ? '' : 's'}`;
+
+    if (subjectEntries.length === 0) {
+        container.innerHTML = '';
+        if (emptyEl) emptyEl.hidden = false;
+        return;
+    }
+
+    if (emptyEl) emptyEl.hidden = true;
+
+    container.innerHTML = subjectEntries.map(([name, data]) => {
+        const pct = data.total > 0 ? Math.round((data.completed / data.total) * 100) : 0;
+        const colors = getSubjectColors(name);
+
+        return `
+            <article class="subject-progress-item">
+                <div class="subject-progress-meta">
+                    <span style="display: flex; align-items: center; gap: 8px;">
+                        <span style="width: 8px; height: 8px; border-radius: 50%; background: ${colors.color}"></span>
+                        <strong>${escapeHtml(name)}</strong>
+                    </span>
+                    <span>${data.completed}/${data.total} completed · <strong>${pct}%</strong></span>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-fill" style="width: ${pct}%; background: ${colors.color};"></div>
+                </div>
+            </article>
+        `;
+    }).join('');
+}
+
+function renderUpcomingDeadlines() {
+    const container = document.getElementById('dashboard-deadlines-container');
+    const emptyEl = document.getElementById('dashboard-deadlines-empty');
+    const countText = document.getElementById('deadline-count-text');
+    if (!container) return;
+
+    const now = new Date();
+    const nextWeek = new Date();
+    nextWeek.setDate(now.getDate() + 7);
+
+    const upcoming = tasks
+        .filter(t => !t.completed && new Date(t.deadline) <= nextWeek)
+        .sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
+
+    if (countText) countText.textContent = `${upcoming.length} deadline${upcoming.length === 1 ? '' : 's'} ahead`;
+
+    if (upcoming.length === 0) {
+        container.innerHTML = '';
+        if (emptyEl) emptyEl.hidden = false;
+        return;
+    }
+
+    if (emptyEl) emptyEl.hidden = true;
+
+    container.innerHTML = upcoming.map(task => {
+        const isOverdue = new Date(task.deadline) < now;
+        const colors = getSubjectColors(task.subject);
+
+        return `
+            <article class="deadline-item">
+                <div class="deadline-item-left">
+                    <span class="deadline-item-status-icon ${isOverdue ? 'is-overdue' : ''}">
+                        <i class="fa-solid ${isOverdue ? 'fa-triangle-exclamation' : 'fa-clock'}"></i>
+                    </span>
+                    <div>
+                        <strong>${escapeHtml(task.name)}</strong>
+                        <p class="muted" style="font-size: 12px; margin: 2px 0 0;">
+                            <span style="color: ${colors.color}; font-weight: 600;">${escapeHtml(task.subject)}</span>
+                            · ${formatDate(task.deadline)}
+                        </p>
+                    </div>
+                </div>
+                <span class="pill ${isOverdue ? 'pill-warn' : ''}">
+                    ${relativeDeadline(task.deadline, false)}
+                </span>
+            </article>
+        `;
+    }).join('');
+}
+
+function renderRecentTasks() {
+    const recent = [...tasks].reverse().slice(0, 8);
+    const recentCount = document.getElementById('recent-count');
+    if (recentCount) recentCount.textContent = `${tasks.length} task${tasks.length === 1 ? '' : 's'} saved in cloud database`;
+
+    const list = document.getElementById('recent-tasks');
+    const empty = document.getElementById('create-empty');
+    if (!list) return;
+
+    if (recent.length === 0) {
+        list.innerHTML = '';
+        if (empty) {
+            empty.hidden = false;
+            empty.classList.add('is-visible');
+        }
+        return;
+    }
+    if (empty) {
+        empty.hidden = true;
+        empty.classList.remove('is-visible');
+    }
+    list.innerHTML = recent.map((task) => `
+        <article class="recent-item">
+            <div>
+                <strong>${escapeHtml(task.name)}</strong>
+                <p>${escapeHtml(task.subject)} · ${formatDate(task.deadline)} · ${task.completed ? 'Completed' : 'Pending'}</p>
+            </div>
+            <button class="btn-danger recent-delete-btn" type="button" data-delete-recent-task="${task.id}" aria-label="Delete ${escapeHtml(task.name)}">
+                <i class="fa-solid fa-trash" aria-hidden="true"></i>
+                <span>Delete</span>
+            </button>
+        </article>
+    `).join('');
+}
+
+// ---- Quiz Logic ----
 function quizQuestionsFor(subject, count) {
-    const questions = [...QUIZ_BANK[subject]];
+    const list = QUIZ_BANK[subject] || [];
+    const questions = [...list];
     for (let index = questions.length - 1; index > 0; index -= 1) {
         const swapIndex = Math.floor(Math.random() * (index + 1));
         [questions[index], questions[swapIndex]] = [questions[swapIndex], questions[index]];
     }
     return questions.slice(0, count);
+}
+
+async function loadQuizQuestions(subject, count) {
+    const subjectRecord = dbSubjects.find((item) => item.slug === subject);
+    if (subjectRecord && subjectRecord.id && !String(subjectRecord.id).startsWith('subj-')) {
+        const { data, error } = await getQuizQuestions(subjectRecord.id, count);
+        if (!error && data && data.length) {
+            return data.map((item) => ({
+                id: item.id,
+                q: item.question,
+                options: Array.isArray(item.options) ? item.options : JSON.parse(item.options),
+                answer: item.correct_answer
+            }));
+        }
+        if (error) console.warn('Could not load quiz questions from database:', error.message);
+    }
+
+    return quizQuestionsFor(subject, count);
 }
 
 function clearQuizTimer() {
@@ -485,7 +985,8 @@ function clearQuizTimer() {
 function startRapidQuizTimer() {
     clearQuizTimer();
     quiz.deadline = Date.now() + 30000;
-    document.getElementById('quiz-timer').hidden = false;
+    const timerEl = document.getElementById('quiz-timer');
+    if (timerEl) timerEl.hidden = false;
     refreshRapidQuizTimer();
     quizTimer = window.setInterval(refreshRapidQuizTimer, 250);
 }
@@ -493,14 +994,16 @@ function startRapidQuizTimer() {
 function refreshRapidQuizTimer() {
     if (quiz.mode !== 'rapid' || !quiz.deadline || quiz.finished) return;
     quiz.timeLeft = Math.max(0, Math.ceil((quiz.deadline - Date.now()) / 1000));
-    document.getElementById('quiz-timer').textContent = `Time remaining: ${quiz.timeLeft} seconds`;
+    const timerEl = document.getElementById('quiz-timer');
+    if (timerEl) timerEl.textContent = `Time remaining: ${quiz.timeLeft} seconds`;
     if (quiz.timeLeft === 0) finishQuiz(true);
 }
 
 function setQuizStage(stage) {
     if (stage !== 'play') {
         clearQuizTimer();
-        document.getElementById('quiz-timer').hidden = true;
+        const timerEl = document.getElementById('quiz-timer');
+        if (timerEl) timerEl.hidden = true;
     }
     document.getElementById('quiz-setup').hidden = stage !== 'setup';
     document.getElementById('quiz-play').hidden = stage !== 'play';
@@ -509,297 +1012,645 @@ function setQuizStage(stage) {
 
 function renderQuizQuestion() {
     const item = quiz.questions[quiz.index];
-    document.getElementById('quiz-title').textContent = `${QUIZ_SUBJECT_NAMES[quiz.subject]} ${quiz.mode === 'rapid' ? 'rapid quiz' : 'quiz'}`;
+    if (!item) return;
+
     document.getElementById('quiz-progress').textContent = `Question ${quiz.index + 1} of ${quiz.questions.length}`;
     document.getElementById('quiz-question').textContent = item.q;
-    document.getElementById('quiz-options').innerHTML = item.options.map((option, index) => `
-        <label class="choice ${quiz.answers[quiz.index] === index ? 'is-on' : ''}">
-            <input type="radio" name="quiz-option" value="${index}" ${quiz.answers[quiz.index] === index ? 'checked' : ''}>
-            ${escapeHtml(option)}
+
+    const chosen = quiz.answers[quiz.index];
+    const optionsHtml = item.options.map((optionText, optIndex) => `
+        <label class="choice ${chosen === optIndex ? 'is-on' : ''}">
+            <input type="radio" name="quiz-choice" value="${optIndex}" ${chosen === optIndex ? 'checked' : ''}>
+            <span>${escapeHtml(optionText)}</span>
         </label>
     `).join('');
-    document.getElementById('quiz-next-btn').textContent = quiz.index === quiz.questions.length - 1 ? 'Submit' : 'Next';
+
+    document.getElementById('quiz-options').innerHTML = optionsHtml;
+
+    const backBtn = document.getElementById('quiz-back-btn');
+    if (backBtn) backBtn.textContent = quiz.index === 0 ? 'Quit quiz' : 'Back';
+
+    const nextBtn = document.getElementById('quiz-next-btn');
+    if (nextBtn) {
+        nextBtn.textContent = quiz.index === quiz.questions.length - 1 ? 'Finish' : 'Next';
+    }
 }
 
-function finishQuiz(timedOut = false) {
-    if (quiz.finished) return;
-    if (quiz.mode === 'rapid' && Date.now() >= quiz.deadline) timedOut = true;
-    quiz.finished = true;
+async function startQuiz(mode) {
+    const subject = document.getElementById('quiz-subject').value;
+    const count = mode === 'rapid' ? 10 : 15;
+    const questions = await loadQuizQuestions(subject, count);
+
+    if (questions.length === 0) {
+        toast('No questions available for this subject yet.');
+        return;
+    }
+
+    quiz = {
+        subject,
+        mode,
+        questions,
+        index: 0,
+        answers: new Array(questions.length).fill(null),
+        timeLeft: 30,
+        deadline: 0,
+        finished: false
+    };
+
+    setQuizStage('play');
+    renderQuizQuestion();
+
+    if (mode === 'rapid') {
+        startRapidQuizTimer();
+    }
+}
+
+async function finishQuiz(timedOut = false) {
     clearQuizTimer();
-    const correct = quiz.questions.reduce((sum, item, index) => sum + (quiz.answers[index] === item.answer ? 1 : 0), 0);
-    const percent = Math.round((correct / quiz.questions.length) * 100);
-    document.getElementById('quiz-score').textContent = `Marks: ${correct} / ${quiz.questions.length}`;
-    document.getElementById('quiz-percent').textContent = `${percent}% correct`;
-    const unanswered = quiz.answers.filter((answer) => answer == null).length;
-    const modeLabel = quiz.mode === 'rapid' ? 'Rapid quiz' : 'Standard quiz';
-    document.getElementById('quiz-review').textContent = `${timedOut ? 'Time is up. ' : ''}${modeLabel} · ${QUIZ_SUBJECT_NAMES[quiz.subject]} · ${correct} correct, ${quiz.questions.length - correct} incorrect${unanswered ? ` (${unanswered} unanswered)` : ''}.`;
-    document.getElementById('quiz-answer-review').innerHTML = quiz.questions.map((item, index) => {
-        const selected = quiz.answers[index] == null ? 'Not answered' : item.options[quiz.answers[index]];
-        const isCorrect = quiz.answers[index] === item.answer;
-        return `<li class="${isCorrect ? 'answer-correct' : 'answer-incorrect'}">
-            <strong>${escapeHtml(item.q)}</strong>
-            <span>Your answer: ${escapeHtml(selected)}</span>
-            ${isCorrect ? '' : `<span>Correct answer: ${escapeHtml(item.options[item.answer])}</span>`}
-        </li>`;
-    }).join('');
-    localStorage.setItem(QUIZ_KEY, JSON.stringify({
-        subject: QUIZ_SUBJECT_NAMES[quiz.subject],
-        mode: quiz.mode,
-        correct,
-        total: quiz.questions.length,
-        percent
-    }));
+    quiz.finished = true;
+
+    let correctCount = 0;
+    quiz.questions.forEach((q, idx) => {
+        if (quiz.answers[idx] === q.answer) correctCount += 1;
+    });
+
+    const total = quiz.questions.length;
+    const percentage = Math.round((correctCount / total) * 100);
+
+    // Save to database
+    if (currentUser) {
+        const subjectRecord = dbSubjects.find(s => s.slug === quiz.subject);
+        if (subjectRecord?.id && !String(subjectRecord.id).startsWith('subj-')) {
+            const responses = quiz.questions.map((q, idx) => ({
+                question_id: q.id,
+                selected_answer: quiz.answers[idx] ?? -1,
+                is_correct: quiz.answers[idx] === q.answer
+            }));
+            await saveQuizAttempt({
+                studentId: currentUser.id,
+                subjectId: subjectRecord.id,
+                score: correctCount,
+                totalQuestions: total,
+                timeSpentSeconds: quiz.mode === 'rapid' ? (30 - quiz.timeLeft) : null,
+                responses
+            });
+        }
+    }
+
     setQuizStage('result');
+    document.getElementById('quiz-score').textContent = `Marks: ${correctCount} / ${total}`;
+    document.getElementById('quiz-percent').textContent = `${percentage}% correct`;
+
+    const reviewEl = document.getElementById('quiz-review');
+    if (reviewEl) {
+        reviewEl.textContent = timedOut
+            ? 'Time ran out! Here are your results.'
+            : (percentage >= 80 ? 'Outstanding work!' : percentage >= 50 ? 'Good effort!' : 'Keep practicing!');
+    }
+
+    const reviewList = document.getElementById('quiz-answer-review');
+    if (reviewList) {
+        reviewList.innerHTML = quiz.questions.map((q, idx) => {
+            const isCorrect = quiz.answers[idx] === q.answer;
+            const chosenText = quiz.answers[idx] != null ? q.options[quiz.answers[idx]] : 'Unanswered';
+            const correctText = q.options[q.answer];
+
+            return `
+                <li class="${isCorrect ? 'answer-correct' : 'answer-incorrect'}">
+                    <strong>${idx + 1}. ${escapeHtml(q.q)}</strong>
+                    <span>Your answer: ${escapeHtml(chosenText)} ${isCorrect ? '✓' : '✗'}</span>
+                    ${!isCorrect ? `<span>Correct answer: ${escapeHtml(correctText)}</span>` : ''}
+                </li>
+            `;
+        }).join('');
+    }
 }
 
+// ---- Render Master ----
 function render() {
-    document.getElementById('current-date').textContent = new Date().toLocaleDateString(undefined, {
-        weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'
-    });
-    fillSubjectSelects();
-    renderCreate();
     updateDashboard();
     renderSubjectTabs();
     renderTaskList();
+    renderScrollableSubjects();
+    renderRecentTasks();
+    renderAnalytics();
+    fillSubjectSelects();
+
+    const dateEl = document.getElementById('current-date');
+    if (dateEl) {
+        dateEl.textContent = new Date().toLocaleDateString(undefined, {
+            weekday: 'long',
+            month: 'long',
+            day: 'numeric'
+        });
+    }
 }
 
-function openModal(task) {
+// ---- Modal Controls ----
+function openModal(task = null) {
     const modal = document.getElementById('task-modal');
+    if (!modal) return;
+    const title = document.getElementById('modal-title');
+    const idInput = document.getElementById('task-id');
+    const subjectSelect = document.getElementById('task-subject');
+    const nameInput = document.getElementById('task-name');
+    const deadlineInput = document.getElementById('task-deadline');
+
     fillSubjectSelects();
-    document.getElementById('task-id').value = task.id;
-    document.getElementById('task-subject').value = task.subject;
-    document.getElementById('task-name').value = task.name;
-    document.getElementById('task-deadline').value = formatForInput(task.deadline);
+
+    if (task) {
+        title.textContent = 'Edit task';
+        idInput.value = task.id;
+        subjectSelect.value = task.subject;
+        nameInput.value = task.name;
+        deadlineInput.value = formatForInput(task.deadline);
+    } else {
+        title.textContent = 'Add a new task';
+        idInput.value = '';
+        nameInput.value = '';
+        const now = new Date();
+        now.setDate(now.getDate() + 1);
+        deadlineInput.value = formatForInput(now.toISOString());
+    }
+
     modal.hidden = false;
+    nameInput.focus();
 }
 
 function closeModal() {
-    document.getElementById('task-modal').hidden = true;
+    const modal = document.getElementById('task-modal');
+    if (modal) modal.hidden = true;
 }
 
+// ---- Setup Event Listeners ----
 function setupEventListeners() {
-    const overlay = document.getElementById('mobile-overlay');
-    document.getElementById('open-sidebar-btn').addEventListener('click', () => {
-        document.getElementById('sidebar').classList.add('is-open');
-        overlay.hidden = false;
-    });
-    document.getElementById('close-sidebar-btn').addEventListener('click', () => {
-        document.getElementById('sidebar').classList.remove('is-open');
-        overlay.hidden = true;
-    });
-    overlay.addEventListener('click', () => {
-        document.getElementById('sidebar').classList.remove('is-open');
-        overlay.hidden = true;
-    });
-
+    // Navigation Links
     document.querySelectorAll('.nav-link[data-view]').forEach((link) => {
         link.addEventListener('click', (event) => {
             event.preventDefault();
-            showView(link.dataset.view);
-            document.getElementById('sidebar').classList.remove('is-open');
-            overlay.hidden = true;
+            const view = link.dataset.view;
+            showView(view);
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('mobile-overlay');
+            if (sidebar) sidebar.classList.remove('is-open');
+            if (overlay) overlay.hidden = true;
         });
     });
 
-    document.getElementById('go-plan-btn').addEventListener('click', () => showView('plan'));
-    document.getElementById('add-task-btn').addEventListener('click', () => {
-        showView('create');
-        if (selectedCreateSubject) {
-            document.getElementById('create-task-name').focus();
-        } else {
-            document.querySelector('[data-create-subject]').focus();
-        }
-    });
-    document.getElementById('empty-goto-create').addEventListener('click', () => showView('create'));
-    document.getElementById('start-quiz-btn').addEventListener('click', () => showView('quiz'));
+    // Mobile Sidebar Toggles
+    const openMenuBtn = document.getElementById('open-sidebar-btn');
+    const closeMenuBtn = document.getElementById('close-sidebar-btn');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('mobile-overlay');
 
-    document.getElementById('cs-subject-grid').addEventListener('click', (event) => {
-        const card = event.target.closest('[data-create-subject]');
-        if (!card) return;
-        selectedCreateSubject = card.getAttribute('data-create-subject');
-        renderCreate();
-        document.getElementById('create-task-name').focus();
-    });
+    if (openMenuBtn && sidebar && overlay) {
+        openMenuBtn.addEventListener('click', () => {
+            sidebar.classList.add('is-open');
+            overlay.hidden = false;
+        });
+    }
 
-    document.getElementById('recent-tasks').addEventListener('click', (event) => {
-        const button = event.target.closest('[data-delete-recent-task]');
-        if (!button) return;
-        const id = button.getAttribute('data-delete-recent-task');
-        const task = tasks.find((item) => item.id === id);
-        if (!task) return;
-        pendingDelete = { type: 'task', id };
-        document.getElementById('confirm-copy').textContent = `“${task.name}” will be removed.`;
-        document.getElementById('confirm-modal').hidden = false;
-    });
+    const closeMenu = () => {
+        if (sidebar) sidebar.classList.remove('is-open');
+        if (overlay) overlay.hidden = true;
+    };
 
-    document.getElementById('create-task-form').addEventListener('submit', (event) => {
-        event.preventDefault();
-        if (!CS_SUBJECTS.some((subject) => subject.name === selectedCreateSubject)) {
-            toast('Choose a computer science subject first');
-            return;
-        }
-        const name = document.getElementById('create-task-name').value.trim();
-        const subject = selectedCreateSubject;
-        const day = document.getElementById('create-task-deadline').value;
-        const deadline = new Date(`${day}T17:00`).toISOString();
-        tasks.push({ id: generateId(), subject, name, deadline, completed: false });
-        persist();
-        document.getElementById('create-task-form').reset();
-        document.getElementById('create-task-deadline').value = dateInputValue();
-        render();
-        toast('Task saved in this browser');
-    });
+    if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeMenu);
+    if (overlay) overlay.addEventListener('click', closeMenu);
 
-    document.getElementById('search-input').addEventListener('input', (event) => {
-        searchQuery = event.target.value;
-        renderTaskList();
-    });
+    // Topbar Actions
+    const addTaskBtn = document.getElementById('add-task-btn');
+    if (addTaskBtn) addTaskBtn.addEventListener('click', () => openModal());
 
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            searchQuery = e.target.value;
+            renderTaskList();
+        });
+    }
+
+    // Task Filter Buttons
     document.querySelectorAll('.filter-btn').forEach((btn) => {
         btn.addEventListener('click', () => {
-            document.querySelectorAll('.filter-btn').forEach((item) => item.classList.remove('is-on'));
+            document.querySelectorAll('.filter-btn').forEach((b) => b.classList.remove('is-on'));
             btn.classList.add('is-on');
             currentFilter = btn.dataset.filter;
             renderTaskList();
         });
     });
 
-    document.getElementById('subject-tabs').addEventListener('click', (event) => {
-        const tab = event.target.closest('[data-subject]');
-        if (!tab) return;
-        currentSubjectTab = tab.dataset.subject;
-        renderSubjectTabs();
-        renderTaskList();
-    });
+    // Subject Filter Tabs
+    const subjectTabs = document.getElementById('subject-tabs');
+    if (subjectTabs) {
+        subjectTabs.addEventListener('click', (e) => {
+            const btn = e.target.closest('.tab-chip');
+            if (!btn) return;
+            currentSubjectTab = btn.dataset.subject;
+            renderSubjectTabs();
+            renderTaskList();
+        });
+    }
 
-    document.getElementById('task-container').addEventListener('click', (event) => {
-        const toggleBtn = event.target.closest('.toggle-btn');
-        const deleteBtn = event.target.closest('.delete-btn');
-        const editBtn = event.target.closest('.edit-btn');
-        if (toggleBtn) {
-            const task = tasks.find((item) => item.id === toggleBtn.dataset.id);
-            if (!task) return;
-            task.completed = !task.completed;
-            persist();
+    // Scrollable Subjects Container clicks
+    const scrollContainer = document.getElementById('subject-scroll-container');
+    if (scrollContainer) {
+        scrollContainer.addEventListener('click', (e) => {
+            const card = e.target.closest('.scrollable-subject-card');
+            if (!card) return;
+            const slug = card.dataset.subjectSlug;
+            if (!slug) return;
+
+            if (selectedEnrolledSlugs.has(slug)) {
+                selectedEnrolledSlugs.delete(slug);
+            } else {
+                selectedEnrolledSlugs.add(slug);
+            }
+
+            renderScrollableSubjects();
+            fillSubjectSelects();
+        });
+    }
+
+    // Subject Search & Category Filter
+    const subjectSearchInput = document.getElementById('subject-search-input');
+    if (subjectSearchInput) {
+        subjectSearchInput.addEventListener('input', (e) => {
+            subjectSearchQuery = e.target.value;
+            renderScrollableSubjects();
+        });
+    }
+
+    const catChips = document.getElementById('subject-category-chips');
+    if (catChips) {
+        catChips.addEventListener('click', (e) => {
+            const chip = e.target.closest('.subject-category-chip');
+            if (!chip) return;
+            document.querySelectorAll('.subject-category-chip').forEach(c => c.classList.remove('is-active'));
+            chip.classList.add('is-active');
+            subjectCategoryFilter = chip.dataset.cat;
+            renderScrollableSubjects();
+        });
+    }
+
+    // Save Subjects Button
+    const saveSubjectsBtn = document.getElementById('save-subjects-btn');
+    if (saveSubjectsBtn) {
+        saveSubjectsBtn.addEventListener('click', saveAcademicProfileAndSubjects);
+    }
+
+    // Quick Task Form in Subjects View
+    const quickTaskForm = document.getElementById('create-task-form');
+    if (quickTaskForm) {
+        quickTaskForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const subject = document.getElementById('create-task-subject-select').value;
+            const title = document.getElementById('create-task-name').value.trim();
+            const deadlineDate = document.getElementById('create-task-deadline').value;
+
+            if (!subject || !title || !deadlineDate || !currentUser) return;
+
+            const deadlineIso = new Date(deadlineDate + 'T23:59:59').toISOString();
+            const subjectId = getSubjectId(subject);
+
+            const { data, error } = await apiCreateTask({
+                studentId: currentUser.id,
+                subjectId,
+                title,
+                deadline: deadlineIso
+            });
+
+            if (error) {
+                toast(`Error saving task: ${error.message}`);
+                return;
+            }
+
+            tasks.push({
+                id: data ? data.id : `task-${Date.now()}`,
+                subject,
+                subject_id: subjectId,
+                name: title,
+                deadline: deadlineIso,
+                completed: false
+            });
+
+            document.getElementById('create-task-name').value = '';
+            toast('Task created successfully!');
             render();
-            toast(task.completed ? 'Marked completed' : 'Marked pending');
-            if (task.completed) burst(event.clientX, event.clientY);
-        }
-        if (deleteBtn) {
-            const task = tasks.find((item) => item.id === deleteBtn.dataset.id);
-            pendingDelete = { type: 'task', id: deleteBtn.dataset.id };
-            document.getElementById('confirm-copy').textContent = task ? `“${task.name}” will be removed.` : 'This cannot be undone.';
-            document.getElementById('confirm-modal').hidden = false;
-        }
-        if (editBtn) {
-            const task = tasks.find((item) => item.id === editBtn.dataset.id);
-            if (task) openModal(task);
-        }
-    });
+        });
+    }
 
-    document.getElementById('task-form').addEventListener('submit', (event) => {
-        event.preventDefault();
-        const id = document.getElementById('task-id').value;
-        const index = tasks.findIndex((task) => task.id === id);
-        if (index > -1) {
-            tasks[index] = {
-                ...tasks[index],
-                subject: document.getElementById('task-subject').value,
-                name: document.getElementById('task-name').value.trim(),
-                deadline: new Date(document.getElementById('task-deadline').value).toISOString()
-            };
-            persist();
+    // Modal Task Form
+    const taskForm = document.getElementById('task-form');
+    if (taskForm) {
+        taskForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('task-id').value;
+            const subject = document.getElementById('task-subject').value;
+            const title = document.getElementById('task-name').value.trim();
+            const deadline = new Date(document.getElementById('task-deadline').value).toISOString();
+
+            if (!title || !currentUser) return;
+
+            const subjectId = getSubjectId(subject);
+
+            if (id) {
+                // Edit existing
+                const { error } = await apiUpdateTask(id, { title, deadline, subjectId });
+                if (error) {
+                    toast(`Error: ${error.message}`);
+                    return;
+                }
+                const found = tasks.find(t => t.id === id);
+                if (found) {
+                    found.name = title;
+                    found.subject = subject;
+                    found.subject_id = subjectId;
+                    found.deadline = deadline;
+                }
+                toast('Task updated');
+            } else {
+                // Create new
+                const { data, error } = await apiCreateTask({
+                    studentId: currentUser.id,
+                    subjectId,
+                    title,
+                    deadline
+                });
+                if (error) {
+                    toast(`Error: ${error.message}`);
+                    return;
+                }
+                tasks.push({
+                    id: data ? data.id : `task-${Date.now()}`,
+                    subject,
+                    subject_id: subjectId,
+                    name: title,
+                    deadline,
+                    completed: false
+                });
+                toast('Task created');
+            }
+
+            closeModal();
             render();
-            toast('Task updated');
-        }
-        closeModal();
+        });
+    }
+
+    const cancelModalBtn = document.getElementById('cancel-modal-btn');
+    const closeModalBtn = document.getElementById('close-modal-btn');
+    const modalBackdrop = document.getElementById('modal-backdrop');
+    [cancelModalBtn, closeModalBtn, modalBackdrop].forEach(el => {
+        if (el) el.addEventListener('click', closeModal);
     });
 
-    document.getElementById('close-modal-btn').addEventListener('click', closeModal);
-    document.getElementById('cancel-modal-btn').addEventListener('click', closeModal);
-    document.getElementById('modal-backdrop').addEventListener('click', closeModal);
+    // Task List Card Action Delegation
+    const taskContainer = document.getElementById('task-container');
+    if (taskContainer) {
+        taskContainer.addEventListener('click', async (e) => {
+            // Complete toggle
+            const toggleBtn = e.target.closest('.toggle-btn');
+            if (toggleBtn) {
+                const id = toggleBtn.dataset.id;
+                const task = tasks.find(t => t.id === id);
+                if (!task) return;
 
-    document.getElementById('confirm-cancel').addEventListener('click', () => {
-        document.getElementById('confirm-modal').hidden = true;
-        pendingDelete = null;
-    });
-    document.getElementById('confirm-backdrop').addEventListener('click', () => {
-        document.getElementById('confirm-modal').hidden = true;
-        pendingDelete = null;
-    });
-    document.getElementById('confirm-delete').addEventListener('click', () => {
-        if (pendingDelete?.type === 'task') tasks = tasks.filter((task) => task.id !== pendingDelete.id);
-        if (pendingDelete?.type === 'subject') subjects = subjects.filter((subject) => subject.id !== pendingDelete.id);
-        pendingDelete = null;
-        document.getElementById('confirm-modal').hidden = true;
-        persist();
-        render();
-        toast('Removed');
-    });
+                const newState = !task.completed;
+                task.completed = newState;
 
-    document.getElementById('quiz-start-btn').addEventListener('click', () => {
-        const subject = document.getElementById('quiz-subject').value;
-        quiz = { subject, mode: 'standard', questions: quizQuestionsFor(subject, 15), index: 0, answers: [], timeLeft: 30, deadline: 0, finished: false };
-        setQuizStage('play');
-        renderQuizQuestion();
-    });
-    document.getElementById('quiz-rapid-btn').addEventListener('click', () => {
-        const subject = document.getElementById('quiz-subject').value;
-        quiz = { subject, mode: 'rapid', questions: quizQuestionsFor(subject, 10), index: 0, answers: [], timeLeft: 30, deadline: 0, finished: false };
-        setQuizStage('play');
-        renderQuizQuestion();
-        startRapidQuizTimer();
-    });
-    document.getElementById('quiz-options').addEventListener('change', (event) => {
-        refreshRapidQuizTimer();
-        if (quiz.finished) return;
-        quiz.answers[quiz.index] = Number(event.target.value);
-        renderQuizQuestion();
-    });
-    document.getElementById('quiz-next-btn').addEventListener('click', () => {
-        refreshRapidQuizTimer();
-        if (quiz.finished) return;
-        if (quiz.mode === 'standard' && quiz.answers[quiz.index] == null) {
-            toast('Choose an answer first');
-            return;
-        }
-        if (quiz.index === quiz.questions.length - 1) {
-            finishQuiz();
-            return;
-        }
-        quiz.index += 1;
-        renderQuizQuestion();
-    });
-    document.getElementById('quiz-back-btn').addEventListener('click', () => {
-        refreshRapidQuizTimer();
-        if (quiz.finished) return;
-        if (quiz.index === 0) {
+                if (newState) {
+                    const rect = toggleBtn.getBoundingClientRect();
+                    burst(rect.left + rect.width / 2, rect.top + rect.height / 2);
+                }
+
+                await apiToggleTask(id, newState);
+                render();
+                return;
+            }
+
+            // Edit button
+            const editBtn = e.target.closest('.edit-btn');
+            if (editBtn) {
+                const id = editBtn.dataset.id;
+                const task = tasks.find(t => t.id === id);
+                if (task) openModal(task);
+                return;
+            }
+
+            // Delete button
+            const deleteBtn = e.target.closest('.delete-btn');
+            if (deleteBtn) {
+                const id = deleteBtn.dataset.id;
+                const task = tasks.find(t => t.id === id);
+                if (task) {
+                    pendingDelete = id;
+                    document.getElementById('confirm-copy').textContent = `Are you sure you want to delete “${task.name}”?`;
+                    document.getElementById('confirm-modal').hidden = false;
+                }
+            }
+        });
+    }
+
+    // Recent list delete
+    const recentTasks = document.getElementById('recent-tasks');
+    if (recentTasks) {
+        recentTasks.addEventListener('click', async (e) => {
+            const delBtn = e.target.closest('[data-delete-recent-task]');
+            if (!delBtn) return;
+            const id = delBtn.dataset.deleteRecentTask;
+            const task = tasks.find(t => t.id === id);
+            if (task) {
+                pendingDelete = id;
+                document.getElementById('confirm-copy').textContent = `Are you sure you want to delete “${task.name}”?`;
+                document.getElementById('confirm-modal').hidden = false;
+            }
+        });
+    }
+
+    // Confirm Delete Actions
+    const confirmDeleteBtn = document.getElementById('confirm-delete');
+    const confirmCancelBtn = document.getElementById('confirm-cancel');
+    const confirmBackdrop = document.getElementById('confirm-backdrop');
+    const confirmModal = document.getElementById('confirm-modal');
+
+    const closeConfirm = () => {
+        if (confirmModal) confirmModal.hidden = true;
+        pendingDelete = null;
+    };
+
+    if (confirmCancelBtn) confirmCancelBtn.addEventListener('click', closeConfirm);
+    if (confirmBackdrop) confirmBackdrop.addEventListener('click', closeConfirm);
+
+    if (confirmDeleteBtn) {
+        confirmDeleteBtn.addEventListener('click', async () => {
+            if (!pendingDelete) return;
+            const id = pendingDelete;
+            closeConfirm();
+            tasks = tasks.filter(t => t.id !== id);
+            await apiDeleteTask(id);
+            toast('Task deleted');
+            render();
+        });
+    }
+
+    // Empty state redirect button
+    const emptyGotoCreate = document.getElementById('empty-goto-create');
+    if (emptyGotoCreate) {
+        emptyGotoCreate.addEventListener('click', () => openModal());
+    }
+
+    // Start quiz buttons
+    const startQuizBtn = document.getElementById('start-quiz-btn');
+    if (startQuizBtn) {
+        startQuizBtn.addEventListener('click', () => {
+            showView('quiz');
             setQuizStage('setup');
-            return;
-        }
-        quiz.index -= 1;
-        renderQuizQuestion();
-    });
-    document.getElementById('quiz-retake-btn').addEventListener('click', () => setQuizStage('setup'));
-    document.getElementById('quiz-to-plan-btn').addEventListener('click', () => setQuizStage('setup'));
+        });
+    }
 
+    const quizStartBtn = document.getElementById('quiz-start-btn');
+    if (quizStartBtn) quizStartBtn.addEventListener('click', () => startQuiz('standard'));
+
+    const quizRapidBtn = document.getElementById('quiz-rapid-btn');
+    if (quizRapidBtn) quizRapidBtn.addEventListener('click', () => startQuiz('rapid'));
+
+    // Quiz Options & Navigation
+    const quizOptions = document.getElementById('quiz-options');
+    if (quizOptions) {
+        quizOptions.addEventListener('change', (event) => {
+            refreshRapidQuizTimer();
+            if (quiz.finished) return;
+            quiz.answers[quiz.index] = Number(event.target.value);
+            renderQuizQuestion();
+        });
+    }
+
+    const quizNext = document.getElementById('quiz-next-btn');
+    if (quizNext) {
+        quizNext.addEventListener('click', () => {
+            refreshRapidQuizTimer();
+            if (quiz.finished) return;
+            if (quiz.mode === 'standard' && quiz.answers[quiz.index] == null) {
+                toast('Choose an answer first');
+                return;
+            }
+            if (quiz.index === quiz.questions.length - 1) {
+                finishQuiz();
+                return;
+            }
+            quiz.index += 1;
+            renderQuizQuestion();
+        });
+    }
+
+    const quizBack = document.getElementById('quiz-back-btn');
+    if (quizBack) {
+        quizBack.addEventListener('click', () => {
+            refreshRapidQuizTimer();
+            if (quiz.finished) return;
+            if (quiz.index === 0) {
+                setQuizStage('setup');
+                return;
+            }
+            quiz.index -= 1;
+            renderQuizQuestion();
+        });
+    }
+
+    const quizRetake = document.getElementById('quiz-retake-btn');
+    if (quizRetake) quizRetake.addEventListener('click', () => setQuizStage('setup'));
+
+    const quizToPlan = document.getElementById('quiz-to-plan-btn');
+    if (quizToPlan) quizToPlan.addEventListener('click', () => setQuizStage('setup'));
+
+    // Profile Modal Events
+    const openProfileBtn = document.getElementById('open-profile-btn');
+    const profileModal = document.getElementById('profile-modal');
+    const closeProfileBtn = document.getElementById('close-profile-btn');
+    const profileBackdrop = document.getElementById('profile-backdrop');
+
+    if (openProfileBtn && profileModal) {
+        openProfileBtn.addEventListener('click', () => {
+            profileModal.hidden = false;
+        });
+    }
+    const closeProfile = () => { if (profileModal) profileModal.hidden = true; };
+    if (closeProfileBtn) closeProfileBtn.addEventListener('click', closeProfile);
+    if (profileBackdrop) profileBackdrop.addEventListener('click', closeProfile);
+
+    // Profile Name Form
+    const profileNameForm = document.getElementById('profile-name-form');
+    if (profileNameForm) {
+        profileNameForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const newName = document.getElementById('profile-name-input').value.trim();
+            if (!newName || !currentUser) return;
+
+            const { error } = await updateDisplayName(currentUser.id, newName);
+            if (error) {
+                toast(`Error: ${error.message}`);
+            } else {
+                if (currentProfile) currentProfile.full_name = newName;
+                renderUserProfile();
+                toast('Display name updated');
+                closeProfile();
+            }
+        });
+    }
+
+    // Profile Password Form
+    const profilePasswordForm = document.getElementById('profile-password-form');
+    if (profilePasswordForm) {
+        profilePasswordForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const newPassword = document.getElementById('profile-new-password').value;
+            if (!newPassword || newPassword.length < 8) {
+                toast('Password must be at least 8 characters');
+                return;
+            }
+
+            const { error } = await updatePassword(newPassword);
+            if (error) {
+                toast(`Error: ${error.message}`);
+            } else {
+                toast('Password changed successfully');
+                document.getElementById('profile-new-password').value = '';
+                closeProfile();
+            }
+        });
+    }
+
+    // Logout
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', async () => {
+            await signOut();
+        });
+    }
+
+    // Global Keybindings
     document.addEventListener('visibilitychange', refreshRapidQuizTimer);
     document.addEventListener('keydown', (event) => {
         const typing = ['INPUT', 'TEXTAREA', 'SELECT'].includes(event.target.tagName);
         if (event.key === 'Escape') {
             closeModal();
-            document.getElementById('confirm-modal').hidden = true;
+            closeProfile();
+            if (confirmModal) confirmModal.hidden = true;
         }
         if (!typing && event.key === '/') {
             event.preventDefault();
-            showView('plan');
-            document.getElementById('search-input').focus();
+            showView('tasks');
+            const searchEl = document.getElementById('search-input');
+            if (searchEl) searchEl.focus();
         }
     });
 
+    // Hash change router
     window.addEventListener('hashchange', () => {
         const view = location.hash.replace('#', '');
-        if (['create', 'plan', 'quiz'].includes(view) && view !== currentView) showView(view);
+        if (['dashboard', 'tasks', 'subjects', 'analytics', 'quiz', 'create', 'plan', 'onboarding'].includes(view) && view !== currentView) {
+            showView(view);
+        }
     });
 }
 
@@ -807,19 +1658,36 @@ function initTheme() {
     const html = document.documentElement;
     const stored = localStorage.getItem(THEME_KEY);
     html.classList.toggle('dark', stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches);
-    document.getElementById('theme-toggle-btn').addEventListener('click', () => {
-        html.classList.toggle('dark');
-        localStorage.setItem(THEME_KEY, html.classList.contains('dark') ? 'dark' : 'light');
-    });
+    const themeBtn = document.getElementById('theme-toggle-btn');
+    if (themeBtn) {
+        themeBtn.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.setItem(THEME_KEY, html.classList.contains('dark') ? 'dark' : 'light');
+        });
+    }
 }
 
-function init() {
+async function init() {
     initTheme();
-    loadData();
     setupEventListeners();
-    document.getElementById('create-task-deadline').value = dateInputValue();
+    initAcademicHierarchy();
+
+    const deadlineInput = document.getElementById('create-task-deadline');
+    if (deadlineInput) deadlineInput.value = dateInputValue();
+
     const initial = location.hash.replace('#', '');
-    showView(['create', 'plan', 'quiz'].includes(initial) ? initial : 'create');
+    showView(['dashboard', 'tasks', 'subjects', 'analytics', 'quiz'].includes(initial) ? initial : 'dashboard');
+
+    // Load user data from Supabase
+    await loadUserData();
+
+    // Listen for auth state changes
+    onAuthStateChange((event, session) => {
+        if (event === 'SIGNED_OUT') {
+            window.location.href = 'auth/login.html';
+        }
+    });
+
     setInterval(updateDashboard, 60000);
 }
 

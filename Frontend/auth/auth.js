@@ -112,6 +112,45 @@
     const signupForm = $("signup-form");
     if (signupForm) {
         const password = $("password");
+        const country = $("country");
+        const university = $("university");
+        const universities = {
+            "South Asia": [
+                "Tribhuvan University",
+                "Kathmandu University",
+                "Pokhara University",
+                "University of Dhaka",
+                "University of Colombo",
+                "University of Delhi",
+                "University of Mumbai",
+                "Other South Asian university or college"
+            ],
+            "South Korea": [
+                "Ulsan College",
+                "Ulsan National Institute of Science and Technology",
+                "Seoul National University",
+                "Korea University",
+                "Yonsei University",
+                "Pusan National University",
+                "Other South Korean university or college"
+            ]
+        };
+
+        if (country && university) {
+            const updateUniversities = function () {
+                const options = universities[country.value] || [];
+                university.innerHTML =
+                    '<option value="">Select your university or college</option>' +
+                    options.map(function (name) {
+                        return '<option value="' + name + '">' + name + '</option>';
+                    }).join("");
+                setError(country, "");
+                setError(university, "");
+            };
+            country.addEventListener("change", updateUniversities);
+            updateUniversities();
+        }
+
         ["input", "change"].forEach(function (eventName) {
             password.addEventListener(eventName, function () {
                 updateRulePills(password.value);
@@ -123,6 +162,8 @@
             const name = $("name");
             const email = $("email");
             const confirm = $("confirm");
+            const country = $("country");
+            const university = $("university");
             const alertBox = $("form-alert");
             let valid = true;
 
@@ -138,6 +179,20 @@
                 valid = false;
             } else {
                 setError(email, "");
+            }
+
+            if (country && !country.value) {
+                setError(country, "Select your region.");
+                valid = false;
+            } else if (country) {
+                setError(country, "");
+            }
+
+            if (university && !university.value) {
+                setError(university, "Select your university or college.");
+                valid = false;
+            } else if (university) {
+                setError(university, "");
             }
 
             if (!passwordValid(password.value)) {

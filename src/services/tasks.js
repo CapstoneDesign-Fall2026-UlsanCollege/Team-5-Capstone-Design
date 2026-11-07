@@ -1,92 +1,121 @@
 /**
  * Task Service
  * 
- * CRUD operations for study tasks stored in Supabase PostgreSQL.
- * Replaces the localStorage-based persistence from the original app.
+ * Supports both live Supabase PostgreSQL queries and local storage fallback.
  */
-import { supabase } from '../lib/supabase.js';
+import { supabase, isConfigured } from '../lib/supabase.js';
 
-/**
- * Get all tasks for the authenticated student.
- * @param {string} studentId
- * @returns {Promise<{ data: object[]|null, error: object|null }>}
- */
+const LOCAL_TASKS_KEY = 'smart_study_tasks';
+
+function getLocalTasks() {
+  try {
+    const raw = localStorage.getItem(LOCAL_TASKS_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch (_) {
+    return [];
+  }
+}
+
+function saveLocalTasks(tasks) {
+  localStorage.setItem(LOCAL_TASKS_KEY, JSON.stringify(tasks));
+}
+
 export async function getTasks(studentId) {
-  const { data, error } = await supabase
-    .from('tasks')
-    .select('*, subject:subjects(id, name, slug)')
-    .eq('student_id', studentId)
-    .order('deadline', { ascending: true });
-  return { data, error };
+  if (isConfigured) {
+    try {
+      const { data, error } = await supabase
+        .from('tasks')
+        .select('*, subject:subjects(id, name, slug)')
+        .eq('student_id', studentId)
+        .order('deadline', { ascending: true });
+      return { data, error };
+    } catch (err) {
+      return { data: null, error: err };
+    }
+  }
+
+  const tasks = getLocalTasks();
+  return { data: tasks, error: null };
 }
 
-/**
- * Get tasks for a specific subject.
- * @param {string} studentId
- * @param {string} subjectId
- */
 export async function getTasksBySubject(studentId, subjectId) {
-  const { data, error } = await supabase
-    .from('tasks')
-    .select('*, subject:subjects(id, name, slug)')
-    .eq('student_id', studentId)
-    .eq('subject_id', subjectId)
-    .order('deadline', { ascending: true });
-  return { data, error };
+  if (isConfigured) {
+    return supabase
+      .from('tasks')
+      .select('*, subject:subjects(id, name, slug)')
+      .eq('student_id', studentId)
+      .eq('subject_id', subjectId)
+      .order('deadline', { ascending: true });
+  }
+
+  const tasks = getLocalTasks().filter(t => t.subject_id === subjectId || t.subject === subjectId);
+  return { data: tasks, error: null };
 }
 
-/**
- * Create a new task.
- * @param {{ student_id: string, subject_id: string, title: string, deadline: string }} task
- */
 export async function createTask(task) {
-  const { data, error } = await supabase
-    .from('tasks')
-    .insert({
-      student_id: task.student_id,
-      subject_id: task.subject_id,
-      title: task.title,
-      deadline: task.deadline,
-      completed: false,
-    })
-    .select('*, subject:subjects(id, name, slug)')
-    .single();
-  return { data, error };
+  if (isConfigured) {
+    return supabase
+      .from('tasks')
+      .insert({
+        student_id: task.student_id,
+        subject_id: task.subject_id,
+        title: task.title,
+        deadline: task.deadline,
+        completed: false,
+      })
+      .select('*, subject:subjects(id, name, slug)')
+      .single();
+  }
+
+  const tasks = getLocalTasks();
+  const newTask = {
+    id: 'local-task-' + Math.random().toString(36).slice(2, 9),
+    student_id: task.student_id,
+    subject_id: task.subject_id,
+    title: task.title,
+    deadline: task.deadline,
+    completed: false,
+    created_at: new Date().toISOString(),
+  };
+  tasks.push(newTask);
+  saveLocalTasks(tasks);
+  return { data: newTask, error: null };
 }
 
-/**
- * Update a task.
- * @param {string} taskId
- * @param {object} updates - Fields to update (title, deadline, subject_id, completed).
- */
 export async function updateTask(taskId, updates) {
-  const { data, error } = await supabase
-    .from('tasks')
-    .update({ ...updates, updated_at: new Date().toISOString() })
-    .eq('id', taskId)
-    .select('*, subject:subjects(id, name, slug)')
-    .single();
-  return { data, error };
+  if (isConfigured) {
+    return supabase
+      .from('tasks')
+      .update({ ...updates, updated_at: new Date().toISOString() })
+      .eq('id', taskId)
+      .select('*, subject:subjects(id, name, slug)')
+      .single();
+  }
+
+  const tasks = getLocalTasks();
+  const idx = tasks.findIndex(t => t.id === taskId);
+  if (idx > -1) {
+    tasks[idx] = { ...tasks[idx], ...updates, updated_at: new Date().toISOString() };
+    saveLocalTasks(tasks);
+    return { data: tasks[idx], error: null };
+  }
+  return { data: null, error: { message: 'Task not found' } };
 }
 
-/**
- * Toggle task completion status.
- * @param {string} taskId
- * @param {boolean} completed
- */
 export async function toggleTask(taskId, completed) {
   return updateTask(taskId, { completed });
 }
 
-/**
- * Delete a task.
- * @param {string} taskId
- */
 export async function deleteTask(taskId) {
-  const { error } = await supabase
-    .from('tasks')
-    .delete()
-    .eq('id', taskId);
-  return { error };
-}
+  if (isConfigured) {
+    return supabase
+      .from('tasks')
+      .delete()
+      .eq('id', taskId);
+  }
 
+  let tasks = getLocalTasks();
+  tasks = tasks.filter(t => t.id !== taskId);
+  saveLocalTasks(tasks);
+  return { error: null };
+}

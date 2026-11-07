@@ -57,6 +57,24 @@
                     <p id="email-error" class="field-error"></p>
 
                     <label>
+                        Region
+                        <select id="country" name="country" required aria-describedby="country-error">
+                            <option value="">Select your region</option>
+                            <option value="South Asia">South Asia</option>
+                            <option value="South Korea">South Korea</option>
+                        </select>
+                    </label>
+                    <p id="country-error" class="field-error"></p>
+
+                    <label>
+                        University or college
+                        <select id="university" name="university" required aria-describedby="university-error">
+                            <option value="">Select your university or college</option>
+                        </select>
+                    </label>
+                    <p id="university-error" class="field-error"></p>
+
+                    <label>
                         Password
                         <span class="field-wrap">
                             <input id="password" name="password" type="password" autocomplete="new-password" required aria-describedby="password-error password-rules">
