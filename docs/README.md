@@ -29,6 +29,8 @@ This folder is the project documentation hub. It keeps weekly records, testing e
 | Week 6 | Tested-by evidence package and midterm readiness | [Week 6 index](Week6/README.md) |
 | Week 8 | Post-midterm lesson and personal evidence update | [Week 8 weekly report](week8/weekly-report.md) |
 | Week 8 | Login/signup feature proposal | [Login & Signup Feature Suggestions](week8/login_signup_feature_suggestions.md) |
+| Week 9 | Supabase migration, QA matrix, and demo roadmap | [Week 9 weekly report](week9/weekly-report.md) |
+| Week 10 | Own a Slice, Steward an Area & Study Task Analytics | [Week 10 weekly report](week_10/weekly-report.md) · [Week 10 Slice.md](week_10/Slice.md) |
 
 ## Current Evidence Trail
 

@@ -23,3 +23,9 @@ Every claim should link to proof. If proof is missing, mark the item as pending 
 | QA case matrix, contribution evidence, and demo acceptance/fallback plan | Documentation recorded on branch `docs/week9-rai-evidence`; fresh browser/live account tests remain **Not run** unless separately recorded. | [Week 9 report](week9/weekly-report.md); [QA Evidence Matrix](week9/QA_EVIDENCE_MATRIX.md); [Final Demo Roadmap](week9/FINAL_DEMO_ROADMAP.md) |
 
 This entry updates the roadmap with the current Week 9 documentation record. Earlier planning rows are retained as historical roadmap entries; their statuses are not evidence of implementation or testing.
+
+## Week 10 documentation update (2026-11-07)
+
+| Focus | Status | Evidence |
+|---|---|---|
+| Own a Slice, Steward an Area (`Slice.md`), Study Task Analytics (`#analytics`), Academic Hierarchy Onboarding (`#subjects`), and Team 5 Member Action Table | Implemented & documented on `main` | [Week 10 Weekly Report](week_10/weekly-report.md); [Week 10 Slice.md](week_10/Slice.md); [Issue #48](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/48); [PR #46](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/46) |
