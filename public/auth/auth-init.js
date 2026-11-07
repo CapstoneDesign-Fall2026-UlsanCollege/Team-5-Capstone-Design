@@ -277,16 +277,20 @@ function initSignup() {
 
   if (countryInput && universityInput) {
     const updateUniversities = () => {
+      const prevUni = universityInput.value;
       const universities = universitiesFor(countryInput.value);
       universityInput.innerHTML =
         '<option value="">Select your university or college</option>' +
         universities.map((name) => `<option value="${name}">${name}</option>`).join('');
+      if (prevUni && universities.includes(prevUni)) {
+        universityInput.value = prevUni;
+      }
       setError(countryInput, '');
       setError(universityInput, '');
     };
 
     countryInput.addEventListener('change', updateUniversities);
-    countryInput.addEventListener('input', updateUniversities);
+    universityInput.addEventListener('change', () => setError(universityInput, ''));
     updateUniversities();
   }
 

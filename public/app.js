@@ -434,12 +434,19 @@ function visibleTasks() {
 }
 
 // ---- Academic Hierarchy & Subject Selection ----
+let hierarchyListenersAttached = false;
+
 function initAcademicHierarchy() {
     const countryEl = document.getElementById('academic-country');
     const uniEl = document.getElementById('academic-university');
     const facEl = document.getElementById('academic-faculty');
     const majorEl = document.getElementById('academic-major');
     if (!countryEl || !uniEl) return;
+
+    const prevCountry = countryEl.value;
+    const prevUni = uniEl.value;
+    const prevFac = facEl ? facEl.value : '';
+    const prevMajor = majorEl ? majorEl.value : '';
 
     // Populate countries
     const countries = getCountries();
@@ -453,38 +460,46 @@ function initAcademicHierarchy() {
             faculties.map(f => `<option value="${escapeHtml(f)}">${escapeHtml(f)}</option>`).join('');
     }
 
-    const updateUniversities = () => {
+    const updateUniversities = (preferredUni = '') => {
         const country = countryEl.value;
         const universities = getUniversities(country);
         uniEl.innerHTML = '<option value="">Select university...</option>' +
             universities.map(u => `<option value="${escapeHtml(u)}">${escapeHtml(u)}</option>`).join('');
-        if (currentProfile?.university) {
-            uniEl.value = currentProfile.university;
+        if (preferredUni && universities.includes(preferredUni)) {
+            uniEl.value = preferredUni;
         }
     };
 
-    const updateMajors = () => {
+    const updateMajors = (preferredMajor = '') => {
         if (!facEl || !majorEl) return;
         const faculty = facEl.value;
         const majors = getMajors(faculty);
         majorEl.innerHTML = '<option value="">Select major...</option>' +
             majors.map(m => `<option value="${escapeHtml(m)}">${escapeHtml(m)}</option>`).join('');
-        if (currentProfile?.major) {
-            majorEl.value = currentProfile.major;
+        if (preferredMajor && majors.includes(preferredMajor)) {
+            majorEl.value = preferredMajor;
         }
     };
 
-    countryEl.addEventListener('change', updateUniversities);
-    if (facEl) facEl.addEventListener('change', updateMajors);
-
-    // Prefill from current profile
-    if (currentProfile?.country) {
-        countryEl.value = currentProfile.country;
-        updateUniversities();
+    if (!hierarchyListenersAttached) {
+        countryEl.addEventListener('change', () => updateUniversities(uniEl.value));
+        if (facEl) facEl.addEventListener('change', () => updateMajors(majorEl ? majorEl.value : ''));
+        hierarchyListenersAttached = true;
     }
-    if (currentProfile?.faculty && facEl) {
-        facEl.value = currentProfile.faculty;
-        updateMajors();
+
+    // Prefill from current selection or loaded profile
+    const targetCountry = prevCountry || currentProfile?.country || '';
+    const targetUni = prevUni || currentProfile?.university || '';
+    const targetFac = prevFac || currentProfile?.faculty || '';
+    const targetMajor = prevMajor || currentProfile?.major || '';
+
+    if (targetCountry) {
+        countryEl.value = targetCountry;
+        updateUniversities(targetUni);
+    }
+    if (targetFac && facEl) {
+        facEl.value = targetFac;
+        updateMajors(targetMajor);
     }
 }
 
@@ -1655,6 +1670,7 @@ function initTheme() {
 async function init() {
     initTheme();
     setupEventListeners();
+    initAcademicHierarchy();
 
     const deadlineInput = document.getElementById('create-task-deadline');
     if (deadlineInput) deadlineInput.value = dateInputValue();

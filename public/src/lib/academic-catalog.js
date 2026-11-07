@@ -7,29 +7,19 @@
  */
 
 export const COUNTRIES = [
-  'Nepal',
   'South Korea',
+  'Nepal',
   'India',
   'Bangladesh',
   'Pakistan',
   'Sri Lanka',
   'Bhutan',
   'Maldives',
+  'South Asia',
   'Other / International'
 ];
 
 export const UNIVERSITIES_BY_COUNTRY = {
-  'Nepal': [
-    'Tribhuvan University (TU)',
-    'Kathmandu University (KU)',
-    'Pokhara University (PU)',
-    'Purbanchal University (PU)',
-    'Mid-Western University',
-    'Far-Western University',
-    'Nepal Open University',
-    'Agriculture and Forestry University',
-    'Other institution in Nepal'
-  ],
   'South Korea': [
     'Ulsan College',
     'Ulsan National Institute of Science and Technology (UNIST)',
@@ -41,6 +31,17 @@ export const UNIVERSITIES_BY_COUNTRY = {
     'Sungkyunkwan University (SKKU)',
     'Hanyang University',
     'Other institution in South Korea'
+  ],
+  'Nepal': [
+    'Tribhuvan University (TU)',
+    'Kathmandu University (KU)',
+    'Pokhara University (PU)',
+    'Purbanchal University (PU)',
+    'Mid-Western University',
+    'Far-Western University',
+    'Nepal Open University',
+    'Agriculture and Forestry University',
+    'Other institution in Nepal'
   ],
   'India': [
     'Indian Institute of Technology (IIT Bombay / Delhi / Madras)',
@@ -86,6 +87,22 @@ export const UNIVERSITIES_BY_COUNTRY = {
     'The Maldives National University',
     'Villa College',
     'Other institution in Maldives'
+  ],
+  'South Asia': [
+    'Tribhuvan University (TU)',
+    'Kathmandu University (KU)',
+    'Pokhara University (PU)',
+    'Purbanchal University (PU)',
+    'University of Delhi',
+    'University of Mumbai',
+    'Indian Institute of Technology (IIT)',
+    'University of Dhaka',
+    'Bangladesh University of Engineering and Technology (BUET)',
+    'National University of Sciences and Technology (NUST)',
+    'University of Colombo',
+    'Royal University of Bhutan',
+    'The Maldives National University',
+    'Other South Asian university or college'
   ],
   'Other / International': [
     'International College / University',
@@ -161,6 +178,10 @@ export function getUniversities(country) {
     'General College or University',
     'Open / Distance Learning College'
   ];
+}
+
+export function universitiesFor(country) {
+  return getUniversities(country);
 }
 
 export function getFaculties() {
