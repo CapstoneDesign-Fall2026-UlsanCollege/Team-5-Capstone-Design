@@ -12,6 +12,20 @@
 
 ---
 
+## 🌐 Live Online Application Links (GitHub Pages)
+
+Teammates and reviewers can open and test the live application directly in the browser:
+
+| Page | Live Online Link | Source File |
+|---|---|---|
+| **Student Dashboard & Analytics** | [Open Live Dashboard](https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/index.html) | [`public/index.html`](public/index.html), [`public/app.js`](public/app.js) |
+| **Student Sign Up (with Region & University)** | [Open Live Sign Up](https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/auth/signup.html) | [`public/auth/signup.html`](public/auth/signup.html), [`public/auth/auth-init.js`](public/auth/auth-init.js) |
+| **Student Sign In** | [Open Live Sign In](https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/auth/login.html) | [`public/auth/login.html`](public/auth/login.html) |
+| **Forgot Password / Recovery** | [Open Live Forgot Password](https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/auth/forgot-password.html) | [`public/auth/forgot-password.html`](public/auth/forgot-password.html) |
+| **Reset Password (OTP + Link)** | [Open Live Reset Password](https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/auth/reset-password.html) | [`public/auth/reset-password.html`](public/auth/reset-password.html) |
+
+---
+
 ## Documentation Navigation
 
 | Area | Purpose |

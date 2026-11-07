@@ -11,29 +11,29 @@
  * - Light / Dark mode persistence
  */
 
-import { supabase } from '../src/lib/supabase.js';
+import { supabase } from './src/lib/supabase.js';
 import {
     getCurrentUser,
     getSession,
     signOut,
     updatePassword,
     onAuthStateChange
-} from '../src/services/auth.js';
-import { getProfile, updateDisplayName, upsertProfile } from '../src/services/profile.js';
+} from './src/services/auth.js';
+import { getProfile, updateDisplayName, upsertProfile } from './src/services/profile.js';
 import {
     getTasks,
     createTask as apiCreateTask,
     updateTask as apiUpdateTask,
     toggleTask as apiToggleTask,
     deleteTask as apiDeleteTask
-} from '../src/services/tasks.js';
+} from './src/services/tasks.js';
 import {
     getDefaultSubjects,
     getAllSubjects,
     getStudentSubjects,
     saveStudentSubjects
-} from '../src/services/subjects.js';
-import { getQuizQuestions, saveQuizAttempt } from '../src/services/quiz.js';
+} from './src/services/subjects.js';
+import { getQuizQuestions, saveQuizAttempt } from './src/services/quiz.js';
 import {
     getCountries,
     getUniversities,
@@ -41,7 +41,7 @@ import {
     getMajors,
     SUBJECTS_CATALOG,
     searchSubjects
-} from '../src/lib/academic-catalog.js';
+} from './src/lib/academic-catalog.js';
 
 // ---- Constants ----
 const THEME_KEY = 'smart_study_theme';
