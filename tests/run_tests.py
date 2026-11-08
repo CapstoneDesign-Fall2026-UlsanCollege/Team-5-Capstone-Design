@@ -39,6 +39,7 @@ def test_file_structure():
         'src/services/tasks.js',
         'src/services/quiz.js',
         'src/auth-guard.js',
+        'public/src/theme.js',
         'supabase/migrations/001_profiles.sql',
         'supabase/migrations/002_subjects.sql',
         'supabase/migrations/003_tasks.sql',
@@ -244,6 +245,31 @@ def test_academic_catalog():
         assert 'searchSubjects' in content
     print("  ✓ Academic catalog hierarchy includes Korea, Nepal, accredited universities, and subjects.")
 
+def test_theme_toggle():
+    """Verify the sidebar theme toggle is wired and stays on screen."""
+    print("Testing Theme Toggle...")
+    with open(os.path.join(WORKSPACE, 'public', 'index.html'), encoding='utf-8') as f:
+        index_html = f.read()
+    with open(os.path.join(WORKSPACE, 'public', 'app.js'), encoding='utf-8') as f:
+        app_js = f.read()
+    with open(os.path.join(WORKSPACE, 'public', 'src', 'theme.js'), encoding='utf-8') as f:
+        theme_js = f.read()
+    with open(os.path.join(WORKSPACE, 'public', 'styles.css'), encoding='utf-8') as f:
+        styles = f.read()
+
+    assert 'id="theme-toggle-btn"' in index_html
+    assert 'Dark mode' in index_html
+    assert 'Light mode' in index_html
+    assert "import { initTheme } from './src/theme.js'" in app_js
+    assert 'initTheme()' in app_js
+    assert "THEME_KEY = 'smart_study_theme'" in theme_js
+    assert "classList.toggle('dark'" in theme_js
+    assert "getElementById('theme-toggle-btn')" in theme_js
+    assert 'min-height: 0' in styles
+    assert 'overflow-y: auto' in styles
+    assert 'flex-shrink: 0' in styles
+    print("  ✓ Sidebar theme toggle is present, saved, and kept on screen.")
+
 def main():
     print("=" * 60)
     print("  SMART STUDY COMPANION — AUTOMATED TEST SUITE")
@@ -256,8 +282,9 @@ def main():
         test_task_metrics_and_analytics_logic()
         test_quiz_scoring_logic()
         test_academic_catalog()
+        test_theme_toggle()
         print("=" * 60)
-        print("  ALL TESTS PASSED SUCCESSFULLY (7/7)")
+        print("  ALL TESTS PASSED SUCCESSFULLY (8/8)")
         print("=" * 60)
     except AssertionError as e:
         print(f"\n❌ TEST FAILED: {e}")
