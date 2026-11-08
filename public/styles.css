@@ -89,12 +89,14 @@ body {
 .sidebar {
     width: 280px;
     flex-shrink: 0;
+    min-height: 0;
     background: var(--sidebar);
     color: var(--sidebar-text);
     display: flex;
     flex-direction: column;
     padding: 22px 18px;
     gap: 18px;
+    overflow: hidden;
 }
 
 .brand {
@@ -127,7 +129,20 @@ body {
     font-size: 22px;
 }
 
-.side-nav { display: flex; flex-direction: column; gap: 8px; }
+.side-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+}
+
+.side-nav::-webkit-scrollbar { width: 6px; }
+.side-nav::-webkit-scrollbar-thumb {
+    background: rgba(239, 231, 216, 0.28);
+    border-radius: 99px;
+}
 
 .nav-link {
     color: inherit;
@@ -148,6 +163,7 @@ body {
 
 .focus-card {
     margin-top: auto;
+    flex-shrink: 0;
     padding: 16px;
     border-radius: 18px;
     background: rgba(255, 255, 255, 0.06);
@@ -191,6 +207,7 @@ body {
     align-items: center;
     gap: 10px;
     width: 100%;
+    flex-shrink: 0;
     padding: 11px 12px;
     border-radius: 14px;
     background: transparent;
@@ -878,6 +895,7 @@ kbd {
 .user-profile-card {
     display: flex;
     align-items: center;
+    flex-shrink: 0;
     gap: 12px;
     padding: 12px;
     border-radius: 16px;
