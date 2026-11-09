@@ -4,4 +4,4 @@
 <img width="1080" height="2340" alt="sidebar menu" src="https://github.com/user-attachments/assets/dee56493-6272-42fd-8908-f1d1f8bd6fcc" />
 <img width="1080" height="2340" alt="sub and uni" src="https://github.com/user-attachments/assets/d9618602-9737-4f90-93de-a2b856d55d62" />
 <img width="1080" height="2340" alt="task tracker" src="https://github.com/user-attachments/assets/51ada1b3-53c4-4a25-a548-b07f6c1e3a18" />
-<img width="1080" height="2340" alt="light mode" src="https://github.com/user-attachments/assets/fe4fff25-f291-4c23-81fb-553943ec982c" />
+
