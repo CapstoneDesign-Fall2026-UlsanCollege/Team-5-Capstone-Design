@@ -27,7 +27,8 @@ Our Week 10 goal is to follow the **"Own a Slice, Steward an Area"** milestone d
 - [ ] **Database Save/Read & RLS Verification (Slice 1 — Sumit Adhikari):** Verify task creation/retrieval in Supabase PostgreSQL and confirm Row-Level Security (RLS) blocks unauthorized cross-student access.
 - [ ] **Automated Functional & Regression Testing (Slice 2 — Prabin Rai):** Execute and document repeatable automated tests for task creation, invalid-input rejection, and persistence across reload.
 - [ ] **Authentication & End-to-End Session Verification (Slice 3 — Prince Karki):** Execute valid/invalid login, session restoration after page refresh, password recovery, and logout verification on the updated build.
-- [ ] **Responsive Dashboard & Theme UI Verification (Slice 4 — J.N. Taj Oli):** Verify desktop and mobile viewport responsiveness, navigation across all 5 views (`#dashboard`, `#tasks`, `#subjects`, `#analytics`, `#quiz`), and light/dark theme switching with before/after screenshots.
+- [ ] **Responsive Dashboard & Theme UI Verification (Slice 4 — J.N. Taj Oli):** Desktop and mobile viewport checks, navigation across all 5 views (`#dashboard`, `#tasks`, `#subjects`, `#analytics`, `#quiz`), and before/after screenshots are still open.
+- [x] **Light/dark theme toggle automated verification (Slice 4 — J.N. Taj Oli):** `npm test` passed on 2026-11-09 (4 files, 18 tests, 6 theme checks). Recorded in [`docs/week_10/THEME_TOGGLE_VERIFICATION.md`](THEME_TOGGLE_VERIFICATION.md). Commits [`3416d3b`](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/commit/3416d3b) and [`ba4e592`](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/commit/ba4e592). [Screenshot Evidence](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_10/Evidence/Automated%20test%20passed.png)
 
 ---
 
@@ -45,6 +46,7 @@ Our Week 10 goal is to follow the **"Own a Slice, Steward an Area"** milestone d
 | **Automated Verification Suite** | [`tests/run_tests.py`](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/tests/run_tests.py) | 7/7 check groups passing (`python3 tests/run_tests.py`) |
 | **Live Online App (Study Analytics)** | [Live Study Task Analytics (`#analytics`)](https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/index.html#analytics) | Live on GitHub Pages |
 | **Live Online App (Login / Signup)** | [Live Login](https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/auth/login.html) · [Live Signup](https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/auth/signup.html) | Live on GitHub Pages |
+| **Theme toggle automated verification** | [`docs/week_10/THEME_TOGGLE_VERIFICATION.md`](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_10/THEME_TOGGLE_VERIFICATION.md) | `npm test` PASS on 2026-11-09 by J.N. Taj Oli (`jn-oli`): 4 files, 18 tests, 6 theme checks. Browser click not run. |
 
 ---
 
@@ -58,7 +60,7 @@ Our Week 10 goal is to follow the **"Own a Slice, Steward an Area"** milestone d
 | **Sumit Adhikari** | `adronnie` | | | | |
 | **Prabin Rai** | `RaiPrabin697` | | | | |
 | **Prince Karki** | `princekark` | | | | |
-| **J.N. Taj Oli** | `jn-oli` | | | | |
+| **J.N. Taj Oli** | `jn-oli` | **Slice 4:** Light/dark theme toggle verification<br>**Area:** Sidebar theme button (`public/styles.css`, `public/src/theme.js`, `tests/unit/theme.test.js`) | Kept the theme button visible in the sidebar and added an automated theme check. `npm test` passed on 2026-11-09 (4 files, 18 tests, 6 theme checks). Desktop/mobile screenshots and the 5-view navigation check are still open. | • **Verification:** [`docs/week_10/THEME_TOGGLE_VERIFICATION.md`](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_10/THEME_TOGGLE_VERIFICATION.md)<br>• **Visibility commit:** [`3416d3b`](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/commit/3416d3b)<br>• **Test commit:** [`ba4e592`](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/commit/ba4e592)  [Screenshot Evidence](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_10/Evidence/Automated%20test%20passed.png)| **Theme check completed; screenshots still open** |
 
 ---
 
@@ -80,9 +82,12 @@ To make sure every teammate knows exactly what to execute and submit before the 
 
 ### 4. Prince Karki (`@princekark`) — Slice 3 (Authentication & E2E Testing)
 
-
 ### 5. J.N. Taj Oli (`@jn-oli`) — Slice 4 (UI/UX & Frontend Responsiveness)
-
+- [x] Keep the sidebar theme button visible (`3416d3b`).
+- [x] Add and run `npm test` for the light/dark toggle (`ba4e592`). Result: PASS, 4 files, 18 tests, 6 theme checks, on 2026-11-09.
+- [x] Record the result in [`THEME_TOGGLE_VERIFICATION.md`](THEME_TOGGLE_VERIFICATION.md).
+- [ ] Capture desktop and mobile screenshots of light and dark mode.
+- [ ] Check navigation across `#dashboard`, `#tasks`, `#subjects`, `#analytics`, and `#quiz`.
 ---
 
 ## 6. Blockers, Risks, and Decision Record

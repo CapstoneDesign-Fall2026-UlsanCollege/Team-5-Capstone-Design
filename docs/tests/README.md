@@ -12,6 +12,7 @@ This folder records how Team 5 checks visible behavior.
 | Quiz flow | [Demo 4](../Week6/Demo%204.png) | Pass |
 | Persistence after refresh | [Demo 5](../Week6/Demo%205.png) | Pass |
 | Theme consistency | [Demo 2](../Week6/Demo2.png) | Needs fix |
+| Theme toggle automated check | [Week 10 theme verification](../week_10/THEME_TOGGLE_VERIFICATION.md) | Pass — `npm test`, 2026-11-09 |
 
 ## Test Record Format
 
