@@ -260,6 +260,17 @@ async function loadUserData() {
 
         currentUser = session.user;
 
+        // Display loading state in subject picker
+        const scrollContainer = document.getElementById('subject-scroll-container');
+        if (scrollContainer && selectedEnrolledSlugs.size === 0) {
+            scrollContainer.innerHTML = `
+                <div class="empty-state" style="grid-column: 1 / -1; padding: 36px; text-align: center;">
+                    <i class="fa-solid fa-spinner fa-spin" style="font-size: 1.8rem; color: var(--amber);" aria-hidden="true"></i>
+                    <p style="margin-top: 10px; font-weight: 500;">Loading academic catalog &amp; curriculum...</p>
+                </div>
+            `;
+        }
+
         // Load student profile
         const { data: profile } = await getProfile(currentUser.id);
         currentProfile = profile;
@@ -468,15 +479,32 @@ function initAcademicHierarchy() {
 
     if (!hierarchyListenersAttached) {
         countryEl.addEventListener('change', () => {
-            updateUniversities(uniEl.value);
+            // Country changed: reset university and lower dependent selections
+            updateUniversities('');
+            if (facEl) facEl.value = '';
+            if (majorEl) {
+                majorEl.innerHTML = '<option value="">Select major...</option>';
+                majorEl.value = '';
+            }
+            selectedEnrolledSlugs.clear();
             onAcademicHierarchyChange(false);
         });
         uniEl.addEventListener('change', () => {
+            if (!uniEl.value) {
+                if (facEl) facEl.value = '';
+                if (majorEl) {
+                    majorEl.innerHTML = '<option value="">Select major...</option>';
+                    majorEl.value = '';
+                }
+                selectedEnrolledSlugs.clear();
+            }
             onAcademicHierarchyChange(false);
         });
         if (facEl) {
             facEl.addEventListener('change', () => {
-                updateMajors(majorEl ? majorEl.value : '');
+                // Faculty changed: update majors list and reset major selection
+                updateMajors('');
+                selectedEnrolledSlugs.clear();
                 onAcademicHierarchyChange(true);
             });
         }
@@ -662,6 +690,34 @@ async function saveAcademicProfileAndSubjects() {
     const university = document.getElementById('academic-university')?.value || currentProfile?.university || '';
     const faculty = document.getElementById('academic-faculty')?.value || currentProfile?.faculty || '';
     const major = document.getElementById('academic-major')?.value || currentProfile?.major || '';
+
+    // Enforce valid academic hierarchy selection
+    if (!country) {
+        toast('Please select your country or region.');
+        document.getElementById('academic-country')?.focus();
+        return;
+    }
+    if (!university) {
+        toast('Please select your university or college.');
+        document.getElementById('academic-university')?.focus();
+        return;
+    }
+    if (!faculty) {
+        toast('Please select your faculty or school.');
+        document.getElementById('academic-faculty')?.focus();
+        return;
+    }
+    if (!major) {
+        toast('Please select your department or major.');
+        document.getElementById('academic-major')?.focus();
+        return;
+    }
+    const validMajors = getMajors(faculty);
+    if (validMajors.length > 0 && !validMajors.includes(major)) {
+        toast('Selected major does not belong to the chosen faculty. Please re-select your major.');
+        document.getElementById('academic-major')?.focus();
+        return;
+    }
 
     if (selectedEnrolledSlugs.size === 0) {
         toast('Please select at least 1 subject to continue.');

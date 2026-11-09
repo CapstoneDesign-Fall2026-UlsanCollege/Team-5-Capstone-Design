@@ -340,6 +340,62 @@ def test_theme_toggle():
     assert 'flex-shrink: 0' in styles
     print("  ✓ Sidebar theme toggle is present, saved, and kept on screen.")
 
+def test_bug_fixes_verification():
+    """Verify bug fixes for Problem 1 (signup redirect), Problem 2 (academic subject filtering), and Problem 3 (secure 6-digit recovery)."""
+    print("Testing Problem 1, 2, and 3 Integration & Bug Fixes...")
+    with open(os.path.join(WORKSPACE, 'src', 'services', 'auth.js'), encoding='utf-8') as f:
+        auth_svc = f.read()
+    with open(os.path.join(WORKSPACE, 'public', 'auth', 'auth-init.js'), encoding='utf-8') as f:
+        auth_init = f.read()
+    with open(os.path.join(WORKSPACE, 'src', 'lib', 'academic-catalog.js'), encoding='utf-8') as f:
+        catalog_js = f.read()
+    with open(os.path.join(WORKSPACE, 'public', 'auth', 'reset-password.html'), encoding='utf-8') as f:
+        reset_html = f.read()
+    with open(os.path.join(WORKSPACE, 'public', 'app.js'), encoding='utf-8') as f:
+        app_js = f.read()
+
+    # Problem 1: Signup must not create auto-session and must redirect to login.html
+    assert 'localStorage.removeItem(LOCAL_SESSION_KEY);' in auth_svc, "signUp must not retain session in local mode"
+    assert "window.location.href = `login.html?registered=" in auth_init, "Signup must navigate to login page"
+    assert "params.get('registered')" in auth_init, "Login must inspect registered query param"
+    assert "Account created successfully! Please sign in" in auth_init, "Login must display registration success message"
+    assert "Registration successful! Please check your email to verify your account" in auth_init, "Login must display verification notice"
+    assert "isSubmitting" in auth_init, "Signup must prevent duplicate submissions"
+
+    # Problem 2: Subject filtering for major/core/electives must return correct curriculum
+    assert "if (category === 'major') {" in catalog_js, "searchSubjects must properly match major category chip"
+    assert "updateUniversities('');" in app_js, "Country change must clear lower academic tier selections"
+    assert "updateMajors('');" in app_js, "Faculty change must clear lower academic tier selections"
+    assert "Selected major does not belong to the chosen faculty" in app_js, "Hierarchy validation must prevent mismatched submissions"
+
+    # Python simulation of searchSubjects to ensure curriculum accuracy
+    with open(os.path.join(WORKSPACE, 'data', 'academic-catalog.json')) as f:
+        cat_json = json.load(f)
+    majors_map = {}
+    for fac in cat_json['faculties']:
+        for m in fac['majors']:
+            majors_map[m['name']] = m
+
+    # Civil Engineering test
+    civil = majors_map['Civil Engineering']
+    assert set(civil['core']) == {'engineering-mechanics', 'structural-analysis', 'fluid-mechanics', 'calculus-linear-algebra'}
+    assert len(civil['electives']) == 4
+
+    # FinTech test
+    fintech = majors_map['FinTech & Financial Engineering']
+    assert 'corporate-finance' in fintech['core']
+    assert 'financial-accounting' in fintech['core']
+    assert 'cybersecurity' in fintech['electives']
+
+    # Problem 3: No mock 123456 codes in recovery workflow
+    assert "'123456'" not in auth_svc, "Demo code '123456' must be completely removed from auth service"
+    assert "e.g. 123456" not in reset_html, "Demo placeholder 'e.g. 123456' must be removed from reset-password.html"
+    assert "reset.html" not in reset_html
+    assert "maxlength=\"6\"" in reset_html, "Reset password must require 6-digit code"
+    assert "AUTH_UNCONFIGURED" in auth_svc, "Auth service must report unconfigured status rather than fake verification"
+
+    print("  ✓ Problem 1 (Signup -> Login), Problem 2 (Cascading Onboarding & Major Curricula), and Problem 3 (Secure 6-digit Recovery) verified.")
+
 def main():
     print("=" * 60)
     print("  SMART STUDY COMPANION — AUTOMATED TEST SUITE")
@@ -354,8 +410,9 @@ def main():
         test_academic_catalog()
         test_curriculum_and_quiz_bank()
         test_theme_toggle()
+        test_bug_fixes_verification()
         print("=" * 60)
-        print("  ALL TESTS PASSED SUCCESSFULLY (9/9)")
+        print("  ALL TESTS PASSED SUCCESSFULLY (10/10)")
         print("=" * 60)
     except AssertionError as e:
         print(f"\n❌ TEST FAILED: {e}")

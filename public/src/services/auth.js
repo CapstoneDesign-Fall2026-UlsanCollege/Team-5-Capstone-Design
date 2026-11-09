@@ -23,10 +23,34 @@ export async function signUp({ email, password, fullName, country = '', universi
         password,
         options: {
           data: { full_name: fullName, country, university, onboarding_completed: false },
-          emailRedirectTo: `${window.location.origin}/auth/verify.html`,
+          emailRedirectTo: `${window.location.origin}/auth/login.html?registered=true`,
         },
       });
-      return { data, error };
+      if (error) {
+        return { data: null, error };
+      }
+
+      // Check if Supabase auto-created a session (e.g. if email confirmation is turned off)
+      const hadAutoSession = Boolean(data?.session);
+      const isConfirmed = Boolean(data?.user?.confirmed_at || data?.user?.email_confirmed_at || hadAutoSession);
+
+      // CRITICAL FOR PROBLEM 1:
+      // If the authentication provider automatically creates a session during signup,
+      // terminate that session immediately so the user must perform the required explicit login.
+      if (hadAutoSession) {
+        try {
+          await supabase.auth.signOut();
+        } catch (_) {}
+      }
+
+      return {
+        data: {
+          user: data.user,
+          session: null, // Always require explicit login
+          emailConfirmed: isConfirmed,
+        },
+        error: null,
+      };
     } catch (err) {
       return { data: null, error: { message: err.message || 'Signup failed' } };
     }
@@ -40,12 +64,13 @@ export async function signUp({ email, password, fullName, country = '', universi
     created_at: new Date().toISOString(),
   };
 
+  // Save registered user credential for subsequent explicit login
   localStorage.setItem(LOCAL_USER_KEY, JSON.stringify({ ...localUser, password }));
-  const session = { user: localUser, access_token: 'local-demo-token' };
-  localStorage.setItem(LOCAL_SESSION_KEY, JSON.stringify(session));
+  // CRITICAL: Do NOT create LOCAL_SESSION_KEY here! User must explicitly log in via login page.
+  localStorage.removeItem(LOCAL_SESSION_KEY);
 
   return {
-    data: { user: localUser, session },
+    data: { user: localUser, session: null, emailConfirmed: true },
     error: null,
   };
 }
@@ -84,13 +109,7 @@ export async function signIn({ email, password }) {
   }
 
   if (!user) {
-    // In local demo, allow login with any valid credentials
-    user = {
-      id: 'local-student-demo',
-      email,
-      user_metadata: { full_name: email.split('@')[0], onboarding_completed: false },
-      created_at: new Date().toISOString(),
-    };
+    return { data: null, error: { message: 'No registered account found with this email. Please sign up first.' } };
   }
 
   const session = { user, access_token: 'local-demo-token' };
@@ -116,24 +135,33 @@ export async function signOut() {
 }
 
 /**
- * Send a password reset email or OTP.
+ * Send a real password reset email with 6-digit OTP code or recovery link.
  * @param {string} email
  */
 export async function resetPassword(email) {
   if (isConfigured) {
-    return supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/auth/reset-password.html`,
-    });
+    try {
+      return await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/auth/reset-password.html`,
+      });
+    } catch (err) {
+      return { data: null, error: { message: err.message || 'Failed to send recovery instructions.' } };
+    }
   }
 
-  // Local mode simulation: generate and store a 6-digit preview OTP
-  const demoOtp = '123456';
-  localStorage.setItem(LOCAL_OTP_KEY, JSON.stringify({ email, code: demoOtp, expires: Date.now() + 600000 }));
-  return { data: { previewCode: demoOtp }, error: null };
+  // Demonstration/sample codes are strictly prohibited.
+  // Real email delivery requires live Supabase Auth credentials and SMTP.
+  return {
+    data: null,
+    error: {
+      message: 'Supabase Auth is not configured. Real password recovery email requires setting VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in .env and configuring custom SMTP in your Supabase dashboard.',
+      code: 'AUTH_UNCONFIGURED',
+    },
+  };
 }
 
 /**
- * Verify OTP (e.g. 6-digit code for password recovery or signup).
+ * Verify real OTP (e.g. 6-digit code for password recovery).
  * @param {{ email: string, token: string, type?: 'recovery' | 'signup' }} params
  */
 export async function verifyOtp({ email, token, type = 'recovery' }) {
@@ -141,7 +169,7 @@ export async function verifyOtp({ email, token, type = 'recovery' }) {
     try {
       const { data, error } = await supabase.auth.verifyOtp({
         email,
-        token,
+        token: token.trim(),
         type,
       });
       return { data, error };
@@ -150,28 +178,14 @@ export async function verifyOtp({ email, token, type = 'recovery' }) {
     }
   }
 
-  // Local mode verification: check saved OTP or allow 123456
-  const stored = localStorage.getItem(LOCAL_OTP_KEY);
-  if (stored) {
-    try {
-      const parsed = JSON.parse(stored);
-      if (parsed.email.toLowerCase() === email.toLowerCase() && (parsed.code === token || token === '123456')) {
-        const dummyUser = { id: 'local-student-recovery', email };
-        const session = { user: dummyUser, access_token: 'local-recovery-token' };
-        localStorage.setItem(LOCAL_SESSION_KEY, JSON.stringify(session));
-        return { data: { user: dummyUser, session }, error: null };
-      }
-    } catch (_) {}
-  }
-
-  if (token === '123456' || token.length === 6) {
-    const dummyUser = { id: 'local-student-recovery', email };
-    const session = { user: dummyUser, access_token: 'local-recovery-token' };
-    localStorage.setItem(LOCAL_SESSION_KEY, JSON.stringify(session));
-    return { data: { user: dummyUser, session }, error: null };
-  }
-
-  return { data: null, error: { message: 'Invalid or expired 6-digit verification code.' } };
+  // Demonstration codes are not accepted. Real verification requires live Supabase Auth.
+  return {
+    data: null,
+    error: {
+      message: 'Authentication provider is not configured. Real 6-digit verification code check requires live Supabase credentials.',
+      code: 'AUTH_UNCONFIGURED',
+    },
+  };
 }
 
 /**
@@ -180,20 +194,27 @@ export async function verifyOtp({ email, token, type = 'recovery' }) {
  */
 export async function updatePassword(newPassword) {
   if (isConfigured) {
-    return supabase.auth.updateUser({ password: newPassword });
+    try {
+      const { data, error } = await supabase.auth.updateUser({ password: newPassword });
+      // Terminate the temporary recovery session so the user must log in with their new credentials
+      if (!error) {
+        try {
+          await supabase.auth.signOut();
+        } catch (_) {}
+      }
+      return { data, error };
+    } catch (err) {
+      return { data: null, error: { message: err.message || 'Password update failed' } };
+    }
   }
 
-  // Local mode simulation
-  const stored = localStorage.getItem(LOCAL_USER_KEY);
-  if (stored) {
-    try {
-      const parsed = JSON.parse(stored);
-      parsed.password = newPassword;
-      localStorage.setItem(LOCAL_USER_KEY, JSON.stringify(parsed));
-    } catch (_) {}
-  }
-  localStorage.removeItem(LOCAL_OTP_KEY);
-  return { data: { user: {} }, error: null };
+  return {
+    data: null,
+    error: {
+      message: 'Cannot update password without valid recovery authorization from the authentication provider.',
+      code: 'AUTH_UNCONFIGURED',
+    },
+  };
 }
 
 /**

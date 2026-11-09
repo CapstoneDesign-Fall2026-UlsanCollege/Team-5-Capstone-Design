@@ -4477,7 +4477,9 @@ export function searchSubjects(query = '', category = 'all', major = '', scope =
 
   return baseList.filter(sub => {
     let matchCategory = true;
-    if (category === 'core' && majorMapping) {
+    if (category === 'major') {
+      matchCategory = majorSlugs ? majorSlugs.has(sub.slug) : true;
+    } else if (category === 'core' && majorMapping) {
       matchCategory = (majorMapping.core || []).includes(sub.slug);
     } else if (category === 'electives' && majorMapping) {
       matchCategory = (majorMapping.electives || []).includes(sub.slug);

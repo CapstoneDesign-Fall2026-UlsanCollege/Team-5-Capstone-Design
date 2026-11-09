@@ -178,6 +178,38 @@ function initLogin() {
   const alertBox = $('form-alert');
   const submitBtn = $('login-btn') || loginForm.querySelector('button[type="submit"]');
 
+  // Handle redirects from signup or password reset
+  const params = new URLSearchParams(window.location.search);
+  const registered = params.get('registered');
+  const registeredEmail = params.get('email');
+  const resetParam = params.get('reset');
+
+  if (emailInput && registeredEmail) {
+    emailInput.value = registeredEmail;
+  }
+
+  if (registered === 'verify') {
+    showAlert(
+      alertBox,
+      'Registration successful! Please check your email to verify your account before logging in.',
+      true
+    );
+  } else if (registered === 'true') {
+    showAlert(
+      alertBox,
+      'Account created successfully! Please sign in with your email and password.',
+      true
+    );
+    if (passwordInput) passwordInput.focus();
+  } else if (resetParam === 'true') {
+    showAlert(
+      alertBox,
+      'Password updated successfully! Please sign in with your new password.',
+      true
+    );
+    if (passwordInput) passwordInput.focus();
+  }
+
   [emailInput, passwordInput].forEach((input) => {
     if (input) {
       input.addEventListener('input', () => {
@@ -312,8 +344,11 @@ function initSignup() {
     }
   });
 
+  let isSubmitting = false;
+
   signupForm.addEventListener('submit', async (event) => {
     event.preventDefault();
+    if (isSubmitting) return;
     hideAlert(alertBox);
 
     const name = nameInput.value.trim();
@@ -383,48 +418,50 @@ function initSignup() {
       return;
     }
 
+    isSubmitting = true;
     setLoading(submitBtn, true, 'Creating account...');
 
-    const { data, error } = await signUp({
-      email,
-      password,
-      fullName: name,
-      country,
-      university,
-    });
+    try {
+      const { data, error } = await signUp({
+        email,
+        password,
+        fullName: name,
+        country,
+        university,
+      });
 
-    setLoading(submitBtn, false);
+      setLoading(submitBtn, false);
 
-    if (error) {
-      showAlert(alertBox, error.message);
-      return;
-    }
+      if (error) {
+        isSubmitting = false;
+        showAlert(alertBox, error.message);
+        return;
+      }
 
-    // Check if account already exists
-    if (data?.user?.identities?.length === 0) {
-      showAlert(alertBox, 'An account with this email already exists. Try signing in.');
-      return;
-    }
+      // Check if account already exists
+      if (data?.user?.identities?.length === 0) {
+        isSubmitting = false;
+        showAlert(alertBox, 'An account with this email already exists. Try signing in.');
+        return;
+      }
 
-    if (data?.session) {
-      toast('Account created! Welcome to StudySmart.');
-      setTimeout(async () => {
-        try {
-          const { data: profile } = await getProfile(data.user.id);
-          if (profile && profile.onboarding_completed) {
-            window.location.href = '../index.html#dashboard';
-          } else {
-            window.location.href = '../index.html#subjects';
-          }
-        } catch (_) {
-          window.location.href = '../index.html#subjects';
-        }
-      }, 500);
-    } else {
-      toast('Account created! Please check your email to verify.');
-      setTimeout(() => {
-        window.location.href = `verify.html?email=${encodeURIComponent(email)}`;
-      }, 600);
+      // Problem 1 Fix: Signup must always navigate to the Login page.
+      // The user must explicitly enter their credentials to enter the application.
+      if (data?.emailConfirmed === false) {
+        toast('Registration successful! Please verify your email before logging in.');
+        setTimeout(() => {
+          window.location.href = `login.html?registered=verify&email=${encodeURIComponent(email)}`;
+        }, 500);
+      } else {
+        toast('Account created successfully! Please sign in with your credentials.');
+        setTimeout(() => {
+          window.location.href = `login.html?registered=true&email=${encodeURIComponent(email)}`;
+        }, 500);
+      }
+    } catch (err) {
+      isSubmitting = false;
+      setLoading(submitBtn, false);
+      showAlert(alertBox, err.message || 'Signup failed. Please try again.');
     }
   });
 }
@@ -707,8 +744,8 @@ function initResetPassword() {
 
     toast('Password updated successfully! Redirecting to sign in...');
     setTimeout(() => {
-      window.location.href = 'login.html';
-    }, 1800);
+      window.location.href = `login.html?reset=true&email=${encodeURIComponent(email)}`;
+    }, 1500);
   });
 }
 
