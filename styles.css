@@ -717,9 +717,13 @@ kbd {
     .sidebar.is-open { transform: none; }
     .menu-btn, .sidebar-close { display: grid; place-items: center; }
     .stat-grid { grid-template-columns: 1fr; }
-    .search-field { min-width: 0; width: 160px; }
+    .search-field { min-width: 0; width: auto; max-width: none; flex: 1; }
     .hero { flex-direction: column; align-items: flex-start; }
-    .topbar { flex-wrap: wrap; }
+    .topbar { flex-wrap: wrap; padding: 14px 16px; }
+    .topbar-left, .topbar-actions { width: 100%; }
+    .canvas { padding: 8px 16px 28px; }
+    .sidebar { width: min(300px, 88vw); }
+    h1 { font-size: 24px; overflow-wrap: anywhere; }
 }
 
 .canvas[hidden] { display: none !important; }
@@ -879,6 +883,14 @@ kbd {
     .quiz-mode-actions { flex-direction: column; align-items: stretch; }
     .cs-subject-card { grid-template-columns: 40px minmax(0, 1fr); }
     .cs-subject-count { grid-column: 2; }
+    .canvas { padding: 4px 12px 24px; }
+    .subject-search-wrap { min-width: 0; max-width: none; width: 100%; }
+    .sticky-action-bar { flex-wrap: wrap; gap: 10px; padding: 12px 14px; }
+    .sticky-action-bar .btn-primary { width: 100%; justify-content: center; }
+    .toast-stack { left: 12px; right: 12px; }
+    .toast { min-width: 0; max-width: 100%; }
+    .academic-hierarchy-box, .analytics-card { padding: 16px; }
+    .inline-form input { min-width: 0; flex-basis: 100%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1007,7 +1019,7 @@ kbd {
 
 .academic-fields-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
     gap: 16px;
     margin-top: 14px;
 }
@@ -1102,7 +1114,7 @@ kbd {
     overflow-y: auto;
     padding-right: 8px;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(290px, 100%), 1fr));
     gap: 12px;
     margin-bottom: 16px;
 }
@@ -1230,7 +1242,7 @@ html.dark .card-badge {
 /* Study Analytics Styles */
 .analytics-section {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
     gap: 18px;
     margin-bottom: 24px;
 }
