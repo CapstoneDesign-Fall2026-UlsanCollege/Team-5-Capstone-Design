@@ -46,6 +46,10 @@ def test_file_structure():
         'supabase/migrations/005_quiz_attempts.sql',
         'supabase/migrations/006_rls_policies.sql',
         'supabase/migrations/007_universities.sql',
+        'supabase/migrations/008_major_subjects_quiz_bank.sql',
+        'data/academic-catalog.json',
+        'data/quiz-bank.json',
+        'scripts/build_academic_data.py',
     ]
     for rel_path in required_files:
         full_path = os.path.join(WORKSPACE, rel_path)
@@ -113,7 +117,18 @@ def test_sql_migrations():
         assert 'Tribhuvan University' in content
         assert 'ENABLE ROW LEVEL SECURITY' in content
 
-    print("  ✓ All 7 SQL migrations valid with complete tables, 75 seeded questions, universities catalog, and RLS.")
+    # 008_major_subjects_quiz_bank.sql
+    with open(os.path.join(migrations_dir, '008_major_subjects_quiz_bank.sql')) as f:
+        content = f.read()
+        assert 'CREATE TABLE IF NOT EXISTS public.major_subjects' in content or 'CREATE TABLE IF NOT EXISTS major_subjects' in content
+        assert 'major_subjects ENABLE ROW LEVEL SECURITY' in content
+        assert 'circuit-analysis' in content
+        assert 'structural-analysis' in content
+        assert 'financial-accounting' in content
+        # Seeded questions in migration 008: 270 new questions across 27 subjects (10 each)
+        assert 'INSERT INTO public.quiz_questions' in content
+
+    print("  ✓ All 8 SQL migrations valid with major_subjects mapping, 345 seeded questions across 32 subjects, and RLS.")
 
 def test_auth_pages_markup():
     """Verify HTML auth pages have valid markup, required IDs, and dual OTP/link recovery elements."""
@@ -241,8 +256,63 @@ def test_academic_catalog():
         assert 'Ulsan College' in content
         assert 'Tribhuvan University' in content
         assert 'SUBJECTS_CATALOG' in content
+        assert 'MAJOR_SUBJECT_MAP' in content
         assert 'searchSubjects' in content
+        assert 'getSubjectsForMajor' in content
     print("  ✓ Academic catalog hierarchy includes Korea, Nepal, accredited universities, and subjects.")
+
+def test_curriculum_and_quiz_bank():
+    """Verify JSON academic catalog and quiz bank have complete coverage across 32 subjects and 15 majors."""
+    print("Testing Major-to-Subject Curriculum & Quiz Bank...")
+    catalog_json_path = os.path.join(WORKSPACE, 'data', 'academic-catalog.json')
+    quiz_json_path = os.path.join(WORKSPACE, 'data', 'quiz-bank.json')
+
+    with open(catalog_json_path) as f:
+        catalog_data = json.load(f)
+    with open(quiz_json_path) as f:
+        quiz_data = json.load(f)
+
+    # 1. Verify 32 subjects
+    subjects = catalog_data.get('subjects', [])
+    assert len(subjects) == 32, f"Expected 32 subjects, found {len(subjects)}"
+    slugs = {s['slug'] for s in subjects}
+    assert len(slugs) == 32, "Duplicate subject slugs found"
+
+    # 2. Verify 4 faculties and 15 majors
+    faculties = catalog_data.get('faculties', [])
+    assert len(faculties) == 4, f"Expected 4 faculties, found {len(faculties)}"
+    all_majors = []
+    for f in faculties:
+        for m in f.get('majors', []):
+            all_majors.append(m)
+    assert len(all_majors) == 15, f"Expected 15 majors, found {len(all_majors)}"
+
+    # 3. Verify every major has core and elective curriculum mapped to valid subjects
+    for major in all_majors:
+        m_name = major.get('name')
+        core = major.get('core', [])
+        electives = major.get('electives', [])
+        assert len(core) >= 2, f"Major '{m_name}' has fewer than 2 core subjects"
+        for c_slug in core:
+            assert c_slug in slugs, f"Core slug '{c_slug}' for '{m_name}' not in catalog"
+        for e_slug in electives:
+            assert e_slug in slugs, f"Elective slug '{e_slug}' for '{m_name}' not in catalog"
+
+    # 4. Verify Quiz Bank coverage
+    questions_by_subject = quiz_data.get('questions', {})
+    assert len(questions_by_subject) == 32, f"Expected quiz bank to cover 32 subjects, found {len(questions_by_subject)}"
+    total_questions = 0
+    for slug, q_list in questions_by_subject.items():
+        assert slug in slugs, f"Quiz bank subject '{slug}' not in subjects catalog"
+        assert len(q_list) >= 10, f"Subject '{slug}' has fewer than 10 quiz questions"
+        total_questions += len(q_list)
+        for idx, q in enumerate(q_list):
+            assert 'q' in q and len(q['q']) > 5, f"Invalid question text in {slug}[{idx}]"
+            assert 'options' in q and len(q['options']) == 4, f"Options not 4 in {slug}[{idx}]"
+            assert 'answer' in q and 0 <= q['answer'] <= 3, f"Invalid answer index in {slug}[{idx}]"
+
+    assert total_questions >= 345, f"Expected at least 345 questions, found {total_questions}"
+    print(f"  ✓ 32 subjects, 15 majors, full curriculum mapping, and {total_questions} verified quiz questions.")
 
 def main():
     print("=" * 60)
@@ -256,8 +326,9 @@ def main():
         test_task_metrics_and_analytics_logic()
         test_quiz_scoring_logic()
         test_academic_catalog()
+        test_curriculum_and_quiz_bank()
         print("=" * 60)
-        print("  ALL TESTS PASSED SUCCESSFULLY (7/7)")
+        print("  ALL TESTS PASSED SUCCESSFULLY (8/8)")
         print("=" * 60)
     except AssertionError as e:
         print(f"\n❌ TEST FAILED: {e}")

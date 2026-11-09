@@ -39,108 +39,15 @@ import {
     getUniversities,
     getFaculties,
     getMajors,
+    getSubjectsForMajor,
+    MAJOR_SUBJECT_MAP,
     SUBJECTS_CATALOG,
+    QUIZ_BANK,
     searchSubjects
 } from './src/lib/academic-catalog.js';
 
 // ---- Constants ----
 const THEME_KEY = 'smart_study_theme';
-
-const CS_SUBJECTS = [
-    { name: 'Programming Fundamentals', slug: 'programming', icon: 'fa-code', description: 'Languages, logic, and software development' },
-    { name: 'Data Structures & Algorithms', slug: 'data-structures', icon: 'fa-diagram-project', description: 'Core structures, searching, and sorting' },
-    { name: 'Database Management Systems', slug: 'databases', icon: 'fa-database', description: 'SQL, data modeling, and storage' },
-    { name: 'Computer Networks', slug: 'networks', icon: 'fa-network-wired', description: 'Protocols, addressing, and network design' },
-    { name: 'Operating Systems', slug: 'operating-systems', icon: 'fa-desktop', description: 'Processes, memory, and system resources' }
-];
-
-const QUIZ_BANK = {
-    programming: [
-        { q: 'Which JavaScript keyword declares a block-scoped variable that can be reassigned?', options: ['const', 'let', 'static', 'define'], answer: 1 },
-        { q: 'Which HTML element represents the most important heading?', options: ['<h6>', '<head>', '<h1>', '<title>'], answer: 2 },
-        { q: 'Which CSS property changes the color of text?', options: ['font-style', 'background', 'text-align', 'color'], answer: 3 },
-        { q: 'What does a Boolean value represent?', options: ['True or false', 'A decimal number', 'A sequence of characters', 'A memory address'], answer: 0 },
-        { q: 'What is the main purpose of a function?', options: ['To store database rows', 'To group reusable instructions', 'To increase screen resolution', 'To allocate network ports'], answer: 1 },
-        { q: 'What does debugging help a programmer do?', options: ['Compress source code', 'Design a database', 'Find and fix errors', 'Encrypt every variable'], answer: 2 },
-        { q: 'Which JavaScript operator checks both value and type equality?', options: ['==', '=', '!=', '==='], answer: 3 },
-        { q: 'What is a parameter in a function?', options: ['A named input the function can use', 'The value returned by every function', 'A syntax error', 'A loop condition'], answer: 0 },
-        { q: 'What does an array commonly store?', options: ['One named function only', 'An ordered collection of values', 'Only true/false values', 'A network protocol'], answer: 1 },
-        { q: 'Which keyword exits a loop immediately in many programming languages?', options: ['skip', 'return-all', 'break', 'next-loop'], answer: 2 },
-        { q: 'What is the result of 9 % 4 in JavaScript?', options: ['1', '2', '2.25', '36'], answer: 0 },
-        { q: 'What is a syntax error?', options: ['A slow algorithm', 'A rule violation in how code is written', 'A missing user account', 'A full hard drive'], answer: 1 },
-        { q: 'Which statement runs a block only when its condition is true?', options: ['import', 'class', 'if', 'return'], answer: 2 },
-        { q: 'What does a return statement do in a function?', options: ['Repeats a loop', 'Declares a variable', 'Catches every error', 'Sends a value back to the caller'], answer: 3 },
-        { q: 'What does source control help a team track?', options: ['Changes to files over time', 'CPU temperature', 'Monitor brightness', 'Internet speed'], answer: 0 }
-    ],
-    'data-structures': [
-        { q: 'Which structure follows last-in, first-out order?', options: ['Queue', 'Stack', 'Heap', 'Graph'], answer: 1 },
-        { q: 'Which structure follows first-in, first-out order?', options: ['Stack', 'Tree', 'Queue', 'Set'], answer: 2 },
-        { q: 'In a typical array, what is the time complexity of accessing an element by index?', options: ['O(1)', 'O(log n)', 'O(n)', 'O(n²)'], answer: 0 },
-        { q: 'Which data structure is commonly used to implement a priority queue?', options: ['Linked list only', 'Binary heap', 'Hash set', 'Stack'], answer: 1 },
-        { q: 'What is the average lookup time for a well-distributed hash table?', options: ['O(n)', 'O(log n)', 'O(1)', 'O(n log n)'], answer: 2 },
-        { q: 'In a binary search tree, values in the left subtree are usually:', options: ['Smaller than the node', 'Larger than the node', 'Always equal to the node', 'Stored as child indexes'], answer: 0 },
-        { q: 'Which traversal explores a graph level by level?', options: ['Depth-first search', 'In-order traversal', 'Breadth-first search', 'Binary search'], answer: 2 },
-        { q: 'What is the worst-case time complexity of linear search?', options: ['O(1)', 'O(log n)', 'O(n)', 'O(n log n)'], answer: 2 },
-        { q: 'Which structure connects nodes using edges and has no required root?', options: ['Graph', 'Stack', 'Array', 'Queue'], answer: 0 },
-        { q: 'What is a leaf in a tree?', options: ['A node with no children', 'The root node', 'An edge between roots', 'A cycle'], answer: 0 },
-        { q: 'Which sorting algorithm repeatedly partitions around a pivot?', options: ['Selection sort', 'Quick sort', 'Insertion sort', 'Counting sort'], answer: 1 },
-        { q: 'What does a linked list node typically contain?', options: ['Only an array index', 'A value and link(s) to other node(s)', 'A database table', 'A sorting algorithm'], answer: 1 },
-        { q: 'Which algorithmic technique solves problems by combining results from smaller subproblems?', options: ['Brute-force enumeration', 'Hashing', 'Divide and conquer', 'Linear probing'], answer: 2 },
-        { q: 'A balanced binary search tree keeps its height approximately:', options: ['O(log n)', 'O(n²)', 'O(1) for every size', 'O(2ⁿ)'], answer: 0 },
-        { q: 'Which data structure is most suitable for checking whether an item has appeared before?', options: ['Queue', 'Hash set', 'Stack', 'Tree traversal list'], answer: 1 }
-    ],
-    databases: [
-        { q: 'What does SQL stand for?', options: ['Structured Query Language', 'Sequential Question Logic', 'System Quality Layer', 'Simple Queue Language'], answer: 0 },
-        { q: 'Which key uniquely identifies a row in a relational table?', options: ['Foreign key', 'Primary key', 'Index label', 'Nullable key'], answer: 1 },
-        { q: 'What is the purpose of a foreign key?', options: ['To encrypt a table', 'To sort every row', 'To reference a key in another table', 'To create a backup'], answer: 2 },
-        { q: 'Which SQL command retrieves rows from a table?', options: ['FETCH TABLE', 'OPEN', 'RETRIEVE', 'SELECT'], answer: 3 },
-        { q: 'Which clause filters rows before grouping?', options: ['WHERE', 'ORDER BY', 'HAVING', 'LIMIT'], answer: 0 },
-        { q: 'What does a JOIN do in a relational query?', options: ['Deletes duplicate databases', 'Combines related rows from tables', 'Changes a column type', 'Backs up a table'], answer: 1 },
-        { q: 'Which property is expected of a transaction under ACID?', options: ['Approximation', 'Caching', 'Atomicity', 'Duplication'], answer: 2 },
-        { q: 'What is database normalization primarily intended to reduce?', options: ['Data redundancy and update anomalies', 'Query language features', 'The number of users', 'All indexes'], answer: 0 },
-        { q: 'Which SQL command adds a new row?', options: ['APPEND ROW', 'INSERT INTO', 'ADD COLUMN', 'CREATE ROW'], answer: 1 },
-        { q: 'What does an index generally improve?', options: ['Query lookup speed', 'Disk capacity', 'Data accuracy automatically', 'Network encryption'], answer: 0 },
-        { q: 'Which clause sorts query results?', options: ['GROUP BY', 'HAVING', 'ORDER BY', 'SORT TABLE'], answer: 2 },
-        { q: 'What does NULL typically mean in a database?', options: ['The number zero', 'An empty string in every system', 'False', 'A missing or unknown value'], answer: 3 },
-        { q: 'Which SQL operation changes existing rows?', options: ['UPDATE', 'CREATE', 'SELECT', 'GRANT'], answer: 0 },
-        { q: 'What does GROUP BY do?', options: ['Removes a table', 'Groups rows that share values for aggregation', 'Encrypts grouped columns', 'Orders rows alphabetically only'], answer: 1 },
-        { q: 'Which database model stores data as documents, key-value pairs, or graphs instead of only relational tables?', options: ['Spreadsheet', 'Relational only', 'NoSQL', 'Flat-file index'], answer: 2 }
-    ],
-    networks: [
-        { q: 'What does IP stand for in networking?', options: ['Internet Protocol', 'Internal Process', 'Interface Program', 'Integrated Port'], answer: 0 },
-        { q: 'Which protocol provides reliable, ordered delivery using a connection?', options: ['UDP', 'TCP', 'IP', 'ARP'], answer: 1 },
-        { q: 'What is the main purpose of DNS?', options: ['Encrypt files', 'Assign CPU time', 'Translate domain names to IP addresses', 'Detect hardware errors'], answer: 2 },
-        { q: 'Which device forwards packets between different networks?', options: ['Hub', 'Repeater', 'Switch', 'Router'], answer: 3 },
-        { q: 'How many layers are in the commonly taught OSI model?', options: ['Seven', 'Four', 'Five', 'Eight'], answer: 0 },
-        { q: 'Which protocol is commonly used to securely browse websites?', options: ['FTP', 'HTTPS', 'SMTP', 'DHCP'], answer: 1 },
-        { q: 'What does DHCP commonly provide to a client?', options: ['A domain name certificate', 'A MAC address', 'Network configuration such as an IP address', 'A web page'], answer: 2 },
-        { q: 'Which transport protocol is connectionless and does not guarantee delivery?', options: ['TCP', 'HTTP', 'SSH', 'UDP'], answer: 3 },
-        { q: 'What is a MAC address associated with?', options: ['A network interface at the link layer', 'A web domain', 'A TCP port', 'A file system'], answer: 0 },
-        { q: 'What is the purpose of a subnet mask?', options: ['To encrypt a packet', 'To identify network and host portions of an IP address', 'To map a URL to HTML', 'To increase Wi-Fi signal'], answer: 1 },
-        { q: 'Which protocol is used to send email between mail servers?', options: ['POP3', 'IMAP', 'SMTP', 'SNMP'], answer: 2 },
-        { q: 'What does bandwidth describe in a data connection?', options: ['The physical length of a cable', 'The number of devices on a LAN', 'A packet’s destination', 'The maximum data transfer capacity'], answer: 3 },
-        { q: 'Which network topology connects devices to a central switch or hub?', options: ['Star', 'Ring', 'Bus', 'Mesh only'], answer: 0 },
-        { q: 'What is latency?', options: ['The number of IP addresses', 'The time delay for data to travel', 'The size of a hard drive', 'The encryption key length'], answer: 1 },
-        { q: 'Which protocol securely supports remote command-line access?', options: ['Telnet', 'HTTP', 'SSH', 'TFTP'], answer: 2 }
-    ],
-    'operating-systems': [
-        { q: 'What is the main role of an operating system?', options: ['Manage computer resources and provide services to programs', 'Design web pages', 'Manufacture a CPU', 'Translate domain names'], answer: 0 },
-        { q: 'What is a process?', options: ['A stored source-code comment', 'A program in execution', 'A network cable', 'A database column'], answer: 1 },
-        { q: 'Which scheduling algorithm assigns each process a fixed time slice in turn?', options: ['Shortest job first', 'Priority only', 'Round robin', 'First-fit'], answer: 2 },
-        { q: 'What is virtual memory?', options: ['A type of CPU cache only', 'A second physical processor', 'A backup power supply', 'An abstraction that uses storage to extend addressable memory'], answer: 3 },
-        { q: 'What condition describes two or more processes waiting indefinitely for resources held by each other?', options: ['Deadlock', 'Thrashing', 'Starvation-free scheduling', 'Context switching'], answer: 0 },
-        { q: 'What does a context switch do?', options: ['Formats a disk', 'Saves one process state and loads another', 'Compiles source code', 'Changes a user password'], answer: 1 },
-        { q: 'What is a system call?', options: ['A phone call to support', 'A compiler warning', 'A request for a service from the operating system', 'A network broadcast'], answer: 2 },
-        { q: 'Which memory is typically fastest and closest to the CPU?', options: ['Hard disk', 'RAM', 'Optical disc', 'CPU register'], answer: 3 },
-        { q: 'What is a thread?', options: ['A unit of execution within a process', 'A file permission', 'A storage sector', 'A device driver'], answer: 0 },
-        { q: 'What is the purpose of a file system?', options: ['Schedule CPU instructions', 'Organize and manage files on storage', 'Route network traffic', 'Cool the processor'], answer: 1 },
-        { q: 'What is a race condition?', options: ['A CPU speed benchmark', 'A disk seek operation', 'An outcome that depends on timing of concurrent operations', 'A process priority level'], answer: 2 },
-        { q: 'What does a mutex help provide?', options: ['Virtual addressing', 'Disk partitioning', 'Network routing', 'Mutual exclusion for shared resources'], answer: 3 },
-        { q: 'What is paging in memory management?', options: ['Dividing memory into fixed-size pages and frames', 'Printing pages from a document', 'Sorting files by name', 'Creating user accounts'], answer: 0 },
-        { q: 'What does starvation mean in process scheduling?', options: ['A process uses no memory', 'A process waits indefinitely for needed resources or CPU time', 'The system has no files', 'A process has completed'], answer: 1 },
-        { q: 'Which component typically mediates access between the OS and hardware devices?', options: ['Text editor', 'Web browser', 'Device driver', 'SQL query'], answer: 2 }
-    ]
-};
 
 // ---- State ----
 let currentUser = null;
@@ -154,6 +61,7 @@ let currentSubjectTab = 'all';
 let searchQuery = '';
 let subjectSearchQuery = '';
 let subjectCategoryFilter = 'all';
+let subjectScope = 'major';
 let pendingDelete = null;
 let quiz = { subject: '', mode: 'standard', questions: [], index: 0, answers: [], timeLeft: 30, deadline: 0, finished: false };
 let quizTimer = null;
@@ -255,7 +163,7 @@ function subjectNames() {
     });
     if (enrolled.length > 0) return enrolled.sort((a, b) => a.localeCompare(b));
     if (dbSubjects.length > 0) return dbSubjects.map(s => s.name).sort((a, b) => a.localeCompare(b));
-    return CS_SUBJECTS.map(s => s.name).sort((a, b) => a.localeCompare(b));
+    return SUBJECTS_CATALOG.map(s => s.name).sort((a, b) => a.localeCompare(b));
 }
 
 function fillSubjectSelects() {
@@ -269,6 +177,75 @@ function fillSubjectSelects() {
 
     const quickSelect = document.getElementById('create-task-subject-select');
     if (quickSelect) quickSelect.innerHTML = options;
+
+    fillQuizSubjects();
+}
+
+function fillQuizSubjects() {
+    const quizSubjectEl = document.getElementById('quiz-subject');
+    if (!quizSubjectEl) return;
+
+    const currentMajor = document.getElementById('academic-major')?.value || currentProfile?.major || '';
+    const currentUni = document.getElementById('academic-university')?.value || currentProfile?.university || '';
+    const prevSelected = quizSubjectEl.value;
+
+    let html = '';
+
+    // Group 1: Enrolled Subjects
+    const enrolledList = Array.from(selectedEnrolledSlugs).map(slug => {
+        return SUBJECTS_CATALOG.find(s => s.slug === slug) || { slug, name: slug };
+    }).sort((a, b) => a.name.localeCompare(b.name));
+
+    if (enrolledList.length > 0) {
+        html += `<optgroup label="My Enrolled Subjects (${enrolledList.length})">` +
+            enrolledList.map(s => `<option value="${escapeHtml(s.slug)}">${escapeHtml(s.name)}</option>`).join('') +
+            `</optgroup>`;
+    }
+
+    // Group 2: Subjects for Current Major
+    if (currentMajor && MAJOR_SUBJECT_MAP[currentMajor]) {
+        const majorSubjects = getSubjectsForMajor(currentMajor);
+        const nonEnrolledMajor = majorSubjects.filter(s => !selectedEnrolledSlugs.has(s.slug));
+        if (nonEnrolledMajor.length > 0) {
+            html += `<optgroup label="Curriculum for ${escapeHtml(currentMajor)}">` +
+                nonEnrolledMajor.map(s => `<option value="${escapeHtml(s.slug)}">${escapeHtml(s.name)}${s.isCore ? ' (Core)' : ''}</option>`).join('') +
+                `</optgroup>`;
+        }
+    }
+
+    // Group 3: All Other Catalog Subjects
+    const otherSubjects = SUBJECTS_CATALOG.filter(s => {
+        const isEnrolled = selectedEnrolledSlugs.has(s.slug);
+        const isMajor = currentMajor && MAJOR_SUBJECT_MAP[currentMajor] &&
+            ([...(MAJOR_SUBJECT_MAP[currentMajor].core || []), ...(MAJOR_SUBJECT_MAP[currentMajor].electives || [])]).includes(s.slug);
+        return !isEnrolled && !isMajor;
+    }).sort((a, b) => a.name.localeCompare(b.name));
+
+    if (otherSubjects.length > 0) {
+        html += `<optgroup label="All Other University Subjects">` +
+            otherSubjects.map(s => `<option value="${escapeHtml(s.slug)}">${escapeHtml(s.name)}</option>`).join('') +
+            `</optgroup>`;
+    }
+
+    quizSubjectEl.innerHTML = html;
+
+    if (prevSelected && Array.from(quizSubjectEl.options).some(o => o.value === prevSelected)) {
+        quizSubjectEl.value = prevSelected;
+    } else if (quizSubjectEl.options.length > 0) {
+        quizSubjectEl.selectedIndex = 0;
+    }
+
+    // Update Quiz Header text to show university & major!
+    const headingEl = document.getElementById('quiz-main-heading');
+    const subHeadingEl = document.getElementById('quiz-sub-heading');
+    if (headingEl) {
+        headingEl.textContent = currentMajor ? `Practice Quiz · ${currentMajor}` : 'Choose your study subject';
+    }
+    if (subHeadingEl) {
+        const uniText = currentUni ? ` at ${currentUni}` : '';
+        const majorText = currentMajor ? `for ${currentMajor}${uniText}` : 'for your enrolled courses';
+        subHeadingEl.textContent = `Practice questions tailored ${majorText}. Standard quizzes have 15 questions; rapid quizzes have 10 questions and a 30-second limit.`;
+    }
 }
 
 // ---- Data Synchronization with Supabase ----
@@ -308,7 +285,7 @@ async function loadUserData() {
         if (subjectsData && subjectsData.length > 0) {
             dbSubjects = subjectsData;
         } else {
-            dbSubjects = CS_SUBJECTS.map((s, idx) => ({ id: `subj-${idx}`, ...s }));
+            dbSubjects = SUBJECTS_CATALOG;
         }
 
         // Load student tasks
@@ -414,6 +391,13 @@ function showView(view) {
         location.hash = view;
     }
 
+    if (view === 'quiz') {
+        fillQuizSubjects();
+    } else if (view === 'subjects') {
+        renderSubjectCategoryChips();
+        renderScrollableSubjects();
+    }
+
     render();
 }
 
@@ -482,8 +466,24 @@ function initAcademicHierarchy() {
     };
 
     if (!hierarchyListenersAttached) {
-        countryEl.addEventListener('change', () => updateUniversities(uniEl.value));
-        if (facEl) facEl.addEventListener('change', () => updateMajors(majorEl ? majorEl.value : ''));
+        countryEl.addEventListener('change', () => {
+            updateUniversities(uniEl.value);
+            onAcademicHierarchyChange(false);
+        });
+        uniEl.addEventListener('change', () => {
+            onAcademicHierarchyChange(false);
+        });
+        if (facEl) {
+            facEl.addEventListener('change', () => {
+                updateMajors(majorEl ? majorEl.value : '');
+                onAcademicHierarchyChange(true);
+            });
+        }
+        if (majorEl) {
+            majorEl.addEventListener('change', () => {
+                onAcademicHierarchyChange(true);
+            });
+        }
         hierarchyListenersAttached = true;
     }
 
@@ -501,18 +501,119 @@ function initAcademicHierarchy() {
         facEl.value = targetFac;
         updateMajors(targetMajor);
     }
+
+    onAcademicHierarchyChange(false);
+}
+
+function onAcademicHierarchyChange(autoEnroll = true) {
+    const country = document.getElementById('academic-country')?.value || '';
+    const university = document.getElementById('academic-university')?.value || '';
+    const faculty = document.getElementById('academic-faculty')?.value || '';
+    const major = document.getElementById('academic-major')?.value || '';
+
+    if (currentProfile) {
+        currentProfile.country = country;
+        currentProfile.university = university;
+        currentProfile.faculty = faculty;
+        currentProfile.major = major;
+    }
+
+    if (autoEnroll && major && MAJOR_SUBJECT_MAP[major]) {
+        const majorCore = MAJOR_SUBJECT_MAP[major].core || [];
+        const hasOverlap = Array.from(selectedEnrolledSlugs).some(s => majorCore.includes(s));
+        // Auto-enroll in the core subjects if empty or only had default demo slugs
+        if (selectedEnrolledSlugs.size === 0 || (!hasOverlap && selectedEnrolledSlugs.size <= 3)) {
+            selectedEnrolledSlugs.clear();
+            majorCore.forEach(s => selectedEnrolledSlugs.add(s));
+        }
+        subjectCategoryFilter = 'major';
+    }
+
+    renderSubjectCategoryChips();
+    renderScrollableSubjects();
+    fillSubjectSelects();
+    fillQuizSubjects();
+}
+
+function renderSubjectCategoryChips() {
+    const catContainer = document.getElementById('subject-category-chips');
+    if (!catContainer) return;
+
+    const major = document.getElementById('academic-major')?.value || currentProfile?.major || '';
+    let chips = [];
+
+    if (major && MAJOR_SUBJECT_MAP[major]) {
+        chips.push({ id: 'major', label: `★ Curriculum: ${major.split(' ')[0]}` });
+        chips.push({ id: 'core', label: 'Core Courses' });
+        chips.push({ id: 'electives', label: 'Electives' });
+    }
+
+    chips.push({ id: 'all', label: 'All Subjects' });
+    chips.push({ id: 'Core CS', label: 'Core CS' });
+    chips.push({ id: 'Software Dev', label: 'Software Dev' });
+    chips.push({ id: 'Engineering', label: 'Engineering' });
+    chips.push({ id: 'Business', label: 'Business' });
+    chips.push({ id: 'Intelligence', label: 'AI & Data' });
+    chips.push({ id: 'Mathematics', label: 'Mathematics' });
+    chips.push({ id: 'Science', label: 'Science' });
+    chips.push({ id: 'Projects', label: 'Projects' });
+
+    const validIds = new Set(chips.map(c => c.id));
+    if (!validIds.has(subjectCategoryFilter)) {
+        subjectCategoryFilter = (major && MAJOR_SUBJECT_MAP[major]) ? 'major' : 'all';
+    }
+
+    catContainer.innerHTML = chips.map(c => `
+        <button type="button" class="subject-category-chip ${subjectCategoryFilter === c.id ? 'is-active' : ''}" data-cat="${escapeHtml(c.id)}">
+            ${escapeHtml(c.label)}
+        </button>
+    `).join('');
 }
 
 function renderScrollableSubjects() {
     const container = document.getElementById('subject-scroll-container');
     if (!container) return;
 
-    const filtered = searchSubjects(subjectSearchQuery, subjectCategoryFilter);
+    const major = document.getElementById('academic-major')?.value || currentProfile?.major || '';
+    const university = document.getElementById('academic-university')?.value || currentProfile?.university || '';
+
+    // Notice banner for active major curriculum
+    const bannerEl = document.getElementById('curriculum-banner');
+    if (bannerEl) {
+        if (major && MAJOR_SUBJECT_MAP[major]) {
+            const majorInfo = MAJOR_SUBJECT_MAP[major];
+            bannerEl.hidden = false;
+            bannerEl.innerHTML = `
+                <div>
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <span>Curriculum for <strong>${escapeHtml(major)}</strong>${university ? ` at ${escapeHtml(university)}` : ''} (${majorInfo.core.length} Core, ${majorInfo.electives.length} Electives)</span>
+                </div>
+                <div style="display: flex; gap: 8px;">
+                    <button type="button" class="btn-ghost" id="select-major-core-btn">
+                        <i class="fa-solid fa-check-double"></i> Select All Core
+                    </button>
+                </div>
+            `;
+            const coreBtn = document.getElementById('select-major-core-btn');
+            if (coreBtn) {
+                coreBtn.onclick = () => {
+                    majorInfo.core.forEach(s => selectedEnrolledSlugs.add(s));
+                    renderScrollableSubjects();
+                    fillSubjectSelects();
+                    toast(`Enrolled in all ${majorInfo.core.length} core subjects for ${major}`);
+                };
+            }
+        } else {
+            bannerEl.hidden = true;
+        }
+    }
+
+    const filtered = searchSubjects(subjectSearchQuery, subjectCategoryFilter, major, subjectScope);
 
     if (filtered.length === 0) {
         container.innerHTML = `
             <div class="empty-state" style="grid-column: 1 / -1; padding: 24px; text-align: center;">
-                <p class="muted">No subjects match "${escapeHtml(subjectSearchQuery)}". Try another search or filter.</p>
+                <p class="muted">No subjects match "${escapeHtml(subjectSearchQuery)}" with filter "${escapeHtml(subjectCategoryFilter)}". Try selecting "All Subjects" or clearing your search.</p>
             </div>
         `;
         return;
@@ -524,7 +625,11 @@ function renderScrollableSubjects() {
             <article class="scrollable-subject-card ${isSelected ? 'is-selected' : ''}" data-subject-slug="${escapeHtml(subject.slug)}" tabindex="0" role="checkbox" aria-checked="${isSelected}">
                 <div class="card-top-row">
                     <span class="card-icon"><i class="fa-solid ${subject.icon}"></i></span>
-                    <span class="card-badge">${escapeHtml(subject.category || 'Core')}</span>
+                    <div style="display: flex; gap: 4px; align-items: center; flex-wrap: wrap;">
+                        ${subject.isCore ? '<span class="card-badge core-badge"><i class="fa-solid fa-star"></i> Core</span>' : ''}
+                        ${subject.isElective ? '<span class="card-badge elective-badge">Elective</span>' : ''}
+                        <span class="card-badge">${escapeHtml(subject.category || 'Core')}</span>
+                    </div>
                     <div class="card-checkbox" aria-hidden="true">
                         ${isSelected ? '<i class="fa-solid fa-check"></i>' : ''}
                     </div>
@@ -589,6 +694,7 @@ async function saveAcademicProfileAndSubjects() {
     };
 
     fillSubjectSelects();
+    fillQuizSubjects();
     toast('Academic profile & subjects saved successfully!');
     showView('dashboard');
 }
@@ -958,7 +1064,7 @@ function quizQuestionsFor(subject, count) {
 }
 
 async function loadQuizQuestions(subject, count) {
-    const subjectRecord = dbSubjects.find((item) => item.slug === subject);
+    const subjectRecord = dbSubjects.find((item) => item.slug === subject) || SUBJECTS_CATALOG.find(s => s.slug === subject);
     if (subjectRecord && subjectRecord.id && !String(subjectRecord.id).startsWith('subj-')) {
         const { data, error } = await getQuizQuestions(subjectRecord.id, count);
         if (!error && data && data.length) {
@@ -1037,7 +1143,11 @@ function renderQuizQuestion() {
 }
 
 async function startQuiz(mode) {
-    const subject = document.getElementById('quiz-subject').value;
+    const subject = document.getElementById('quiz-subject')?.value;
+    if (!subject) {
+        toast('Please select a subject to start the quiz.');
+        return;
+    }
     const count = mode === 'rapid' ? 10 : 15;
     const questions = await loadQuizQuestions(subject, count);
 
@@ -1056,6 +1166,11 @@ async function startQuiz(mode) {
         deadline: 0,
         finished: false
     };
+
+    const subObj = SUBJECTS_CATALOG.find(s => s.slug === subject);
+    const subTitle = subObj ? subObj.name : subject;
+    const titleEl = document.getElementById('quiz-title');
+    if (titleEl) titleEl.textContent = `${subTitle} Quiz`;
 
     setQuizStage('play');
     renderQuizQuestion();

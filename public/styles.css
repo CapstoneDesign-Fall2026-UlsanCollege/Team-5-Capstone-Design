@@ -1141,8 +1141,57 @@ kbd {
     font-weight: 600;
 }
 
+.card-badge.core-badge {
+    background: rgba(15, 118, 110, 0.15);
+    color: var(--teal);
+    border: 1px solid rgba(15, 118, 110, 0.35);
+}
+
+.card-badge.elective-badge {
+    background: rgba(99, 102, 241, 0.12);
+    color: #4f46e5;
+    border: 1px solid rgba(99, 102, 241, 0.25);
+}
+
 html.dark .card-badge {
     background: rgba(255, 255, 255, 0.08);
+}
+
+html.dark .card-badge.core-badge {
+    background: rgba(45, 212, 191, 0.18);
+    color: #2dd4bf;
+    border-color: rgba(45, 212, 191, 0.4);
+}
+
+html.dark .card-badge.elective-badge {
+    background: rgba(129, 140, 248, 0.18);
+    color: #a5b4fc;
+    border-color: rgba(129, 140, 248, 0.4);
+}
+
+.curriculum-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--teal-soft);
+    border: 1px solid rgba(15, 118, 110, 0.25);
+    border-radius: 12px;
+    padding: 10px 16px;
+    margin-bottom: 14px;
+    font-size: 13px;
+    gap: 12px;
+}
+
+.curriculum-banner strong {
+    color: var(--teal);
+}
+
+.curriculum-banner .btn-ghost {
+    padding: 5px 12px;
+    font-size: 12px;
+    border-radius: 8px;
+    background: var(--bg);
+    cursor: pointer;
 }
 
 .card-checkbox {

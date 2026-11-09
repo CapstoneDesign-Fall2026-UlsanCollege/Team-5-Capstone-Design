@@ -1,0 +1,78 @@
+{
+  "_comment": "Single source of truth for subjects and Faculty -> Major -> Subject mapping. Run `python3 scripts/build_academic_data.py` after editing to regenerate src/lib/catalog-data.js, public/src/lib/catalog-data.js and supabase/migrations/008_major_subjects_quiz_bank.sql.",
+  "subjects": [
+    { "slug": "programming", "name": "Programming Fundamentals", "icon": "fa-code", "category": "Core CS", "description": "C, C++, Python, JavaScript logic, syntax, functions, and modular code" },
+    { "slug": "data-structures", "name": "Data Structures & Algorithms", "icon": "fa-diagram-project", "category": "Core CS", "description": "Arrays, linked lists, trees, graphs, sorting, searching, and complexity" },
+    { "slug": "databases", "name": "Database Management Systems", "icon": "fa-database", "category": "Core CS", "description": "Relational design, SQL, ACID transactions, normalization, and indexing" },
+    { "slug": "networks", "name": "Computer Networks", "icon": "fa-network-wired", "category": "Core CS", "description": "OSI & TCP/IP stack, routing, sockets, protocols, and security" },
+    { "slug": "operating-systems", "name": "Operating Systems", "icon": "fa-desktop", "category": "Core CS", "description": "Processes, threads, CPU scheduling, virtual memory, concurrency, and I/O" },
+    { "slug": "software-engineering", "name": "Software Engineering", "icon": "fa-sitemap", "category": "Software Dev", "description": "Agile methodologies, SDLC, requirements analysis, design patterns, testing" },
+    { "slug": "web-cloud", "name": "Web Technologies & Cloud", "icon": "fa-globe", "category": "Software Dev", "description": "Full-stack web, REST APIs, client-server models, Supabase, and cloud deployment" },
+    { "slug": "artificial-intelligence", "name": "Artificial Intelligence & ML", "icon": "fa-brain", "category": "Intelligence", "description": "Machine learning fundamentals, neural networks, supervised & unsupervised models" },
+    { "slug": "cybersecurity", "name": "Information Security & Privacy", "icon": "fa-shield-halved", "category": "Systems", "description": "Cryptography, network defense, authentication protocols, and web safety" },
+    { "slug": "data-science", "name": "Data Science & Analytics", "icon": "fa-chart-pie", "category": "Intelligence", "description": "Data wrangling, statistical inference, visualization, and Pandas/NumPy" },
+    { "slug": "discrete-math", "name": "Discrete Mathematics", "icon": "fa-square-root-variable", "category": "Mathematics", "description": "Logic, sets, relations, graph theory, combinatorics, and proofs" },
+    { "slug": "calculus-linear-algebra", "name": "Calculus & Linear Algebra", "icon": "fa-calculator", "category": "Mathematics", "description": "Matrices, vectors, eigenvalues, derivatives, and multidimensional calculus" },
+    { "slug": "prob-stats", "name": "Probability & Statistics", "icon": "fa-chart-simple", "category": "Mathematics", "description": "Random variables, distributions, hypothesis testing, and Bayes theorem" },
+    { "slug": "numerical-methods", "name": "Numerical Methods", "icon": "fa-superscript", "category": "Mathematics", "description": "Root finding, interpolation, numerical integration, and error analysis" },
+    { "slug": "capstone-design", "name": "Capstone Design Project", "icon": "fa-award", "category": "Projects", "description": "Team-based project delivery, architecture, Git workflow, and demo" },
+    { "slug": "technical-writing", "name": "Technical Writing & Presentation", "icon": "fa-pen-nib", "category": "General", "description": "Engineering reports, research documentation, proposals, and communication" },
+
+    { "slug": "circuit-analysis", "name": "Circuit Analysis", "icon": "fa-bolt", "category": "Engineering", "description": "Ohm's and Kirchhoff's laws, network theorems, RC/RL/RLC circuits, and AC phasors" },
+    { "slug": "digital-electronics", "name": "Digital Electronics & Logic Design", "icon": "fa-microchip", "category": "Engineering", "description": "Number systems, Boolean algebra, logic gates, flip-flops, and counters" },
+    { "slug": "signals-systems", "name": "Signals & Systems", "icon": "fa-wave-square", "category": "Engineering", "description": "Continuous and discrete signals, LTI systems, convolution, Fourier and Laplace transforms" },
+    { "slug": "communication-systems", "name": "Communication Systems", "icon": "fa-tower-broadcast", "category": "Engineering", "description": "Modulation, bandwidth, noise, sampling, and digital communication" },
+    { "slug": "power-systems", "name": "Electrical Machines & Power Systems", "icon": "fa-plug", "category": "Engineering", "description": "Transformers, motors, generators, transmission, and power factor" },
+    { "slug": "engineering-mechanics", "name": "Engineering Mechanics", "icon": "fa-gears", "category": "Engineering", "description": "Statics, dynamics, free-body diagrams, friction, and moments" },
+    { "slug": "structural-analysis", "name": "Structural Analysis", "icon": "fa-building", "category": "Engineering", "description": "Beams, trusses, loads, shear force, bending moment, and deflection" },
+    { "slug": "fluid-mechanics", "name": "Fluid Mechanics", "icon": "fa-water", "category": "Engineering", "description": "Fluid properties, pressure, Bernoulli's equation, flow regimes, and pipe flow" },
+    { "slug": "thermodynamics", "name": "Thermodynamics", "icon": "fa-fire", "category": "Engineering", "description": "Laws of thermodynamics, heat engines, entropy, and thermodynamic cycles" },
+
+    { "slug": "classical-mechanics", "name": "Classical Mechanics", "icon": "fa-atom", "category": "Science", "description": "Newton's laws, energy, momentum, rotation, and oscillations" },
+    { "slug": "electromagnetism", "name": "Electromagnetism", "icon": "fa-magnet", "category": "Science", "description": "Electric and magnetic fields, Gauss's law, induction, and Maxwell's equations" },
+
+    { "slug": "principles-of-management", "name": "Principles of Management", "icon": "fa-people-group", "category": "Business", "description": "Planning, organizing, leading, controlling, and organizational behavior" },
+    { "slug": "financial-accounting", "name": "Financial Accounting", "icon": "fa-file-invoice-dollar", "category": "Business", "description": "Double-entry bookkeeping, financial statements, and the accounting equation" },
+    { "slug": "corporate-finance", "name": "Corporate Finance", "icon": "fa-sack-dollar", "category": "Business", "description": "Time value of money, NPV, risk and return, and capital structure" },
+    { "slug": "marketing-management", "name": "Marketing Management", "icon": "fa-bullhorn", "category": "Business", "description": "Marketing mix, segmentation, targeting, positioning, and branding" },
+    { "slug": "economics", "name": "Principles of Economics", "icon": "fa-scale-balanced", "category": "Business", "description": "Supply and demand, elasticity, market structures, GDP, and inflation" }
+  ],
+  "faculties": [
+    {
+      "name": "Faculty of Computer Science & Information Technology",
+      "majors": [
+        { "name": "Computer Science & Engineering (CSE)", "core": ["programming", "data-structures", "databases", "networks", "operating-systems", "discrete-math", "software-engineering"], "electives": ["artificial-intelligence", "web-cloud", "calculus-linear-algebra", "capstone-design"] },
+        { "name": "Software Engineering", "core": ["programming", "software-engineering", "data-structures", "web-cloud", "databases"], "electives": ["operating-systems", "cybersecurity", "capstone-design", "technical-writing"] },
+        { "name": "Information Technology (IT)", "core": ["programming", "networks", "databases", "web-cloud", "cybersecurity"], "electives": ["operating-systems", "software-engineering", "technical-writing", "capstone-design"] },
+        { "name": "Artificial Intelligence & Data Science", "core": ["programming", "artificial-intelligence", "data-science", "prob-stats", "calculus-linear-algebra", "data-structures"], "electives": ["databases", "numerical-methods", "discrete-math", "capstone-design"] },
+        { "name": "Cybersecurity & Network Systems", "core": ["networks", "cybersecurity", "operating-systems", "programming"], "electives": ["discrete-math", "databases", "web-cloud", "capstone-design"] }
+      ]
+    },
+    {
+      "name": "Faculty of Engineering & Technology",
+      "majors": [
+        { "name": "Electronics & Communication Engineering", "core": ["circuit-analysis", "digital-electronics", "signals-systems", "communication-systems", "calculus-linear-algebra"], "electives": ["programming", "electromagnetism", "prob-stats", "networks", "capstone-design"] },
+        { "name": "Electrical & Information Engineering", "core": ["circuit-analysis", "power-systems", "digital-electronics", "signals-systems", "electromagnetism"], "electives": ["programming", "calculus-linear-algebra", "numerical-methods", "capstone-design"] },
+        { "name": "Civil Engineering", "core": ["engineering-mechanics", "structural-analysis", "fluid-mechanics", "calculus-linear-algebra"], "electives": ["numerical-methods", "prob-stats", "technical-writing", "capstone-design"] },
+        { "name": "Mechanical Engineering", "core": ["engineering-mechanics", "thermodynamics", "fluid-mechanics", "calculus-linear-algebra"], "electives": ["classical-mechanics", "numerical-methods", "programming", "capstone-design"] }
+      ]
+    },
+    {
+      "name": "Faculty of Science & Mathematics",
+      "majors": [
+        { "name": "Mathematics & Computing", "core": ["calculus-linear-algebra", "discrete-math", "numerical-methods", "programming", "prob-stats"], "electives": ["data-structures", "data-science", "artificial-intelligence"] },
+        { "name": "Applied Statistics & Data Analysis", "core": ["prob-stats", "data-science", "calculus-linear-algebra", "programming"], "electives": ["numerical-methods", "databases", "artificial-intelligence", "economics"] },
+        { "name": "Physics & Computational Modeling", "core": ["classical-mechanics", "electromagnetism", "calculus-linear-algebra", "numerical-methods"], "electives": ["programming", "thermodynamics", "prob-stats"] }
+      ]
+    },
+    {
+      "name": "Faculty of Business & Management Studies",
+      "majors": [
+        { "name": "Management Information Systems (MIS)", "core": ["principles-of-management", "databases", "financial-accounting", "web-cloud"], "electives": ["data-science", "software-engineering", "marketing-management", "technical-writing"] },
+        { "name": "Business Administration & Tech Management", "core": ["principles-of-management", "financial-accounting", "marketing-management", "economics"], "electives": ["corporate-finance", "software-engineering", "technical-writing"] },
+        { "name": "FinTech & Financial Engineering", "core": ["corporate-finance", "financial-accounting", "economics", "prob-stats", "programming"], "electives": ["data-science", "cybersecurity", "numerical-methods"] }
+      ]
+    }
+  ]
+}
+

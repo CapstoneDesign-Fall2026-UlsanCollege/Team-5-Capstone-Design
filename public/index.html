@@ -257,10 +257,16 @@
                     <button type="button" class="subject-category-chip is-active" data-cat="all">All Subjects</button>
                     <button type="button" class="subject-category-chip" data-cat="Core CS">Core CS</button>
                     <button type="button" class="subject-category-chip" data-cat="Software Dev">Software Dev</button>
+                    <button type="button" class="subject-category-chip" data-cat="Engineering">Engineering</button>
+                    <button type="button" class="subject-category-chip" data-cat="Business">Business</button>
                     <button type="button" class="subject-category-chip" data-cat="Intelligence">AI &amp; Data</button>
                     <button type="button" class="subject-category-chip" data-cat="Mathematics">Mathematics</button>
+                    <button type="button" class="subject-category-chip" data-cat="Science">Science</button>
                     <button type="button" class="subject-category-chip" data-cat="Projects">Projects</button>
                 </div>
+
+                <!-- Active Major Curriculum Banner -->
+                <div id="curriculum-banner" class="curriculum-banner" hidden></div>
 
                 <!-- Scrollable Container -->
                 <div id="subject-scroll-container" class="subject-scroll-container custom-scrollbar"></div>
@@ -398,16 +404,12 @@
         <div id="view-quiz" class="canvas custom-scrollbar" hidden>
             <section class="plan-board quiz-setup" id="quiz-setup">
                 <p class="eyebrow">Check Understanding</p>
-                <h2>Choose your computer science subject</h2>
-                <p class="muted">Practice one subject at a time. Standard quizzes have 15 questions; rapid quizzes have 10 questions and a 30-second limit.</p>
+                <h2 id="quiz-main-heading">Choose your study subject</h2>
+                <p id="quiz-sub-heading" class="muted">Practice one subject at a time. Standard quizzes have 15 questions; rapid quizzes have 10 questions and a 30-second limit.</p>
                 <div class="quiz-setup-controls">
                     <label for="quiz-subject">Subject
                         <select id="quiz-subject">
-                            <option value="programming">Programming</option>
-                            <option value="data-structures">Data Structures &amp; Algorithms</option>
-                            <option value="databases">Databases</option>
-                            <option value="networks">Computer Networks</option>
-                            <option value="operating-systems">Operating Systems</option>
+                            <!-- Populated dynamically based on enrolled subjects & selected major -->
                         </select>
                     </label>
                     <div class="quiz-mode-actions">

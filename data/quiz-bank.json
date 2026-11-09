@@ -1,0 +1,3519 @@
+{
+ "_comment": "Quiz bank per subject slug. Edit here, then run python3 scripts/build_academic_data.py.",
+ "questions": {
+  "programming": [
+   {
+    "q": "Which JavaScript keyword declares a block-scoped variable that can be reassigned?",
+    "options": [
+     "const",
+     "let",
+     "static",
+     "define"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "Which HTML element represents the most important heading?",
+    "options": [
+     "<h6>",
+     "<head>",
+     "<h1>",
+     "<title>"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "Which CSS property changes the color of text?",
+    "options": [
+     "font-style",
+     "background",
+     "text-align",
+     "color"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "What does a Boolean value represent?",
+    "options": [
+     "True or false",
+     "A decimal number",
+     "A sequence of characters",
+     "A memory address"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "What is the main purpose of a function?",
+    "options": [
+     "To store database rows",
+     "To group reusable instructions",
+     "To increase screen resolution",
+     "To allocate network ports"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "What does debugging help a programmer do?",
+    "options": [
+     "Compress source code",
+     "Design a database",
+     "Find and fix errors",
+     "Encrypt every variable"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "Which JavaScript operator checks both value and type equality?",
+    "options": [
+     "==",
+     "=",
+     "!=",
+     "==="
+    ],
+    "answer": 3
+   },
+   {
+    "q": "What is a parameter in a function?",
+    "options": [
+     "A named input the function can use",
+     "The value returned by every function",
+     "A syntax error",
+     "A loop condition"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "What does an array commonly store?",
+    "options": [
+     "One named function only",
+     "An ordered collection of values",
+     "Only true/false values",
+     "A network protocol"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "Which keyword exits a loop immediately in many programming languages?",
+    "options": [
+     "skip",
+     "return-all",
+     "break",
+     "next-loop"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "What is the result of 9 % 4 in JavaScript?",
+    "options": [
+     "1",
+     "2",
+     "2.25",
+     "36"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "What is a syntax error?",
+    "options": [
+     "A slow algorithm",
+     "A rule violation in how code is written",
+     "A missing user account",
+     "A full hard drive"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "Which statement runs a block only when its condition is true?",
+    "options": [
+     "import",
+     "class",
+     "if",
+     "return"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "What does a return statement do in a function?",
+    "options": [
+     "Repeats a loop",
+     "Declares a variable",
+     "Catches every error",
+     "Sends a value back to the caller"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "What does source control help a team track?",
+    "options": [
+     "Changes to files over time",
+     "CPU temperature",
+     "Monitor brightness",
+     "Internet speed"
+    ],
+    "answer": 0
+   }
+  ],
+  "data-structures": [
+   {
+    "q": "Which structure follows last-in, first-out order?",
+    "options": [
+     "Queue",
+     "Stack",
+     "Heap",
+     "Graph"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "Which structure follows first-in, first-out order?",
+    "options": [
+     "Stack",
+     "Tree",
+     "Queue",
+     "Set"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "In a typical array, what is the time complexity of accessing an element by index?",
+    "options": [
+     "O(1)",
+     "O(log n)",
+     "O(n)",
+     "O(n²)"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Which data structure is commonly used to implement a priority queue?",
+    "options": [
+     "Linked list only",
+     "Binary heap",
+     "Hash set",
+     "Stack"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "What is the average lookup time for a well-distributed hash table?",
+    "options": [
+     "O(n)",
+     "O(log n)",
+     "O(1)",
+     "O(n log n)"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "In a binary search tree, values in the left subtree are usually:",
+    "options": [
+     "Smaller than the node",
+     "Larger than the node",
+     "Always equal to the node",
+     "Stored as child indexes"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Which traversal explores a graph level by level?",
+    "options": [
+     "Depth-first search",
+     "In-order traversal",
+     "Breadth-first search",
+     "Binary search"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "What is the worst-case time complexity of linear search?",
+    "options": [
+     "O(1)",
+     "O(log n)",
+     "O(n)",
+     "O(n log n)"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "Which structure connects nodes using edges and has no required root?",
+    "options": [
+     "Graph",
+     "Stack",
+     "Array",
+     "Queue"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "What is a leaf in a tree?",
+    "options": [
+     "A node with no children",
+     "The root node",
+     "An edge between roots",
+     "A cycle"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Which sorting algorithm repeatedly partitions around a pivot?",
+    "options": [
+     "Selection sort",
+     "Quick sort",
+     "Insertion sort",
+     "Counting sort"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "What does a linked list node typically contain?",
+    "options": [
+     "Only an array index",
+     "A value and link(s) to other node(s)",
+     "A database table",
+     "A sorting algorithm"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "Which algorithmic technique solves problems by combining results from smaller subproblems?",
+    "options": [
+     "Brute-force enumeration",
+     "Hashing",
+     "Divide and conquer",
+     "Linear probing"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "A balanced binary search tree keeps its height approximately:",
+    "options": [
+     "O(log n)",
+     "O(n²)",
+     "O(1) for every size",
+     "O(2ⁿ)"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Which data structure is most suitable for checking whether an item has appeared before?",
+    "options": [
+     "Queue",
+     "Hash set",
+     "Stack",
+     "Tree traversal list"
+    ],
+    "answer": 1
+   }
+  ],
+  "databases": [
+   {
+    "q": "What does SQL stand for?",
+    "options": [
+     "Structured Query Language",
+     "Sequential Question Logic",
+     "System Quality Layer",
+     "Simple Queue Language"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Which key uniquely identifies a row in a relational table?",
+    "options": [
+     "Foreign key",
+     "Primary key",
+     "Index label",
+     "Nullable key"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "What is the purpose of a foreign key?",
+    "options": [
+     "To encrypt a table",
+     "To sort every row",
+     "To reference a key in another table",
+     "To create a backup"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "Which SQL command retrieves rows from a table?",
+    "options": [
+     "FETCH TABLE",
+     "OPEN",
+     "RETRIEVE",
+     "SELECT"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "Which clause filters rows before grouping?",
+    "options": [
+     "WHERE",
+     "ORDER BY",
+     "HAVING",
+     "LIMIT"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "What does a JOIN do in a relational query?",
+    "options": [
+     "Deletes duplicate databases",
+     "Combines related rows from tables",
+     "Changes a column type",
+     "Backs up a table"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "Which property is expected of a transaction under ACID?",
+    "options": [
+     "Approximation",
+     "Caching",
+     "Atomicity",
+     "Duplication"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "What is database normalization primarily intended to reduce?",
+    "options": [
+     "Data redundancy and update anomalies",
+     "Query language features",
+     "The number of users",
+     "All indexes"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Which SQL command adds a new row?",
+    "options": [
+     "APPEND ROW",
+     "INSERT INTO",
+     "ADD COLUMN",
+     "CREATE ROW"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "What does an index generally improve?",
+    "options": [
+     "Query lookup speed",
+     "Disk capacity",
+     "Data accuracy automatically",
+     "Network encryption"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Which clause sorts query results?",
+    "options": [
+     "GROUP BY",
+     "HAVING",
+     "ORDER BY",
+     "SORT TABLE"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "What does NULL typically mean in a database?",
+    "options": [
+     "The number zero",
+     "An empty string in every system",
+     "False",
+     "A missing or unknown value"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "Which SQL operation changes existing rows?",
+    "options": [
+     "UPDATE",
+     "CREATE",
+     "SELECT",
+     "GRANT"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "What does GROUP BY do?",
+    "options": [
+     "Removes a table",
+     "Groups rows that share values for aggregation",
+     "Encrypts grouped columns",
+     "Orders rows alphabetically only"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "Which database model stores data as documents, key-value pairs, or graphs instead of only relational tables?",
+    "options": [
+     "Spreadsheet",
+     "Relational only",
+     "NoSQL",
+     "Flat-file index"
+    ],
+    "answer": 2
+   }
+  ],
+  "networks": [
+   {
+    "q": "What does IP stand for in networking?",
+    "options": [
+     "Internet Protocol",
+     "Internal Process",
+     "Interface Program",
+     "Integrated Port"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Which protocol provides reliable, ordered delivery using a connection?",
+    "options": [
+     "UDP",
+     "TCP",
+     "IP",
+     "ARP"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "What is the main purpose of DNS?",
+    "options": [
+     "Encrypt files",
+     "Assign CPU time",
+     "Translate domain names to IP addresses",
+     "Detect hardware errors"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "Which device forwards packets between different networks?",
+    "options": [
+     "Hub",
+     "Repeater",
+     "Switch",
+     "Router"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "How many layers are in the commonly taught OSI model?",
+    "options": [
+     "Seven",
+     "Four",
+     "Five",
+     "Eight"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Which protocol is commonly used to securely browse websites?",
+    "options": [
+     "FTP",
+     "HTTPS",
+     "SMTP",
+     "DHCP"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "What does DHCP commonly provide to a client?",
+    "options": [
+     "A domain name certificate",
+     "A MAC address",
+     "Network configuration such as an IP address",
+     "A web page"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "Which transport protocol is connectionless and does not guarantee delivery?",
+    "options": [
+     "TCP",
+     "HTTP",
+     "SSH",
+     "UDP"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "What is a MAC address associated with?",
+    "options": [
+     "A network interface at the link layer",
+     "A web domain",
+     "A TCP port",
+     "A file system"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "What is the purpose of a subnet mask?",
+    "options": [
+     "To encrypt a packet",
+     "To identify network and host portions of an IP address",
+     "To map a URL to HTML",
+     "To increase Wi-Fi signal"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "Which protocol is used to send email between mail servers?",
+    "options": [
+     "POP3",
+     "IMAP",
+     "SMTP",
+     "SNMP"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "What does bandwidth describe in a data connection?",
+    "options": [
+     "The physical length of a cable",
+     "The number of devices on a LAN",
+     "A packet’s destination",
+     "The maximum data transfer capacity"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "Which network topology connects devices to a central switch or hub?",
+    "options": [
+     "Star",
+     "Ring",
+     "Bus",
+     "Mesh only"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "What is latency?",
+    "options": [
+     "The number of IP addresses",
+     "The time delay for data to travel",
+     "The size of a hard drive",
+     "The encryption key length"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "Which protocol securely supports remote command-line access?",
+    "options": [
+     "Telnet",
+     "HTTP",
+     "SSH",
+     "TFTP"
+    ],
+    "answer": 2
+   }
+  ],
+  "operating-systems": [
+   {
+    "q": "What is the main role of an operating system?",
+    "options": [
+     "Manage computer resources and provide services to programs",
+     "Design web pages",
+     "Manufacture a CPU",
+     "Translate domain names"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "What is a process?",
+    "options": [
+     "A stored source-code comment",
+     "A program in execution",
+     "A network cable",
+     "A database column"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "Which scheduling algorithm assigns each process a fixed time slice in turn?",
+    "options": [
+     "Shortest job first",
+     "Priority only",
+     "Round robin",
+     "First-fit"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "What is virtual memory?",
+    "options": [
+     "A type of CPU cache only",
+     "A second physical processor",
+     "A backup power supply",
+     "An abstraction that uses storage to extend addressable memory"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "What condition describes two or more processes waiting indefinitely for resources held by each other?",
+    "options": [
+     "Deadlock",
+     "Thrashing",
+     "Starvation-free scheduling",
+     "Context switching"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "What does a context switch do?",
+    "options": [
+     "Formats a disk",
+     "Saves one process state and loads another",
+     "Compiles source code",
+     "Changes a user password"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "What is a system call?",
+    "options": [
+     "A phone call to support",
+     "A compiler warning",
+     "A request for a service from the operating system",
+     "A network broadcast"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "Which memory is typically fastest and closest to the CPU?",
+    "options": [
+     "Hard disk",
+     "RAM",
+     "Optical disc",
+     "CPU register"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "What is a thread?",
+    "options": [
+     "A unit of execution within a process",
+     "A file permission",
+     "A storage sector",
+     "A device driver"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "What is the purpose of a file system?",
+    "options": [
+     "Schedule CPU instructions",
+     "Organize and manage files on storage",
+     "Route network traffic",
+     "Cool the processor"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "What is a race condition?",
+    "options": [
+     "A CPU speed benchmark",
+     "A disk seek operation",
+     "An outcome that depends on timing of concurrent operations",
+     "A process priority level"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "What does a mutex help provide?",
+    "options": [
+     "Virtual addressing",
+     "Disk partitioning",
+     "Network routing",
+     "Mutual exclusion for shared resources"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "What is paging in memory management?",
+    "options": [
+     "Dividing memory into fixed-size pages and frames",
+     "Printing pages from a document",
+     "Sorting files by name",
+     "Creating user accounts"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "What does starvation mean in process scheduling?",
+    "options": [
+     "A process uses no memory",
+     "A process waits indefinitely for needed resources or CPU time",
+     "The system has no files",
+     "A process has completed"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "Which component typically mediates access between the OS and hardware devices?",
+    "options": [
+     "Text editor",
+     "Web browser",
+     "Device driver",
+     "SQL query"
+    ],
+    "answer": 2
+   }
+  ],
+  "software-engineering": [
+   {
+    "q": "Which SDLC model completes each phase fully before the next one begins?",
+    "options": [
+     "Waterfall",
+     "Scrum",
+     "Kanban",
+     "Extreme Programming"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "In Scrum, what is a fixed-length development iteration called?",
+    "options": [
+     "Epic",
+     "Sprint",
+     "Backlog",
+     "Release train"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "What does a unit test verify?",
+    "options": [
+     "The whole system under heavy load",
+     "Network latency",
+     "A small, isolated piece of code",
+     "User interface colors"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "Which document captures what a system must do?",
+    "options": [
+     "Deployment log",
+     "Test coverage report",
+     "Commit history",
+     "Software requirements specification"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "What is refactoring?",
+    "options": [
+     "Improving code structure without changing its behavior",
+     "Adding new features",
+     "Deleting all tests",
+     "Rewriting the app in a new language"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Which design pattern ensures a class has only one instance?",
+    "options": [
+     "Observer",
+     "Singleton",
+     "Factory",
+     "Adapter"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "What does version control such as Git primarily provide?",
+    "options": [
+     "A faster CPU",
+     "Database indexing",
+     "History and collaboration on code changes",
+     "Automatic UI design"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "A functional requirement describes:",
+    "options": [
+     "Hardware cost",
+     "Coding style",
+     "Team schedule",
+     "A behavior the system must perform"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "What is continuous integration?",
+    "options": [
+     "Frequently merging code with automated builds and tests",
+     "Releasing software once a year",
+     "Testing only manually",
+     "Writing documentation after release"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Which UML diagram shows interactions between objects over time?",
+    "options": [
+     "Class diagram",
+     "Sequence diagram",
+     "Deployment diagram",
+     "Use case diagram"
+    ],
+    "answer": 1
+   }
+  ],
+  "web-cloud": [
+   {
+    "q": "Which HTTP method is typically used to retrieve data?",
+    "options": [
+     "GET",
+     "POST",
+     "DELETE",
+     "PATCH"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "What does REST stand for?",
+    "options": [
+     "Remote Execution Script Technology",
+     "Representational State Transfer",
+     "Reliable Encrypted Session Transport",
+     "Rapid Endpoint Service Tool"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "What does HTTP status code 404 mean?",
+    "options": [
+     "Internal server error",
+     "Unauthorized",
+     "Resource not found",
+     "Success"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "Which data format is most common for REST API payloads?",
+    "options": [
+     "BMP",
+     "WAV",
+     "PDF",
+     "JSON"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "What does CSS control on a web page?",
+    "options": [
+     "Presentation and layout",
+     "Database queries",
+     "Server routing",
+     "DNS lookups"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "In cloud computing, what does IaaS provide?",
+    "options": [
+     "Only finished applications",
+     "Virtualized infrastructure such as servers and storage",
+     "Only email accounts",
+     "Only domain names"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "What is the main role of a CDN?",
+    "options": [
+     "Encrypt passwords",
+     "Compile JavaScript",
+     "Serve content from servers close to users",
+     "Host the database schema"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "Which HTTP status code means a request succeeded?",
+    "options": [
+     "500",
+     "301",
+     "403",
+     "200"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "What does CORS control in a browser?",
+    "options": [
+     "Which origins may access a resource",
+     "CPU scheduling",
+     "Disk partitions",
+     "Email spam filtering"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Supabase is primarily built on which database?",
+    "options": [
+     "MongoDB",
+     "PostgreSQL",
+     "SQLite",
+     "Oracle"
+    ],
+    "answer": 1
+   }
+  ],
+  "artificial-intelligence": [
+   {
+    "q": "Supervised learning trains a model using:",
+    "options": [
+     "Labeled examples",
+     "No data at all",
+     "Random weights only",
+     "Only unlabeled clusters"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Which machine-learning task predicts a continuous value?",
+    "options": [
+     "Classification",
+     "Regression",
+     "Clustering",
+     "Tokenization"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "Overfitting means a model:",
+    "options": [
+     "Is too simple to learn anything",
+     "Has no parameters",
+     "Performs well on training data but poorly on new data",
+     "Always generalizes perfectly"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "Which algorithm groups unlabeled data into k clusters?",
+    "options": [
+     "Linear regression",
+     "Decision tree",
+     "Naive Bayes",
+     "K-means"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "What does an activation function add to a neural network?",
+    "options": [
+     "Non-linearity",
+     "Extra storage",
+     "Labels",
+     "Data cleaning"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Gradient descent is used to:",
+    "options": [
+     "Label data automatically",
+     "Minimize a loss function by updating parameters",
+     "Store images",
+     "Encrypt models"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "What is the purpose of a test set?",
+    "options": [
+     "Train the weights",
+     "Increase dataset size",
+     "Estimate performance on unseen data",
+     "Replace validation"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "Reinforcement learning agents learn from:",
+    "options": [
+     "Labeled images only",
+     "Sorted lists",
+     "Fixed hand-written rules",
+     "Rewards and penalties from an environment"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "Precision measures:",
+    "options": [
+     "The fraction of predicted positives that are truly positive",
+     "The fraction of data used for training",
+     "Training speed",
+     "Model size"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "A convolutional neural network is especially suited to:",
+    "options": [
+     "Spreadsheet formulas",
+     "Image data",
+     "Sorting numbers",
+     "Email routing"
+    ],
+    "answer": 1
+   }
+  ],
+  "cybersecurity": [
+   {
+    "q": "What does the CIA triad stand for?",
+    "options": [
+     "Confidentiality, Integrity, Availability",
+     "Control, Inspection, Audit",
+     "Cipher, Identity, Access",
+     "Code, Internet, Authentication"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "What is phishing?",
+    "options": [
+     "A firewall rule",
+     "Tricking users into revealing information through deceptive messages",
+     "A hashing algorithm",
+     "A backup method"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "Symmetric encryption uses:",
+    "options": [
+     "Two unrelated keys",
+     "No key",
+     "The same key to encrypt and decrypt",
+     "Only public keys"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "Cryptographic hash functions are designed to be:",
+    "options": [
+     "Easily reversible",
+     "Different every time for the same input",
+     "Dependent on a secret key",
+     "One-way"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "Multi-factor authentication requires:",
+    "options": [
+     "Two or more different types of verification",
+     "A longer username",
+     "Only a password",
+     "Only a fingerprint"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "SQL injection exploits:",
+    "options": [
+     "Weak Wi-Fi signals",
+     "Unsanitized input inserted into database queries",
+     "Expired certificates",
+     "Slow hard drives"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "A firewall primarily:",
+    "options": [
+     "Speeds up the CPU",
+     "Stores passwords",
+     "Filters network traffic based on rules",
+     "Compresses files"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "HTTPS protects web traffic using:",
+    "options": [
+     "FTP",
+     "UDP flooding",
+     "Plain HTTP",
+     "TLS encryption"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "The principle of least privilege means:",
+    "options": [
+     "Give users only the access they need",
+     "Give every user admin rights",
+     "Disable all logging",
+     "Share passwords within teams"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Ransomware is malware that:",
+    "options": [
+     "Speeds up backups",
+     "Encrypts victim data and demands payment",
+     "Acts as antivirus",
+     "Is a network protocol"
+    ],
+    "answer": 1
+   }
+  ],
+  "data-science": [
+   {
+    "q": "What is the mean of 2, 4, 6, and 8?",
+    "options": [
+     "5",
+     "4",
+     "6",
+     "20"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Which Python library is widely used for tabular data analysis?",
+    "options": [
+     "Flask",
+     "Pandas",
+     "Pygame",
+     "Requests"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "Data cleaning mainly involves:",
+    "options": [
+     "Buying servers",
+     "Designing the UI",
+     "Handling missing, duplicate, or invalid values",
+     "Encrypting data"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "Which chart best shows the distribution of one numeric variable?",
+    "options": [
+     "Pie chart",
+     "Gantt chart",
+     "Org chart",
+     "Histogram"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "The median of a dataset is:",
+    "options": [
+     "The middle value of the sorted data",
+     "The most frequent value",
+     "The arithmetic average",
+     "The largest value"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "A correlation coefficient of +1 indicates:",
+    "options": [
+     "No relationship",
+     "A perfect positive linear relationship",
+     "A perfect negative relationship",
+     "A random pattern"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "An outlier is:",
+    "options": [
+     "The mean value",
+     "A column header",
+     "A value far from the rest of the data",
+     "Always a missing value"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "What does EDA stand for?",
+    "options": [
+     "Encrypted Data Access",
+     "External Data API",
+     "Event Driven Architecture",
+     "Exploratory Data Analysis"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "Standard deviation measures:",
+    "options": [
+     "How spread out data is around the mean",
+     "The central value",
+     "The number of rows",
+     "The data type"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "What is the mode of 3, 3, 5, 7, 3, 5?",
+    "options": [
+     "5",
+     "3",
+     "7",
+     "4.33"
+    ],
+    "answer": 1
+   }
+  ],
+  "discrete-math": [
+   {
+    "q": "When is the proposition p AND q true?",
+    "options": [
+     "When both p and q are true",
+     "When either one is true",
+     "When both are false",
+     "When p is false"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "How many subsets does a set with 3 elements have?",
+    "options": [
+     "6",
+     "8",
+     "9",
+     "3"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "The intersection A ∩ B contains:",
+    "options": [
+     "All elements in either set",
+     "Elements only in A",
+     "Elements in both A and B",
+     "No elements"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "In graph theory, the degree of a vertex is:",
+    "options": [
+     "The number of graphs",
+     "Its label",
+     "The total number of vertices",
+     "The number of edges incident to it"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "What is 5! (5 factorial)?",
+    "options": [
+     "120",
+     "25",
+     "60",
+     "720"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "A relation that is reflexive, symmetric, and transitive is called:",
+    "options": [
+     "A partial order",
+     "An equivalence relation",
+     "A function",
+     "A bijection"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "The implication p → q is false only when:",
+    "options": [
+     "p is false and q is true",
+     "Both are false",
+     "p is true and q is false",
+     "Both are true"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "How many ways can 2 items be chosen from 5 (C(5,2))?",
+    "options": [
+     "20",
+     "5",
+     "25",
+     "10"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "A proof by contradiction begins by assuming:",
+    "options": [
+     "The negation of the statement is true",
+     "The statement is true",
+     "Nothing",
+     "Only the base case"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "A tree with n vertices has how many edges?",
+    "options": [
+     "n",
+     "n − 1",
+     "n + 1",
+     "2n"
+    ],
+    "answer": 1
+   }
+  ],
+  "calculus-linear-algebra": [
+   {
+    "q": "What is the derivative of x²?",
+    "options": [
+     "2x",
+     "x",
+     "x³/3",
+     "2"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "What is the integral of 1/x dx?",
+    "options": [
+     "x²",
+     "ln|x| + C",
+     "1/x²",
+     "eˣ"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "Multiplying a 2×3 matrix by a 3×4 matrix gives a matrix of size:",
+    "options": [
+     "3×3",
+     "2×3",
+     "2×4",
+     "4×2"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "What is the determinant of [[1, 2], [3, 4]]?",
+    "options": [
+     "10",
+     "2",
+     "5",
+     "−2"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "What is the derivative of sin x?",
+    "options": [
+     "cos x",
+     "−cos x",
+     "sin x",
+     "−sin x"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Multiplying the identity matrix by a matrix A gives:",
+    "options": [
+     "The zero matrix",
+     "A",
+     "The transpose of A",
+     "The inverse of A"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "What is the limit of (sin x)/x as x approaches 0?",
+    "options": [
+     "0",
+     "Infinity",
+     "1",
+     "Undefined"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "An eigenvector v of matrix A satisfies:",
+    "options": [
+     "Av = 0 always",
+     "A + v = λ",
+     "vA = A",
+     "Av = λv"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "What is the dot product of (1, 2) and (3, 4)?",
+    "options": [
+     "11",
+     "10",
+     "7",
+     "24"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "A square matrix is invertible if and only if its determinant is:",
+    "options": [
+     "Zero",
+     "Non-zero",
+     "Negative",
+     "Exactly one"
+    ],
+    "answer": 1
+   }
+  ],
+  "prob-stats": [
+   {
+    "q": "What is the probability of heads on a fair coin toss?",
+    "options": [
+     "0.5",
+     "1",
+     "0.25",
+     "0"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Probability values always lie between:",
+    "options": [
+     "−1 and 1",
+     "0 and 1",
+     "0 and 100",
+     "1 and 10"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "When rolling a fair six-sided die, what is P(even number)?",
+    "options": [
+     "1/6",
+     "1/3",
+     "1/2",
+     "2/3"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "If events A and B are independent, P(A and B) equals:",
+    "options": [
+     "P(A) + P(B)",
+     "P(A) − P(B)",
+     "P(A|B) + P(B)",
+     "P(A) · P(B)"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "What is the shape of a normal distribution?",
+    "options": [
+     "Symmetric and bell-shaped",
+     "A flat rectangle",
+     "Always skewed right",
+     "Always bimodal"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "A null hypothesis usually states that:",
+    "options": [
+     "A strong effect exists",
+     "There is no effect or no difference",
+     "The sample is biased",
+     "The data are invalid"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "A p-value below the significance level suggests you should:",
+    "options": [
+     "Always accept the null hypothesis",
+     "Discard the data",
+     "Reject the null hypothesis",
+     "Only increase the sample size"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "What is the expected value of one roll of a fair six-sided die?",
+    "options": [
+     "3",
+     "4",
+     "6",
+     "3.5"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "Bayes' theorem relates:",
+    "options": [
+     "P(A|B) and P(B|A)",
+     "The mean and the median",
+     "Variance and range",
+     "Two sample sizes"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Variance is the square of the:",
+    "options": [
+     "Mean",
+     "Standard deviation",
+     "Median",
+     "Range"
+    ],
+    "answer": 1
+   }
+  ],
+  "numerical-methods": [
+   {
+    "q": "The bisection method requires f(a) and f(b) to have:",
+    "options": [
+     "Opposite signs",
+     "The same sign",
+     "Zero values",
+     "Equal magnitudes"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "The Newton–Raphson update uses:",
+    "options": [
+     "Only f(x)",
+     "Both f(x) and f′(x)",
+     "Random guesses",
+     "The integral of f"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "The trapezoidal rule approximates:",
+    "options": [
+     "Derivatives",
+     "Roots",
+     "Definite integrals",
+     "Matrix inverses"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "Truncation error arises from:",
+    "options": [
+     "Hardware faults",
+     "Typing mistakes",
+     "Network delay",
+     "Approximating an infinite process with a finite one"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "Round-off error is caused by:",
+    "options": [
+     "Finite-precision representation of numbers",
+     "Using the wrong formula",
+     "Missing data",
+     "A slow CPU"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Gaussian elimination is used to solve:",
+    "options": [
+     "Only differential equations",
+     "Systems of linear equations",
+     "Only optimization problems",
+     "Only sorting problems"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "Interpolation estimates:",
+    "options": [
+     "Only values outside the data range",
+     "Derivatives exactly",
+     "Values between known data points",
+     "Measurement errors"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "Simpson's 1/3 rule fits the data with:",
+    "options": [
+     "Straight lines",
+     "Cubic splines",
+     "Exponentials",
+     "Parabolas (quadratic polynomials)"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "Euler's method numerically solves:",
+    "options": [
+     "Ordinary differential equations",
+     "Linear programs",
+     "Sorting problems",
+     "Only eigenvalue problems"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "An iterative method converges when successive approximations:",
+    "options": [
+     "Diverge",
+     "Approach a fixed value",
+     "Oscillate forever",
+     "Stay random"
+    ],
+    "answer": 1
+   }
+  ],
+  "capstone-design": [
+   {
+    "q": "What is the purpose of a project charter or team agreement?",
+    "options": [
+     "Define scope, roles, and goals",
+     "Write all the code",
+     "Test the UI",
+     "Deploy servers"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "What does MVP stand for in product development?",
+    "options": [
+     "Most Valuable Player",
+     "Minimum Viable Product",
+     "Maximum Version Plan",
+     "Main Verification Process"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "A pull request is used to:",
+    "options": [
+     "Delete a repository",
+     "Install packages",
+     "Propose and review changes before merging",
+     "Create a database"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "A Gantt chart shows:",
+    "options": [
+     "Code coverage",
+     "Class hierarchy",
+     "Network topology",
+     "Project tasks over time"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "A demo rehearsal helps the team:",
+    "options": [
+     "Find issues before the final presentation",
+     "Increase file sizes",
+     "Replace testing entirely",
+     "Skip documentation"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "A risk register records:",
+    "options": [
+     "Commit messages",
+     "Potential risks, their impact, and mitigation",
+     "User passwords",
+     "Raw test data"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "A vertical slice is:",
+    "options": [
+     "Only UI mockups",
+     "Only the database layer",
+     "A thin end-to-end feature through all layers",
+     "A design document"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "A Definition of Done is:",
+    "options": [
+     "The final grade",
+     "The list of team members",
+     "The deadline date",
+     "Agreed criteria a task must meet to be complete"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "A Git merge conflict happens when:",
+    "options": [
+     "Two changes edit the same lines differently",
+     "The repository is public",
+     "A branch is protected",
+     "CI passes"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Project stakeholders are:",
+    "options": [
+     "Only the programmers",
+     "People affected by or interested in the project",
+     "Test cases",
+     "Servers"
+    ],
+    "answer": 1
+   }
+  ],
+  "technical-writing": [
+   {
+    "q": "What is the abstract of a report?",
+    "options": [
+     "A brief summary of the whole document",
+     "The reference list",
+     "An appendix",
+     "The title page"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Which sentence uses the active voice?",
+    "options": [
+     "The test was run by the team.",
+     "The team ran the test.",
+     "Tests are being run.",
+     "Running of tests occurred."
+    ],
+    "answer": 1
+   },
+   {
+    "q": "What is the main purpose of citations?",
+    "options": [
+     "Increase word count",
+     "Decoration",
+     "Credit sources and allow verification",
+     "Hide ideas"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "Which is a good practice for presentation slides?",
+    "options": [
+     "Full paragraphs on each slide",
+     "Many different fonts",
+     "Very small text",
+     "A few key points with readable visuals"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "Audience analysis helps a writer:",
+    "options": [
+     "Tailor content and language to readers",
+     "Choose a printer",
+     "Reduce research",
+     "Avoid editing"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "A project README file typically explains:",
+    "options": [
+     "Server hardware specifications",
+     "How to install, run, and use the project",
+     "Personal opinions",
+     "Company finances"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "An executive summary is written mainly for:",
+    "options": [
+     "Developers only",
+     "Proofreaders",
+     "Decision-makers who need key points quickly",
+     "Testers"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "Plagiarism means:",
+    "options": [
+     "Quoting with citation",
+     "Paraphrasing with credit",
+     "Summarizing your own work",
+     "Presenting someone else's work as your own"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "Figures in a technical report should:",
+    "options": [
+     "Have numbered captions and be referenced in the text",
+     "Have no labels",
+     "Be placed randomly",
+     "Rely only on color"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Proofreading checks for:",
+    "options": [
+     "Server uptime",
+     "Spelling, grammar, and clarity errors",
+     "Code performance",
+     "Network speed"
+    ],
+    "answer": 1
+   }
+  ],
+  "circuit-analysis": [
+   {
+    "q": "Which equation expresses Ohm's law?",
+    "options": [
+     "V = IR",
+     "P = IV²",
+     "I = VR",
+     "R = VI"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Kirchhoff's Current Law states that the current entering a node equals:",
+    "options": [
+     "Zero volts",
+     "The current leaving the node",
+     "The resistance",
+     "The power"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "Two 10 Ω resistors in series have a total resistance of:",
+    "options": [
+     "5 Ω",
+     "10 Ω",
+     "20 Ω",
+     "100 Ω"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "Two 10 Ω resistors in parallel have an equivalent resistance of:",
+    "options": [
+     "20 Ω",
+     "10 Ω",
+     "100 Ω",
+     "5 Ω"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "What is the SI unit of capacitance?",
+    "options": [
+     "Farad",
+     "Henry",
+     "Ohm",
+     "Siemens"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "What power is dissipated when 2 A flows through a 5 Ω resistor?",
+    "options": [
+     "10 W",
+     "20 W",
+     "2.5 W",
+     "50 W"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "Kirchhoff's Voltage Law states that voltages around a closed loop sum to:",
+    "options": [
+     "The total current",
+     "Infinity",
+     "Zero",
+     "The source voltage squared"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "The time constant of an RC circuit is:",
+    "options": [
+     "R/C",
+     "C/R",
+     "1/(RC)",
+     "RC"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "An inductor opposes changes in:",
+    "options": [
+     "Current",
+     "Resistance",
+     "Color",
+     "Temperature"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "A Thevenin equivalent circuit consists of:",
+    "options": [
+     "A current source in parallel with a resistor",
+     "A voltage source in series with a resistance",
+     "Only a resistor",
+     "Only a capacitor"
+    ],
+    "answer": 1
+   }
+  ],
+  "digital-electronics": [
+   {
+    "q": "What is binary 1010 in decimal?",
+    "options": [
+     "10",
+     "8",
+     "12",
+     "5"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Which gate outputs 1 only when all inputs are 1?",
+    "options": [
+     "OR",
+     "AND",
+     "XOR",
+     "NOR"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "Which gates are called universal gates?",
+    "options": [
+     "AND and OR",
+     "XOR and XNOR",
+     "NAND and NOR",
+     "NOT and buffer"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "Hexadecimal F equals which decimal number?",
+    "options": [
+     "16",
+     "10",
+     "14",
+     "15"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "A flip-flop stores:",
+    "options": [
+     "One bit",
+     "One byte",
+     "An analog voltage",
+     "A full instruction"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "An XOR gate outputs 1 when:",
+    "options": [
+     "Both inputs are 1",
+     "The inputs differ",
+     "Both inputs are 0",
+     "Always"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "By De Morgan's theorem, NOT(A AND B) equals:",
+    "options": [
+     "NOT A AND NOT B",
+     "A OR B",
+     "NOT A OR NOT B",
+     "A AND B"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "A multiplexer:",
+    "options": [
+     "Adds two numbers",
+     "Stores bits permanently",
+     "Inverts signals",
+     "Selects one of several inputs to send to the output"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "The output of a combinational circuit depends on:",
+    "options": [
+     "Only the current inputs",
+     "Past states",
+     "Only the clock",
+     "Stored memory"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "A 3-bit binary counter has how many distinct states?",
+    "options": [
+     "3",
+     "8",
+     "6",
+     "16"
+    ],
+    "answer": 1
+   }
+  ],
+  "signals-systems": [
+   {
+    "q": "What does LTI stand for?",
+    "options": [
+     "Linear Time-Invariant",
+     "Low Transfer Interface",
+     "Logic Timing Index",
+     "Linear Transmission Input"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "The output of an LTI system equals the input convolved with its:",
+    "options": [
+     "Derivative",
+     "Impulse response",
+     "Step size",
+     "Noise"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "The Fourier transform represents a signal in the:",
+    "options": [
+     "Time domain only",
+     "Spatial domain",
+     "Frequency domain",
+     "Probability domain"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "The Nyquist rate is:",
+    "options": [
+     "Equal to the highest frequency",
+     "Half the highest frequency",
+     "Ten times the highest frequency",
+     "Twice the highest frequency component"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "A periodic signal:",
+    "options": [
+     "Repeats itself after a fixed interval",
+     "Never repeats",
+     "Is always zero",
+     "Is purely random"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "The Laplace transform is commonly used to analyze:",
+    "options": [
+     "Databases",
+     "Continuous-time systems and differential equations",
+     "Sorting algorithms",
+     "Only images"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "The output of a causal system depends on:",
+    "options": [
+     "Future inputs",
+     "Random inputs",
+     "Present and past inputs only",
+     "Nothing"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "The Z-transform is used for:",
+    "options": [
+     "Continuous signals only",
+     "Optical lenses",
+     "Mechanical gears",
+     "Discrete-time signals"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "Aliasing occurs when a signal is:",
+    "options": [
+     "Sampled below the Nyquist rate",
+     "Sampled very fast",
+     "Low-pass filtered",
+     "Amplified"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "A low-pass filter:",
+    "options": [
+     "Blocks low frequencies",
+     "Passes low frequencies and attenuates high frequencies",
+     "Passes all frequencies",
+     "Blocks all frequencies"
+    ],
+    "answer": 1
+   }
+  ],
+  "communication-systems": [
+   {
+    "q": "Amplitude modulation (AM) varies the carrier's:",
+    "options": [
+     "Amplitude",
+     "Frequency",
+     "Phase only",
+     "Wavelength only"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Frequency modulation (FM) varies the carrier's:",
+    "options": [
+     "Amplitude",
+     "Frequency",
+     "Power supply",
+     "Polarization"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "Signal-to-noise ratio (SNR) compares:",
+    "options": [
+     "Speed to range",
+     "Size to noise",
+     "Signal power to noise power",
+     "Sampling to Nyquist"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "Bandwidth is:",
+    "options": [
+     "The signal amplitude",
+     "The wire thickness",
+     "The number of users",
+     "The range of frequencies a signal occupies"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "The main purpose of modulation is to:",
+    "options": [
+     "Transmit information efficiently over a channel using a carrier",
+     "Store data",
+     "Compress files",
+     "Encrypt messages"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Shannon's channel capacity depends on:",
+    "options": [
+     "Antenna color",
+     "Bandwidth and signal-to-noise ratio",
+     "Cable length only",
+     "Number of bits only"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "Multiplexing allows:",
+    "options": [
+     "Only one signal per channel",
+     "Removal of all noise",
+     "Multiple signals to share one channel",
+     "Higher supply voltage"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "How many bits per symbol does QPSK encode?",
+    "options": [
+     "1",
+     "4",
+     "8",
+     "2"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "Demodulation means:",
+    "options": [
+     "Recovering the original message from a modulated carrier",
+     "Adding a carrier",
+     "Amplifying noise",
+     "Sampling a signal"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Optical fiber transmits information using:",
+    "options": [
+     "Sound waves",
+     "Light",
+     "Only radio waves",
+     "Copper current"
+    ],
+    "answer": 1
+   }
+  ],
+  "power-systems": [
+   {
+    "q": "A transformer works on the principle of:",
+    "options": [
+     "Electromagnetic induction",
+     "The photoelectric effect",
+     "The piezoelectric effect",
+     "Thermionic emission"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Transformers operate on:",
+    "options": [
+     "DC only",
+     "AC",
+     "Both AC and DC equally",
+     "Neither"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "A step-up transformer has:",
+    "options": [
+     "Fewer secondary turns than primary",
+     "Equal turns",
+     "More secondary turns than primary",
+     "No secondary winding"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "Power factor is the ratio of:",
+    "options": [
+     "Voltage to current",
+     "Reactive power to apparent power",
+     "Apparent power to real power",
+     "Real power to apparent power"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "What is the unit of real (active) power?",
+    "options": [
+     "Watt",
+     "VAR",
+     "VA",
+     "Joule per volt"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "High-voltage transmission is used mainly to reduce:",
+    "options": [
+     "Voltage",
+     "I²R line losses",
+     "Frequency",
+     "Generation"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "The rotor of an induction motor rotates:",
+    "options": [
+     "Faster than synchronous speed",
+     "Exactly at synchronous speed",
+     "Slightly slower than synchronous speed",
+     "Not at all"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "What is the standard grid frequency in South Korea?",
+    "options": [
+     "50 Hz",
+     "100 Hz",
+     "25 Hz",
+     "60 Hz"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "An electrical generator converts:",
+    "options": [
+     "Mechanical energy into electrical energy",
+     "Electrical energy into mechanical energy",
+     "Heat into light",
+     "Chemical energy into mechanical energy"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "The purpose of a circuit breaker is to:",
+    "options": [
+     "Increase voltage",
+     "Interrupt current during faults",
+     "Store energy",
+     "Measure power factor"
+    ],
+    "answer": 1
+   }
+  ],
+  "engineering-mechanics": [
+   {
+    "q": "For a body in static equilibrium, the net force is:",
+    "options": [
+     "Zero",
+     "Maximum",
+     "Equal to its weight",
+     "Infinite"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "The moment of a force equals:",
+    "options": [
+     "Force ÷ distance",
+     "Force × perpendicular distance",
+     "Mass × velocity",
+     "Force + distance"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "A free-body diagram shows:",
+    "options": [
+     "Material cost",
+     "Assembly steps",
+     "All external forces acting on a body",
+     "Temperature"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "What is the SI unit of force?",
+    "options": [
+     "Joule",
+     "Pascal",
+     "Watt",
+     "Newton"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "The maximum static friction force equals:",
+    "options": [
+     "μN",
+     "N/μ",
+     "μ/N",
+     "μ + N"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Newton's second law is:",
+    "options": [
+     "F = mv",
+     "F = ma",
+     "F = m/a",
+     "F = a/m"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "A couple consists of:",
+    "options": [
+     "A single force",
+     "Three concurrent forces",
+     "Two equal, opposite, parallel forces",
+     "Two collinear forces in the same direction"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "The center of gravity is:",
+    "options": [
+     "The heaviest part of a body",
+     "A geometric edge",
+     "The base point",
+     "The point where the total weight acts"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "Work done by a constant force equals:",
+    "options": [
+     "Force × displacement in the direction of the force",
+     "Mass × acceleration",
+     "Power × velocity",
+     "Force ÷ time"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "How many independent equilibrium equations exist for a rigid body in 2D?",
+    "options": [
+     "2",
+     "3",
+     "4",
+     "6"
+    ],
+    "answer": 1
+   }
+  ],
+  "structural-analysis": [
+   {
+    "q": "A simply supported beam has:",
+    "options": [
+     "A pin support and a roller support",
+     "Two fixed ends",
+     "One fixed end only",
+     "No supports"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "A truss member mainly carries:",
+    "options": [
+     "Bending moment",
+     "Axial force (tension or compression)",
+     "Torsion only",
+     "Shear only"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "A cantilever beam is:",
+    "options": [
+     "Supported at both ends",
+     "Supported only on rollers",
+     "Fixed at one end and free at the other",
+     "Floating"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "Bending moment is maximum where the shear force is:",
+    "options": [
+     "Maximum",
+     "Constant",
+     "Negative only",
+     "Zero"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "Dead load refers to:",
+    "options": [
+     "The permanent self-weight of the structure",
+     "Occupants",
+     "Wind",
+     "Earthquakes"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Which is an example of live load?",
+    "options": [
+     "Beam self-weight",
+     "Occupants and furniture",
+     "Foundation weight",
+     "Permanent wall weight"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "For a simply supported beam of span L with a central point load P, the maximum moment is:",
+    "options": [
+     "PL/2",
+     "PL",
+     "PL/4",
+     "PL/8"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "Deflection describes:",
+    "options": [
+     "Material color",
+     "Load type",
+     "Construction cost",
+     "The displacement of a member under load"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "A statically determinate structure is one where:",
+    "options": [
+     "Reactions can be found from equilibrium equations alone",
+     "Compatibility equations are always required",
+     "The structure is unstable",
+     "There are no supports"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Young's modulus relates:",
+    "options": [
+     "Force and area",
+     "Stress and strain",
+     "Mass and volume",
+     "Load and span"
+    ],
+    "answer": 1
+   }
+  ],
+  "fluid-mechanics": [
+   {
+    "q": "Density is defined as:",
+    "options": [
+     "Mass per unit volume",
+     "Weight per unit area",
+     "Force per unit area",
+     "Volume per unit mass"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Pressure in a static fluid increases with:",
+    "options": [
+     "Height above the surface",
+     "Depth",
+     "Container color",
+     "Container shape only"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "Bernoulli's equation expresses conservation of:",
+    "options": [
+     "Mass",
+     "Charge",
+     "Energy along a streamline",
+     "Volume only"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "The Reynolds number is used to predict:",
+    "options": [
+     "Pressure",
+     "Density",
+     "Temperature",
+     "Whether flow is laminar or turbulent"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "The continuity equation A₁V₁ = A₂V₂ comes from conservation of:",
+    "options": [
+     "Mass",
+     "Energy",
+     "Momentum",
+     "Heat"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Viscosity is a fluid's:",
+    "options": [
+     "Density",
+     "Resistance to flow or shear",
+     "Compressibility",
+     "Surface color"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "The buoyant force on a submerged object equals:",
+    "options": [
+     "The object's mass",
+     "The fluid's viscosity",
+     "The weight of fluid displaced",
+     "Pressure times depth"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "In pipe flow, a Reynolds number below about 2000 indicates:",
+    "options": [
+     "Turbulent flow",
+     "Supersonic flow",
+     "Compressible flow",
+     "Laminar flow"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "What is the SI unit of pressure?",
+    "options": [
+     "Pascal",
+     "Newton",
+     "Joule",
+     "Watt"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "When a pipe narrows, the velocity of an incompressible fluid:",
+    "options": [
+     "Decreases",
+     "Increases",
+     "Stays the same",
+     "Becomes zero"
+    ],
+    "answer": 1
+   }
+  ],
+  "thermodynamics": [
+   {
+    "q": "The first law of thermodynamics states that:",
+    "options": [
+     "Energy is conserved",
+     "Entropy always decreases",
+     "Absolute zero is easily reached",
+     "Heat flows from cold to hot spontaneously"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "According to the second law, the entropy of an isolated system:",
+    "options": [
+     "Decreases",
+     "Never decreases",
+     "Is always zero",
+     "Is irrelevant"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "In an isothermal process, which quantity is constant?",
+    "options": [
+     "Pressure",
+     "Volume",
+     "Temperature",
+     "Entropy"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "An adiabatic process has no:",
+    "options": [
+     "Work",
+     "Volume change",
+     "Pressure change",
+     "Heat transfer"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "The Carnot efficiency equals:",
+    "options": [
+     "1 − Tc/Th",
+     "Tc/Th",
+     "Th/Tc",
+     "1 + Tc/Th"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "What is the SI unit of temperature?",
+    "options": [
+     "Celsius",
+     "Kelvin",
+     "Fahrenheit",
+     "Rankine"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "The ideal gas law is:",
+    "options": [
+     "P = VT",
+     "PV = mT",
+     "PV = nRT",
+     "P/V = nRT"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "A heat engine converts:",
+    "options": [
+     "Work into heat only",
+     "Light into heat",
+     "Electricity into light",
+     "Heat into work"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "The zeroth law of thermodynamics defines:",
+    "options": [
+     "Thermal equilibrium and temperature",
+     "Energy conservation",
+     "Entropy",
+     "Absolute zero"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "A refrigerator moves heat from:",
+    "options": [
+     "Hot to cold spontaneously",
+     "A cold region to a hot region using work",
+     "Nowhere",
+     "Inside to inside"
+    ],
+    "answer": 1
+   }
+  ],
+  "classical-mechanics": [
+   {
+    "q": "Newton's first law states that:",
+    "options": [
+     "An object stays at rest or in uniform motion unless acted on by a net force",
+     "F = ma",
+     "Every action has a reaction",
+     "Energy is conserved"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Linear momentum equals:",
+    "options": [
+     "m · a",
+     "m · v",
+     "m · g",
+     "F · t²"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "Kinetic energy equals:",
+    "options": [
+     "mgh",
+     "mv",
+     "½mv²",
+     "ma"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "Acceleration due to gravity near Earth's surface is about:",
+    "options": [
+     "1.6 m/s²",
+     "3.0 m/s²",
+     "15 m/s²",
+     "9.8 m/s²"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "Newton's third law states that:",
+    "options": [
+     "Every action has an equal and opposite reaction",
+     "Objects have inertia",
+     "F = ma",
+     "Momentum is mass times velocity"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "The work–energy theorem says net work equals the change in:",
+    "options": [
+     "Potential energy only",
+     "Kinetic energy",
+     "Momentum",
+     "Mass"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "The period of a mass–spring oscillator depends on:",
+    "options": [
+     "Amplitude",
+     "Color",
+     "Mass and spring constant",
+     "Only gravity"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "Angular momentum is conserved when the net external:",
+    "options": [
+     "Force is zero",
+     "Energy is zero",
+     "Mass is zero",
+     "Torque is zero"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "Gravitational potential energy near Earth equals:",
+    "options": [
+     "mgh",
+     "½mv²",
+     "mv",
+     "F/d"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Ignoring air resistance, a projectile's horizontal velocity:",
+    "options": [
+     "Increases",
+     "Remains constant",
+     "Decreases",
+     "Becomes zero at the peak"
+    ],
+    "answer": 1
+   }
+  ],
+  "electromagnetism": [
+   {
+    "q": "Coulomb's law says electric force is proportional to:",
+    "options": [
+     "The product of the charges divided by distance squared",
+     "Distance",
+     "The sum of the charges",
+     "Mass"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "What is the SI unit of electric charge?",
+    "options": [
+     "Ampere",
+     "Coulomb",
+     "Volt",
+     "Tesla"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "Gauss's law relates electric flux through a closed surface to:",
+    "options": [
+     "The magnetic field",
+     "The current",
+     "The enclosed charge",
+     "Resistance"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "Faraday's law states that a changing magnetic flux induces:",
+    "options": [
+     "Mass",
+     "Only heat",
+     "Resistance",
+     "An electromotive force (EMF)"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "What is the SI unit of magnetic field (flux density)?",
+    "options": [
+     "Tesla",
+     "Weber per second",
+     "Henry",
+     "Ohm"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Like electric charges:",
+    "options": [
+     "Attract",
+     "Repel",
+     "Do not interact",
+     "Cancel out"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "Lenz's law states that an induced current opposes:",
+    "options": [
+     "Resistance",
+     "Voltage",
+     "The change in magnetic flux that produced it",
+     "Charge"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "Electromagnetic waves in a vacuum travel at:",
+    "options": [
+     "The speed of sound",
+     "1000 m/s",
+     "A speed depending on amplitude",
+     "The speed of light"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "Electric field lines point:",
+    "options": [
+     "Away from positive charges",
+     "Toward positive charges",
+     "Always perpendicular to charges",
+     "Randomly"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Maxwell's equations unify:",
+    "options": [
+     "Thermodynamics and optics",
+     "Electricity and magnetism",
+     "Gravity and mechanics",
+     "Quantum mechanics and relativity"
+    ],
+    "answer": 1
+   }
+  ],
+  "principles-of-management": [
+   {
+    "q": "What are the four functions of management?",
+    "options": [
+     "Planning, organizing, leading, controlling",
+     "Hiring, firing, paying, training",
+     "Buying, selling, shipping, storing",
+     "Coding, testing, deploying, monitoring"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "What does SWOT stand for?",
+    "options": [
+     "Sales, Work, Operations, Tasks",
+     "Strengths, Weaknesses, Opportunities, Threats",
+     "Strategy, Workflow, Output, Time",
+     "Systems, Workers, Objectives, Targets"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "Planning involves:",
+    "options": [
+     "Monitoring performance",
+     "Motivating employees",
+     "Setting goals and deciding how to achieve them",
+     "Recruiting staff"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "What is the top level of Maslow's hierarchy of needs?",
+    "options": [
+     "Safety",
+     "Physiological",
+     "Esteem",
+     "Self-actualization"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "The controlling function means:",
+    "options": [
+     "Measuring performance and correcting deviations",
+     "Setting the vision",
+     "Designing the structure",
+     "Recruiting"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Span of control refers to:",
+    "options": [
+     "The budget size",
+     "The number of subordinates a manager directly supervises",
+     "Project length",
+     "Market share"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "In SMART goals, the S stands for:",
+    "options": [
+     "Simple",
+     "Strategic",
+     "Specific",
+     "Short"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "An organizational structure defines:",
+    "options": [
+     "Products",
+     "Prices",
+     "Customers",
+     "Roles, reporting lines, and authority"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "Democratic leadership:",
+    "options": [
+     "Involves team members in decision-making",
+     "Has the leader decide alone",
+     "Has no leader at all",
+     "Avoids all decisions"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Delegation means:",
+    "options": [
+     "Firing employees",
+     "Assigning authority and responsibility to others",
+     "Preparing the budget",
+     "Advertising"
+    ],
+    "answer": 1
+   }
+  ],
+  "financial-accounting": [
+   {
+    "q": "What is the basic accounting equation?",
+    "options": [
+     "Assets = Liabilities + Equity",
+     "Assets = Revenue − Expenses",
+     "Equity = Assets + Liabilities",
+     "Liabilities = Assets + Equity"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "In double-entry bookkeeping, each transaction affects:",
+    "options": [
+     "Only one account",
+     "At least two accounts with equal debits and credits",
+     "Only cash",
+     "Only equity"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "A balance sheet shows:",
+    "options": [
+     "Revenue over a period",
+     "Only cash flows",
+     "Assets, liabilities, and equity at a point in time",
+     "Tax returns"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "An income statement reports:",
+    "options": [
+     "The list of owners",
+     "Assets only",
+     "The bank balance",
+     "Revenues and expenses over a period"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "Depreciation allocates:",
+    "options": [
+     "The cost of a long-term asset over its useful life",
+     "Cash to owners",
+     "Revenue to customers",
+     "Taxes to periods"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Accounts receivable represents:",
+    "options": [
+     "Money the company owes",
+     "Money owed to the company by customers",
+     "Inventory",
+     "Owner's equity"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "Under accrual accounting, revenue is recorded when it is:",
+    "options": [
+     "Received in cash",
+     "The end of the year",
+     "Earned, regardless of cash timing",
+     "Taxed"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "Which of these is a liability?",
+    "options": [
+     "Equipment",
+     "Cash",
+     "Inventory",
+     "Accounts payable"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "Net income equals:",
+    "options": [
+     "Revenues − Expenses",
+     "Assets − Liabilities",
+     "Revenues + Expenses",
+     "Cash − Debt"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Retained earnings are part of:",
+    "options": [
+     "Liabilities",
+     "Owner's (shareholders') equity",
+     "Revenue",
+     "Current assets"
+    ],
+    "answer": 1
+   }
+  ],
+  "corporate-finance": [
+   {
+    "q": "Because of the time value of money, a dollar today is worth:",
+    "options": [
+     "More than a dollar in the future",
+     "Less than a dollar in the future",
+     "Exactly the same",
+     "Nothing"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "A positive NPV means the project is expected to:",
+    "options": [
+     "Destroy value",
+     "Add value",
+     "Exactly break even",
+     "Be rejected automatically"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "What is the future value of 100 invested at 10% for one year?",
+    "options": [
+     "100",
+     "105",
+     "110",
+     "121"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "A discount rate is used to convert:",
+    "options": [
+     "Present values to future values only",
+     "Revenue into profit",
+     "Assets into liabilities",
+     "Future cash flows into present value"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "Diversification mainly reduces:",
+    "options": [
+     "Unsystematic (firm-specific) risk",
+     "Systematic market risk",
+     "All returns",
+     "Taxes"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "The internal rate of return (IRR) is the discount rate at which:",
+    "options": [
+     "Profit is maximized",
+     "NPV equals zero",
+     "Cash is zero",
+     "Risk is zero"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "For taking on higher risk, investors typically require:",
+    "options": [
+     "A lower return",
+     "No return",
+     "A higher expected return",
+     "A fixed return"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "Capital structure refers to:",
+    "options": [
+     "Office layout",
+     "Product mix",
+     "Staff hierarchy",
+     "The mix of debt and equity financing"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "A dividend is:",
+    "options": [
+     "A distribution of profits to shareholders",
+     "Loan interest",
+     "A tax",
+     "An employee salary"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "A typical bond pays:",
+    "options": [
+     "An ownership share",
+     "Fixed interest (coupons) and principal at maturity",
+     "Only dividends",
+     "Nothing"
+    ],
+    "answer": 1
+   }
+  ],
+  "marketing-management": [
+   {
+    "q": "What are the 4 Ps of the marketing mix?",
+    "options": [
+     "Product, Price, Place, Promotion",
+     "People, Process, Profit, Plan",
+     "Product, Profit, Packaging, Partners",
+     "Price, Policy, Press, Publicity"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Market segmentation means:",
+    "options": [
+     "Merging markets",
+     "Dividing a market into distinct groups of buyers",
+     "Setting prices",
+     "Running advertisements"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "Positioning is:",
+    "options": [
+     "Shipping products",
+     "Hiring sales staff",
+     "Creating a distinct image in target customers' minds",
+     "Lowering costs"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "A target market is:",
+    "options": [
+     "Everyone",
+     "Competitors",
+     "Suppliers",
+     "The specific customer group a company aims to serve"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "Brand equity is:",
+    "options": [
+     "The value a brand adds to a product",
+     "The factory cost",
+     "The number of employees",
+     "Only the stock price"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "What are the stages of the product life cycle?",
+    "options": [
+     "Plan, build, test, ship",
+     "Introduction, growth, maturity, decline",
+     "Design, price, promote, sell",
+     "Idea, patent, launch, exit"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "Market research involves:",
+    "options": [
+     "Producing goods",
+     "Bookkeeping",
+     "Collecting and analyzing data about customers and markets",
+     "Recruiting"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "Penetration pricing means:",
+    "options": [
+     "A high initial price",
+     "Random pricing",
+     "Always matching competitors",
+     "A low initial price to gain market share"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "Which is an example of digital marketing?",
+    "options": [
+     "Search engine and social media advertising",
+     "Billboards only",
+     "Printed flyers",
+     "Door-to-door sales"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Customer retention focuses on:",
+    "options": [
+     "Acquiring new customers only",
+     "Keeping existing customers",
+     "Cutting prices",
+     "Reducing staff"
+    ],
+    "answer": 1
+   }
+  ],
+  "economics": [
+   {
+    "q": "According to the law of demand, when price rises, quantity demanded:",
+    "options": [
+     "Falls",
+     "Rises",
+     "Stays the same",
+     "Doubles"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Market equilibrium occurs where:",
+    "options": [
+     "Supply exceeds demand",
+     "Quantity supplied equals quantity demanded",
+     "Demand exceeds supply",
+     "The government sets the price"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "GDP measures:",
+    "options": [
+     "Government debt",
+     "Population",
+     "The total market value of final goods and services produced",
+     "Exports only"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "Inflation is:",
+    "options": [
+     "Falling prices",
+     "Unemployment",
+     "An interest rate",
+     "A general rise in the price level over time"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "Opportunity cost is:",
+    "options": [
+     "The value of the next best alternative forgone",
+     "Money spent",
+     "A tax",
+     "Profit"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "A monopoly is a market with:",
+    "options": [
+     "Many sellers",
+     "A single seller with no close substitutes",
+     "Exactly two sellers",
+     "Perfect competition"
+    ],
+    "answer": 1
+   },
+   {
+    "q": "If demand is price elastic, quantity demanded is:",
+    "options": [
+     "Unresponsive to price",
+     "Fixed",
+     "Highly responsive to price changes",
+     "Always zero"
+    ],
+    "answer": 2
+   },
+   {
+    "q": "When a central bank raises interest rates, it generally aims to:",
+    "options": [
+     "Increase inflation",
+     "Raise unemployment deliberately",
+     "Increase borrowing",
+     "Reduce inflation"
+    ],
+    "answer": 3
+   },
+   {
+    "q": "Scarcity means:",
+    "options": [
+     "Limited resources relative to unlimited wants",
+     "Unlimited resources",
+     "No demand",
+     "Free goods"
+    ],
+    "answer": 0
+   },
+   {
+    "q": "Microeconomics studies:",
+    "options": [
+     "The whole economy only",
+     "Individual consumers, firms, and markets",
+     "Only global trade",
+     "Only government"
+    ],
+    "answer": 1
+   }
+  ]
+ }
+}

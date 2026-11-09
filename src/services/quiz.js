@@ -1,33 +1,71 @@
 /**
- * Quiz Service
+ * Quiz Service — Smart Study Companion
  * 
- * Manages quiz questions, attempts and responses in Supabase PostgreSQL.
- * Replaces the localStorage-based quiz system from the original app.
+ * Manages quiz questions, attempts and responses in Supabase PostgreSQL
+ * with local offline fallback for all 32 subjects in QUIZ_BANK.
  */
-import { supabase } from '../lib/supabase.js';
+import { supabase, isConfigured } from '../lib/supabase.js';
+import { QUIZ_BANK } from '../lib/academic-catalog.js';
 
 /**
  * Get quiz questions for a subject.
+ * Supports both UUID subject_id and slug (e.g. 'civil-engineering', 'programming').
  * @param {string} subjectId
  * @param {number} [limit] - Number of questions to return (shuffled).
  */
 export async function getQuizQuestions(subjectId, limit) {
-  let query = supabase
-    .from('quiz_questions')
-    .select('id, question, options, correct_answer, subject_id')
-    .eq('subject_id', subjectId);
+  if (isConfigured) {
+    try {
+      // First try querying by subject_id directly
+      let { data, error } = await supabase
+        .from('quiz_questions')
+        .select('id, question, options, correct_answer, subject_id')
+        .eq('subject_id', subjectId);
 
-  const { data, error } = await query;
+      // If no data and subjectId is a slug, lookup subject by slug first
+      if ((!data || data.length === 0) && typeof subjectId === 'string') {
+        const { data: sub } = await supabase
+          .from('subjects')
+          .select('id')
+          .eq('slug', subjectId)
+          .single();
+        if (sub?.id) {
+          const res = await supabase
+            .from('quiz_questions')
+            .select('id, question, options, correct_answer, subject_id')
+            .eq('subject_id', sub.id);
+          if (res.data && res.data.length > 0) {
+            data = res.data;
+            error = null;
+          }
+        }
+      }
 
-  if (error || !data) return { data, error };
+      if (!error && data && data.length > 0) {
+        // Shuffle client-side (Fisher-Yates)
+        const shuffled = [...data];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        return { data: limit ? shuffled.slice(0, limit) : shuffled, error: null };
+      }
+    } catch (_) {}
+  }
 
-  // Shuffle client-side (Fisher-Yates)
-  const shuffled = [...data];
+  // Offline / local preview fallback from QUIZ_BANK
+  const list = QUIZ_BANK[subjectId] || [];
+  const shuffled = list.map((item, idx) => ({
+    id: `local-q-${subjectId}-${idx}`,
+    question: item.q,
+    options: item.options,
+    correct_answer: item.answer,
+    subject_id: subjectId
+  }));
   for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
   }
-
   return { data: limit ? shuffled.slice(0, limit) : shuffled, error: null };
 }
 
@@ -43,39 +81,68 @@ export async function getQuizQuestions(subjectId, limit) {
  * }} attempt
  */
 export async function saveQuizAttempt(attempt) {
-  // Insert the attempt record
-  const { data: attemptData, error: attemptError } = await supabase
-    .from('quiz_attempts')
-    .insert({
-      student_id: attempt.student_id,
-      subject_id: attempt.subject_id,
-      mode: attempt.mode,
-      score: attempt.score,
-      total_questions: attempt.total_questions,
-    })
-    .select()
-    .single();
+  const studentId = attempt.student_id || attempt.studentId;
+  const subjectId = attempt.subject_id || attempt.subjectId;
+  const totalQuestions = attempt.total_questions || attempt.totalQuestions || 0;
+  const mode = attempt.mode || 'standard';
+  const score = attempt.score || 0;
 
-  if (attemptError || !attemptData) return { data: null, error: attemptError };
+  if (isConfigured) {
+    try {
+      // Insert the attempt record
+      const { data: attemptData, error: attemptError } = await supabase
+        .from('quiz_attempts')
+        .insert({
+          student_id: studentId,
+          subject_id: subjectId,
+          mode: mode,
+          score: score,
+          total_questions: totalQuestions,
+        })
+        .select()
+        .single();
 
-  // Insert individual responses
-  if (attempt.responses && attempt.responses.length > 0) {
-    const responses = attempt.responses.map((r) => ({
-      attempt_id: attemptData.id,
-      question_id: r.question_id,
-      selected_answer: r.selected_answer,
-    }));
+      if (attemptError || !attemptData) return { data: null, error: attemptError };
 
-    const { error: responsesError } = await supabase
-      .from('quiz_responses')
-      .insert(responses);
+      // Insert individual responses
+      if (attempt.responses && attempt.responses.length > 0) {
+        const responses = attempt.responses.map((r) => ({
+          attempt_id: attemptData.id,
+          question_id: r.question_id || r.questionId,
+          selected_answer: r.selected_answer ?? r.selectedAnswer,
+        }));
 
-    if (responsesError) {
-      console.error('Error saving quiz responses:', responsesError.message);
+        await supabase
+          .from('quiz_responses')
+          .insert(responses);
+      }
+
+      return { data: attemptData, error: null };
+    } catch (err) {
+      console.warn('Could not save quiz attempt to cloud:', err);
     }
   }
 
-  return { data: attemptData, error: null };
+  // Local storage fallback for attempts
+  try {
+    const key = `study_companion_quiz_attempts_${studentId}`;
+    const prev = JSON.parse(localStorage.getItem(key) || '[]');
+    const record = {
+      ...attempt,
+      student_id: studentId,
+      subject_id: subjectId,
+      mode,
+      score,
+      total_questions: totalQuestions,
+      id: `local-attempt-${Date.now()}`,
+      completed_at: new Date().toISOString()
+    };
+    prev.unshift(record);
+    localStorage.setItem(key, JSON.stringify(prev.slice(0, 50)));
+    return { data: record, error: null };
+  } catch (_) {
+    return { data: attempt, error: null };
+  }
 }
 
 /**
@@ -84,33 +151,23 @@ export async function saveQuizAttempt(attempt) {
  * @param {number} [limit=20]
  */
 export async function getQuizHistory(studentId, limit = 20) {
-  const { data, error } = await supabase
-    .from('quiz_attempts')
-    .select('*, subject:subjects(id, name, slug)')
-    .eq('student_id', studentId)
-    .order('completed_at', { ascending: false })
-    .limit(limit);
-  return { data, error };
-}
+  if (isConfigured) {
+    try {
+      const { data, error } = await supabase
+        .from('quiz_attempts')
+        .select('*, subject:subjects(id, name, slug)')
+        .eq('student_id', studentId)
+        .order('completed_at', { ascending: false })
+        .limit(limit);
+      if (!error && data) return { data, error: null };
+    } catch (_) {}
+  }
 
-/**
- * Get detailed results for a specific attempt (with responses).
- * @param {string} attemptId
- */
-export async function getAttemptDetail(attemptId) {
-  const { data, error } = await supabase
-    .from('quiz_attempts')
-    .select(`
-      *,
-      subject:subjects(id, name, slug),
-      responses:quiz_responses(
-        id,
-        selected_answer,
-        question:quiz_questions(id, question, options, correct_answer)
-      )
-    `)
-    .eq('id', attemptId)
-    .single();
-  return { data, error };
+  try {
+    const key = `study_companion_quiz_attempts_${studentId}`;
+    const list = JSON.parse(localStorage.getItem(key) || '[]');
+    return { data: list.slice(0, limit), error: null };
+  } catch (_) {
+    return { data: [], error: null };
+  }
 }
-

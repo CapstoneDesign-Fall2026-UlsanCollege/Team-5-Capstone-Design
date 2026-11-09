@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Study Companion</title>
-    <script>
+        <script>
         if (!window.location.pathname.includes('/public/')) {
             window.location.replace('public/index.html' + (window.location.hash || ''));
         }
     </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650;9..144,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -205,8 +205,9 @@
             </section>
         </div>
 
-        <!-- VIEW 3: SUBJECTS & ACADEMIC HIERARCHY -->
+        <!-- VIEW 3: SUBJECTS & ACADEMIC HIERARCHY (also acts as #view-create for backward compatibility) -->
         <div id="view-subjects" class="canvas custom-scrollbar" hidden>
+            <!-- Academic Hierarchy Selection -->
             <section class="academic-hierarchy-box">
                 <div class="board-toolbar">
                     <div>
@@ -243,6 +244,7 @@
                 </div>
             </section>
 
+            <!-- Scrollable Subject Selector -->
             <section class="plan-board subject-picker-board" style="position: relative;">
                 <div class="subject-picker-header">
                     <div>
@@ -260,13 +262,21 @@
                     <button type="button" class="subject-category-chip is-active" data-cat="all">All Subjects</button>
                     <button type="button" class="subject-category-chip" data-cat="Core CS">Core CS</button>
                     <button type="button" class="subject-category-chip" data-cat="Software Dev">Software Dev</button>
+                    <button type="button" class="subject-category-chip" data-cat="Engineering">Engineering</button>
+                    <button type="button" class="subject-category-chip" data-cat="Business">Business</button>
                     <button type="button" class="subject-category-chip" data-cat="Intelligence">AI &amp; Data</button>
                     <button type="button" class="subject-category-chip" data-cat="Mathematics">Mathematics</button>
+                    <button type="button" class="subject-category-chip" data-cat="Science">Science</button>
                     <button type="button" class="subject-category-chip" data-cat="Projects">Projects</button>
                 </div>
 
+                <!-- Active Major Curriculum Banner -->
+                <div id="curriculum-banner" class="curriculum-banner" hidden></div>
+
+                <!-- Scrollable Container -->
                 <div id="subject-scroll-container" class="subject-scroll-container custom-scrollbar"></div>
 
+                <!-- Sticky Bottom Action Bar -->
                 <div class="sticky-action-bar">
                     <div id="selected-subjects-badge" class="selected-count-badge">
                         <span class="badge-bubble" id="selected-subjects-count">0</span>
@@ -279,6 +289,7 @@
                 </div>
             </section>
 
+            <!-- Quick Task Creation for Selected Subject -->
             <section class="create-grid" style="margin-top: 24px;">
                 <article class="plan-board task-entry-board">
                     <p class="eyebrow">Quick Add</p>
@@ -337,6 +348,7 @@
             </section>
 
             <div class="analytics-section">
+                <!-- Weekly Study Activity Chart -->
                 <article class="analytics-card">
                     <div class="analytics-card-title">
                         <h3>Weekly Activity (Last 7 Days)</h3>
@@ -346,6 +358,7 @@
                     <div id="weekly-activity-chart" class="weekly-activity-chart"></div>
                 </article>
 
+                <!-- Workload Status Distribution -->
                 <article class="analytics-card">
                     <div class="analytics-card-title">
                         <h3>Workload Breakdown</h3>
@@ -377,6 +390,7 @@
                 </article>
             </div>
 
+            <!-- Subject-Wise Progress Breakdown -->
             <section class="plan-board">
                 <div class="board-toolbar">
                     <h2>Subject-Wise Completion Progress</h2>
@@ -395,16 +409,12 @@
         <div id="view-quiz" class="canvas custom-scrollbar" hidden>
             <section class="plan-board quiz-setup" id="quiz-setup">
                 <p class="eyebrow">Check Understanding</p>
-                <h2>Choose your computer science subject</h2>
-                <p class="muted">Practice one subject at a time. Standard quizzes have 15 questions; rapid quizzes have 10 questions and a 30-second limit.</p>
+                <h2 id="quiz-main-heading">Choose your study subject</h2>
+                <p id="quiz-sub-heading" class="muted">Practice one subject at a time. Standard quizzes have 15 questions; rapid quizzes have 10 questions and a 30-second limit.</p>
                 <div class="quiz-setup-controls">
                     <label for="quiz-subject">Subject
                         <select id="quiz-subject">
-                            <option value="programming">Programming</option>
-                            <option value="data-structures">Data Structures &amp; Algorithms</option>
-                            <option value="databases">Databases</option>
-                            <option value="networks">Computer Networks</option>
-                            <option value="operating-systems">Operating Systems</option>
+                            <!-- Populated dynamically based on enrolled subjects & selected major -->
                         </select>
                     </label>
                     <div class="quiz-mode-actions">

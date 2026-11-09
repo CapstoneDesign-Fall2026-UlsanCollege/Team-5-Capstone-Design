@@ -1,10 +1,11 @@
 /**
  * Subjects Service — Smart Study Companion
  * 
- * Manages the subjects catalog and student subject enrollments.
+ * Manages the subjects catalog, major-to-subject curricula,
+ * and student subject enrollments in Supabase PostgreSQL & offline storage.
  */
 import { supabase, isConfigured } from '../lib/supabase.js';
-import { SUBJECTS_CATALOG } from '../lib/academic-catalog.js';
+import { SUBJECTS_CATALOG, getSubjectsForMajor, MAJOR_SUBJECT_MAP } from '../lib/academic-catalog.js';
 
 const LOCAL_ENROLLED_KEY = 'study_companion_enrolled_subjects';
 
@@ -31,6 +32,32 @@ export async function getDefaultSubjects() {
  */
 export async function getAllSubjects() {
   return getDefaultSubjects();
+}
+
+/**
+ * Get curriculum subjects for a given major.
+ * @param {string} major
+ */
+export async function getSubjectsByMajor(major) {
+  if (isConfigured && major) {
+    try {
+      const { data, error } = await supabase
+        .from('major_subjects')
+        .select('*, subject:subjects(*)')
+        .eq('major', major);
+      if (!error && data && data.length) {
+        return {
+          data: data.map(item => ({
+            ...(item.subject || {}),
+            isCore: item.is_core,
+            isElective: !item.is_core
+          })),
+          error: null
+        };
+      }
+    } catch (_) {}
+  }
+  return { data: getSubjectsForMajor(major), error: null };
 }
 
 /**
@@ -79,6 +106,7 @@ export async function saveStudentSubjects(studentId, subjects) {
             name: sub.name,
             slug: sub.slug || sub.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
             icon: sub.icon || 'fa-book',
+            category: sub.category || 'Core',
             description: sub.description || '',
             is_default: true
           }, { onConflict: 'slug' });

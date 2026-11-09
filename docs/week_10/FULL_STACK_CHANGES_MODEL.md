@@ -115,3 +115,26 @@ Team-5-Capstone-Design/
 ### Upgrade 5 — Live GitHub Pages Deployment & Visual Evidence
 - Updated ESM import paths in `public/app.js` and enabled **GitHub Pages** on `main` (`https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/index.html`).
 - Recorded visual verification screenshots in [`docs/week_10/study-analytics-dashboard.png`](study-analytics-dashboard.png), [`docs/week_10/subjects-university-selector.png`](subjects-university-selector.png), and [Issue #48 Comment](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/48#issuecomment-6706622137).
+
+### Upgrade 6 — Dynamic Faculty & Major Subject Curriculum & Adaptive Quiz Bank Engine
+- **Full Faculty & Major Curriculum Mapping (`data/academic-catalog.json`, `src/lib/academic-catalog.js`):**
+  - Expanded catalog to 32 accredited subjects across all 4 faculties (`Faculty of Computer Science & Information Technology`, `Faculty of Engineering & Technology`, `Faculty of Science & Mathematics`, `Faculty of Business & Management Studies`) and 15 majors.
+  - Defined explicit `core` and `electives` mapping per major.
+  - Dynamic subject filtering: Selecting a faculty and major automatically filters and displays the exact accredited curriculum for that degree program, displaying `CORE` and `ELECTIVE` badges on cards.
+  - Active curriculum banner with real-time enrolled counters and a one-click `Select All Core` quick-enroll action.
+- **Adaptive Major-Aware Quiz Practice Engine (`data/quiz-bank.json`, `src/services/quiz.js`, `public/app.js`):**
+  - Expanded the quiz bank to 345 verified multiple-choice questions across all 32 subjects (15 questions for core CS subjects, 10 questions for each of the 27 new engineering, science, and business subjects).
+  - Dynamically populates `#quiz-subject` dropdown grouped by:
+    1. *My Enrolled Subjects* (user's active courses)
+    2. *Curriculum for [Selected Major]* (core and elective courses of current program)
+    3. *All Other University Subjects* (full institution catalog)
+  - Updated quiz headings dynamically to reflect chosen degree program and university (`Quiz Practice for [Major] — [University]`).
+- **PostgreSQL Database Migration (`supabase/migrations/008_major_subjects_quiz_bank.sql`):**
+  - Created `public.major_subjects` junction table mapping university majors to subjects with course type (`core` vs `elective`) and semester recommendations.
+  - Upserted all 32 subjects into `public.subjects` with canonical slugs and icons.
+  - Seeded all 345 multiple-choice questions into `public.quiz_questions` with 4 options and 0-based answer keys.
+  - Enforced Row Level Security (RLS) with public read access on `major_subjects` and authenticated attempt recording.
+- **Build Pipeline & Test Coverage (`scripts/build_academic_data.py`, `tests/run_tests.py`):**
+  - Added single-source JSON generator script that compiles JSON data into ES modules and SQL migrations.
+  - Expanded automated test suite from 7 to 8 complete test groups verifying schema, catalogs, RLS, and quiz questions.
+
