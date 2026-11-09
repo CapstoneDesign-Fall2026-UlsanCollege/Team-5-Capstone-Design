@@ -195,7 +195,34 @@
           </button>
         </form>
 
-        <p class="auth-footer-text">
+        <!-- Success confirmation state -->
+        <div id="signup-success" class="signup-state" hidden>
+          <div class="verify-icon verify-icon-success" aria-hidden="true" style="width: 54px; height: 54px; border-radius: 50%; display: grid; place-items: center; background: rgba(15, 118, 110, 0.12); color: var(--teal); font-size: 24px; margin: 0 auto 14px;">
+            <i class="fa-solid fa-circle-check"></i>
+          </div>
+          <h3 class="auth-subheading" style="text-align: center; margin-bottom: 6px;">Account Created Successfully!</h3>
+          <p class="auth-muted" style="text-align: center; margin-bottom: 14px;">
+            Welcome to Smart Study Companion, <strong id="signup-name-display">Student</strong>!
+          </p>
+          <div class="auth-info-card">
+            <p class="auth-info-card-title">
+              <i class="fa-solid fa-envelope-circle-check" aria-hidden="true"></i> Welcome &amp; Confirmation Email Sent
+            </p>
+            <p class="auth-info-card-text">
+              We dispatched an account confirmation message to <strong id="signup-email-display">your email</strong>. Please check your inbox (and spam folder) for your verification code or link.
+            </p>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 16px;">
+            <a id="signup-login-btn" href="login.html" class="btn-primary" style="text-align: center; text-decoration: none;">
+              Proceed to Sign In
+            </a>
+            <a id="signup-verify-btn" href="verify.html" class="btn-ghost" style="text-align: center; text-decoration: none;">
+              Enter 6-digit confirmation code
+            </a>
+          </div>
+        </div>
+
+        <p class="auth-footer-text" id="signup-footer-text">
           Already have an account? <a href="login.html" class="auth-link">Sign in</a>
         </p>
       </div>

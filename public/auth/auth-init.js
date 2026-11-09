@@ -447,16 +447,47 @@ function initSignup() {
 
       // Problem 1 Fix: Signup must always navigate to the Login page.
       // The user must explicitly enter their credentials to enter the application.
-      if (data?.emailConfirmed === false) {
-        toast('Registration successful! Please verify your email before logging in.');
+      const signupFormEl = $('signup-form');
+      const successCard = $('signup-success');
+      const nameDisplay = $('signup-name-display');
+      const emailDisplay = $('signup-email-display');
+      const footerText = $('signup-footer-text');
+      const loginBtn = $('signup-login-btn');
+      const verifyBtn = $('signup-verify-btn');
+
+      if (successCard && signupFormEl) {
+        if (nameDisplay) nameDisplay.textContent = name;
+        if (emailDisplay) emailDisplay.textContent = email;
+        const targetUrl = data?.emailConfirmed === false
+          ? `login.html?registered=verify&email=${encodeURIComponent(email)}`
+          : `login.html?registered=true&email=${encodeURIComponent(email)}`;
+        if (loginBtn) loginBtn.href = targetUrl;
+        if (verifyBtn) verifyBtn.href = `verify.html?email=${encodeURIComponent(email)}`;
+        signupFormEl.hidden = true;
+        if (footerText) footerText.hidden = true;
+        successCard.hidden = false;
+        toast('Account created! Welcome email dispatched.');
+        if (data?.emailConfirmed === false) {
+          toast('Registration successful! Please check your email to verify your account.');
+        } else {
+          toast('Account created successfully! Please sign in with your credentials.');
+        }
+        // Auto-redirect to login after 6 seconds if user doesn't click
         setTimeout(() => {
-          window.location.href = `login.html?registered=verify&email=${encodeURIComponent(email)}`;
-        }, 500);
+          window.location.href = `login.html?registered=${data?.emailConfirmed === false ? 'verify' : 'true'}&email=${encodeURIComponent(email)}`;
+        }, 6000);
       } else {
-        toast('Account created successfully! Please sign in with your credentials.');
-        setTimeout(() => {
-          window.location.href = `login.html?registered=true&email=${encodeURIComponent(email)}`;
-        }, 500);
+        if (data?.emailConfirmed === false) {
+          toast('Registration successful! Please check your email to verify your account before logging in.');
+          setTimeout(() => {
+            window.location.href = `login.html?registered=verify&email=${encodeURIComponent(email)}`;
+          }, 500);
+        } else {
+          toast('Account created successfully! Please sign in with your credentials.');
+          setTimeout(() => {
+            window.location.href = `login.html?registered=true&email=${encodeURIComponent(email)}`;
+          }, 500);
+        }
       }
     } catch (err) {
       isSubmitting = false;
@@ -555,6 +586,56 @@ function initVerify() {
   const b2 = $('resend-expired-btn');
   if (b1) b1.addEventListener('click', () => handleResend(b1));
   if (b2) b2.addEventListener('click', () => handleResend(b2));
+
+  // 6-digit PIN verification handler for signup confirmation
+  const verifyCodeForm = $('verify-code-form');
+  const verifyTokenInput = $('verify-token');
+  if (verifyCodeForm && verifyTokenInput) {
+    verifyTokenInput.addEventListener('input', () => {
+      setError(verifyTokenInput, '');
+    });
+
+    verifyCodeForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const cleanToken = verifyTokenInput.value.trim().replace(/\D/g, '');
+      if (!cleanToken || cleanToken.length < 6) {
+        setError(verifyTokenInput, 'Enter the 6-digit confirmation PIN from your email.');
+        return;
+      }
+
+      const tokenBtn = $('verify-token-btn');
+      setLoading(tokenBtn, true, 'Confirming PIN...');
+      const { data, error } = await verifyOtp({
+        email,
+        token: cleanToken,
+        type: 'signup',
+      });
+      setLoading(tokenBtn, false);
+
+      if (error) {
+        setError(verifyTokenInput, error.message || 'Invalid or expired confirmation PIN.');
+        toast(`Verification error: ${error.message}`);
+        return;
+      }
+
+      toast('Email confirmed! Welcome to StudySmart.');
+      const defaultState = $('verify-default');
+      const successState = $('verify-success');
+      if (defaultState) defaultState.hidden = true;
+      if (successState) {
+        successState.hidden = false;
+        successState.innerHTML = `
+          <div class="verify-icon verify-icon-success" aria-hidden="true">
+            <i class="fa-solid fa-circle-check"></i>
+          </div>
+          <p class="auth-status-text auth-status-success">Email confirmed! Redirecting to sign in...</p>
+        `;
+      }
+      setTimeout(() => {
+        window.location.href = `login.html?registered=true&email=${encodeURIComponent(email)}`;
+      }, 1500);
+    });
+  }
 }
 
 // ================================================================
@@ -642,6 +723,46 @@ function initResetPassword() {
     showAlert(alertBox, 'Email verified via recovery link. Set your new password below.', true);
   }
 
+  // Handle Resend 6-Digit PIN button
+  const resendResetBtn = $('resend-reset-btn');
+  if (resendResetBtn) {
+    resendResetBtn.addEventListener('click', async () => {
+      const email = emailInput ? emailInput.value.trim() : emailParam;
+      if (!email || !EMAIL_PATTERN.test(email)) {
+        setError(emailInput, 'Enter your registered email address first.');
+        showAlert(alertBox, 'Enter your email address to resend the 6-digit PIN.');
+        if (emailInput) emailInput.focus();
+        return;
+      }
+
+      resendResetBtn.disabled = true;
+      const originalText = resendResetBtn.innerHTML;
+      resendResetBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+
+      const { error } = await resetPassword(email);
+      if (error) {
+        showAlert(alertBox, error.message || 'Failed to resend code.');
+        resendResetBtn.disabled = false;
+        resendResetBtn.innerHTML = originalText;
+      } else {
+        toast('New 6-digit PIN sent to your email!');
+        showAlert(alertBox, `New 6-digit PIN sent to ${email}. Check your inbox.`, true);
+        let countdown = 60;
+        resendResetBtn.innerHTML = `<i class="fa-solid fa-clock"></i> Resend (${countdown}s)`;
+        const timer = setInterval(() => {
+          countdown--;
+          if (countdown <= 0) {
+            clearInterval(timer);
+            resendResetBtn.disabled = false;
+            resendResetBtn.innerHTML = '<i class="fa-solid fa-rotate-right"></i> Resend code';
+          } else {
+            resendResetBtn.innerHTML = `<i class="fa-solid fa-clock"></i> Resend (${countdown}s)`;
+          }
+        }, 1000);
+      }
+    });
+  }
+
   [emailInput, otpInput].forEach((inp) => {
     if (inp) {
       inp.addEventListener('input', () => {
@@ -673,6 +794,7 @@ function initResetPassword() {
 
     const email = emailInput ? emailInput.value.trim() : emailParam;
     const otpCode = otpInput ? otpInput.value.trim() : '';
+    const cleanOtp = otpCode.replace(/\D/g, '');
     const password = passwordInput.value;
     const confirm = confirmInput.value;
     let valid = true;
@@ -683,7 +805,7 @@ function initResetPassword() {
         setError(emailInput, 'Enter your registered email address.');
         valid = false;
       }
-      if (!otpCode || otpCode.length < 6) {
+      if (!cleanOtp || cleanOtp.length < 6) {
         setError(otpInput, 'Enter the 6-digit verification code.');
         valid = false;
       }
@@ -713,10 +835,10 @@ function initResetPassword() {
     setLoading(submitBtn, true, 'Verifying & resetting password...');
 
     // If OTP provided and not a direct link session, verify OTP first
-    if (!isLinkRecovery && otpCode) {
+    if (!isLinkRecovery && cleanOtp) {
       const { error: otpError } = await verifyOtp({
         email,
-        token: otpCode,
+        token: cleanOtp,
         type: 'recovery',
       });
 

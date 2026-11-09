@@ -161,15 +161,16 @@ export async function resetPassword(email) {
 }
 
 /**
- * Verify real OTP (e.g. 6-digit code for password recovery).
- * @param {{ email: string, token: string, type?: 'recovery' | 'signup' }} params
+ * Verify real OTP (e.g. 6-digit code for password recovery or signup confirmation).
+ * @param {{ email: string, token: string, type?: 'recovery' | 'signup' | 'email' }} params
  */
 export async function verifyOtp({ email, token, type = 'recovery' }) {
   if (isConfigured) {
     try {
+      const cleanToken = (token || '').toString().trim().replace(/\D/g, '');
       const { data, error } = await supabase.auth.verifyOtp({
         email,
-        token: token.trim(),
+        token: cleanToken,
         type,
       });
       return { data, error };
@@ -186,6 +187,14 @@ export async function verifyOtp({ email, token, type = 'recovery' }) {
       code: 'AUTH_UNCONFIGURED',
     },
   };
+}
+
+/**
+ * Resend password recovery email with 6-digit PIN.
+ * @param {string} email
+ */
+export async function resendPasswordReset(email) {
+  return resetPassword(email);
 }
 
 /**

@@ -52,6 +52,34 @@
           <p class="auth-muted auth-muted-sm">
             Didn't receive it? Check your spam folder or resend.
           </p>
+
+          <!-- 6-digit Code verification form -->
+          <form id="verify-code-form" class="auth-form" style="margin: 18px 0; text-align: left;" novalidate>
+            <div class="form-group" style="margin-bottom: 12px;">
+              <label for="verify-token" class="form-label" style="font-size: 0.825rem; font-weight: 600;">
+                Have a 6-digit confirmation PIN?
+              </label>
+              <div class="input-wrap">
+                <i class="fa-solid fa-key input-icon" aria-hidden="true"></i>
+                <input
+                  type="text"
+                  id="verify-token"
+                  name="verify-token"
+                  class="form-input otp-input"
+                  placeholder="Enter 6-digit PIN"
+                  maxlength="6"
+                  pattern="[0-9]{6}"
+                  inputmode="numeric"
+                  autocomplete="one-time-code"
+                >
+              </div>
+              <p id="verify-token-error" class="form-error" role="alert"></p>
+            </div>
+            <button type="submit" class="btn-primary" id="verify-token-btn" style="width: 100%;">
+              <span class="btn-label">Confirm with 6-Digit PIN</span>
+            </button>
+          </form>
+
           <button type="button" class="btn-ghost" id="resend-btn">
             <i class="fa-solid fa-rotate-right" aria-hidden="true"></i>
             <span class="btn-label">Resend verification email</span>

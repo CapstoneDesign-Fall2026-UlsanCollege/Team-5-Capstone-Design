@@ -670,6 +670,73 @@ body {
     }
 }
 
+/* ---- OTP Code Input Styling ---- */
+.otp-input {
+    letter-spacing: 0.28em !important;
+    font-size: 1.25rem !important;
+    font-weight: 700 !important;
+    text-align: center !important;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+}
+
+.otp-input::placeholder {
+    letter-spacing: normal !important;
+    font-size: 0.9rem !important;
+    font-weight: 400 !important;
+    font-family: var(--font) !important;
+}
+
+.auth-link-btn {
+    background: none;
+    border: none;
+    color: var(--teal);
+    font-size: 0.825rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: opacity 0.2s ease;
+}
+
+.auth-link-btn:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+}
+
+.auth-link-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    text-decoration: none;
+}
+
+.auth-info-card {
+    background: rgba(15, 118, 110, 0.08);
+    border: 1px solid rgba(15, 118, 110, 0.2);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin: 16px 0;
+    text-align: left;
+}
+
+.auth-info-card-title {
+    margin: 0 0 6px 0;
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--teal);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.auth-info-card-text {
+    margin: 0;
+    font-size: 0.825rem;
+    color: var(--muted);
+    line-height: 1.45;
+}
+
 /* ---- Responsive ---- */
 @media (max-width: 900px) {
     .auth-shell {

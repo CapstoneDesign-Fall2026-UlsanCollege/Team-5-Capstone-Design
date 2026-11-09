@@ -203,7 +203,17 @@ def test_auth_validation_logic():
     assert password_valid("short1A") is False
     assert password_valid("allcharactershere") is False
     assert password_valid("123456789") is False
-    print("  ✓ Email regex and 8+ char / letter / digit password validation pass.")
+
+    # 6-digit OTP verification sanitization test
+    def sanitize_otp(token):
+        return re.sub(r'\D', '', str(token).strip())
+
+    assert sanitize_otp(" 123 456 ") == "123456"
+    assert sanitize_otp("123-456") == "123456"
+    assert len(sanitize_otp("987654")) == 6
+    assert len(sanitize_otp("123")) != 6
+
+    print("  ✓ Email regex, 8+ char / letter / digit password validation, and 6-digit OTP sanitization pass.")
 
 def test_task_metrics_and_analytics_logic():
     """Unit test task progress calculations and weekly activity logic."""
