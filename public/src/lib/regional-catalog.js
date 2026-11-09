@@ -19,3 +19,4 @@ export function coursesFor(university) {
 }
 
 export { COUNTRIES, UNIVERSITIES_BY_COUNTRY, SUBJECTS_CATALOG, getUniversities, getCountries };
+

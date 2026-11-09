@@ -284,3 +284,4 @@ sequenceDiagram
 | **Auth Controller** | `public/auth/auth-init.js` | Updated | Handles 6-digit OTP verification for both recovery and signup |
 | **Styling** | `public/auth/auth.css` | Updated | Monospace `.otp-input`, `.auth-link-btn`, and info cards |
 | **Automated Tests** | `tests/run_tests.py` | Passing | 11/11 automated tests verified with OTP sanitization checks |
+
