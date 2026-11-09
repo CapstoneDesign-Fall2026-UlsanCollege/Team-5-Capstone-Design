@@ -8,8 +8,8 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.0';
 
 // Support both Vite import.meta.env and browser window.__ENV__
 const env = (typeof import.meta !== 'undefined' && import.meta.env) ? import.meta.env : (window.__ENV__ || {});
-export const supabaseUrl = env.VITE_SUPABASE_URL || window.VITE_SUPABASE_URL || '';
-export const supabaseAnonKey = env.VITE_SUPABASE_ANON_KEY || window.VITE_SUPABASE_ANON_KEY || '';
+export const supabaseUrl = env.VITE_SUPABASE_URL || env.NEXT_PUBLIC_SUPABASE_URL || window.VITE_SUPABASE_URL || '';
+export const supabaseAnonKey = env.VITE_SUPABASE_ANON_KEY || env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || window.VITE_SUPABASE_ANON_KEY || '';
 
 // Returns true if real Supabase credentials have been configured
 export const isConfigured = Boolean(
