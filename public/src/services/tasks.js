@@ -53,15 +53,18 @@ export async function getTasksBySubject(studentId, subjectId) {
 }
 
 export async function createTask(task) {
+  const studentId = task.student_id || task.studentId;
+  const subjectId = task.subject_id || task.subjectId;
+
   if (isConfigured) {
     return supabase
       .from('tasks')
       .insert({
-        student_id: task.student_id,
-        subject_id: task.subject_id,
+        student_id: studentId,
+        subject_id: subjectId,
         title: task.title,
         deadline: task.deadline,
-        completed: false,
+        completed: Boolean(task.completed),
       })
       .select('*, subject:subjects(id, name, slug)')
       .single();
@@ -70,11 +73,11 @@ export async function createTask(task) {
   const tasks = getLocalTasks();
   const newTask = {
     id: 'local-task-' + Math.random().toString(36).slice(2, 9),
-    student_id: task.student_id,
-    subject_id: task.subject_id,
+    student_id: studentId,
+    subject_id: subjectId,
     title: task.title,
     deadline: task.deadline,
-    completed: false,
+    completed: Boolean(task.completed),
     created_at: new Date().toISOString(),
   };
   tasks.push(newTask);
@@ -83,10 +86,20 @@ export async function createTask(task) {
 }
 
 export async function updateTask(taskId, updates) {
+  const mappedUpdates = { ...updates };
+  if ('subjectId' in mappedUpdates) {
+    mappedUpdates.subject_id = mappedUpdates.subjectId;
+    delete mappedUpdates.subjectId;
+  }
+  if ('studentId' in mappedUpdates) {
+    mappedUpdates.student_id = mappedUpdates.studentId;
+    delete mappedUpdates.studentId;
+  }
+
   if (isConfigured) {
     return supabase
       .from('tasks')
-      .update({ ...updates, updated_at: new Date().toISOString() })
+      .update({ ...mappedUpdates, updated_at: new Date().toISOString() })
       .eq('id', taskId)
       .select('*, subject:subjects(id, name, slug)')
       .single();
@@ -95,7 +108,7 @@ export async function updateTask(taskId, updates) {
   const tasks = getLocalTasks();
   const idx = tasks.findIndex(t => t.id === taskId);
   if (idx > -1) {
-    tasks[idx] = { ...tasks[idx], ...updates, updated_at: new Date().toISOString() };
+    tasks[idx] = { ...tasks[idx], ...mappedUpdates, updated_at: new Date().toISOString() };
     saveLocalTasks(tasks);
     return { data: tasks[idx], error: null };
   }
