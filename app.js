@@ -34,6 +34,7 @@ import {
     saveStudentSubjects
 } from './src/services/subjects.js';
 import { getQuizQuestions, saveQuizAttempt } from './src/services/quiz.js';
+import { initTheme } from './src/theme.js';
 import {
     getCountries,
     getUniversities,
@@ -1767,19 +1768,6 @@ function setupEventListeners() {
             showView(view);
         }
     });
-}
-
-function initTheme() {
-    const html = document.documentElement;
-    const stored = localStorage.getItem(THEME_KEY);
-    html.classList.toggle('dark', stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches);
-    const themeBtn = document.getElementById('theme-toggle-btn');
-    if (themeBtn) {
-        themeBtn.addEventListener('click', () => {
-            html.classList.toggle('dark');
-            localStorage.setItem(THEME_KEY, html.classList.contains('dark') ? 'dark' : 'light');
-        });
-    }
 }
 
 async function init() {
