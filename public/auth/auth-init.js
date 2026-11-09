@@ -434,7 +434,14 @@ function initSignup() {
 
       if (error) {
         isSubmitting = false;
-        showAlert(alertBox, error.message);
+        if (error.message && error.message.toLowerCase().includes('rate limit')) {
+          showAlert(
+            alertBox,
+            'Email rate limit reached (Supabase limits test emails to ~3-4 per hour). Please wait a few minutes, disable "Confirm email" in Supabase for unlimited instant testing, or add custom SMTP.'
+          );
+        } else {
+          showAlert(alertBox, error.message);
+        }
         return;
       }
 
@@ -672,7 +679,14 @@ function initForgotPassword() {
     setLoading(submitBtn, false);
 
     if (error) {
-      showAlert(alertBox, error.message);
+      if (error.message && error.message.toLowerCase().includes('rate limit')) {
+        showAlert(
+          alertBox,
+          'Email rate limit reached (Supabase limits test emails to ~3-4 per hour). Please wait a few minutes, or configure custom SMTP in your Supabase dashboard.'
+        );
+      } else {
+        showAlert(alertBox, error.message);
+      }
       return;
     }
 
@@ -854,7 +868,14 @@ function initResetPassword() {
     setLoading(submitBtn, false);
 
     if (error) {
-      showAlert(alertBox, error.message);
+      if (error.message && error.message.toLowerCase().includes('rate limit')) {
+        showAlert(
+          alertBox,
+          'Email rate limit reached (Supabase limits test emails to ~3-4 per hour). Please wait a few minutes, or configure custom SMTP in your Supabase dashboard.'
+        );
+      } else {
+        showAlert(alertBox, error.message);
+      }
       return;
     }
 
