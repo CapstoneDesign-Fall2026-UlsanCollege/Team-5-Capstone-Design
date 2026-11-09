@@ -11,6 +11,29 @@ const LOCAL_SESSION_KEY = 'study_companion_local_session';
 const LOCAL_OTP_KEY = 'study_companion_recovery_otp';
 
 /**
+ * Helper to compute the correct base URL for auth redirects.
+ * Automatically handles GitHub Pages repo subdirectories and local environments.
+ */
+function getAuthBaseUrl() {
+  if (typeof window === 'undefined' || !window.location) {
+    return 'https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public';
+  }
+  const href = window.location.href;
+  const authIdx = href.indexOf('/auth/');
+  if (authIdx !== -1) {
+    return href.substring(0, authIdx);
+  }
+  const publicIdx = href.indexOf('/public');
+  if (publicIdx !== -1) {
+    return href.substring(0, publicIdx + '/public'.length);
+  }
+  if (href.includes('github.io/Team-5-Capstone-Design')) {
+    return `${window.location.origin}/Team-5-Capstone-Design/public`;
+  }
+  return window.location.origin;
+}
+
+/**
  * Sign up a new student account.
  * Uses Supabase Auth if configured, otherwise sets up local preview session.
  * @param {{ email: string, password: string, fullName: string, country?: string, university?: string }} params
@@ -23,7 +46,7 @@ export async function signUp({ email, password, fullName, country = '', universi
         password,
         options: {
           data: { full_name: fullName, country, university, onboarding_completed: false },
-          emailRedirectTo: `${window.location.origin}/auth/login.html?registered=true`,
+          emailRedirectTo: `${getAuthBaseUrl()}/auth/login.html?registered=true`,
         },
       });
       if (error) {
@@ -142,7 +165,7 @@ export async function resetPassword(email) {
   if (isConfigured) {
     try {
       return await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/auth/reset-password.html`,
+        redirectTo: `${getAuthBaseUrl()}/auth/reset-password.html`,
       });
     } catch (err) {
       return { data: null, error: { message: err.message || 'Failed to send recovery instructions.' } };
