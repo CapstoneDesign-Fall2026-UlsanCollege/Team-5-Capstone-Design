@@ -86,8 +86,8 @@ To make sure every teammate knows exactly what to execute and submit before the 
 - [x] Keep the sidebar theme button visible (`3416d3b`).
 - [x] Add and run `npm test` for the light/dark toggle (`ba4e592`). Result: PASS, 4 files, 18 tests, 6 theme checks, on 2026-11-09.
 - [x] Record the result in [`THEME_TOGGLE_VERIFICATION.md`](THEME_TOGGLE_VERIFICATION.md).
-- [ ] Capture desktop and mobile screenshots of light and dark mode.
-- [ ] Check navigation across `#dashboard`, `#tasks`, `#subjects`, `#analytics`, and `#quiz`.
+- [x] Capture desktop and mobile screenshots of light and dark mode.
+- [x] Check navigation across `#dashboard`, `#tasks`, `#subjects`, `#analytics`, and `#quiz`.
 ---
 
 ## 6. Blockers, Risks, and Decision Record
