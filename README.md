@@ -6,7 +6,7 @@
 [![Status](https://img.shields.io/badge/Architecture-Full--Stack%20Supabase-0f766e)](supabase/migrations/)
 [![Auth](https://img.shields.io/badge/Auth-Supabase%20Auth-2dd4bf)](public/auth/)
 [![Free Tier](https://img.shields.io/badge/Budget-%240%2Fmonth%20Free%20Tier-c27803)](docs/)
-[![Automated Tests](https://img.shields.io/badge/Tests-6%2F6%20Passing-success)](tests/)
+[![Automated Tests](https://img.shields.io/badge/Tests-10%2F10%20Passing-success)](tests/)
 
 [Documentation](docs/README.md) · [Schema Migrations](supabase/migrations/) · [Architecture Plan](docs/week5/ARCHITECTURE_AND_SETUP.md) · [Evidence Package](docs/Week6/README.md)
 
@@ -23,6 +23,23 @@ Teammates and reviewers can open and test the live application directly in the b
 | **Student Sign In** | [Open Live Sign In](https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/auth/login.html) | [`public/auth/login.html`](public/auth/login.html) |
 | **Forgot Password / Recovery** | [Open Live Forgot Password](https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/auth/forgot-password.html) | [`public/auth/forgot-password.html`](public/auth/forgot-password.html) |
 | **Reset Password (OTP + Link)** | [Open Live Reset Password](https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/auth/reset-password.html) | [`public/auth/reset-password.html`](public/auth/reset-password.html) |
+
+---
+
+## 🗄️ Live Cloud Database & Backend (Supabase PostgreSQL)
+
+The live application is powered by a normalized PostgreSQL database hosted on Supabase Cloud, fully secured with Row Level Security (RLS) policies:
+
+| Database Resource | Live Status / Link | Details & Schema |
+|---|---|---|
+| **Live Database Instance** | Connected & Active (`bcwwnjtmrcxggbaallon.supabase.co`) | Hosted on Supabase Cloud PostgreSQL |
+| **All-in-One Setup Script** | [`supabase/setup_all.sql`](supabase/setup_all.sql) | 1-click script creating all 8 tables, triggers, policies, and seeds |
+| **Versioned Migrations** | [`supabase/migrations/`](supabase/migrations/) | 8 migrations (`001_profiles.sql` to `008_major_subjects_quiz_bank.sql`) |
+| **Subjects Catalog** | `public.subjects` | **32 accredited university subjects** across 4 faculties & 15 majors |
+| **Curricula Mappings** | `public.major_subjects` | **128 program-to-course relations** (Core vs. Elective courses) |
+| **Universities Catalog** | `public.universities` | **46 accredited colleges & universities** across South Korea & South Asia |
+| **Quiz Practice Bank** | `public.quiz_questions` | **345 verified multiple-choice questions** across all 32 subjects |
+| **Data Protection & Security** | Row Level Security (RLS) | Student data isolation on `profiles`, `tasks`, `quiz_attempts`, `student_subjects` |
 
 ---
 
@@ -147,13 +164,21 @@ Smart Study Companion/
 2. Note your **Project URL** and **API anon key** from `Settings` → `API`.
 
 ### Step 2: Apply Database Migrations
-In the Supabase SQL Editor, run the SQL files in order from `supabase/migrations/`:
+You can deploy the complete database using either the **1-click consolidated setup script** or the individual versioned migrations:
+
+#### Option A: 1-Click Complete Setup (Recommended)
+In the Supabase SQL Editor, copy and run [`supabase/setup_all.sql`](supabase/setup_all.sql). It creates all 8 tables, triggers, RLS policies, 32 subjects, 46 universities, 128 major curricula, and 345 verified quiz questions in one step.
+
+#### Option B: Versioned Migrations
+Run the SQL files in order from `supabase/migrations/`:
 1. `001_profiles.sql` (Creates `profiles` table and auto-creation trigger on new user signup)
-2. `002_subjects.sql` (Creates subjects catalog and seeds the 5 Computer Science subjects)
+2. `002_subjects.sql` (Creates subjects catalog and student enrollments table)
 3. `003_tasks.sql` (Creates `tasks` table with indexes)
-4. `004_quiz_questions.sql` (Seeds the 75 multiple-choice questions)
+4. `004_quiz_questions.sql` (Creates `quiz_questions` table and seeds core CS questions)
 5. `005_quiz_attempts.sql` (Creates attempt tracking and response tables)
-6. `006_rls_policies.sql` (Enables Row Level Security and creates isolation policies)
+6. `006_rls_policies.sql` (Enables Row Level Security and creates student data isolation policies)
+7. `007_universities.sql` (Extends profiles with academic hierarchy and seeds accredited universities)
+8. `008_major_subjects_quiz_bank.sql` (Creates `major_subjects` table, seeds 32 accredited subjects, 128 curricula, and 345 quiz questions)
 
 ### Step 3: Configure Environment Variables
 Copy `.env.example` to `.env`:
