@@ -147,3 +147,4 @@ For capstone presentation slide decks:
 2. Select `ai_quizzes`, `ai_quiz_questions`, and `ai_quiz_attempts`.
 3. Capture the browser window showing the active table schema, column types, and RLS badge.
 4. Redact any sensitive API keys or student email addresses before committing images to `docs/database/images/`.
+

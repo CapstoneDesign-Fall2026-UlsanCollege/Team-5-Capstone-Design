@@ -143,3 +143,4 @@ DROP POLICY IF EXISTS ai_quiz_attempts_update_own ON ai_quiz_attempts;
 CREATE POLICY ai_quiz_attempts_update_own ON ai_quiz_attempts
     FOR UPDATE USING (auth.uid() = user_id)
     WITH CHECK (auth.uid() = user_id);
+

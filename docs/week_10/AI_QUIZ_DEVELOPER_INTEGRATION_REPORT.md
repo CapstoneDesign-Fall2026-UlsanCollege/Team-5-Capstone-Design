@@ -180,3 +180,4 @@ Testing Problem 1, 2, and 3 Integration & Bug Fixes...
 | **Verification & Testing Report** | [`docs/AI_Quiz_Testing.md`](../AI_Quiz_Testing.md) | 16 test cases, pass/fail matrices, and test suite logs |
 | **Schema Diagrams (SVG & PNG)** | [`docs/database/images/`](../database/images/) | High-resolution architectural and table diagrams |
 | **Automated Test Suite** | [`tests/test_ai_quiz.py`](../../tests/test_ai_quiz.py) | Unit test suite verifying schema, validation, and scoring |
+

@@ -117,3 +117,4 @@ erDiagram
 | **Quiz Attempts** | `public.quiz_attempts` (Standard 15 Qs, Rapid 10 Qs / 30s) | `public.ai_quiz_attempts` (Custom count, topic metadata, explanations) |
 | **Academic Catalog** | 46 universities, 32 subjects, 128 major curricula | Reuses existing subject and profile IDs without duplication |
 | **Separation of Concerns** | Faculty-approved core test bank | AI questions kept strictly segregated to prevent unverified mixing |
+

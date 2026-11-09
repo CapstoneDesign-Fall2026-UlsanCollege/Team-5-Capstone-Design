@@ -677,3 +677,4 @@ if __name__ == '__main__':
     generate_ai_quiz_erd()
     generate_ai_quiz_architecture()
     print("ALL DIAGRAMS AND IMAGES GENERATED SUCCESSFULLY!")
+

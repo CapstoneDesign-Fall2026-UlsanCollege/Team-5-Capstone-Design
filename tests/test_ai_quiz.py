@@ -128,3 +128,4 @@ if __name__ == '__main__':
     test_ai_quiz_scoring_and_deduplication()
     test_frontend_ui_elements()
     print("ALL AI QUIZ TESTS PASSED!")
+

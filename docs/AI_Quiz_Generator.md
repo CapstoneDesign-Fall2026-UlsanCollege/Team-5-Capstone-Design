@@ -165,3 +165,4 @@ Instructions:
 - **Current Limitation:** AI question generation requires 1–3 seconds of latency depending on network speeds.
 - **Future Improvement 1:** Add a faculty review badge where professors can mark outstanding AI questions for inclusion in the permanent study bank.
 - **Future Improvement 2:** Multi-modal support allowing diagrams and formulas (KaTeX / LaTeX) in AI question stems.
+
