@@ -1893,3 +1893,122 @@ BEGIN
 END $$;
 
 COMMENT ON TABLE public.major_subjects IS 'Curriculum mapping from degree majors to core and elective subjects';
+
+-- ============================================================================
+-- MIGRATION 009: AI QUIZ GENERATOR SCHEMA & ROW LEVEL SECURITY
+-- ============================================================================
+
+-- 1. AI QUIZZES
+CREATE TABLE IF NOT EXISTS public.ai_quizzes (
+    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    subject_id      UUID NOT NULL REFERENCES public.subjects(id) ON DELETE CASCADE,
+    topic           VARCHAR(255) NOT NULL,
+    difficulty      VARCHAR(20) NOT NULL DEFAULT 'medium' CHECK (difficulty IN ('easy', 'medium', 'hard')),
+    question_count  INT NOT NULL DEFAULT 5 CHECK (question_count BETWEEN 1 AND 50),
+    created_by      UUID NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
+    status          VARCHAR(50) NOT NULL DEFAULT 'completed' CHECK (status IN ('generating', 'completed', 'failed')),
+    created_at      TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at      TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+COMMENT ON TABLE public.ai_quizzes IS 'Metadata and configuration for topic-specific AI-generated quizzes';
+CREATE INDEX IF NOT EXISTS idx_ai_quizzes_subject ON public.ai_quizzes(subject_id);
+CREATE INDEX IF NOT EXISTS idx_ai_quizzes_created_by ON public.ai_quizzes(created_by);
+CREATE INDEX IF NOT EXISTS idx_ai_quizzes_created_at ON public.ai_quizzes(created_at DESC);
+
+-- 2. AI QUIZ QUESTIONS
+CREATE TABLE IF NOT EXISTS public.ai_quiz_questions (
+    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    ai_quiz_id      UUID NOT NULL REFERENCES public.ai_quizzes(id) ON DELETE CASCADE,
+    question_text   TEXT NOT NULL,
+    options         JSONB NOT NULL,
+    correct_answer  INT NOT NULL CHECK (correct_answer BETWEEN 0 AND 3),
+    explanation     TEXT,
+    question_order  INT NOT NULL DEFAULT 1,
+    created_at      TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+COMMENT ON TABLE public.ai_quiz_questions IS 'Individual AI-generated multiple-choice questions belonging to an AI quiz';
+CREATE INDEX IF NOT EXISTS idx_ai_quiz_questions_quiz ON public.ai_quiz_questions(ai_quiz_id);
+CREATE INDEX IF NOT EXISTS idx_ai_quiz_questions_order ON public.ai_quiz_questions(ai_quiz_id, question_order);
+
+-- 3. AI QUIZ ATTEMPTS
+CREATE TABLE IF NOT EXISTS public.ai_quiz_attempts (
+    id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    ai_quiz_id          UUID NOT NULL REFERENCES public.ai_quizzes(id) ON DELETE CASCADE,
+    user_id             UUID NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
+    submitted_answers   JSONB NOT NULL DEFAULT '[]'::jsonb,
+    score               INT NOT NULL DEFAULT 0,
+    total_questions     INT NOT NULL,
+    percentage          INT GENERATED ALWAYS AS (
+                            CASE WHEN total_questions > 0 
+                            THEN ROUND((score::numeric / total_questions::numeric) * 100) 
+                            ELSE 0 END
+                        ) STORED,
+    time_spent_seconds  INT,
+    started_at          TIMESTAMPTZ NOT NULL DEFAULT now(),
+    completed_at        TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+COMMENT ON TABLE public.ai_quiz_attempts IS 'Student submission records, scores, and answer histories for AI quizzes';
+CREATE INDEX IF NOT EXISTS idx_ai_quiz_attempts_user ON public.ai_quiz_attempts(user_id);
+CREATE INDEX IF NOT EXISTS idx_ai_quiz_attempts_quiz ON public.ai_quiz_attempts(ai_quiz_id);
+CREATE INDEX IF NOT EXISTS idx_ai_quiz_attempts_completed ON public.ai_quiz_attempts(completed_at DESC);
+
+-- 4. ROW LEVEL SECURITY (RLS) POLICIES
+ALTER TABLE public.ai_quizzes ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.ai_quiz_questions ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.ai_quiz_attempts ENABLE ROW LEVEL SECURITY;
+
+-- AI_QUIZZES POLICIES
+DROP POLICY IF EXISTS ai_quizzes_select_own ON public.ai_quizzes;
+CREATE POLICY ai_quizzes_select_own ON public.ai_quizzes
+    FOR SELECT USING (auth.uid() = created_by);
+
+DROP POLICY IF EXISTS ai_quizzes_insert_own ON public.ai_quizzes;
+CREATE POLICY ai_quizzes_insert_own ON public.ai_quizzes
+    FOR INSERT WITH CHECK (auth.uid() = created_by);
+
+DROP POLICY IF EXISTS ai_quizzes_update_own ON public.ai_quizzes;
+CREATE POLICY ai_quizzes_update_own ON public.ai_quizzes
+    FOR UPDATE USING (auth.uid() = created_by)
+    WITH CHECK (auth.uid() = created_by);
+
+DROP POLICY IF EXISTS ai_quizzes_delete_own ON public.ai_quizzes;
+CREATE POLICY ai_quizzes_delete_own ON public.ai_quizzes
+    FOR DELETE USING (auth.uid() = created_by);
+
+-- AI_QUIZ_QUESTIONS POLICIES
+DROP POLICY IF EXISTS ai_quiz_questions_select ON public.ai_quiz_questions;
+CREATE POLICY ai_quiz_questions_select ON public.ai_quiz_questions
+    FOR SELECT USING (
+        EXISTS (
+            SELECT 1 FROM public.ai_quizzes
+            WHERE public.ai_quizzes.id = public.ai_quiz_questions.ai_quiz_id
+              AND public.ai_quizzes.created_by = auth.uid()
+        )
+    );
+
+DROP POLICY IF EXISTS ai_quiz_questions_insert ON public.ai_quiz_questions;
+CREATE POLICY ai_quiz_questions_insert ON public.ai_quiz_questions
+    FOR INSERT WITH CHECK (
+        EXISTS (
+            SELECT 1 FROM public.ai_quizzes
+            WHERE public.ai_quizzes.id = public.ai_quiz_questions.ai_quiz_id
+              AND public.ai_quizzes.created_by = auth.uid()
+        )
+    );
+
+-- AI_QUIZ_ATTEMPTS POLICIES
+DROP POLICY IF EXISTS ai_quiz_attempts_select_own ON public.ai_quiz_attempts;
+CREATE POLICY ai_quiz_attempts_select_own ON public.ai_quiz_attempts
+    FOR SELECT USING (auth.uid() = user_id);
+
+DROP POLICY IF EXISTS ai_quiz_attempts_insert_own ON public.ai_quiz_attempts;
+CREATE POLICY ai_quiz_attempts_insert_own ON public.ai_quiz_attempts
+    FOR INSERT WITH CHECK (auth.uid() = user_id);
+
+DROP POLICY IF EXISTS ai_quiz_attempts_update_own ON public.ai_quiz_attempts;
+CREATE POLICY ai_quiz_attempts_update_own ON public.ai_quiz_attempts
+    FOR UPDATE USING (auth.uid() = user_id)
+    WITH CHECK (auth.uid() = user_id);

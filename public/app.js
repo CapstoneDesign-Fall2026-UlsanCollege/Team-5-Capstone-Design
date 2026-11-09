@@ -34,6 +34,7 @@ import {
     saveStudentSubjects
 } from './src/services/subjects.js';
 import { getQuizQuestions, saveQuizAttempt } from './src/services/quiz.js';
+import { generateAiQuiz, saveAiQuizAttempt } from './src/services/ai-quiz.js';
 import { initTheme } from './src/theme.js';
 import {
     getCountries,
@@ -234,6 +235,16 @@ function fillQuizSubjects() {
         quizSubjectEl.value = prevSelected;
     } else if (quizSubjectEl.options.length > 0) {
         quizSubjectEl.selectedIndex = 0;
+    }
+
+    const quizAiSubjectEl = document.getElementById('quiz-ai-subject');
+    if (quizAiSubjectEl) {
+        quizAiSubjectEl.innerHTML = html;
+        if (prevSelected && Array.from(quizAiSubjectEl.options).some(o => o.value === prevSelected)) {
+            quizAiSubjectEl.value = prevSelected;
+        } else if (quizAiSubjectEl.options.length > 0) {
+            quizAiSubjectEl.selectedIndex = 0;
+        }
     }
 
     // Update Quiz Header text to show university & major!
@@ -1237,6 +1248,80 @@ async function startQuiz(mode) {
     }
 }
 
+async function startAiQuiz() {
+    const subjectSlug = document.getElementById('quiz-ai-subject')?.value || document.getElementById('quiz-subject')?.value;
+    const topic = document.getElementById('quiz-ai-topic')?.value?.trim();
+    const difficulty = document.getElementById('quiz-ai-difficulty')?.value || 'medium';
+    const count = parseInt(document.getElementById('quiz-ai-count')?.value || '5', 10);
+
+    if (!topic || topic.length < 2) {
+        toast('Please enter a topic prompt (at least 2 characters).');
+        document.getElementById('quiz-ai-topic')?.focus();
+        return;
+    }
+
+    const subObj = dbSubjects.find(s => s.slug === subjectSlug) || SUBJECTS_CATALOG.find(s => s.slug === subjectSlug);
+    const subjectName = subObj ? subObj.name : 'Computer Science';
+    const subjectId = subObj ? subObj.id : null;
+
+    const loadingEl = document.getElementById('quiz-ai-loading');
+    const generateBtn = document.getElementById('quiz-generate-ai-btn');
+
+    if (loadingEl) loadingEl.style.display = 'inline-flex';
+    if (generateBtn) generateBtn.disabled = true;
+
+    try {
+        const { data, error } = await generateAiQuiz({
+            subjectId,
+            subjectSlug,
+            subjectName,
+            topic,
+            difficulty,
+            questionCount: count,
+            studentId: currentUser?.id || 'local-student'
+        });
+
+        if (error || !data || !data.questions || data.questions.length === 0) {
+            toast(error?.message || 'Could not generate AI quiz questions. Please try again.');
+            return;
+        }
+
+        const questions = data.questions.map((item, idx) => ({
+            id: item.id || `ai-q-${idx + 1}`,
+            q: item.question,
+            options: item.options,
+            answer: item.correct_answer,
+            explanation: item.explanation
+        }));
+
+        quiz = {
+            subject: subjectSlug,
+            topic: data.topic,
+            difficulty: data.difficulty,
+            aiQuizId: data.quizId,
+            mode: 'ai',
+            questions,
+            index: 0,
+            answers: new Array(questions.length).fill(null),
+            timeLeft: 0,
+            deadline: 0,
+            finished: false
+        };
+
+        const titleEl = document.getElementById('quiz-title');
+        if (titleEl) titleEl.textContent = `AI Quiz: ${data.topic} (${data.difficulty.toUpperCase()})`;
+
+        setQuizStage('play');
+        renderQuizQuestion();
+        toast(`✨ Generated ${questions.length} AI questions on "${data.topic}"!`);
+    } catch (err) {
+        toast('Error creating AI quiz: ' + err.message);
+    } finally {
+        if (loadingEl) loadingEl.style.display = 'none';
+        if (generateBtn) generateBtn.disabled = false;
+    }
+}
+
 async function finishQuiz(timedOut = false) {
     clearQuizTimer();
     quiz.finished = true;
@@ -1251,21 +1336,40 @@ async function finishQuiz(timedOut = false) {
 
     // Save to database
     if (currentUser) {
-        const subjectRecord = dbSubjects.find(s => s.slug === quiz.subject);
-        if (subjectRecord?.id && !String(subjectRecord.id).startsWith('subj-')) {
+        if (quiz.mode === 'ai') {
             const responses = quiz.questions.map((q, idx) => ({
                 question_id: q.id,
+                question_text: q.q,
                 selected_answer: quiz.answers[idx] ?? -1,
-                is_correct: quiz.answers[idx] === q.answer
+                correct_answer: q.answer,
+                is_correct: quiz.answers[idx] === q.answer,
+                explanation: q.explanation || ''
             }));
-            await saveQuizAttempt({
+            await saveAiQuizAttempt({
+                quizId: quiz.aiQuizId,
                 studentId: currentUser.id,
-                subjectId: subjectRecord.id,
                 score: correctCount,
                 totalQuestions: total,
-                timeSpentSeconds: quiz.mode === 'rapid' ? (30 - quiz.timeLeft) : null,
+                timeSpentSeconds: null,
                 responses
             });
+        } else {
+            const subjectRecord = dbSubjects.find(s => s.slug === quiz.subject);
+            if (subjectRecord?.id && !String(subjectRecord.id).startsWith('subj-')) {
+                const responses = quiz.questions.map((q, idx) => ({
+                    question_id: q.id,
+                    selected_answer: quiz.answers[idx] ?? -1,
+                    is_correct: quiz.answers[idx] === q.answer
+                }));
+                await saveQuizAttempt({
+                    studentId: currentUser.id,
+                    subjectId: subjectRecord.id,
+                    score: correctCount,
+                    totalQuestions: total,
+                    timeSpentSeconds: quiz.mode === 'rapid' ? (30 - quiz.timeLeft) : null,
+                    responses
+                });
+            }
         }
     }
 
@@ -1292,6 +1396,7 @@ async function finishQuiz(timedOut = false) {
                     <strong>${idx + 1}. ${escapeHtml(q.q)}</strong>
                     <span>Your answer: ${escapeHtml(chosenText)} ${isCorrect ? '✓' : '✗'}</span>
                     ${!isCorrect ? `<span>Correct answer: ${escapeHtml(correctText)}</span>` : ''}
+                    ${q.explanation ? `<span class="quiz-explanation" style="margin-top: 6px; font-size: 13px; color: var(--accent);"><i class="fa-solid fa-circle-info"></i> ${escapeHtml(q.explanation)}</span>` : ''}
                 </li>
             `;
         }).join('');
@@ -1685,6 +1790,33 @@ function setupEventListeners() {
 
     const quizRapidBtn = document.getElementById('quiz-rapid-btn');
     if (quizRapidBtn) quizRapidBtn.addEventListener('click', () => startQuiz('rapid'));
+
+    // AI Quiz Tab Switching & Generation
+    const tabCurated = document.getElementById('quiz-tab-curated');
+    const tabAi = document.getElementById('quiz-tab-ai');
+    const panelCurated = document.getElementById('quiz-curated-panel');
+    const panelAi = document.getElementById('quiz-ai-panel');
+
+    if (tabCurated && tabAi && panelCurated && panelAi) {
+        tabCurated.addEventListener('click', () => {
+            tabCurated.classList.add('is-active');
+            tabAi.classList.remove('is-active');
+            panelCurated.hidden = false;
+            panelAi.hidden = true;
+        });
+
+        tabAi.addEventListener('click', () => {
+            tabAi.classList.add('is-active');
+            tabCurated.classList.remove('is-active');
+            panelAi.hidden = false;
+            panelCurated.hidden = true;
+        });
+    }
+
+    const quizGenerateAiBtn = document.getElementById('quiz-generate-ai-btn');
+    if (quizGenerateAiBtn) {
+        quizGenerateAiBtn.addEventListener('click', () => startAiQuiz());
+    }
 
     // Quiz Options & Navigation
     const quizOptions = document.getElementById('quiz-options');

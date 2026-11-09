@@ -405,8 +405,18 @@
             <section class="plan-board quiz-setup" id="quiz-setup">
                 <p class="eyebrow">Check Understanding</p>
                 <h2 id="quiz-main-heading">Choose your study subject</h2>
-                <p id="quiz-sub-heading" class="muted">Practice one subject at a time. Standard quizzes have 15 questions; rapid quizzes have 10 questions and a 30-second limit.</p>
-                <div class="quiz-setup-controls">
+                <p id="quiz-sub-heading" class="muted">Practice one subject at a time with faculty-curated question banks or generate custom AI quizzes tailored to your topic.</p>
+                
+                <div class="quiz-type-tabs" style="display: flex; gap: 10px; margin-top: 16px; margin-bottom: 8px;">
+                    <button id="quiz-tab-curated" class="btn-ghost is-active" type="button" style="border-radius: 9999px;">
+                        <i class="fa-solid fa-book-bookmark"></i> Standard &amp; Rapid Quiz
+                    </button>
+                    <button id="quiz-tab-ai" class="btn-ghost" type="button" style="border-radius: 9999px;">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> AI Quiz Generator
+                    </button>
+                </div>
+
+                <div id="quiz-curated-panel" class="quiz-setup-controls">
                     <label for="quiz-subject">Subject
                         <select id="quiz-subject">
                             <!-- Populated dynamically based on enrolled subjects & selected major -->
@@ -415,6 +425,42 @@
                     <div class="quiz-mode-actions">
                         <button id="quiz-start-btn" class="btn-primary" type="button">Start 15-question quiz</button>
                         <button id="quiz-rapid-btn" class="btn-ghost" type="button">Start rapid quiz · 10 questions / 30 sec</button>
+                    </div>
+                </div>
+
+                <div id="quiz-ai-panel" class="quiz-setup-controls" hidden>
+                    <label for="quiz-ai-subject">Academic Subject
+                        <select id="quiz-ai-subject">
+                            <!-- Populated dynamically based on enrolled subjects & selected major -->
+                        </select>
+                    </label>
+                    <label for="quiz-ai-topic" style="max-width: 520px;">Quiz Topic / Concept Prompt
+                        <input type="text" id="quiz-ai-topic" placeholder="e.g. Binary Search Trees, Normalization, Newton's Laws" required style="width: 100%; margin-top: 4px; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface);">
+                    </label>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; max-width: 520px;">
+                        <label for="quiz-ai-difficulty">Difficulty Level
+                            <select id="quiz-ai-difficulty" style="width: 100%; margin-top: 4px;">
+                                <option value="easy">Easy (Fundamentals)</option>
+                                <option value="medium" selected>Medium (Standard)</option>
+                                <option value="hard">Hard (Advanced / Edge Cases)</option>
+                            </select>
+                        </label>
+                        <label for="quiz-ai-count">Number of Questions
+                            <select id="quiz-ai-count" style="width: 100%; margin-top: 4px;">
+                                <option value="5" selected>5 Questions</option>
+                                <option value="10">10 Questions</option>
+                                <option value="15">15 Questions</option>
+                                <option value="20">20 Questions</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="quiz-mode-actions" style="margin-top: 8px;">
+                        <button id="quiz-generate-ai-btn" class="btn-primary" type="button">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i> Generate AI Quiz
+                        </button>
+                    </div>
+                    <div id="quiz-ai-loading" class="muted" style="display: none; align-items: center; gap: 8px; font-weight: 500; margin-top: 8px;">
+                        <span class="spinner" aria-hidden="true"></span> Generating topic-tailored questions with AI...
                     </div>
                 </div>
             </section>

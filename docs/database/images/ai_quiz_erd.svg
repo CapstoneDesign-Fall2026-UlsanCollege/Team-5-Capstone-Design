@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 780" width="1300" height="780">
+  <defs>
+    <style>
+      .bg { fill: #0b1120; }
+      .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 26px; font-weight: 700; fill: #f8fafc; }
+      .sub { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 14px; fill: #94a3b8; }
+      .node-core { fill: #1e293b; stroke: #38bdf8; stroke-width: 2; rx: 10; }
+      .node-ai { fill: #1e293b; stroke: #a855f7; stroke-width: 2; rx: 10; }
+      .node-header-core { fill: #0284c7; }
+      .node-header-ai { fill: #7e22ce; }
+      .node-title { font-family: monospace; font-size: 15px; font-weight: 700; fill: #ffffff; }
+      .col-pk { font-family: monospace; font-size: 12px; font-weight: 700; fill: #facc15; }
+      .col-fk { font-family: monospace; font-size: 12px; font-weight: 700; fill: #f472b6; }
+      .col-txt { font-family: monospace; font-size: 12px; fill: #cbd5e1; }
+      .rel-line { stroke: #64748b; stroke-width: 2; stroke-dasharray: 4,4; fill: none; }
+      .rel-line-ai { stroke: #c084fc; stroke-width: 2.5; fill: none; }
+      .rel-label { font-family: sans-serif; font-size: 11px; fill: #e2e8f0; background: #0f172a; }
+    </style>
+  </defs>
+
+  <rect width="1300" height="780" class="bg"/>
+
+  <text x="50" y="45" class="title">Smart Study Companion — Entity Relationship Diagram (ERD)</text>
+  <text x="50" y="70" class="sub">Relational schema integration between Core Database entities and New AI Quiz entities</text>
+
+  <!-- TABLE: profiles (Core) -->
+  <g transform="translate(60, 140)">
+    <rect width="250" height="190" class="node-core"/>
+    <path d="M 0 10 Q 0 0 10 0 L 240 0 Q 250 0 250 10 L 250 34 L 0 34 Z" class="node-header-core"/>
+    <text x="14" y="23" class="node-title">profiles</text>
+    <text x="14" y="60" class="col-pk">PK id (UUID)</text>
+    <text x="14" y="85" class="col-txt">full_name (TEXT)</text>
+    <text x="14" y="110" class="col-txt">university (TEXT)</text>
+    <text x="14" y="135" class="col-txt">major (TEXT)</text>
+    <text x="14" y="160" class="col-txt">created_at (TIMESTAMPTZ)</text>
+  </g>
+
+  <!-- TABLE: subjects (Core) -->
+  <g transform="translate(60, 440)">
+    <rect width="250" height="190" class="node-core"/>
+    <path d="M 0 10 Q 0 0 10 0 L 240 0 Q 250 0 250 10 L 250 34 L 0 34 Z" class="node-header-core"/>
+    <text x="14" y="23" class="node-title">subjects</text>
+    <text x="14" y="60" class="col-pk">PK id (UUID)</text>
+    <text x="14" y="85" class="col-txt">name (VARCHAR)</text>
+    <text x="14" y="110" class="col-txt">slug (VARCHAR)</text>
+    <text x="14" y="135" class="col-txt">category (VARCHAR)</text>
+    <text x="14" y="160" class="col-txt">is_default (BOOLEAN)</text>
+  </g>
+
+  <!-- TABLE: ai_quizzes (New AI Extension) -->
+  <g transform="translate(480, 270)">
+    <rect width="290" height="240" class="node-ai"/>
+    <path d="M 0 10 Q 0 0 10 0 L 280 0 Q 290 0 290 10 L 290 34 L 0 34 Z" class="node-header-ai"/>
+    <text x="14" y="23" class="node-title">ai_quizzes [NEW]</text>
+    <text x="14" y="60" class="col-pk">PK id (UUID)</text>
+    <text x="14" y="85" class="col-fk">FK subject_id (UUID -> subjects.id)</text>
+    <text x="14" y="110" class="col-fk">FK created_by (UUID -> profiles.id)</text>
+    <text x="14" y="135" class="col-txt">topic (VARCHAR(255))</text>
+    <text x="14" y="160" class="col-txt">difficulty ('easy'|'medium'|'hard')</text>
+    <text x="14" y="185" class="col-txt">question_count (INT 1..50)</text>
+    <text x="14" y="210" class="col-txt">status ('completed'|'failed')</text>
+  </g>
+
+  <!-- TABLE: ai_quiz_questions (New AI Extension) -->
+  <g transform="translate(940, 110)">
+    <rect width="290" height="230" class="node-ai"/>
+    <path d="M 0 10 Q 0 0 10 0 L 280 0 Q 290 0 290 10 L 290 34 L 0 34 Z" class="node-header-ai"/>
+    <text x="14" y="23" class="node-title">ai_quiz_questions [NEW]</text>
+    <text x="14" y="60" class="col-pk">PK id (UUID)</text>
+    <text x="14" y="85" class="col-fk">FK ai_quiz_id (UUID -> ai_quizzes.id)</text>
+    <text x="14" y="110" class="col-txt">question_text (TEXT)</text>
+    <text x="14" y="135" class="col-txt">options (JSONB - 4 choices)</text>
+    <text x="14" y="160" class="col-txt">correct_answer (INT 0..3)</text>
+    <text x="14" y="185" class="col-txt">explanation (TEXT)</text>
+    <text x="14" y="210" class="col-txt">question_order (INT)</text>
+  </g>
+
+  <!-- TABLE: ai_quiz_attempts (New AI Extension) -->
+  <g transform="translate(940, 420)">
+    <rect width="290" height="240" class="node-ai"/>
+    <path d="M 0 10 Q 0 0 10 0 L 280 0 Q 290 0 290 10 L 290 34 L 0 34 Z" class="node-header-ai"/>
+    <text x="14" y="23" class="node-title">ai_quiz_attempts [NEW]</text>
+    <text x="14" y="60" class="col-pk">PK id (UUID)</text>
+    <text x="14" y="85" class="col-fk">FK ai_quiz_id (UUID -> ai_quizzes.id)</text>
+    <text x="14" y="110" class="col-fk">FK user_id (UUID -> profiles.id)</text>
+    <text x="14" y="135" class="col-txt">submitted_answers (JSONB)</text>
+    <text x="14" y="160" class="col-txt">score (INT)</text>
+    <text x="14" y="185" class="col-txt">total_questions (INT)</text>
+    <text x="14" y="210" class="col-txt">percentage (INT GENERATED %)</text>
+  </g>
+
+  <!-- RELATIONSHIPS -->
+  <!-- profiles -> ai_quizzes (1:N) -->
+  <path d="M 310 235 L 480 340" class="rel-line-ai"/>
+  <rect x="365" y="270" width="60" height="18" rx="4" fill="#1e293b"/>
+  <text x="370" y="283" class="rel-label">1 : N owns</text>
+
+  <!-- subjects -> ai_quizzes (1:N) -->
+  <path d="M 310 535 L 480 430" class="rel-line-ai"/>
+  <rect x="350" y="470" width="85" height="18" rx="4" fill="#1e293b"/>
+  <text x="355" y="483" class="rel-label">1 : N categorizes</text>
+
+  <!-- ai_quizzes -> ai_quiz_questions (1:N) -->
+  <path d="M 770 330 L 940 225" class="rel-line-ai"/>
+  <rect x="820" y="260" width="75" height="18" rx="4" fill="#1e293b"/>
+  <text x="825" y="273" class="rel-label">1 : N contains</text>
+
+  <!-- ai_quizzes -> ai_quiz_attempts (1:N) -->
+  <path d="M 770 430 L 940 510" class="rel-line-ai"/>
+  <rect x="825" y="460" width="65" height="18" rx="4" fill="#1e293b"/>
+  <text x="830" y="473" class="rel-label">1 : N tracks</text>
+
+  <!-- profiles -> ai_quiz_attempts (1:N via long bezier) -->
+  <path d="M 310 180 C 400 90, 800 50, 940 450" class="rel-line" stroke="#38bdf8"/>
+  <rect x="580" y="70" width="95" height="18" rx="4" fill="#1e293b"/>
+  <text x="585" y="83" class="rel-label">1 : N user submit</text>
+</svg>

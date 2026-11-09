@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 700" width="1300" height="700">
+  <defs>
+    <style>
+      .bg { fill: #0a0f1d; }
+      .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 26px; font-weight: 700; fill: #f8fafc; }
+      .sub { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 14px; fill: #94a3b8; }
+      .stage-box { fill: #1e293b; stroke: #475569; stroke-width: 1.5; rx: 12; }
+      .stage-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 15px; font-weight: 700; fill: #38bdf8; }
+      .stage-item { font-family: monospace; font-size: 12px; fill: #cbd5e1; }
+      .flow-arrow { stroke: #38bdf8; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+      .ai-box { fill: #2e1065; stroke: #a855f7; stroke-width: 2; rx: 12; }
+      .db-box { fill: #042f2e; stroke: #14b8a6; stroke-width: 2; rx: 12; }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+  </defs>
+
+  <rect width="1300" height="700" class="bg"/>
+
+  <text x="50" y="45" class="title">Smart Study Companion — AI Quiz End-to-End System Architecture</text>
+  <text x="50" y="70" class="sub">Workflow pipeline from Student Browser Request to AI Synthesis, Validation, RLS Database, and Scoring</text>
+
+  <!-- STAGE 1: Student Browser -->
+  <g transform="translate(50, 120)">
+    <rect width="250" height="480" class="stage-box"/>
+    <rect width="250" height="40" rx="12" fill="#0284c7"/>
+    <text x="16" y="26" font-family="sans-serif" font-size="16" font-weight="700" fill="#ffffff">1. Student Browser</text>
+    <text x="16" y="70" class="stage-item">• Logged-in Student Session</text>
+    <text x="16" y="95" class="stage-item">• Academic Subject Selected</text>
+    <text x="16" y="120" class="stage-item">• Custom Topic Prompt Input</text>
+    <text x="16" y="145" class="stage-item">• Difficulty: Easy/Med/Hard</text>
+    <text x="16" y="170" class="stage-item">• Question Count: 5/10/15/20</text>
+    <text x="16" y="210" class="stage-title">Interactive Stage:</text>
+    <text x="16" y="235" class="stage-item">• Responsive Play Interface</text>
+    <text x="16" y="260" class="stage-item">• 4 Multi-Choice Radio Cards</text>
+    <text x="16" y="285" class="stage-item">• Next / Previous Controls</text>
+    <text x="16" y="325" class="stage-title">Results &amp; Review:</text>
+    <text x="16" y="350" class="stage-item">• Score &amp; Marks Calculation</text>
+    <text x="16" y="375" class="stage-item">• Correct Answer Highlights</text>
+    <text x="16" y="400" class="stage-item">• Pedagogical Explanations</text>
+  </g>
+
+  <!-- STAGE 2: Client Service -->
+  <g transform="translate(340, 120)">
+    <rect width="240" height="480" class="stage-box"/>
+    <rect width="240" height="40" rx="12" fill="#0369a1"/>
+    <text x="16" y="26" font-family="sans-serif" font-size="16" font-weight="700" fill="#ffffff">2. Client Service</text>
+    <text x="16" y="70" class="stage-item">src/services/ai-quiz.js</text>
+    <text x="16" y="110" class="stage-title">Responsibilities:</text>
+    <text x="16" y="135" class="stage-item">• Parameter sanitization</text>
+    <text x="16" y="160" class="stage-item">• JWT Bearer attachment</text>
+    <text x="16" y="185" class="stage-item">• Edge Function invocation</text>
+    <text x="16" y="210" class="stage-item">• Graceful Offline Engine</text>
+    <text x="16" y="235" class="stage-item">• Local Preview fallback</text>
+    <text x="16" y="275" class="stage-title">Question Validator:</text>
+    <text x="16" y="300" class="stage-item">• 4 distinct options check</text>
+    <text x="16" y="325" class="stage-item">• Index bounds (0..3)</text>
+    <text x="16" y="350" class="stage-item">• Duplicate suppression</text>
+    <text x="16" y="375" class="stage-item">• Explanation verification</text>
+  </g>
+
+  <!-- STAGE 3: AI Backend / Edge Function -->
+  <g transform="translate(620, 120)">
+    <rect width="280" height="230" class="ai-box"/>
+    <rect width="280" height="40" rx="12" fill="#7e22ce"/>
+    <text x="16" y="26" font-family="sans-serif" font-size="16" font-weight="700" fill="#ffffff">3. Edge API &amp; Gemini Model</text>
+    <text x="16" y="70" class="stage-item">supabase/functions/generate-ai-quiz</text>
+    <text x="16" y="95" class="stage-item">• Supabase Auth token validation</text>
+    <text x="16" y="120" class="stage-item">• Server-side GEMINI_API_KEY</text>
+    <text x="16" y="145" class="stage-item">• Structured Academic Prompt</text>
+    <text x="16" y="170" class="stage-item">• JSON Mode Strict Schema</text>
+    <text x="16" y="195" class="stage-item">• Rate limiting &amp; Error recovery</text>
+  </g>
+
+  <!-- STAGE 4: Database Persistence -->
+  <g transform="translate(620, 380)">
+    <rect width="280" height="220" class="db-box"/>
+    <rect width="280" height="40" rx="12" fill="#0f766e"/>
+    <text x="16" y="26" font-family="sans-serif" font-size="16" font-weight="700" fill="#ffffff">4. Supabase Database</text>
+    <text x="16" y="70" class="stage-item">PostgreSQL Cloud (Migration 009)</text>
+    <text x="16" y="100" class="stage-item">• public.ai_quizzes (metadata)</text>
+    <text x="16" y="125" class="stage-item">• public.ai_quiz_questions</text>
+    <text x="16" y="150" class="stage-item">• public.ai_quiz_attempts</text>
+    <text x="16" y="180" class="stage-item">• Row Level Security Isolation</text>
+  </g>
+
+  <!-- STAGE 5: Scoring & Persistence Flow -->
+  <g transform="translate(940, 120)">
+    <rect width="310" height="480" class="stage-box"/>
+    <rect width="310" height="40" rx="12" fill="#334155"/>
+    <text x="16" y="26" font-family="sans-serif" font-size="16" font-weight="700" fill="#ffffff">5. Scoring &amp; Review Pipeline</text>
+    <text x="16" y="70" class="stage-title">Answer Key Protection:</text>
+    <text x="16" y="95" class="stage-item">• Correct answers verified upon submission</text>
+    <text x="16" y="120" class="stage-item">• Client cannot tamper with scoring</text>
+    <text x="16" y="160" class="stage-title">Scoring Formula:</text>
+    <text x="16" y="185" class="stage-item">• Score = sum(selected == correct)</text>
+    <text x="16" y="210" class="stage-item">• Percentage = (Score / Total) * 100</text>
+    <text x="16" y="250" class="stage-title">Persistence &amp; History:</text>
+    <text x="16" y="275" class="stage-item">• Saves full response history to cloud</text>
+    <text x="16" y="300" class="stage-item">• Persists across browser refresh</text>
+    <text x="16" y="325" class="stage-item">• Linked to Student Profile</text>
+    <text x="16" y="365" class="stage-title">Academic Separation:</text>
+    <text x="16" y="390" class="stage-item">• AI quizzes kept distinct from static bank</text>
+    <text x="16" y="415" class="stage-item">• Standard &amp; Rapid quizzes unmodified</text>
+  </g>
+
+  <!-- Connectors -->
+  <path d="M 300 220 L 340 220" class="flow-arrow"/>
+  <path d="M 580 200 L 620 200" class="flow-arrow"/>
+  <path d="M 760 350 L 760 380" class="flow-arrow"/>
+  <path d="M 900 480 L 940 480" class="flow-arrow"/>
+</svg>

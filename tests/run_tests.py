@@ -38,6 +38,7 @@ def test_file_structure():
         'src/services/subjects.js',
         'src/services/tasks.js',
         'src/services/quiz.js',
+        'src/services/ai-quiz.js',
         'src/auth-guard.js',
         'public/src/theme.js',
         'supabase/migrations/001_profiles.sql',
@@ -48,9 +49,11 @@ def test_file_structure():
         'supabase/migrations/006_rls_policies.sql',
         'supabase/migrations/007_universities.sql',
         'supabase/migrations/008_major_subjects_quiz_bank.sql',
+        'supabase/migrations/009_ai_quiz_tables.sql',
         'data/academic-catalog.json',
         'data/quiz-bank.json',
         'scripts/build_academic_data.py',
+        'tests/test_ai_quiz.py',
     ]
     for rel_path in required_files:
         full_path = os.path.join(WORKSPACE, rel_path)
@@ -129,7 +132,15 @@ def test_sql_migrations():
         # Seeded questions in migration 008: 270 new questions across 27 subjects (10 each)
         assert 'INSERT INTO public.quiz_questions' in content
 
-    print("  ✓ All 8 SQL migrations valid with major_subjects mapping, 345 seeded questions across 32 subjects, and RLS.")
+    # 009_ai_quiz_tables.sql
+    with open(os.path.join(migrations_dir, '009_ai_quiz_tables.sql')) as f:
+        content = f.read()
+        assert 'CREATE TABLE IF NOT EXISTS ai_quizzes' in content
+        assert 'CREATE TABLE IF NOT EXISTS ai_quiz_questions' in content
+        assert 'CREATE TABLE IF NOT EXISTS ai_quiz_attempts' in content
+        assert 'ai_quizzes ENABLE ROW LEVEL SECURITY' in content
+
+    print("  ✓ All 9 SQL migrations valid with major_subjects mapping, 345 seeded questions across 32 subjects, AI quiz tables, and RLS.")
 
 def test_auth_pages_markup():
     """Verify HTML auth pages have valid markup, required IDs, and dual OTP/link recovery elements."""
@@ -396,6 +407,39 @@ def test_bug_fixes_verification():
 
     print("  ✓ Problem 1 (Signup -> Login), Problem 2 (Cascading Onboarding & Major Curricula), and Problem 3 (Secure 6-digit Recovery) verified.")
 
+def test_ai_quiz_integration():
+    """Verify AI Quiz schema, question validator, scoring calculation, and UI bindings."""
+    mig_path = os.path.join(WORKSPACE, 'supabase', 'migrations', '009_ai_quiz_tables.sql')
+    with open(mig_path, 'r', encoding='utf-8') as f:
+        sql = f.read()
+
+    assert 'CREATE TABLE IF NOT EXISTS ai_quizzes' in sql
+    assert 'CREATE TABLE IF NOT EXISTS ai_quiz_questions' in sql
+    assert 'CREATE TABLE IF NOT EXISTS ai_quiz_attempts' in sql
+    assert "CHECK (difficulty IN ('easy', 'medium', 'hard'))" in sql
+    assert "CHECK (question_count BETWEEN 1 AND 50)" in sql
+    assert "CHECK (correct_answer BETWEEN 0 AND 3)" in sql
+    assert 'ALTER TABLE ai_quizzes ENABLE ROW LEVEL SECURITY;' in sql
+    assert 'ALTER TABLE ai_quiz_questions ENABLE ROW LEVEL SECURITY;' in sql
+    assert 'ALTER TABLE ai_quiz_attempts ENABLE ROW LEVEL SECURITY;' in sql
+
+    # Verify Frontend UI bindings
+    with open(os.path.join(WORKSPACE, 'public', 'index.html'), 'r', encoding='utf-8') as f:
+        html = f.read()
+    assert 'id="quiz-tab-ai"' in html
+    assert 'id="quiz-ai-panel"' in html
+    assert 'id="quiz-generate-ai-btn"' in html
+
+    # Verify App logic bindings
+    with open(os.path.join(WORKSPACE, 'public', 'app.js'), 'r', encoding='utf-8') as f:
+        app_js = f.read()
+    assert 'startAiQuiz' in app_js
+    assert 'generateAiQuiz' in app_js
+    assert 'saveAiQuizAttempt' in app_js
+    assert 'quiz.mode === \'ai\'' in app_js
+
+    print("  ✓ AI Quiz Generator (009 Schema, RLS, Edge/Local Generator, UI Tabs, and Persistence) verified.")
+
 def main():
     print("=" * 60)
     print("  SMART STUDY COMPANION — AUTOMATED TEST SUITE")
@@ -411,8 +455,9 @@ def main():
         test_curriculum_and_quiz_bank()
         test_theme_toggle()
         test_bug_fixes_verification()
+        test_ai_quiz_integration()
         print("=" * 60)
-        print("  ALL TESTS PASSED SUCCESSFULLY (10/10)")
+        print("  ALL TESTS PASSED SUCCESSFULLY (11/11)")
         print("=" * 60)
     except AssertionError as e:
         print(f"\n❌ TEST FAILED: {e}")

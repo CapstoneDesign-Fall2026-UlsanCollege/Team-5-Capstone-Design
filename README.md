@@ -6,7 +6,7 @@
 [![Status](https://img.shields.io/badge/Architecture-Full--Stack%20Supabase-0f766e)](supabase/migrations/)
 [![Auth](https://img.shields.io/badge/Auth-Supabase%20Auth-2dd4bf)](public/auth/)
 [![Free Tier](https://img.shields.io/badge/Budget-%240%2Fmonth%20Free%20Tier-c27803)](docs/)
-[![Automated Tests](https://img.shields.io/badge/Tests-10%2F10%20Passing-success)](tests/)
+[![Automated Tests](https://img.shields.io/badge/Tests-11%2F11%20Passing-success)](tests/)
 
 [Documentation](docs/README.md) · [Schema Migrations](supabase/migrations/) · [Architecture Plan](docs/week5/ARCHITECTURE_AND_SETUP.md) · [Evidence Package](docs/Week6/README.md)
 
@@ -33,13 +33,14 @@ The live application is powered by a normalized PostgreSQL database hosted on Su
 | Database Resource | Live Status / Link | Details & Schema |
 |---|---|---|
 | **Live Database Instance** | Connected & Active (`bcwwnjtmrcxggbaallon.supabase.co`) | Hosted on Supabase Cloud PostgreSQL |
-| **All-in-One Setup Script** | [`supabase/setup_all.sql`](supabase/setup_all.sql) | 1-click script creating all 8 tables, triggers, policies, and seeds |
-| **Versioned Migrations** | [`supabase/migrations/`](supabase/migrations/) | 8 migrations (`001_profiles.sql` to `008_major_subjects_quiz_bank.sql`) |
+| **All-in-One Setup Script** | [`supabase/setup_all.sql`](supabase/setup_all.sql) | 1-click script creating all 9 tables, triggers, policies, and seeds |
+| **Versioned Migrations** | [`supabase/migrations/`](supabase/migrations/) | 9 migrations (`001_profiles.sql` to `009_ai_quiz_tables.sql`) |
 | **Subjects Catalog** | `public.subjects` | **32 accredited university subjects** across 4 faculties & 15 majors |
 | **Curricula Mappings** | `public.major_subjects` | **128 program-to-course relations** (Core vs. Elective courses) |
 | **Universities Catalog** | `public.universities` | **46 accredited colleges & universities** across South Korea & South Asia |
 | **Quiz Practice Bank** | `public.quiz_questions` | **345 verified multiple-choice questions** across all 32 subjects |
-| **Data Protection & Security** | Row Level Security (RLS) | Student data isolation on `profiles`, `tasks`, `quiz_attempts`, `student_subjects` |
+| **AI Quiz Generator Schema** | `public.ai_quizzes`, `ai_quiz_questions`, `ai_quiz_attempts` | Dynamic topic-tailored quiz generation with explanations & RLS |
+| **Data Protection & Security** | Row Level Security (RLS) | Student data isolation on `profiles`, `tasks`, `quiz_attempts`, `student_subjects`, `ai_quizzes`, `ai_quiz_attempts` |
 
 ---
 
@@ -167,7 +168,7 @@ Smart Study Companion/
 You can deploy the complete database using either the **1-click consolidated setup script** or the individual versioned migrations:
 
 #### Option A: 1-Click Complete Setup (Recommended)
-In the Supabase SQL Editor, copy and run [`supabase/setup_all.sql`](supabase/setup_all.sql). It creates all 8 tables, triggers, RLS policies, 32 subjects, 46 universities, 128 major curricula, and 345 verified quiz questions in one step.
+In the Supabase SQL Editor, copy and run [`supabase/setup_all.sql`](supabase/setup_all.sql). It creates all 9 tables, triggers, RLS policies, 32 subjects, 46 universities, 128 major curricula, 345 verified quiz questions, and AI quiz schema in one step.
 
 #### Option B: Versioned Migrations
 Run the SQL files in order from `supabase/migrations/`:
@@ -179,6 +180,7 @@ Run the SQL files in order from `supabase/migrations/`:
 6. `006_rls_policies.sql` (Enables Row Level Security and creates student data isolation policies)
 7. `007_universities.sql` (Extends profiles with academic hierarchy and seeds accredited universities)
 8. `008_major_subjects_quiz_bank.sql` (Creates `major_subjects` table, seeds 32 accredited subjects, 128 curricula, and 345 quiz questions)
+9. `009_ai_quiz_tables.sql` (Creates `ai_quizzes`, `ai_quiz_questions`, `ai_quiz_attempts` with RLS student isolation)
 
 ### Step 3: Configure Environment Variables
 Copy `.env.example` to `.env`:
