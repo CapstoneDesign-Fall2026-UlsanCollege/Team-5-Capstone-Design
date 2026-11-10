@@ -263,7 +263,27 @@ function fillQuizSubjects() {
 // ---- Data Synchronization with Supabase ----
 async function loadUserData() {
     try {
-        const session = await getSession();
+        let session = await getSession();
+        if (!session) {
+            const hasAuthError = window.location.search.includes('error=') || window.location.hash.includes('error=');
+            if (hasAuthError) {
+                window.location.href = 'auth/login.html' + (window.location.search || '') + (window.location.hash || '');
+                return;
+            }
+            const hasAuthToken = window.location.search.includes('code=') || window.location.hash.includes('access_token=');
+            if (hasAuthToken) {
+                session = await new Promise((resolve) => {
+                    const timer = setTimeout(() => resolve(null), 3000);
+                    const { data: sub } = onAuthStateChange((_event, s) => {
+                        if (s) {
+                            clearTimeout(timer);
+                            sub?.subscription?.unsubscribe();
+                            resolve(s);
+                        }
+                    });
+                });
+            }
+        }
         if (!session) {
             window.location.href = 'auth/login.html';
             return;

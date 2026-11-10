@@ -148,18 +148,41 @@ function initPasswordToggles() {
   });
 }
 
+// ---- Helper to extract auth errors from URL query or hash ----
+function getUrlAuthError() {
+  const searchParams = new URLSearchParams(window.location.search);
+  const hashStr = window.location.hash.startsWith('#') ? window.location.hash.slice(1) : window.location.hash;
+  const hashParams = new URLSearchParams(hashStr);
+  const desc = searchParams.get('error_description') || hashParams.get('error_description');
+  const code = searchParams.get('error_code') || hashParams.get('error_code');
+  const err = searchParams.get('error') || hashParams.get('error');
+  if (!desc && !err) return null;
+  return { code: code || err || 'auth_error', message: desc || err };
+}
+
+// ---- Route authenticated user into app based on onboarding status ----
+async function routeAuthenticatedUser(userId) {
+  try {
+    const { data: profile } = await getProfile(userId);
+    if (profile && profile.onboarding_completed) {
+      window.location.href = '../index.html#dashboard';
+    } else {
+      window.location.href = '../index.html#subjects';
+    }
+  } catch (_) {
+    window.location.href = '../index.html#subjects';
+  }
+}
+
 // ---- Redirect logged-in user away from auth pages (except reset-password) ----
 async function checkExistingSession() {
   try {
+    const urlError = getUrlAuthError();
+    if (urlError) return; // Keep user on page so error alert can be displayed
     const session = await getSession();
     const isResetPage = window.location.pathname.includes('reset-password');
     if (session && !isResetPage) {
-      const { data: profile } = await getProfile(session.user.id);
-      if (profile && profile.onboarding_completed) {
-        window.location.href = '../index.html#dashboard';
-      } else {
-        window.location.href = '../index.html#subjects';
-      }
+      await routeAuthenticatedUser(session.user.id);
     }
   } catch (err) {
     console.warn('Session check error:', err);
@@ -176,19 +199,37 @@ function initLogin() {
   const emailInput = $('email');
   const passwordInput = $('password');
   const alertBox = $('form-alert');
+  const unconfirmedBox = $('unconfirmed-actions');
+  const resendBtn = $('login-resend-btn');
+  const verifyLink = $('login-verify-link');
   const submitBtn = $('login-btn') || loginForm.querySelector('button[type="submit"]');
 
-  // Handle redirects from signup or password reset
+  // Handle redirects from signup, email verification links, or password reset
   const params = new URLSearchParams(window.location.search);
   const registered = params.get('registered');
   const registeredEmail = params.get('email');
   const resetParam = params.get('reset');
+  const urlError = getUrlAuthError();
 
   if (emailInput && registeredEmail) {
     emailInput.value = registeredEmail;
   }
 
-  if (registered === 'verify') {
+  // Listen for email link / PKCE completion so verified link users enter smoothly
+  onAuthStateChange((event, session) => {
+    if ((event === 'SIGNED_IN' || event === 'USER_UPDATED') && session?.user) {
+      toast('Email verified! Opening your study dashboard...');
+      routeAuthenticatedUser(session.user.id);
+    }
+  });
+
+  if (urlError) {
+    const friendlyMsg = urlError.message.toLowerCase().includes('expired')
+      ? 'This email verification link has expired or was already used. Enter your email below to sign in or resend a fresh link.'
+      : `Verification link error: ${urlError.message}`;
+    showAlert(alertBox, friendlyMsg);
+    if (unconfirmedBox) unconfirmedBox.hidden = false;
+  } else if (registered === 'verify') {
     showAlert(
       alertBox,
       'Registration successful! Please check your email to verify your account before logging in.',
@@ -210,11 +251,51 @@ function initLogin() {
     if (passwordInput) passwordInput.focus();
   }
 
+  if (resendBtn) {
+    resendBtn.addEventListener('click', async () => {
+      const targetEmail = (emailInput?.value || registeredEmail || '').trim();
+      if (!targetEmail || !EMAIL_PATTERN.test(targetEmail)) {
+        setError(emailInput, 'Enter your registered email address first.');
+        showAlert(alertBox, 'Please enter your email address above, then click Resend.');
+        if (emailInput) emailInput.focus();
+        return;
+      }
+      resendBtn.disabled = true;
+      const origHtml = resendBtn.innerHTML;
+      resendBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i> Sending...';
+      const { error } = await resendVerification(targetEmail);
+      if (error) {
+        if (error.message && error.message.toLowerCase().includes('rate limit')) {
+          showAlert(alertBox, 'Email rate limit reached (~3-4 emails/hour). Please wait a few minutes or disable "Confirm email" in Supabase for instant testing.');
+        } else {
+          showAlert(alertBox, error.message || 'Could not resend verification email.');
+        }
+        resendBtn.disabled = false;
+        resendBtn.innerHTML = origHtml;
+      } else {
+        showAlert(alertBox, `Fresh verification email sent to ${targetEmail}. Check your inbox (and spam folder).`, true);
+        toast('Verification email resent!');
+        let wait = 60;
+        const timer = setInterval(() => {
+          wait--;
+          if (wait <= 0) {
+            clearInterval(timer);
+            resendBtn.disabled = false;
+            resendBtn.innerHTML = origHtml;
+          } else {
+            resendBtn.innerHTML = `<i class="fa-solid fa-clock" aria-hidden="true"></i> Resend (${wait}s)`;
+          }
+        }, 1000);
+      }
+    });
+  }
+
   [emailInput, passwordInput].forEach((input) => {
     if (input) {
       input.addEventListener('input', () => {
         setError(input, '');
         hideAlert(alertBox);
+        if (unconfirmedBox) unconfirmedBox.hidden = true;
       });
     }
   });
@@ -222,6 +303,7 @@ function initLogin() {
   loginForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     hideAlert(alertBox);
+    if (unconfirmedBox) unconfirmedBox.hidden = true;
 
     const email = emailInput.value.trim();
     const password = passwordInput.value;
@@ -254,7 +336,9 @@ function initLogin() {
 
     if (error) {
       if (error.message.includes('Email not confirmed')) {
-        showAlert(alertBox, 'Please verify your email before signing in. Check your inbox.');
+        showAlert(alertBox, 'Please verify your email before signing in. Check your inbox or click Resend below.');
+        if (verifyLink) verifyLink.href = `verify.html?email=${encodeURIComponent(email)}`;
+        if (unconfirmedBox) unconfirmedBox.hidden = false;
       } else if (error.message.includes('Invalid login credentials')) {
         showAlert(alertBox, 'Invalid email or password. Please try again.');
       } else {
@@ -264,18 +348,7 @@ function initLogin() {
     }
 
     toast('Signed in successfully! Opening application...');
-    setTimeout(async () => {
-      try {
-        const { data: profile } = await getProfile(data.user.id);
-        if (profile && profile.onboarding_completed) {
-          window.location.href = '../index.html#dashboard';
-        } else {
-          window.location.href = '../index.html#subjects';
-        }
-      } catch (_) {
-        window.location.href = '../index.html';
-      }
-    }, 400);
+    setTimeout(() => routeAuthenticatedUser(data.user.id), 400);
   });
 }
 
@@ -458,30 +531,44 @@ function initSignup() {
       const successCard = $('signup-success');
       const nameDisplay = $('signup-name-display');
       const emailDisplay = $('signup-email-display');
+      const infoTitle = $('signup-info-title');
+      const infoText = $('signup-info-text');
       const footerText = $('signup-footer-text');
       const loginBtn = $('signup-login-btn');
       const verifyBtn = $('signup-verify-btn');
 
       if (successCard && signupFormEl) {
+        const needsVerification = data?.emailConfirmed === false;
         if (nameDisplay) nameDisplay.textContent = name;
         if (emailDisplay) emailDisplay.textContent = email;
-        const targetUrl = data?.emailConfirmed === false
+        const targetUrl = needsVerification
           ? `login.html?registered=verify&email=${encodeURIComponent(email)}`
           : `login.html?registered=true&email=${encodeURIComponent(email)}`;
         if (loginBtn) loginBtn.href = targetUrl;
-        if (verifyBtn) verifyBtn.href = `verify.html?email=${encodeURIComponent(email)}`;
+        if (verifyBtn) {
+          verifyBtn.href = `verify.html?email=${encodeURIComponent(email)}`;
+          verifyBtn.hidden = !needsVerification;
+        }
+        if (infoTitle && infoText) {
+          if (needsVerification) {
+            infoTitle.innerHTML = '<i class="fa-solid fa-envelope-circle-check" aria-hidden="true"></i> Welcome &amp; Confirmation Email Sent';
+            infoText.innerHTML = `We dispatched an account confirmation message to <strong>${email}</strong>. Please check your inbox (and spam folder) for your verification link or code.`;
+          } else {
+            infoTitle.innerHTML = '<i class="fa-solid fa-circle-check" aria-hidden="true"></i> Account Active &amp; Ready';
+            infoText.innerHTML = `Your student account for <strong>${email}</strong> is ready right now! Click <strong>Proceed to Sign In</strong> to log in with your email and password.`;
+          }
+        }
         signupFormEl.hidden = true;
         if (footerText) footerText.hidden = true;
         successCard.hidden = false;
-        toast('Account created! Welcome email dispatched.');
-        if (data?.emailConfirmed === false) {
+        if (needsVerification) {
           toast('Registration successful! Please check your email to verify your account.');
         } else {
           toast('Account created successfully! Please sign in with your credentials.');
         }
         // Auto-redirect to login after 6 seconds if user doesn't click
         setTimeout(() => {
-          window.location.href = `login.html?registered=${data?.emailConfirmed === false ? 'verify' : 'true'}&email=${encodeURIComponent(email)}`;
+          window.location.href = `login.html?registered=${needsVerification ? 'verify' : 'true'}&email=${encodeURIComponent(email)}`;
         }, 6000);
       } else {
         if (data?.emailConfirmed === false) {
@@ -509,6 +596,8 @@ function initSignup() {
 // ================================================================
 function initVerify() {
   const verifyEmail = $('verify-email');
+  const verifyEmailInput = $('verify-email-input');
+  const verifyEmailGroup = $('verify-email-group');
   const resendBtn = $('resend-btn') || $('resend-expired-btn');
   if (!verifyEmail && !resendBtn) return;
 
@@ -517,10 +606,17 @@ function initVerify() {
   if (verifyEmail && email) {
     verifyEmail.textContent = email;
   }
+  if (verifyEmailInput) {
+    if (email) {
+      verifyEmailInput.value = email;
+      if (verifyEmailGroup) verifyEmailGroup.style.display = 'none';
+    }
+    verifyEmailInput.addEventListener('input', () => setError(verifyEmailInput, ''));
+  }
 
-  // Check URL hash for error conditions
-  const hash = window.location.hash;
-  if (hash.includes('error=') || hash.includes('expired')) {
+  // Check URL hash or query for error conditions
+  const urlError = getUrlAuthError();
+  if (urlError || window.location.hash.includes('expired')) {
     const expiredState = $('verify-expired');
     const defaultState = $('verify-default');
     if (expiredState && defaultState) {
@@ -549,14 +645,7 @@ function initVerify() {
           `;
         }
         toast('Email verified! Opening application...');
-        setTimeout(async () => {
-          const { data: profile } = await getProfile(session.user.id);
-          if (profile && profile.onboarding_completed) {
-            window.location.href = '../index.html#dashboard';
-          } else {
-            window.location.href = '../index.html#subjects';
-          }
-        }, 1000);
+        setTimeout(() => routeAuthenticatedUser(session.user.id), 1000);
       }
     } catch (_) {}
   };
@@ -567,13 +656,19 @@ function initVerify() {
   });
 
   const handleResend = async (btn) => {
-    if (!email) {
-      toast('No email found. Please sign up or sign in first.');
+    const targetEmail = (verifyEmailInput?.value || email || '').trim();
+    if (!targetEmail || !EMAIL_PATTERN.test(targetEmail)) {
+      if (verifyEmailInput && verifyEmailGroup) {
+        verifyEmailGroup.style.display = '';
+        setError(verifyEmailInput, 'Enter your registered email address first.');
+        verifyEmailInput.focus();
+      }
+      toast('Enter your registered email to resend the verification email.');
       return;
     }
 
     setLoading(btn, true, 'Sending email...');
-    const { error } = await resendVerification(email);
+    const { error } = await resendVerification(targetEmail);
     setLoading(btn, false);
 
     if (error) {
@@ -604,6 +699,13 @@ function initVerify() {
 
     verifyCodeForm.addEventListener('submit', async (e) => {
       e.preventDefault();
+      const targetEmail = (verifyEmailInput?.value || email || '').trim();
+      if (!targetEmail || !EMAIL_PATTERN.test(targetEmail)) {
+        if (verifyEmailGroup) verifyEmailGroup.style.display = '';
+        setError(verifyEmailInput, 'Enter your registered student email address.');
+        return;
+      }
+
       const cleanToken = verifyTokenInput.value.trim().replace(/\D/g, '');
       if (!cleanToken || cleanToken.length < 6) {
         setError(verifyTokenInput, 'Enter the 6-digit confirmation PIN from your email.');
@@ -612,11 +714,22 @@ function initVerify() {
 
       const tokenBtn = $('verify-token-btn');
       setLoading(tokenBtn, true, 'Confirming PIN...');
-      const { data, error } = await verifyOtp({
-        email,
+      let { data, error } = await verifyOtp({
+        email: targetEmail,
         token: cleanToken,
         type: 'signup',
       });
+      if (error && !error.code?.includes('AUTH_UNCONFIGURED')) {
+        const retry = await verifyOtp({
+          email: targetEmail,
+          token: cleanToken,
+          type: 'email',
+        });
+        if (!retry.error) {
+          data = retry.data;
+          error = null;
+        }
+      }
       setLoading(tokenBtn, false);
 
       if (error) {
@@ -639,7 +752,7 @@ function initVerify() {
         `;
       }
       setTimeout(() => {
-        window.location.href = `login.html?registered=true&email=${encodeURIComponent(email)}`;
+        window.location.href = `login.html?registered=true&email=${encodeURIComponent(targetEmail)}`;
       }, 1500);
     });
   }

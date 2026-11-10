@@ -49,6 +49,21 @@
         <!-- Alert banner (hidden by default) -->
         <div id="form-alert" class="auth-alert" role="alert" hidden></div>
 
+        <!-- Unconfirmed account actions (hidden by default) -->
+        <div id="unconfirmed-actions" class="auth-info-card" hidden style="margin-top: 10px; margin-bottom: 14px;">
+          <p class="auth-info-card-text" style="margin-bottom: 8px;">
+            This email address still needs verification before signing in.
+          </p>
+          <div style="display: flex; gap: 14px; flex-wrap: wrap; align-items: center;">
+            <button type="button" id="login-resend-btn" class="auth-link-btn">
+              <i class="fa-solid fa-rotate-right" aria-hidden="true"></i> Resend verification email
+            </button>
+            <a id="login-verify-link" href="verify.html" class="auth-link" style="font-size: 0.825rem;">
+              Verify with PIN
+            </a>
+          </div>
+        </div>
+
         <form id="login-form" class="auth-form" novalidate>
           <!-- Email -->
           <div class="form-group">

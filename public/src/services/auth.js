@@ -255,7 +255,13 @@ export async function updatePassword(newPassword) {
  */
 export async function resendVerification(email) {
   if (isConfigured) {
-    return supabase.auth.resend({ type: 'signup', email });
+    return supabase.auth.resend({
+      type: 'signup',
+      email,
+      options: {
+        emailRedirectTo: `${getAuthBaseUrl()}/auth/login.html?registered=true`,
+      },
+    });
   }
   return { data: {}, error: null };
 }
