@@ -347,9 +347,9 @@
                 <article class="analytics-card">
                     <div class="analytics-card-title">
                         <h3>Weekly Activity (Last 7 Days)</h3>
-                        <span class="pill" id="weekly-completed-total">0 completed</span>
+                        <span class="pill" id="weekly-completed-total">0 scheduled</span>
                     </div>
-                    <p class="muted" style="font-size: 13px; margin-bottom: 12px;">Tasks completed per day over the past week.</p>
+                    <p class="muted" style="font-size: 13px; margin-bottom: 12px;">Tasks scheduled across the last 7 days.</p>
                     <div id="weekly-activity-chart" class="weekly-activity-chart"></div>
                 </article>
 
@@ -397,6 +397,29 @@
                     <h3>No subjects or tasks found</h3>
                     <p>Enroll in subjects and add study tasks to generate detailed performance analytics.</p>
                 </div>
+            </section>
+
+            <!-- Quiz Performance Summary -->
+            <section class="plan-board" style="margin-top: 24px;" id="analytics-quiz-summary">
+                <div class="board-toolbar">
+                    <h2>Quiz Performance</h2>
+                    <span class="pill" id="analytics-quiz-count">0 attempts</span>
+                </div>
+                <div class="stats" style="margin-top: 12px;">
+                    <article class="stat-card">
+                        <p>Total Attempts</p>
+                        <strong id="analytics-quiz-total">0</strong>
+                    </article>
+                    <article class="stat-card">
+                        <p>Average Score</p>
+                        <strong id="analytics-quiz-avg">0%</strong>
+                    </article>
+                    <article class="stat-card">
+                        <p>Best Score</p>
+                        <strong id="analytics-quiz-best">0%</strong>
+                    </article>
+                </div>
+                <div id="analytics-quiz-recent" class="subject-progress-list" style="margin-top: 14px;"></div>
             </section>
         </div>
 
@@ -462,6 +485,14 @@
                     <div id="quiz-ai-loading" class="muted" style="display: none; align-items: center; gap: 8px; font-weight: 500; margin-top: 8px;">
                         <span class="spinner" aria-hidden="true"></span> Generating topic-tailored questions with AI...
                     </div>
+                </div>
+
+                <div id="quiz-history-panel" style="margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--line, rgba(0, 0, 0, 0.08));">
+                    <div class="board-toolbar" style="margin-bottom: 10px;">
+                        <h3 style="margin: 0; font-size: 16px;">Recent Quiz History</h3>
+                        <span class="pill" id="quiz-history-count">0 attempts</span>
+                    </div>
+                    <div id="quiz-history-list" class="subject-progress-list"></div>
                 </div>
             </section>
 

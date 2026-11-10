@@ -30,11 +30,12 @@ import {
 import {
     getDefaultSubjects,
     getAllSubjects,
+    getUniversitiesCatalog,
     getStudentSubjects,
     saveStudentSubjects
 } from './src/services/subjects.js';
-import { getQuizQuestions, saveQuizAttempt } from './src/services/quiz.js';
-import { generateAiQuiz, saveAiQuizAttempt } from './src/services/ai-quiz.js';
+import { getQuizQuestions, saveQuizAttempt, getQuizHistory } from './src/services/quiz.js';
+import { generateAiQuiz, saveAiQuizAttempt, getAiQuizHistory } from './src/services/ai-quiz.js';
 import { initTheme } from './src/theme.js';
 import {
     getCountries,
@@ -55,6 +56,8 @@ const THEME_KEY = 'smart_study_theme';
 let currentUser = null;
 let currentProfile = null;
 let dbSubjects = [];
+let dbUniversitiesByCountry = {};
+let quizHistory = [];
 let selectedEnrolledSlugs = new Set(['programming', 'data-structures', 'databases']);
 let tasks = [];
 let currentView = 'dashboard';
@@ -148,13 +151,21 @@ function burst(x, y) {
 
 // ---- Subject & Task Lookups ----
 function getSubjectId(name) {
-    const found = dbSubjects.find(s => s.name.toLowerCase() === name.toLowerCase());
-    return found ? found.id : null;
+    if (!name) return null;
+    const target = name.toLowerCase();
+    const direct = dbSubjects.find(s => (s.name || '').toLowerCase() === target);
+    if (direct) return direct.id;
+    const cat = SUBJECTS_CATALOG.find(s => s.name.toLowerCase() === target);
+    if (cat) {
+        const bySlug = dbSubjects.find(s => s.slug === cat.slug);
+        if (bySlug) return bySlug.id;
+    }
+    return null;
 }
 
 function getSubjectName(id) {
-    const found = dbSubjects.find(s => s.id === id);
-    return found ? found.name : id;
+    const found = dbSubjects.find(s => s.id === id) || SUBJECTS_CATALOG.find(s => s.id === id || s.slug === id);
+    return found ? found.name : 'General';
 }
 
 function subjectNames() {
@@ -313,22 +324,41 @@ async function loadUserData() {
             showView('subjects');
         }
 
-        // Load subjects
-        const { data: enrolled } = await getStudentSubjects(currentUser.id);
-        if (enrolled && enrolled.length > 0) {
+        // Load academic catalog before tasks/subjects so UUID lookups succeed
+        const [{ data: subjectsData }, { data: universitiesData }] = await Promise.all([
+            getAllSubjects(),
+            getUniversitiesCatalog()
+        ]);
+        if (subjectsData && subjectsData.length > 0) {
+            dbSubjects = subjectsData;
+        } else {
+            dbSubjects = SUBJECTS_CATALOG;
+        }
+        if (universitiesData && typeof universitiesData === 'object' && !Array.isArray(universitiesData)) {
+            dbUniversitiesByCountry = universitiesData;
+        } else if (Array.isArray(universitiesData)) {
+            const grouped = {};
+            universitiesData.forEach((u) => {
+                if (u?.country && u?.name) {
+                    if (!grouped[u.country]) grouped[u.country] = [];
+                    if (!grouped[u.country].includes(u.name)) grouped[u.country].push(u.name);
+                }
+            });
+            dbUniversitiesByCountry = grouped;
+        }
+
+        // Load student enrolled subjects
+        const { data: enrolled, error: enrolledError } = await getStudentSubjects(currentUser.id);
+        if (enrolledError) {
+            console.warn('Could not load student subjects:', enrolledError.message);
+        } else if (enrolled && enrolled.length > 0) {
             selectedEnrolledSlugs.clear();
             enrolled.forEach(s => {
                 const slug = s.slug || (s.subject ? s.subject.slug : null) || (s.name ? s.name.toLowerCase().replace(/[^a-z0-9]+/g, '-') : null);
                 if (slug) selectedEnrolledSlugs.add(slug);
             });
-        }
-
-        // Load catalog
-        const { data: subjectsData } = await getAllSubjects();
-        if (subjectsData && subjectsData.length > 0) {
-            dbSubjects = subjectsData;
-        } else {
-            dbSubjects = SUBJECTS_CATALOG;
+        } else if (currentProfile?.onboarding_completed) {
+            selectedEnrolledSlugs.clear();
         }
 
         // Load student tasks
@@ -347,6 +377,7 @@ async function loadUserData() {
         }
 
         initAcademicHierarchy();
+        await loadAndRenderQuizHistory();
         render();
     } catch (err) {
         console.error('Failed to load user data:', err);
@@ -463,6 +494,24 @@ function visibleTasks() {
 // ---- Academic Hierarchy & Subject Selection ----
 let hierarchyListenersAttached = false;
 
+function getCombinedCountries() {
+    const merged = [...getCountries()];
+    Object.keys(dbUniversitiesByCountry).forEach((country) => {
+        if (country && !merged.includes(country)) merged.push(country);
+    });
+    return merged;
+}
+
+function getCombinedUniversities(country) {
+    if (!country) return [];
+    const base = [...getUniversities(country)];
+    const fromDb = Array.isArray(dbUniversitiesByCountry[country]) ? dbUniversitiesByCountry[country] : [];
+    fromDb.forEach((name) => {
+        if (name && !base.includes(name)) base.push(name);
+    });
+    return base;
+}
+
 function initAcademicHierarchy() {
     const countryEl = document.getElementById('academic-country');
     const uniEl = document.getElementById('academic-university');
@@ -475,8 +524,8 @@ function initAcademicHierarchy() {
     const prevFac = facEl ? facEl.value : '';
     const prevMajor = majorEl ? majorEl.value : '';
 
-    // Populate countries
-    const countries = getCountries();
+    // Populate countries (combining live Supabase catalog & fallback)
+    const countries = getCombinedCountries();
     countryEl.innerHTML = '<option value="">Select country...</option>' +
         countries.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('');
 
@@ -489,7 +538,7 @@ function initAcademicHierarchy() {
 
     const updateUniversities = (preferredUni = '') => {
         const country = countryEl.value;
-        const universities = getUniversities(country);
+        const universities = getCombinedUniversities(country);
         uniEl.innerHTML = '<option value="">Select university...</option>' +
             universities.map(u => `<option value="${escapeHtml(u)}">${escapeHtml(u)}</option>`).join('');
         if (preferredUni && universities.includes(preferredUni)) {
@@ -733,6 +782,12 @@ async function saveAcademicProfileAndSubjects() {
         document.getElementById('academic-university')?.focus();
         return;
     }
+    const validUniversities = getCombinedUniversities(country);
+    if (validUniversities.length > 0 && !validUniversities.includes(university)) {
+        toast('Selected university does not belong to the chosen country. Please re-select.');
+        document.getElementById('academic-university')?.focus();
+        return;
+    }
     if (!faculty) {
         toast('Please select your faculty or school.');
         document.getElementById('academic-faculty')?.focus();
@@ -759,10 +814,14 @@ async function saveAcademicProfileAndSubjects() {
     const selectedList = SUBJECTS_CATALOG.filter(sub => selectedEnrolledSlugs.has(sub.slug));
 
     // Save subjects to PostgreSQL / local fallback
-    await saveStudentSubjects(currentUser.id, selectedList);
+    const { error: subjectsError } = await saveStudentSubjects(currentUser.id, selectedList);
+    if (subjectsError) {
+        toast(`Could not save subjects: ${subjectsError.message || 'Please try again.'}`);
+        return;
+    }
 
     // Save profile with onboarding_completed = true
-    await upsertProfile({
+    const { data: savedProfile, error: profileError } = await upsertProfile({
         id: currentUser.id,
         full_name: currentProfile?.full_name || currentUser.user_metadata?.full_name || 'Student',
         country,
@@ -771,9 +830,14 @@ async function saveAcademicProfileAndSubjects() {
         major,
         onboarding_completed: true
     });
+    if (profileError) {
+        toast(`Could not save academic profile: ${profileError.message || 'Please try again.'}`);
+        return;
+    }
 
     currentProfile = {
         ...(currentProfile || {}),
+        ...(savedProfile || {}),
         country,
         university,
         faculty,
@@ -946,6 +1010,7 @@ function renderAnalytics() {
 
     renderWeeklyActivityChart();
     renderSubjectWiseAnalytics();
+    renderQuizAnalytics();
 }
 
 function renderWeeklyActivityChart() {
@@ -1360,12 +1425,12 @@ async function finishQuiz(timedOut = false) {
             const responses = quiz.questions.map((q, idx) => ({
                 question_id: q.id,
                 question_text: q.q,
-                selected_answer: quiz.answers[idx] ?? -1,
+                selected_answer: quiz.answers[idx] ?? null,
                 correct_answer: q.answer,
                 is_correct: quiz.answers[idx] === q.answer,
                 explanation: q.explanation || ''
             }));
-            await saveAiQuizAttempt({
+            const { data: aiSaved, error: aiErr } = await saveAiQuizAttempt({
                 quizId: quiz.aiQuizId,
                 studentId: currentUser.id,
                 score: correctCount,
@@ -1373,24 +1438,32 @@ async function finishQuiz(timedOut = false) {
                 timeSpentSeconds: null,
                 responses
             });
+            if (aiErr) {
+                toast(`Could not save AI quiz result: ${aiErr.message || 'Please try again.'}`);
+            } else if (aiSaved && aiSaved.dbPersisted === false && aiSaved.persistenceError) {
+                console.warn('AI quiz attempt saved locally only:', aiSaved.persistenceError);
+            }
         } else {
             const subjectRecord = dbSubjects.find(s => s.slug === quiz.subject);
-            if (subjectRecord?.id && !String(subjectRecord.id).startsWith('subj-')) {
-                const responses = quiz.questions.map((q, idx) => ({
-                    question_id: q.id,
-                    selected_answer: quiz.answers[idx] ?? -1,
-                    is_correct: quiz.answers[idx] === q.answer
-                }));
-                await saveQuizAttempt({
-                    studentId: currentUser.id,
-                    subjectId: subjectRecord.id,
-                    score: correctCount,
-                    totalQuestions: total,
-                    timeSpentSeconds: quiz.mode === 'rapid' ? (30 - quiz.timeLeft) : null,
-                    responses
-                });
+            const responses = quiz.questions.map((q, idx) => ({
+                question_id: q.id,
+                selected_answer: quiz.answers[idx] ?? null,
+                is_correct: quiz.answers[idx] === q.answer
+            }));
+            const { error: quizSaveError } = await saveQuizAttempt({
+                studentId: currentUser.id,
+                subjectId: subjectRecord?.id || null,
+                subjectSlug: quiz.subject,
+                mode: quiz.mode,
+                score: correctCount,
+                totalQuestions: total,
+                responses
+            });
+            if (quizSaveError) {
+                toast(`Could not save quiz result: ${quizSaveError.message || 'Please try again.'}`);
             }
         }
+        await loadAndRenderQuizHistory();
     }
 
     setQuizStage('result');
@@ -1423,6 +1496,135 @@ async function finishQuiz(timedOut = false) {
     }
 }
 
+async function loadAndRenderQuizHistory() {
+    if (!currentUser) {
+        quizHistory = [];
+        renderQuizHistoryList();
+        renderQuizAnalytics();
+        return;
+    }
+
+    const [curatedRes, aiRes] = await Promise.all([
+        getQuizHistory(currentUser.id, 20),
+        getAiQuizHistory(currentUser.id, 20)
+    ]);
+
+    if (curatedRes.error) {
+        console.warn('Could not load curated quiz history:', curatedRes.error.message || curatedRes.error);
+    }
+
+    const curatedItems = (curatedRes.data || []).map((item) => {
+        const total = Number(item.total_questions || 0);
+        const score = Number(item.score || 0);
+        const subjectName = item.subject?.name || getSubjectName(item.subject_id) || 'Quiz';
+        return {
+            id: item.id,
+            mode: item.mode || 'standard',
+            subjectName,
+            topic: null,
+            score,
+            totalQuestions: total,
+            percentage: total > 0 ? Math.round((score / total) * 100) : 0,
+            completedAt: item.completed_at || item.created_at || new Date().toISOString()
+        };
+    });
+
+    const aiItems = (aiRes.data || []).map((item) => {
+        const total = Number(item.total_questions || 0);
+        const score = Number(item.score || 0);
+        const subjectName = item.quiz?.subject?.name || 'AI Quiz';
+        return {
+            id: item.id,
+            mode: 'ai',
+            subjectName,
+            topic: item.quiz?.topic || 'Custom AI Topic',
+            score,
+            totalQuestions: total,
+            percentage: total > 0 ? Math.round((score / total) * 100) : 0,
+            completedAt: item.completed_at || item.created_at || new Date().toISOString()
+        };
+    });
+
+    quizHistory = [...curatedItems, ...aiItems]
+        .sort((a, b) => new Date(b.completedAt) - new Date(a.completedAt))
+        .slice(0, 20);
+
+    renderQuizHistoryList();
+    renderQuizAnalytics();
+}
+
+function renderQuizHistoryList() {
+    const listEl = document.getElementById('quiz-history-list');
+    const countEl = document.getElementById('quiz-history-count');
+    if (!listEl) return;
+
+    if (countEl) {
+        countEl.textContent = `${quizHistory.length} attempt${quizHistory.length === 1 ? '' : 's'}`;
+    }
+
+    if (quizHistory.length === 0) {
+        listEl.innerHTML = '<p class="muted" style="font-size: 13px;">No completed quiz attempts yet. Take a standard, rapid, or AI quiz to record your progress.</p>';
+        return;
+    }
+
+    listEl.innerHTML = quizHistory.slice(0, 8).map((attempt) => {
+        const modeLabel = attempt.mode === 'rapid' ? 'Rapid' : attempt.mode === 'ai' ? 'AI' : 'Standard';
+        const title = attempt.topic ? `${attempt.subjectName} — ${attempt.topic}` : attempt.subjectName;
+        const when = new Date(attempt.completedAt).toLocaleDateString();
+        return `
+            <div class="subject-progress-item">
+                <div class="subject-progress-meta">
+                    <span><strong>${escapeHtml(title)}</strong> · ${escapeHtml(modeLabel)} · ${escapeHtml(when)}</span>
+                    <strong>${attempt.score}/${attempt.totalQuestions} (${attempt.percentage}%)</strong>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-fill" style="width: ${attempt.percentage}%; background: var(--teal);"></div>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function renderQuizAnalytics() {
+    const totalEl = document.getElementById('analytics-quiz-total');
+    const avgEl = document.getElementById('analytics-quiz-avg');
+    const bestEl = document.getElementById('analytics-quiz-best');
+    const countEl = document.getElementById('analytics-quiz-count');
+    const recentEl = document.getElementById('analytics-quiz-recent');
+    if (!totalEl && !recentEl) return;
+
+    const total = quizHistory.length;
+    const avg = total > 0
+        ? Math.round(quizHistory.reduce((sum, item) => sum + item.percentage, 0) / total)
+        : 0;
+    const best = total > 0
+        ? Math.max(...quizHistory.map((item) => item.percentage))
+        : 0;
+
+    if (totalEl) totalEl.textContent = String(total);
+    if (avgEl) avgEl.textContent = `${avg}%`;
+    if (bestEl) bestEl.textContent = `${best}%`;
+    if (countEl) countEl.textContent = `${total} attempt${total === 1 ? '' : 's'}`;
+
+    if (recentEl) {
+        if (total === 0) {
+            recentEl.innerHTML = '<p class="muted" style="font-size: 13px;">Complete a quiz to track your scores here.</p>';
+        } else {
+            recentEl.innerHTML = quizHistory.slice(0, 5).map((attempt) => `
+                <div class="subject-progress-item">
+                    <div class="subject-progress-meta">
+                        <span>${escapeHtml(attempt.topic ? `${attempt.subjectName}: ${attempt.topic}` : attempt.subjectName)}</span>
+                        <strong>${attempt.score}/${attempt.totalQuestions} (${attempt.percentage}%)</strong>
+                    </div>
+                    <div class="progress-track">
+                        <div class="progress-fill" style="width: ${attempt.percentage}%; background: var(--amber);"></div>
+                    </div>
+                </div>
+            `).join('');
+        }
+    }
+}
+
 // ---- Render Master ----
 function render() {
     updateDashboard();
@@ -1431,6 +1633,7 @@ function render() {
     renderScrollableSubjects();
     renderRecentTasks();
     renderAnalytics();
+    renderQuizHistoryList();
     fillSubjectSelects();
 
     const dateEl = document.getElementById('current-date');
@@ -1712,7 +1915,13 @@ function setupEventListeners() {
                 const task = tasks.find(t => t.id === id);
                 if (!task) return;
 
-                const newState = !task.completed;
+                const prevState = task.completed;
+                const newState = !prevState;
+                const { error } = await apiToggleTask(id, newState);
+                if (error) {
+                    toast(`Error updating task: ${error.message || 'Please try again.'}`);
+                    return;
+                }
                 task.completed = newState;
 
                 if (newState) {
@@ -1720,7 +1929,6 @@ function setupEventListeners() {
                     burst(rect.left + rect.width / 2, rect.top + rect.height / 2);
                 }
 
-                await apiToggleTask(id, newState);
                 render();
                 return;
             }
@@ -1783,8 +1991,12 @@ function setupEventListeners() {
             if (!pendingDelete) return;
             const id = pendingDelete;
             closeConfirm();
+            const { error } = await apiDeleteTask(id);
+            if (error) {
+                toast(`Error deleting task: ${error.message || 'Please try again.'}`);
+                return;
+            }
             tasks = tasks.filter(t => t.id !== id);
-            await apiDeleteTask(id);
             toast('Task deleted');
             render();
         });

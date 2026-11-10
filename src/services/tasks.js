@@ -52,17 +52,30 @@ export async function getTasksBySubject(studentId, subjectId) {
   return { data: tasks, error: null };
 }
 
+const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 export async function createTask(task) {
   const studentId = task.student_id || task.studentId;
   const subjectId = task.subject_id || task.subjectId;
+  const title = String(task.title || '').trim();
 
-  if (isConfigured) {
+  if (!title || title.length > 500) {
+    return { data: null, error: { message: 'Task title must be between 1 and 500 characters.' } };
+  }
+  if (!task.deadline || Number.isNaN(new Date(task.deadline).getTime())) {
+    return { data: null, error: { message: 'Please enter a valid deadline date and time.' } };
+  }
+
+  if (isConfigured && studentId && !String(studentId).startsWith('local-')) {
+    if (!UUID_REGEX.test(String(subjectId || ''))) {
+      return { data: null, error: { message: 'Could not resolve the subject ID in Supabase. Please save your subjects first.' } };
+    }
     return supabase
       .from('tasks')
       .insert({
         student_id: studentId,
         subject_id: subjectId,
-        title: task.title,
+        title,
         deadline: task.deadline,
         completed: Boolean(task.completed),
       })
@@ -75,7 +88,7 @@ export async function createTask(task) {
     id: 'local-task-' + Math.random().toString(36).slice(2, 9),
     student_id: studentId,
     subject_id: subjectId,
-    title: task.title,
+    title,
     deadline: task.deadline,
     completed: Boolean(task.completed),
     created_at: new Date().toISOString(),
@@ -95,8 +108,23 @@ export async function updateTask(taskId, updates) {
     mappedUpdates.student_id = mappedUpdates.studentId;
     delete mappedUpdates.studentId;
   }
+  if ('title' in mappedUpdates) {
+    const cleanTitle = String(mappedUpdates.title || '').trim();
+    if (!cleanTitle || cleanTitle.length > 500) {
+      return { data: null, error: { message: 'Task title must be between 1 and 500 characters.' } };
+    }
+    mappedUpdates.title = cleanTitle;
+  }
+  if ('deadline' in mappedUpdates) {
+    if (!mappedUpdates.deadline || Number.isNaN(new Date(mappedUpdates.deadline).getTime())) {
+      return { data: null, error: { message: 'Please enter a valid deadline date and time.' } };
+    }
+  }
 
-  if (isConfigured) {
+  if (isConfigured && !String(taskId).startsWith('local-task-')) {
+    if ('subject_id' in mappedUpdates && !UUID_REGEX.test(String(mappedUpdates.subject_id || ''))) {
+      return { data: null, error: { message: 'Could not resolve the subject ID in Supabase. Please save your subjects first.' } };
+    }
     return supabase
       .from('tasks')
       .update({ ...mappedUpdates, updated_at: new Date().toISOString() })
@@ -120,7 +148,7 @@ export async function toggleTask(taskId, completed) {
 }
 
 export async function deleteTask(taskId) {
-  if (isConfigured) {
+  if (isConfigured && !String(taskId).startsWith('local-task-')) {
     return supabase
       .from('tasks')
       .delete()

@@ -71,6 +71,35 @@ export function validateAndSanitizeQuestions(questions) {
  * }} params
  * @returns {Promise<{ data: { quizId: string, topic: string, difficulty: string, questions: Array<object> }|null, error: object|null }>}
  */
+const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+async function resolveSubjectUuid(subjectId, subjectSlug = '', subjectName = '') {
+  if (UUID_REGEX.test(String(subjectId || ''))) return subjectId;
+  if (!isConfigured) return subjectId || null;
+
+  try {
+    if (subjectSlug) {
+      const { data } = await supabase
+        .from('subjects')
+        .select('id')
+        .eq('slug', subjectSlug)
+        .maybeSingle();
+      if (data?.id) return data.id;
+    }
+
+    if (subjectName) {
+      const { data } = await supabase
+        .from('subjects')
+        .select('id')
+        .ilike('name', subjectName)
+        .maybeSingle();
+      if (data?.id) return data.id;
+    }
+  } catch (_) {}
+
+  return null;
+}
+
 export async function generateAiQuiz({
   subjectId,
   subjectSlug = '',
@@ -87,13 +116,15 @@ export async function generateAiQuiz({
 
   const count = Math.min(Math.max(Number(questionCount) || 5, 1), 20);
   const validDifficulty = ['easy', 'medium', 'hard'].includes(difficulty) ? difficulty : 'medium';
+  const resolvedSubjectId = await resolveSubjectUuid(subjectId, subjectSlug, subjectName);
 
   // 1. Attempt to invoke Supabase Edge Function if connected
   if (isConfigured) {
     try {
       const { data: edgeData, error: edgeError } = await supabase.functions.invoke('generate-ai-quiz', {
         body: {
-          subjectId,
+          subjectId: resolvedSubjectId || subjectId,
+          subjectSlug,
           subjectName,
           topic: cleanTopic,
           difficulty: validDifficulty,
@@ -107,7 +138,8 @@ export async function generateAiQuiz({
             quizId: edgeData.quizId,
             topic: edgeData.topic || cleanTopic,
             difficulty: edgeData.difficulty || validDifficulty,
-            questions: edgeData.questions
+            questions: edgeData.questions,
+            dbPersisted: Boolean(UUID_REGEX.test(String(edgeData.quizId || '')))
           },
           error: null
         };
@@ -133,7 +165,7 @@ export async function generateAiQuiz({
   const quizId = 'ai-quiz-' + Math.random().toString(36).slice(2, 9);
   const quizRecord = {
     id: quizId,
-    subject_id: subjectId,
+    subject_id: resolvedSubjectId || subjectId,
     topic: cleanTopic,
     difficulty: validDifficulty,
     question_count: sanitized.length,
@@ -142,46 +174,61 @@ export async function generateAiQuiz({
     created_at: new Date().toISOString()
   };
 
+  let persistenceError = null;
+
   // If live database is available, persist the generated quiz and questions
   if (isConfigured && studentId && !String(studentId).startsWith('local-')) {
-    try {
-      const { data: dbQuiz, error: quizInsertErr } = await supabase
-        .from('ai_quizzes')
-        .insert({
-          subject_id: subjectId,
-          topic: cleanTopic,
-          difficulty: validDifficulty,
-          question_count: sanitized.length,
-          created_by: studentId,
-          status: 'completed'
-        })
-        .select()
-        .single();
-
-      if (!quizInsertErr && dbQuiz?.id) {
-        const rows = sanitized.map((q, idx) => ({
-          ai_quiz_id: dbQuiz.id,
-          question_text: q.question,
-          options: q.options,
-          correct_answer: q.correct_answer,
-          explanation: q.explanation,
-          question_order: idx + 1
-        }));
-
-        await supabase.from('ai_quiz_questions').insert(rows);
-
-        return {
-          data: {
-            quizId: dbQuiz.id,
+    if (!UUID_REGEX.test(String(resolvedSubjectId || ''))) {
+      persistenceError = 'Could not resolve a valid Supabase subject UUID for ai_quizzes.';
+    } else {
+      try {
+        const { data: dbQuiz, error: quizInsertErr } = await supabase
+          .from('ai_quizzes')
+          .insert({
+            subject_id: resolvedSubjectId,
             topic: cleanTopic,
             difficulty: validDifficulty,
-            questions: sanitized
-          },
-          error: null
-        };
+            question_count: sanitized.length,
+            created_by: studentId,
+            status: 'completed'
+          })
+          .select()
+          .single();
+
+        if (quizInsertErr) {
+          persistenceError = quizInsertErr.message;
+          console.warn('Could not persist AI quiz to database:', quizInsertErr.message);
+        } else if (dbQuiz?.id) {
+          const rows = sanitized.map((q, idx) => ({
+            ai_quiz_id: dbQuiz.id,
+            question_text: q.question,
+            options: q.options,
+            correct_answer: q.correct_answer,
+            explanation: q.explanation,
+            question_order: idx + 1
+          }));
+
+          const { error: qInsertErr } = await supabase.from('ai_quiz_questions').insert(rows);
+          if (qInsertErr) {
+            console.warn('Could not persist AI quiz questions to database:', qInsertErr.message);
+          }
+
+          return {
+            data: {
+              quizId: dbQuiz.id,
+              topic: cleanTopic,
+              difficulty: validDifficulty,
+              questions: sanitized,
+              dbPersisted: true,
+              persistenceWarning: qInsertErr ? qInsertErr.message : null
+            },
+            error: null
+          };
+        }
+      } catch (e) {
+        persistenceError = e.message;
+        console.warn('Could not persist AI quiz to database:', e.message);
       }
-    } catch (e) {
-      console.warn('Could not persist AI quiz to database:', e.message);
     }
   }
 
@@ -198,7 +245,9 @@ export async function generateAiQuiz({
       quizId,
       topic: cleanTopic,
       difficulty: validDifficulty,
-      questions: sanitized
+      questions: sanitized,
+      dbPersisted: false,
+      persistenceError
     },
     error: null
   };
@@ -222,8 +271,14 @@ export async function saveAiQuizAttempt(attempt) {
   const totalQuestions = Number(attempt.totalQuestions || attempt.total_questions) || 0;
   const timeSpentSeconds = attempt.timeSpentSeconds || attempt.time_spent_seconds || null;
   const responses = attempt.responses || [];
+  let persistenceError = null;
 
-  if (isConfigured && studentId && !String(studentId).startsWith('local-') && !String(quizId).startsWith('ai-quiz-')) {
+  if (
+    isConfigured &&
+    studentId &&
+    !String(studentId).startsWith('local-') &&
+    UUID_REGEX.test(String(quizId || ''))
+  ) {
     try {
       const { data, error } = await supabase
         .from('ai_quiz_attempts')
@@ -240,11 +295,16 @@ export async function saveAiQuizAttempt(attempt) {
         .single();
 
       if (!error && data) {
-        return { data, error: null };
+        return { data: { ...data, dbPersisted: true }, error: null };
       }
+      persistenceError = error?.message || 'Unknown error saving AI quiz attempt';
+      console.warn('Could not save AI quiz attempt to database:', persistenceError);
     } catch (err) {
+      persistenceError = err.message;
       console.warn('Could not save AI quiz attempt to database:', err.message);
     }
+  } else if (isConfigured && String(quizId || '').startsWith('ai-quiz-')) {
+    persistenceError = 'AI quiz was generated locally because cloud ai_quizzes table is unavailable.';
   }
 
   // Local storage persistence
@@ -261,7 +321,9 @@ export async function saveAiQuizAttempt(attempt) {
       total_questions: totalQuestions,
       percentage: totalQuestions > 0 ? Math.round((score / totalQuestions) * 100) : 0,
       time_spent_seconds: timeSpentSeconds,
-      completed_at: new Date().toISOString()
+      completed_at: new Date().toISOString(),
+      dbPersisted: false,
+      persistenceError
     };
     attempts.unshift(record);
     localStorage.setItem(key, JSON.stringify(attempts.slice(0, 50)));
@@ -277,6 +339,7 @@ export async function saveAiQuizAttempt(attempt) {
  * @param {number} [limit=20]
  */
 export async function getAiQuizHistory(studentId, limit = 20) {
+  let cloudError = null;
   if (isConfigured && studentId && !String(studentId).startsWith('local-')) {
     try {
       const { data, error } = await supabase
@@ -286,17 +349,20 @@ export async function getAiQuizHistory(studentId, limit = 20) {
         .order('completed_at', { ascending: false })
         .limit(limit);
 
-      if (!error && data) return { data, error: null };
-    } catch (_) {}
+      if (!error) return { data: data || [], error: null };
+      cloudError = error;
+    } catch (err) {
+      cloudError = err;
+    }
   }
 
   try {
     const key = `${LOCAL_AI_ATTEMPTS_KEY}_${studentId}`;
     const raw = localStorage.getItem(key);
     const list = raw ? JSON.parse(raw) : [];
-    return { data: list.slice(0, limit), error: null };
+    return { data: list.slice(0, limit), error: cloudError };
   } catch (_) {
-    return { data: [], error: null };
+    return { data: [], error: cloudError };
   }
 }
 

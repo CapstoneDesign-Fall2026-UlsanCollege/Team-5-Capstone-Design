@@ -2012,3 +2012,34 @@ DROP POLICY IF EXISTS ai_quiz_attempts_update_own ON public.ai_quiz_attempts;
 CREATE POLICY ai_quiz_attempts_update_own ON public.ai_quiz_attempts
     FOR UPDATE USING (auth.uid() = user_id)
     WITH CHECK (auth.uid() = user_id);
+
+-- ============================================================
+-- 10. COMPLETE UNIVERSITIES CATALOG PARITY (Migration 010)
+-- ============================================================
+INSERT INTO public.universities (country, name) VALUES
+    ('Nepal', 'Agriculture and Forestry University'),
+    ('India', 'National Institute of Technology (NIT Trichy / Surathkal)'),
+    ('Bangladesh', 'Jahangirnagar University'),
+    ('Pakistan', 'University of the Punjab'),
+    ('Pakistan', 'COMSATS University Islamabad'),
+    ('Sri Lanka', 'University of Kelaniya'),
+    ('Sri Lanka', 'Sri Lanka Institute of Information Technology (SLIIT)'),
+    ('Bhutan', 'Royal University of Bhutan'),
+    ('Bhutan', 'Sherubtse College'),
+    ('Bhutan', 'College of Science and Technology (CST)'),
+    ('Bhutan', 'Other institution in Bhutan'),
+    ('Maldives', 'The Maldives National University'),
+    ('Maldives', 'Villa College'),
+    ('Maldives', 'Other institution in Maldives'),
+    ('South Asia', 'Tribhuvan University (TU)'),
+    ('South Asia', 'Kathmandu University (KU)'),
+    ('South Asia', 'Pokhara University (PU)'),
+    ('South Asia', 'Purbanchal University (PU)'),
+    ('South Asia', 'Indian Institute of Technology (IIT)'),
+    ('South Asia', 'Bangladesh University of Engineering and Technology (BUET)'),
+    ('South Asia', 'National University of Sciences and Technology (NUST)'),
+    ('South Asia', 'Royal University of Bhutan'),
+    ('South Asia', 'The Maldives National University'),
+    ('Other / International', 'International College / University'),
+    ('Other / International', 'Online / Distance Learning Institution')
+ON CONFLICT (country, name) DO NOTHING;
