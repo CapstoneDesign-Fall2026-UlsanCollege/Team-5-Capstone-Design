@@ -838,9 +838,21 @@ function initResetPassword() {
     emailInput.value = emailParam;
   }
 
+  // Check if arrived from an expired/invalid recovery link
+  const urlError = getUrlAuthError();
+  if (urlError) {
+    const formState = $('reset-form-state');
+    const errorState = $('reset-error');
+    if (formState && errorState) {
+      formState.hidden = true;
+      errorState.hidden = false;
+    }
+    showAlert(alertBox, urlError.message || 'This password reset link is invalid or expired.');
+  }
+
   // Check if arrived from direct recovery link
   const hash = window.location.hash;
-  const isLinkRecovery = hash.includes('type=recovery') || hash.includes('access_token') || params.has('code');
+  const isLinkRecovery = !urlError && (hash.includes('type=recovery') || hash.includes('access_token') || params.has('code'));
 
   if (isLinkRecovery) {
     const otpGroup = $('otp-group');
@@ -868,7 +880,14 @@ function initResetPassword() {
 
       const { error } = await resetPassword(email);
       if (error) {
-        showAlert(alertBox, error.message || 'Failed to resend code.');
+        if (error.message && error.message.toLowerCase().includes('rate limit')) {
+          showAlert(
+            alertBox,
+            'Email rate limit reached (Supabase limits test emails to ~3-4 per hour). Please wait a few minutes, or configure custom SMTP in your Supabase dashboard.'
+          );
+        } else {
+          showAlert(alertBox, error.message || 'Failed to resend code.');
+        }
         resendResetBtn.disabled = false;
         resendResetBtn.innerHTML = originalText;
       } else {
