@@ -1,3 +1,5 @@
+import { readFileSync, readdirSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import {
     COUNTRIES,
@@ -321,5 +323,39 @@ describe('Academic Catalog & Service Integration Contracts', () => {
         expect(data['South Korea']).toEqual(['Ulsan College', 'Seoul National University (SNU)']);
         expect(data['Bhutan'].length).toBeGreaterThan(0);
         expect(data['Maldives'].length).toBeGreaterThan(0);
+    });
+
+    it('keeps Backend/ mirror synchronized with src/ and supabase/', () => {
+        const rootDir = resolve(process.cwd());
+        const jsFiles = [
+            'auth-guard.js',
+            'lib/supabase.js',
+            'lib/academic-catalog.js',
+            'lib/regional-catalog.js',
+            'services/auth.js',
+            'services/profile.js',
+            'services/subjects.js',
+            'services/tasks.js',
+            'services/quiz.js',
+            'services/ai-quiz.js',
+        ];
+        for (const rel of jsFiles) {
+            const backendContent = readFileSync(resolve(rootDir, 'Backend', rel), 'utf8');
+            const srcContent = readFileSync(resolve(rootDir, 'src', rel), 'utf8');
+            const publicSrcContent = readFileSync(resolve(rootDir, 'public/src', rel), 'utf8');
+            expect(backendContent).toBe(srcContent);
+            expect(backendContent).toBe(publicSrcContent);
+        }
+
+        const migs = readdirSync(resolve(rootDir, 'supabase/migrations')).filter((f) => f.endsWith('.sql'));
+        expect(migs.length).toBeGreaterThanOrEqual(10);
+        for (const m of migs) {
+            expect(readFileSync(resolve(rootDir, 'Backend/supabase/migrations', m), 'utf8'))
+                .toBe(readFileSync(resolve(rootDir, 'supabase/migrations', m), 'utf8'));
+        }
+        expect(readFileSync(resolve(rootDir, 'Backend/supabase/setup_all.sql'), 'utf8'))
+            .toBe(readFileSync(resolve(rootDir, 'supabase/setup_all.sql'), 'utf8'));
+        expect(readFileSync(resolve(rootDir, 'Backend/supabase/functions/generate-ai-quiz/index.ts'), 'utf8'))
+            .toBe(readFileSync(resolve(rootDir, 'supabase/functions/generate-ai-quiz/index.ts'), 'utf8'));
     });
 });
