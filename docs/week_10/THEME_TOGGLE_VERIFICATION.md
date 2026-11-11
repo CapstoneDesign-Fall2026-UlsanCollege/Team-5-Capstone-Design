@@ -14,7 +14,7 @@
 
 **Browser screenshots: PASS** — desktop and mobile, light and dark, captured on 2026-11-11.
 
-**Five-view navigation: NOT RUN** — `#dashboard`, `#tasks`, `#subjects`, `#analytics`, and `#quiz` were not each opened on desktop and at mobile width.
+**Browser check: PASS** — sidebar theme button clicked on 2026-11-11. Desktop and mobile screenshots show light and dark mode. All 5 views opened on desktop and at mobile width, and the selected theme stayed applied.
 
 | Check | Result | What it covers |
 |---|---|---|
