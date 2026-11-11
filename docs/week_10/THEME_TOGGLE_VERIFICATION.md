@@ -33,10 +33,10 @@
 
 | File | What it shows |
 |---|---|
-| [`docs/week_10/Evidence/desktop-light.png`](Evidence/desktop-light.png) | Desktop width, light mode |
-| [`docs/week_10/Evidence/desktop-dark.png`](Evidence/desktop-dark.png) | Desktop width, dark mode |
-| [`docs/week_10/Evidence/mobile-light.png`](Evidence/mobile-light.png) | Mobile width, light mode |
-| [`docs/week_10/Evidence/mobile-dark.png`](Evidence/mobile-dark.png) | Mobile width, dark mode |
+| [`docs/week_10/Evidence/desktop-light.png`](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_10/Evidence/light%20mode%20check%20on%20desktop.md) | Desktop width, light mode |
+| [`docs/week_10/Evidence/desktop-dark.png`](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_10/Evidence/light%20mode%20check%20on%20desktop.md) | Desktop width, dark mode |
+| [`docs/week_10/Evidence/mobile-light.png`](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_10/Evidence/light%20mode%20check%20on%20mobile.md) | Mobile width, light mode |
+| [`docs/week_10/Evidence/mobile-dark.png`]([Evidence/mobile-dark.png](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_10/Evidence/light%20mode%20check%20on%20mobile.md)) | Mobile width, dark mode |
 
 ## Evidence
 
@@ -47,10 +47,8 @@
 | `tests/unit/theme.test.js` | The 6 theme checks. |
 | `public/src/theme.js` | Light/dark logic used by the app. |
 | [`docs/week_10/Evidence/Automated test passed.png`](Evidence/Automated%20test%20passed.png) | Terminal output: 4 files passed, 18 tests passed, 6 theme checks passed, on 2026-11-09. |
-| `docs/week_10/Evidence/desktop-light.png` | Desktop light mode. |
-| `docs/week_10/Evidence/desktop-dark.png` | Desktop dark mode. |
-| `docs/week_10/Evidence/mobile-light.png` | Mobile light mode. |
-| `docs/week_10/Evidence/mobile-dark.png` | Mobile dark mode. |
+| [docs/week_10/Evidence/desktop-light/dark.png](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_10/Evidence/light%20mode%20check%20on%20desktop.md) | Desktop light/dark mode. |
+| [docs/week_10/Evidence/mobile-light/dark.png](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_10/Evidence/light%20mode%20check%20on%20mobile.md) | Mobile light/dark mode. |
 
 ## Limit
 
