@@ -27,7 +27,8 @@
 | Browser click | **PASS** | Opened the app in [open in browser](https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/index.html) and used the sidebar theme button. Desktop and mobile screenshots show light mode and dark mode. |
 | Desktop layout | **PASS** | `desktop-light.png` and `desktop-dark.png`. |
 | Mobile layout | **PASS** | `mobile-light.png` and `mobile-dark.png`. |
-| Five-view navigation | **NOT RUN** | All 5 views were not opened on desktop and at mobile width. |
+| Five-view navigation | **PASS** | Opened `#dashboard`, `#tasks`, `#subjects`, `#analytics`, and `#quiz` on desktop and at mobile width. The selected theme stayed applied on each view. |
+
 
 ## Screenshots
 
@@ -49,7 +50,8 @@
 | [`docs/week_10/Evidence/Automated test passed.png`](Evidence/Automated%20test%20passed.png) | Terminal output: 4 files passed, 18 tests passed, 6 theme checks passed, on 2026-11-09. |
 | [docs/week_10/Evidence/desktop-light/dark.png](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_10/Evidence/light%20mode%20check%20on%20desktop.md) | Desktop light/dark mode. |
 | [docs/week_10/Evidence/mobile-light/dark.png](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_10/Evidence/light%20mode%20check%20on%20mobile.md) | Mobile light/dark mode. |
+| [Navigation Evidence-desktop](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_10/Evidence/desktop%20evidence.md) | Navigation desktop |
+|[Navigation Evidence-mobile](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_10/Evidence/mobile%20evidence.md) | Navigation mobile |
 
 ## Limit
-
-The `npm test` run on 2026-11-09 verifies theme logic. The screenshots on 2026-11-11 show light and dark mode at desktop and mobile width. Navigation across `#dashboard`, `#tasks`, `#subjects`, `#analytics`, and `#quiz` on both widths is still open.
+The `npm test` run on 2026-11-09 verifies theme logic. The browser check on 2026-11-11 covers the on-screen button click, desktop and mobile light/dark screenshots, and navigation across all 5 views.
