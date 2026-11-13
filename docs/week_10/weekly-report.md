@@ -1,5 +1,9 @@
 # Week 10 Weekly Report — Team 5 (Smart Study Companion)
 
+## Dated clarification - 2026-11-14
+
+The historical report below is preserved. References to `TASK_CREATE_VERIFICATION.md` name a missing file; the available [task verification receipt](Task-create-test-pass.md) is the correct destination. The receipt dates the run November 10 while this report says November 11. Confirmation from the original operator is pending; neither date is silently corrected. Test counts refer to their recorded runs, not a new Week 11 execution. See the [current evidence register](../week_11/EVIDENCE_REGISTER.md).
+
 **Project:** Smart Study Companion  
 **Team:** Team 5 — Capstone Design, Fall 2026 (Ulsan College)  
 **Week:** 10 ("Own a Slice, Steward an Area")  
@@ -29,7 +33,7 @@ Our Week 10 goal is to follow the **"Own a Slice, Steward an Area"** milestone d
 - [x] **AI Quiz Generator & Database Integration (Migration 009):** Implemented schema migration `009_ai_quiz_tables.sql` (creating `ai_quizzes`, `ai_quiz_questions`, `ai_quiz_attempts` with RLS), Supabase Edge Function (`generate-ai-quiz`), resilient client generator service, UI tabs, and test suite with 11/11 tests passing (**Completed by Nabin Khadka**).
 - [x] **Full-Stack 6-Digit OTP Password Recovery & Branded Welcome Email Setup:** Resolved issues where password recovery sent only a bare link without the 6-digit PIN and new registrations lacked a branded welcome confirmation email. Updated auth services (`src/services/auth.js`, `public/src/services/auth.js`) with non-digit token sanitization and resend capability; updated `reset-password.html` with prominent 6-digit PIN input and 60s cooldown resend; updated `signup.html` with on-page welcome confirmation; updated `verify.html` with direct 6-digit PIN confirmation; authored Supabase email templates documentation [`docs/SUPABASE_EMAIL_TEMPLATES_SETUP.md`](../SUPABASE_EMAIL_TEMPLATES_SETUP.md) (**Completed by Nabin Khadka**).
 - [ ] **Database Save/Read & RLS Verification (Slice 1 — Sumit Adhikari):** Verify task creation/retrieval in Supabase PostgreSQL and confirm Row-Level Security (RLS) blocks unauthorized cross-student access.
-- [x] **Automated Functional & Regression Testing (Slice 2 — Prabin Rai):** `npm test` passed on 2026-11-11. `tests/unit/task-create.test.js` checks a valid task save, a blank title rejected, and the task still stored in local storage. Recorded in [`docs/week_10/TASK_CREATE_VERIFICATION.md`](TASK_CREATE_VERIFICATION.md).
+- [x] **Automated Functional & Regression Testing (Slice 2 — Prabin Rai):** `npm test` passed on 2026-11-11. `tests/unit/task-create.test.js` checks a valid task save, a blank title rejected, and the task still stored in local storage. Recorded in [task verification receipt (historical filename corrected)](Task-create-test-pass.md).
 - [ ] **Authentication & End-to-End Session Verification (Slice 3 — Prince Karki):** Execute valid/invalid login, session restoration after page refresh, password recovery, and logout verification on the updated build.
 - [x] **Responsive Dashboard & Theme UI Verification (Slice 4 — J.N. Taj Oli):** Desktop and mobile checks, an on-screen theme click, and navigation across `#dashboard`, `#tasks`, `#subjects`, `#analytics`, and `#quiz` were completed on 2026-11-11. Recorded in [`docs/week_10/THEME_TOGGLE_VERIFICATION.md`](THEME_TOGGLE_VERIFICATION.md).
 - [x] **Light/dark theme toggle automated verification (Slice 4 — J.N. Taj Oli):** `npm test` passed on 2026-11-09 (4 files, 18 tests, 6 theme checks). Recorded in [`docs/week_10/THEME_TOGGLE_VERIFICATION.md`](THEME_TOGGLE_VERIFICATION.md). Commits [`3416d3b`](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/commit/3416d3b) and [`ba4e592`](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/commit/ba4e592). [Screenshot Evidence](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_10/Evidence/Automated%20test%20passed.png)
@@ -104,7 +108,7 @@ To make sure every teammate knows exactly what to execute and submit before the 
 - [x] Test a successful task save (`Finish lab report`).
 - [x] Test a blank title. It is rejected and not saved.
 - [x] Check the saved task is still in local storage (`smart_study_tasks`).
-- [x] Run `npm test` on 2026-11-11 and record the output in [`TASK_CREATE_VERIFICATION.md`](TASK_CREATE_VERIFICATION.md).
+- [x] Run `npm test` on 2026-11-11 and record the output in [task verification receipt (historical filename corrected)](Task-create-test-pass.md).
 - [ ] Prince repeats the same test.
 
 
@@ -140,5 +144,3 @@ To make sure every teammate knows exactly what to execute and submit before the 
 ## 7. Next Week's Bridge Task (Week 11 Preparation)
 
 planning is going to finish the back end as much as possible
-
-

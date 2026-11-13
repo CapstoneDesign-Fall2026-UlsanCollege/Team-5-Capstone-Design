@@ -1,5 +1,24 @@
 # AI Use and Code Ownership Audit — Team 5 Smart Study Companion
 
+## Week 11 reconciliation - 2026-11-14
+
+This dated addendum preserves the November 8 assessment below as history. Later [Week 10 report](weekly-report.md), [Prabin task receipt](Task-create-test-pass.md), [Prince testing report](TESTING_REPORT.md) and [theme receipt](THEME_TOGGLE_VERIFICATION.md) supersede claims that those rows/evidence are absent. They do not establish accepted stewardship or independent explain-back.
+
+Prabin's unit/local-storage work, documentation work and automated-assistant browser observations are separate entries in the [Week 11 register](../week_11/EVIDENCE_REGISTER.md). Prince retains attribution for his browser/service checks; his UI separation result is not independent server-side RLS proof. Prabin's November 10/11 run-date discrepancy remains pending confirmation.
+
+Proposed support map (all acceptance/explain-back pending):
+
+- Data/RLS: adronnie; backup liftupkhadka555-spec; check task read/write and account denial.
+- Functional tests and receipts: RaiPrabin697; backup princekark; check valid/invalid task and storage boundary.
+- Authentication reproduction: princekark; backup liftupkhadka555-spec; check session and recovery.
+- UI/theme: jn-oli; backup liftupkhadka555-spec; check viewports, keyboard and navigation.
+- Integration: liftupkhadka555-spec; backups adronnie for data and princekark for auth; trace request and response.
+- Setup/deployment: steward and backup to confirm; complete clean-setup receipt.
+
+These are proposed handoff contacts, not exclusive authorship or accepted assignments. Each member must record their own explanation, acceptance date, assistance disclosure and review receipt. Request a non-author [task reproduction](../week_11/INDEPENDENT_VERIFICATION.md); no request acceptance or successful run is claimed. Use its result to update the [freeze decision](../week_11/FREEZE_DECISION.md).
+
+## Historical November 8 assessment
+
 **Team:** 5 — Smart Study Companion  
 **Prepared:** November 8, 2026 (repository review)  
 **Course week:** Week 10, November 5–11, 2026; Sprint 2  

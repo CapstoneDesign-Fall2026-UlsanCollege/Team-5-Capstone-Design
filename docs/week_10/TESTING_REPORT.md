@@ -116,7 +116,7 @@ Key screenshots:
 
 - [Automated Test Results](Evidence/Prince-Karki/W10-43-automated-test-results.png)
 - [Supabase Task Response](Evidence/Prince-Karki/W10-46-supabase-task-response.png)
-- [AI Quiz Database Error](Evidence/Prince-Karki/W10-47-ai-quiz-supabase-404.png)
+- AI Quiz Database Error: the original screenshot reference `Evidence/Prince-Karki/W10-47-ai-quiz-supabase-404.png` is missing at the 2026-11-14 review. See [the recorded storage issue #53](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/53); screenshot supply/privacy review remains pending. This correction does not change Prince's original test attribution or result.
 - [Password Recovery Issue](Evidence/Prince-Karki/W10-56-password-recovery-email-not-received.png)
 - [Academic Selection](Evidence/Prince-Karki/W10-58-academic-selection-page.png)
 - [Academic Selection After Refresh](Evidence/Prince-Karki/W10-59-academic-selection-refresh.png)
