@@ -1,5 +1,9 @@
 # Contribution Ledger
 
+## Week 11 documentation contribution - 2026-11-14
+
+`RaiPrabin697`: prepared the [review package](week_11/README.md), evidence classification, task reproduction instructions and dated documentation reconciliation with automated assistance. This is documentation work, not a fresh application test. Historical unit tests and assisted browser observations are separately attributed in the [register](week_11/EVIDENCE_REGISTER.md). Human review/acceptance and independent repetition remain pending. Other members' historical rows below are unchanged.
+
 This ledger keeps member contribution rows tied to visible evidence. Update the rows when a teammate adds a commit, issue update, screenshot, or tested-by note.
 
 ## Name ↔ GitHub login
@@ -43,4 +47,3 @@ Only mark a contribution complete when there is a link to a file, screenshot, co
 | Prabin Rai (`RaiPrabin697`) | Authored the QA Evidence Matrix and Final Demo Roadmap in the Week 9 docs PR. This is a documentation contribution only. | [Week 9 report](week9/weekly-report.md#raiprabin697-personal-week-9-record); [QA Evidence Matrix](week9/QA_EVIDENCE_MATRIX.md); [Final Demo Roadmap](week9/FINAL_DEMO_ROADMAP.md) | Fresh signup/sign-in, task reload, and second-account isolation checks are **Not run** by Rai in this update. Next action: execute them in a test environment and append actual results and safe proof. |
 
 Only add test completion evidence after execution; do not infer live account behavior from code or design documents.
-

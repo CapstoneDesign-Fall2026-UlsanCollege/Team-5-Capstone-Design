@@ -1,5 +1,9 @@
 # Documentation Roadmap
 
+## Current checkpoint - 2026-11-14
+
+Use the [Week 11 review package](week_11/README.md) for the present scope: task save/read evidence, independent reproduction, scope approval and handoff. The roadmap below is preserved as planning history, not a claim that future deliverables or tests are complete. No later-week documents are added by this update.
+
 | Week | Documentation focus | Status |
 |---|---|---|
 | Week 1 | Project launch and agreement | Recorded |

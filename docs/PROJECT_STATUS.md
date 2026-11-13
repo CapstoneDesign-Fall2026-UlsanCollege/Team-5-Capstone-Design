@@ -1,5 +1,15 @@
 # Project Status
 
+## Current review - 2026-11-14
+
+The [Week 11 package](week_11/README.md) is the current documentation review. Historical Prabin unit/local-storage results and Prince browser/task-service observations are recorded separately in the [register](week_11/EVIDENCE_REGISTER.md). They are not fresh Week 11 tests.
+
+Current gaps: independent task reproduction, server-side two-account checks, clean setup, accepted ownership and freeze approval. Historical recovery/AI failures remain visible; see the [risk register](week_11/DEFECT_AND_RISK_REGISTER.md). No new live test is claimed here.
+
+## Historical snapshot - 2026-11-04
+
+The original status below is preserved as dated history, including assertions superseded by later receipts.
+
 **Last updated:** 2026-11-04
 
 ## Current evidence snapshot
