@@ -1,5 +1,48 @@
 # Smart Study Companion Documentation
 
+## Current review - Week 11
+
+Prepared 2026-11-14. [Week 11 report](week_11/weekly-report.md) separates historical receipts from current checks. Core workflow: sign in, create a task, reject invalid input, reload and verify account isolation. Fresh live/RLS and independent reproduction remain Not run; freeze approval is pending.
+
+**Read first:** [Shared report](week_11/weekly-report.md) → [Verification matrix](week_11/MVP_VERIFICATION_MATRIX.md) → [Freeze decision](week_11/FREEZE_DECISION.md) → [Ownership update](week_10/AI_USE_AND_CODE_OWNERSHIP_AUDIT.md#week-11-reconciliation-2026-11-14).
+
+### Project Review
+
+[Package index](week_11/README.md), [scope contract](week_11/FREEZE_DECISION.md), [risk register](week_11/DEFECT_AND_RISK_REGISTER.md), [quality review](week_11/SPRINT_QUALITY_REVIEW.md).
+
+### Testing and Evidence
+
+[Evidence register](week_11/EVIDENCE_REGISTER.md), [verification matrix](week_11/MVP_VERIFICATION_MATRIX.md), [independent check](week_11/INDEPENDENT_VERIFICATION.md). Unit, browser, live-service and independent results have different proof boundaries.
+
+### Setup and Handoff
+
+[Current setup](week5/SETUP_INSTRUCTIONS.md#current-application-setup-2026-11-14), [architecture](week_10/backend-architecture.md#week-11-current-task-boundary), [handoff](week_11/INDEPENDENT_VERIFICATION.md), [demo runbook](week_11/DEMO_RUNBOOK.md).
+
+```mermaid
+flowchart LR
+  A[Student signs in] --> B[Select subject]
+  B --> C[Create valid task]
+  C --> D[Read and reload]
+  D --> E[Check completion and deadline]
+  D --> F[Check second account access]
+```
+
+```mermaid
+flowchart LR
+  A[Claim and criterion] --> B[Run with environment and revision]
+  B --> C[Sanitized receipt and proof]
+  C --> D[Non-author reproduction]
+  D --> E{Criterion met?}
+  E -->|Yes| F[Review freeze approval]
+  E -->|No or unknown| G[Record gap and next action]
+```
+
+The diagrams describe the intended workflow and review process, not completed tests.
+
+## Historical navigation snapshot
+
+The original hub below is retained. Its dates and "current" labels describe its historical snapshot; use the Week 11 routes above for the present review.
+
 **Team:** Team 5  
 **Term:** Fall 2026  **Last updated:** 2026-11-04
 

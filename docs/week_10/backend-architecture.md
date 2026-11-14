@@ -1,5 +1,29 @@
 # Backend Architecture — Week 10 Audit
 
+## Week 11 current task boundary
+
+Static inspection on 2026-11-14 at `c8f90a16414b3d93cb19e34733b29b6b2856f435`; no new live execution. The original audit below remains historical, including its dated runtime findings.
+
+```mermaid
+flowchart TD
+  B[Browser form] --> A[Supabase Auth session]
+  B --> V[Task validation and service]
+  A --> V
+  V -->|Configured non-local student| P[PostgREST and PostgreSQL RLS]
+  P --> R[Returned task and readback]
+  R --> B
+  V -->|Local branch| L[Browser localStorage]
+  L --> B
+```
+
+Trace: [task service](../../public/src/services/tasks.js) trims titles, requires 1-500 characters and validates a supplied deadline. It accepts camel/snake student/subject aliases. The configured non-local student branch validates the subject UUID, inserts task fields, selects the returned row and reads with a student filter. The local branch uses `smart_study_tasks`; its read path does not establish per-user isolation. Display/reload must still be checked in the deployed application.
+
+The [client](../../public/src/lib/supabase.js) has environment/window configuration and default public configuration fallback. Missing `.env` alone does not establish Local Preview Mode. Confirm actual runtime routing and sanitized service responses. Never publish configuration values or session tokens in receipts.
+
+Intended boundaries are not verified outcomes: [matrix](../week_11/MVP_VERIFICATION_MATRIX.md). Older field-mismatch findings need reproduction against the current deployed revision because alias handling now exists. Historical AI storage/content, recovery and answer-key visibility limitations remain tracked in the [risk register](../week_11/DEFECT_AND_RISK_REGISTER.md); no fix is inferred from this diagram.
+
+## Historical Week 10 audit
+
 **Project:** Smart Study Companion — Team 5  
 **Directory Scope:** [`docs/week_10/`](weekly-report.md) (consolidated into the repository's existing Week 10 folder rather than creating a duplicate `docs/Week10/` directory)  
 **Companion Architecture Docs:** [`docs/COMPLETE_BACKEND_INTEGRATION_REPORT.md`](../COMPLETE_BACKEND_INTEGRATION_REPORT.md), [`docs/week_10/FULL_STACK_CHANGES_MODEL.md`](FULL_STACK_CHANGES_MODEL.md)
