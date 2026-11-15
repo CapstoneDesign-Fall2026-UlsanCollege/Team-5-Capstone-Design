@@ -6,7 +6,7 @@
 **Independent Testing Partner:** Prince Karki (`princekark`)  
 **Target Environment:** Supabase Auth (`bcwwnjtmrcxggbaallon.supabase.co`) + Brevo SMTP Relay  
 **Date:** 2026-11-15  
-**Status:** Client-side auth logic and route guards reviewed in code/unit tests; live flows NOT tested; Brevo SMTP setup documented for Supabase Dashboard execution.
+**Status:**
 
 ---
 
@@ -112,3 +112,4 @@ The table below outlines the end-to-end verification checklist using disposable 
 | **12** | Enter valid 6-digit code or open recovery link | Code verified via `supabase.auth.verifyOtp({ type: 'recovery' })` | **CODE-REVIEWED ONLY, NOT LIVE-TESTED (Verified in `backend-services.test.js`)** |
 | **13** | Submit matching new password (8+ chars, letter, number) | Password updated via `supabase.auth.updateUser({ password })`, success card shown | **CODE-REVIEWED ONLY, NOT LIVE-TESTED (Verified in `auth.test.js`)** |
 | **14** | Log in with newly updated password | Sign-in succeeds; old password no longer accepted | **CODE-REVIEWED ONLY, NOT LIVE-TESTED (Verified in code logic)** |
+namesta 
