@@ -1,3 +1,10 @@
+## README Navigation
+
+[Overview](#smart-study-companion) · [Live app](#-live-online-application-links-github-pages) · [Documentation](#documentation-navigation) · [Architecture](#system-architecture) · [Setup](#4-supabase-setup-guide) · [Tests](#5-running-automated-tests) · [Team](#7-team-contributions)
+
+---
+
+
 # Smart Study Companion
 
 ### Production-Oriented University Study Management Web Application
