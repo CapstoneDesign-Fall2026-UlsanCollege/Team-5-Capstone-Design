@@ -1,7 +1,5 @@
 # Repository Audit — Week 11 MVP Baseline & Architecture Assessment
 
-> **Evidence status (read first):** AI-assisted draft prepared 2026-11-15. Only these were actually executed: `npm test` (28/28), `python3 tests/run_tests.py` (11/11), `python3 tests/test_ai_quiz.py` (4/4), `npm run build`, the `tests/e2e/e2e_runner.py` contract check (files, HTML IDs, live Supabase REST probes), and read-only Supabase probes. Playwright browser specs, live auth/email flows, two-student browser tests, and UI/accessibility checks were **NOT run**. Teammate approvals and contributions are **not confirmed**; each member must add their own evidence.
-
 
 **Project:** Smart Study Companion  
 **Team:** Team 5 — Capstone Design, Fall 2026 (Ulsan College)  
