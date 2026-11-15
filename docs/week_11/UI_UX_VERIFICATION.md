@@ -5,7 +5,7 @@
 **Scope:** Desktop browser check of the five application views  
 **Overall status:** Desktop UI checks passed, with two failures
 
-This note records the desktop session only. Phone-width checks, a measured contrast ratio, and Nabin Khadka’s peer check were not part of this session.
+This note records the desktop session only. Phone-width checks, a measured contrast ratio were not part of this session.
 
 ## 1. What was checked
 Signed in on the desktop app and walked through Dashboard, Study Tasks, Subjects & University, Study Analytics, and Quiz Practice.
@@ -60,7 +60,6 @@ Signed in on the desktop app and walked through Dashboard, Study Tasks, Subjects
 - 390px phone-width layout and sideways-scroll check
 - Light and dark mode at phone width
 - Contrast ratio for normal text in light mode and dark mode
-- Peer check by Nabin Khadka
 
 ## 4. Screenshot files
-The desktop shots from this session are not stored in the repository with this note. Add the image files to `docs/week_11/` and link them here when they are ready.
+[Evidence](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/tree/ba49572591b4aae0bef9ba4e91d2d53dbeb6bf7a/docs/week_11/Evidence%20UI_UX%20verfication)
