@@ -10,6 +10,7 @@ This folder is the project documentation hub. It keeps weekly records, testing e
 | Document | Use it for |
 |---|---|
 | [Project status](PROJECT_STATUS.md) | Current ready, pending, blocked, and out-of-scope items |
+| [Final roadmap](FINAL_ROADMAP.md) | Master Week 11–16 roadmap with Brevo SMTP, Vercel/Render hosting, and AI Chat Assistant |
 | [Documentation roadmap](DOCS_ROADMAP.md) | Week 1-16 documentation plan |
 | [Contribution ledger](CONTRIBUTION_LEDGER.md) | Member rows and evidence links |
 | [Testing documentation](tests/README.md) | Manual testing strategy and proof checklist |
@@ -31,6 +32,7 @@ This folder is the project documentation hub. It keeps weekly records, testing e
 | Week 8 | Login/signup feature proposal | [Login & Signup Feature Suggestions](week8/login_signup_feature_suggestions.md) |
 | Week 9 | Supabase migration, QA matrix, and demo roadmap | [Week 9 weekly report](week9/weekly-report.md) |
 | Week 10 | Own a Slice, Steward an Area & Study Task Analytics | [Week 10 weekly report](week_10/weekly-report.md) · [Week 10 Slice.md](week_10/Slice.md) · [Full-Stack Changes Model](week_10/FULL_STACK_CHANGES_MODEL.md) |
+| Week 11 | MVP Verification and Goal Freeze Gate | [Week 11 weekly report](week_11/weekly-report.md) · [Feature Freeze Decision](week_11/FEATURE_FREEZE_DECISION.md) · [Repository Audit](week_11/REPOSITORY_AUDIT.md) · [E2E Test Results](week_11/E2E_TEST_RESULTS.md) |
 
 ## Current Evidence Trail
 

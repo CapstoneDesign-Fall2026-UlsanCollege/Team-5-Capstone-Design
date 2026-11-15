@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "test": "vitest run --config vitest.config.js",
     "test:watch": "vitest",
-    "test:e2e": "playwright test"
+    "test:e2e": "python3 tests/e2e/e2e_runner.py",
+    "test:e2e:playwright": "playwright test"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.0"
