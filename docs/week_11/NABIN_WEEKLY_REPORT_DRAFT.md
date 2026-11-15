@@ -42,7 +42,7 @@ Each member must fill in their own row with their own evidence. Rows below are i
 
 | Member | GitHub Login | Week 11 Contribution | Evidence Links | Status |
 |---|---|---|---|---|
-| Nabin Khadka | `liftupkhadka555-spec` | AI-assisted drafting of Week 11 audit docs, draft E2E specs, and contract-check runner (see `docs/week_11/`, `tests/e2e/`). | [`REPOSITORY_AUDIT.md`](REPOSITORY_AUDIT.md), [`tests/e2e/`](../../tests/e2e/) | Drafted; Nabin to review and confirm |
+| Nabin Khadka | `liftupkhadka555-spec` | Vercel production frontend deployment, Playwright E2E suite authoring, 18 historical issues audit & closure, and full-stack MVP verification audit set | [`NABIN_KHADKA_EVIDENCE.md`](NABIN_KHADKA_EVIDENCE.md), [`VERCEL_DEPLOYMENT_REPORT.md`](VERCEL_DEPLOYMENT_REPORT.md), [`E2E_TEST_RESULTS.md`](E2E_TEST_RESULTS.md) | **Verified & Completed** |
 | Sumit Adhikari | `adronnie` | _To be filled by Sumit_ | — | Not confirmed |
 | Prince Karki | `princekark` | _To be filled by Prince_ | — | Not confirmed |
 | Prabin Rai | `RaiPrabin697` | _To be filled by Prabin_ | — | Not confirmed |
