@@ -20,7 +20,17 @@ Use both the legal name and the exact GitHub login in report rows. These mapping
 
 **Identity note:** The report row **Nabin Khadka is `liftupkhadka555-spec`**. Confirmed by Nabin Khadka. It is not `RaiPrabin697` (that login is Prabin Rai).
 
-## Current-window row (`liftupkhadka555-spec`)
+## Week 11 personal records (MVP Verification & Freeze Window)
+
+| Member | GitHub login | Week 11 contribution | Evidence | Status |
+|---|---|---|---|---|
+| Nabin Khadka | `liftupkhadka555-spec` | AI-assisted draft (Nabin to review): repository audit, verified BaaS/Supabase backend role vs Render static role, documented Brevo SMTP integration, formulated 14-step auth testing journey, and authored Week 11 audit docs (`REPOSITORY_AUDIT.md`, `DEPLOYMENT_VERIFICATION.md`, `AUTHENTICATION_VERIFICATION.md`, `AI_QUIZ_LIVE_VERIFICATION.md`, `FEATURE_FREEZE_DECISION.md`). | [`docs/week_11/REPOSITORY_AUDIT.md`](week_11/REPOSITORY_AUDIT.md), [`docs/week_11/DEPLOYMENT_VERIFICATION.md`](week_11/DEPLOYMENT_VERIFICATION.md), [`docs/week_11/AUTHENTICATION_VERIFICATION.md`](week_11/AUTHENTICATION_VERIFICATION.md), [`docs/week_11/AI_QUIZ_LIVE_VERIFICATION.md`](week_11/AI_QUIZ_LIVE_VERIFICATION.md), [`docs/week_11/FEATURE_FREEZE_DECISION.md`](week_11/FEATURE_FREEZE_DECISION.md) | **Audit & Integration Complete; Dashboard Actions Pending** |
+| Sumit Adhikari | `adronnie` | _To be filled by Sumit_ | — | Not confirmed |
+| Prince Karki | `princekark` | _To be filled by Prince_ | — | Not confirmed |
+| Prabin Rai | `RaiPrabin697` | _To be filled by Prabin_ | — | Not confirmed |
+| J.N. Taj Oli | `jn-oli` | _To be filled by J.N. Taj_ | — | Not confirmed |
+
+## Earlier Week 10 row (`liftupkhadka555-spec`)
 
 | Member | GitHub login | What they did | Evidence |
 |---|---|---|---|
