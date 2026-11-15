@@ -82,7 +82,7 @@ All verification suites pass 100% on the current codebase:
 | **Prabin Rai** | `RaiPrabin697` | Documentation reconciliation, review package structure, evidence classification, and repeatable task reproduction guide | [`README.md`](README.md), [`EVIDENCE_REGISTER.md`](EVIDENCE_REGISTER.md), [`RAI_LIVE_TEST_RECEIPT.md`](RAI_LIVE_TEST_RECEIPT.md) | **Completed** |
 | **Prince Karki** | `princekark` | Independent testing, task CRUD validation, and cross-account isolation evidence review | [`../week_10/TESTING_REPORT.md`](../week_10/TESTING_REPORT.md), [`INDEPENDENT_VERIFICATION.md`](INDEPENDENT_VERIFICATION.md) | **Confirmed** |
 | **Sumit Adhikari** | `adronnie` | Supabase Cloud schema review, catalog data verification, and migration preparation | [`../week_10/SUPABASE_VERIFICATION_REPORT.md`](../week_10/SUPABASE_VERIFICATION_REPORT.md), [`DATABASE_AND_RLS_VERIFICATION.md`](DATABASE_AND_RLS_VERIFICATION.md) | **Confirmed** |
-| **J.N. Taj Oli** | `jn-oli` | UI/UX visual theme audit, dark/light mode consistency review, and wireframe alignment | [`../week_10/THEME_TOGGLE_VERIFICATION.md`](../week_10/THEME_TOGGLE_VERIFICATION.md), [`UI_UX_VERIFICATION.md`](UI_UX_VERIFICATION.md) | **Confirmed** |
+| **J.N. Taj Oli** | `jn-oli` | UI/UX visual theme audit, dark/light mode consistency review, and wireframe alignment | [UI_UX Verification](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/ba49572591b4aae0bef9ba4e91d2d53dbeb6bf7a/docs/week_11/UI_UX_VERIFICATION.md), [Evidence](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/tree/ba49572591b4aae0bef9ba4e91d2d53dbeb6bf7a/docs/week_11/Evidence%20UI_UX%20verfication) | **Confirmed** |
 
 ---
 
