@@ -47,4 +47,3 @@ I recommend **Vercel** because our repository already contains a tested, product
 - [x] I made one recommendation (Vercel).
 - [x] I named one tradeoff or remaining uncertainty (manual dashboard environment variable input).
 - [x] I explained how this affects our project (ensures reliable, secure, zero-maintenance hosting for Capstone evaluation).
-

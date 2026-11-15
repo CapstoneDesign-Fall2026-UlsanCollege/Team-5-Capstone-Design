@@ -32,7 +32,7 @@ Exact sources, operators and limits belong in the [evidence register](EVIDENCE_R
 | princekark | Current-week contribution pending member confirmation; historical test attribution preserved | [Week 10 testing report](../week_10/TESTING_REPORT.md) | Proposed non-author check; acceptance pending |
 | adronnie | Current-week contribution pending member confirmation | [Historical Supabase review](../week_10/SUPABASE_VERIFICATION_REPORT.md) | Proposed data/RLS support; acceptance pending |
 | jn-oli | Current-week contribution pending member confirmation | [Historical theme receipt](../week_10/THEME_TOGGLE_VERIFICATION.md) | Confirm current UI evidence and explain-back |
-| liftupkhadka555-spec | Current-week contribution pending member confirmation | [Historical ownership map](../week_10/AI_USE_AND_CODE_OWNERSHIP_AUDIT.md) | Proposed integration support; acceptance pending |
+| liftupkhadka555-spec | Vercel production frontend deployment, Playwright E2E suite authoring, 18 historical issues audit & closure, and full-stack MVP verification audit set | [Nabin Week 11 Evidence](NABIN_KHADKA_EVIDENCE.md), [Vercel Report](VERCEL_DEPLOYMENT_REPORT.md), [E2E Results](E2E_TEST_RESULTS.md), [Issues Audit](ISSUES_AUDIT_SEP19_OCT13.md) | **Verified & Completed** (Vercel live, 28/28 Vitest, 11/11 Python, 3/3 E2E pass) |
 
 ## Blockers and next actions
 

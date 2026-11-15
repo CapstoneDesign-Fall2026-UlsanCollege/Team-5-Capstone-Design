@@ -77,3 +77,4 @@ Add the following URLs to **Supabase Dashboard &rarr; Authentication &rarr; URL 
 1. Open the claim link: [https://vercel.com/claim-deployment?code=62008a49-0b55-4807-9dc8-9417b0745521](https://vercel.com/claim-deployment?code=62008a49-0b55-4807-9dc8-9417b0745521).
 2. Log in with your GitHub account (`liftupkhadka555-spec`).
 3. Select your GitHub repository `Team-5-Capstone-Design` to link automatic Git continuous deployment on every push to `main`.
+
