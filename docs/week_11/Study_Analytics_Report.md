@@ -57,9 +57,9 @@ No calculation errors were confirmed during these manual tests.
 
 **Status:** PASS
 
-**Evidence:** [W11-01-analytics-overview.png](
+**Evidence:** 
 [Screenshot 01](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_11/Evidence/Prince-Karki/W11-01-analytics-overview.png)
-)
+
 
 ### TEST 2 — Analytics After Task Creation
 
@@ -74,7 +74,9 @@ No calculation errors were confirmed during these manual tests.
 
 **Status:** PASS
 
-**Evidence:** [W11-02-analytics-after-task-creation.png](../Evidence/Prince-Karki/W11-02-analytics-after-task-creation.png)
+**Evidence:** 
+[Screenshot 02](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_11/Evidence/Prince-Karki/W11-02-analytics-after-task-creation.png)
+
 
 ### TEST 3 — Analytics After Task Completion
 
@@ -90,7 +92,9 @@ No calculation errors were confirmed during these manual tests.
 
 **Status:** PASS
 
-**Evidence:** [W11-03-analytics-after-completion.png](../Evidence/Prince-Karki/W11-03-analytics-after-completion.png)
+**Evidence:** 
+[Screenshot 03](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_11/Evidence/Prince-Karki/W11-03-analytics-after-completion.png)
+
 
 ### TEST 4 — Analytics After Refresh
 
@@ -104,7 +108,10 @@ No calculation errors were confirmed during these manual tests.
 
 **Status:** PASS
 
-**Evidence:** [W11-04-analytics-after-refresh.png](../Evidence/Prince-Karki/W11-04-analytics-after-refresh.png)
+**Evidence:** 
+[Screenshot 04](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_11/Evidence/Prince-Karki/W11-04-analytics-after-refresh.png)
+
+
 
 ### TEST 5 — Analytics After Task Deletion
 
@@ -118,7 +125,9 @@ No calculation errors were confirmed during these manual tests.
 
 **Status:** PASS
 
-**Evidence:** [W11-05-analytics-after-deletion.png](../Evidence/Prince-Karki/W11-05-analytics-after-deletion.png)
+**Evidence:**
+[Screenshot 05](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_11/Evidence/Prince-Karki/W11-05-analytics-after-deletion.png)
+
 
 ### TEST 6 — Sunday Bar Graph Verification
 
@@ -133,7 +142,9 @@ No calculation errors were confirmed during these manual tests.
 
 **Status:** PASS
 
-**Evidence:** [W11-06-sunday-bar-graph.png](../Evidence/Prince-Karki/W11-06-sunday-bar-graph.png)
+**Evidence:** 
+[Screenshot 06](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_11/Evidence/Prince-Karki/W11-06-sunday-bar-graph.png)
+
 
 ### TEST 7 — Multiple-Day Bar Graph Verification
 
@@ -149,7 +160,8 @@ No calculation errors were confirmed during these manual tests.
 
 **Status:** PASS
 
-**Evidence:** [W11-07-multiple-day-bar-graph.png](../Evidence/Prince-Karki/W11-07-multiple-day-bar-graph.png)
+**Evidence:**
+[Screenshot 07](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_11/Evidence/Prince-Karki/W11-07-multiple-day-bar-graph.png)
 
 ### TEST 8 — Completed vs. Pending Progress
 
@@ -164,7 +176,9 @@ No calculation errors were confirmed during these manual tests.
 
 **Status:** PASS
 
-**Evidence:** [W11-08-completed-vs-pending.png](../Evidence/Prince-Karki/W11-08-completed-vs-pending.png)
+**Evidence:** 
+[Screenshot 08](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_11/Evidence/Prince-Karki/W11-08-completed-vs-pending.png)
+
 
 ---
 
