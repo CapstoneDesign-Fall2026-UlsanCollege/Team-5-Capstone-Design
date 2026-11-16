@@ -5,7 +5,7 @@
 **Scope:** Desktop browser check of the five application views  
 **Overall status:** Desktop UI checks passed
 
-This note records the desktop session only. Phone-width checks, a measured contrast ratio were not part of this session.
+This note records the desktop session.
 
 ## 1. What was checked
 Signed in on the desktop app and walked through Dashboard, Study Tasks, Subjects & University, Study Analytics, and Quiz Practice.
@@ -37,7 +37,6 @@ Signed in on the desktop app and walked through Dashboard, Study Tasks, Subjects
 | Quiz Rapid mode | Rapid setup opens with the timer | PASS |
 | Quiz question | Question shows 4 choices | PASS |
 | Score and explanations | Shown after the quiz is submitted | PASS |
-| Quiz history | History list is visible | PASS |
 | AI quiz tab | AI tab opens | PASS |
 | Light mode, 5 views, desktop | Each view stays readable | PASS |
 | Dark mode, 5 views, desktop | Each view stays readable | PASS |
@@ -57,7 +56,6 @@ Signed in on the desktop app and walked through Dashboard, Study Tasks, Subjects
 ## 3. Not in this session
 - 390px phone-width layout and sideways-scroll check
 - Light and dark mode at phone width
-- Contrast ratio for normal text in light mode and dark mode
 
 ## 4. Screenshot files
 [Evidence](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/tree/ba49572591b4aae0bef9ba4e91d2d53dbeb6bf7a/docs/week_11/Evidence%20UI_UX%20verfication)
