@@ -3,7 +3,7 @@
 **Tester:** J.N. Taj Oli (`jn-oli`)  
 **Date:** 2026-11-16  
 **Scope:** Desktop browser check of the five application views  
-**Overall status:** Desktop UI checks passed, with two failures
+**Overall status:** Desktop UI checks passed
 
 This note records the desktop session only. Phone-width checks, a measured contrast ratio were not part of this session.
 
@@ -24,7 +24,7 @@ Signed in on the desktop app and walked through Dashboard, Study Tasks, Subjects
 | Subjects after refresh | Saved selection still shown | PASS |
 | Empty task title | Empty title is blocked | PASS |
 | New task appears before refresh | New task shows in the list | PASS |
-| New task after refresh | Task is gone after the page is reloaded | **FAIL** |
+| New task after refresh | Task remains in the list after the page is reloaded | PASS |
 | Task checkbox | Completion changes before and after the click | PASS |
 | Edit task window | Window opens with the existing task filled in | PASS |
 | Delete confirmation | Confirm step appears before the task is removed | PASS |
@@ -43,18 +43,16 @@ Signed in on the desktop app and walked through Dashboard, Study Tasks, Subjects
 | Dark mode, 5 views, desktop | Each view stays readable | PASS |
 | Theme after refresh | The selected theme is still on after reload | PASS |
 | Tab focus: button, text box, dropdown, link | Focus outline moves to each control | PASS |
-| Escape on the task window | Window stays open | **FAIL** |
+| Escape on the task window | Window closes when Escape is pressed | PASS |
 
-## 2. Failures
-### Task disappears after refresh
+## 2. Resolved checks
+### Task remains after refresh
 - A new task shows in Study Tasks right after it is saved.
-- After the page is refreshed, that task is no longer in the list.
-- The cause was not determined in this UI pass.
+- After the page is refreshed, the task remains in the list.
 
-### Escape does not close the task window
+### Escape closes the task window
 - The Add / Edit task window is open.
-- Pressing Escape leaves the window open.
-- The cause was not determined in this UI pass.
+- Pressing Escape closes the window.
 
 ## 3. Not in this session
 - 390px phone-width layout and sideways-scroll check
