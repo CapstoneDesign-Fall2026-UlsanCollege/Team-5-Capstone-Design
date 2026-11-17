@@ -37,11 +37,13 @@
 ## 2. Summary Status Counts
 
 - **Total Cases Tracked:** 19
-- **PASS (Verified with Evidence):** 9 (DEPL-01, DEPL-02, AUTH-01, ONB-01, TASK-01, TASK-02, TASK-03, DATA-02, ANLY-01, QUIZ-01, UI-01, E2E-02)
+- **PASS (Verified with Evidence):** 12 (DEPL-01, DEPL-02, AUTH-01, ONB-01, TASK-01, TASK-02, TASK-03, DATA-02, ANLY-01, QUIZ-01, UI-01, E2E-02)
 - **PARTIAL:** 1 (DEPL-03)
 - **FAIL / BLOCKED:** 2 (AUTH-02 [Brevo SMTP], QUIZ-02 [PGRST205 Migration 009])
 - **NOT RUN:** 3 (DATA-01 [Two-Student RLS], UI-02 [Mobile Viewport], E2E-01 [Playwright Browser Suite])
 - **PENDING:** 1 (GATE-01 [Team Freeze Sign-off])
+
+Prabin's [November 14 assisted browser receipt](RAI_LIVE_TEST_RECEIPT.md) adds limited UI observations of task save/reload and separate Account B listing, without a sanitized proof artifact or known deployed build SHA. It does not replace the attributed team checks above or change `DATA-01`, `E2E-01`, or the freeze gate status.
 
 ---
 
