@@ -1,7 +1,7 @@
 # Evidence Register
 
 **Reviewed:** 2026-11-17 against baseline `d274332143ad1727e8aa1bd126bc7d4e2bd834b8`.  
-This register reconciles historical records and indexes newly submitted Week 11 evidence receipts through November 17, 2026.
+This register reconciles historical records and indexes Week 11 receipts. Prabin's November 14 assisted observations were added on November 18 without changing the November 17 review baseline or promoting them to live-service acceptance.
 
 ---
 
@@ -19,7 +19,7 @@ This register reconciles historical records and indexes newly submitted Week 11 
 
 ---
 
-## 2. Fresh Week 11 Receipts (November 16–17, 2026)
+## 2. Week 11 Receipts (November 14–17, 2026)
 
 ### A. Desktop UI Evidence — J.N. Taj Oli (`jn-oli`)
 - **Execution Date:** November 16, 2026
@@ -78,8 +78,14 @@ This register reconciles historical records and indexes newly submitted Week 11 
 ### D. Two-Student Authenticated RLS Isolation (`DATA-01`)
 - **Status:** **NOT RUN**
 - **Protocol:** Defined in [`INDEPENDENT_VERIFICATION.md`](INDEPENDENT_VERIFICATION.md).
-- **Blocker:** Requires two independent, authenticated test accounts (Student A and Student B) and an assigned independent reviewer to execute unauthorized read, update, and delete calls via PostgREST and inspect exact affected-row counts.
+- **Blocker:** A and B were observed in separate browser sessions on November 14, but no authenticated cross-account PostgREST read, update, or delete response was captured. An independent reviewer and exact affected-row counts remain pending.
 - **Explicit Rule:** Anonymous REST checks (`DATA-02`) do not substitute for authenticated two-student RLS verification (`DATA-01`).
+
+### E. Prabin Assisted Browser Observations (`RaiPrabin697`)
+- **Run date:** 2026-11-14 (Asia/Seoul); reconciled 2026-11-18. Exact run time and deployed build SHA were not captured.
+- **Source:** [Prabin live-test receipt](RAI_LIVE_TEST_RECEIPT.md). The user handled sign-ins privately; an automated assistant operated the browser checks.
+- **TASK-11A / AUTH-11A:** Account A's signed-in UI showed the new task title after save and again after reload; empty-title submission added no row. Account B's signed-in subject view showed zero tasks after reload.
+- **Result class:** **Observed, UI-only, proof artifact pending.** No sanitized screenshot or authenticated service response was saved. Saved task attributes, final A recheck, and direct B read/update/delete denial remain unverified. This does not change `DATA-01` from **NOT RUN** or establish independent reproduction.
 
 ---
 
