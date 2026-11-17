@@ -38,6 +38,14 @@ import { getQuizQuestions, saveQuizAttempt, getQuizHistory } from './src/service
 import { generateAiQuiz, saveAiQuizAttempt, getAiQuizHistory } from './src/services/ai-quiz.js';
 import { initTheme } from './src/theme.js';
 import {
+    initStudyAnalytics,
+    loadStudyAnalytics,
+    renderStudyAnalytics,
+    handleTaskCompleted as studyTaskCompleted,
+    handleTaskUndone as studyTaskUndone,
+    ensureStudyTimezoneSynced
+} from './src/study-analytics-upgrade.js';
+import {
     getCountries,
     getUniversities,
     getFaculties,
@@ -379,6 +387,7 @@ async function loadUserData() {
         initAcademicHierarchy();
         await loadAndRenderQuizHistory();
         render();
+        loadStudyAnalytics(); // Study Analytics 2.0: non-blocking; failures never affect existing analytics
     } catch (err) {
         console.error('Failed to load user data:', err);
     }
@@ -1633,6 +1642,7 @@ function render() {
     renderScrollableSubjects();
     renderRecentTasks();
     renderAnalytics();
+    renderStudyAnalytics();
     renderQuizHistoryList();
     fillSubjectSelects();
 
@@ -1917,6 +1927,7 @@ function setupEventListeners() {
 
                 const prevState = task.completed;
                 const newState = !prevState;
+                if (newState) await ensureStudyTimezoneSynced();
                 const { error } = await apiToggleTask(id, newState);
                 if (error) {
                     toast(`Error updating task: ${error.message || 'Please try again.'}`);
@@ -1930,6 +1941,8 @@ function setupEventListeners() {
                 }
 
                 render();
+                // Study Analytics 2.0: runs only AFTER the task update succeeded in Supabase.
+                if (newState) studyTaskCompleted(task); else studyTaskUndone();
                 return;
             }
 
@@ -2194,6 +2207,7 @@ async function init() {
     initTheme();
     setupEventListeners();
     initAcademicHierarchy();
+    initStudyAnalytics({ toast, getTasks: () => tasks, getStudentId: () => currentUser?.id || null });
 
     const deadlineInput = document.getElementById('create-task-deadline');
     if (deadlineInput) deadlineInput.value = dateInputValue();
