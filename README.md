@@ -1,268 +1,115 @@
-## README Navigation
-
-[Overview](#smart-study-companion) · [Live app](#-live-online-application-links-github-pages) · [Documentation](#documentation-navigation) · [Architecture](#system-architecture) · [Setup](#4-supabase-setup-guide) · [Tests](#5-running-automated-tests) · [Team](#7-team-contributions)
-
----
-
-
 # Smart Study Companion
 
-### Production-Oriented University Study Management Web Application
-**Full-Stack Architecture · Supabase PostgreSQL · Supabase Auth · Row Level Security (RLS)**
+Smart Study Companion helps university students organize subjects, study tasks, deadlines, quizzes, and progress in one browser-based workspace. Team 5 is building a vanilla JavaScript frontend with Supabase Auth and PostgreSQL services. The repository also retains a separate Local Preview path for development; a working screen alone does not establish that data reached Supabase.
 
-[![Status](https://img.shields.io/badge/Architecture-Full--Stack%20Supabase-0f766e)](supabase/migrations/)
-[![Auth](https://img.shields.io/badge/Auth-Supabase%20Auth-2dd4bf)](public/auth/)
-[![Free Tier](https://img.shields.io/badge/Budget-%240%2Fmonth%20Free%20Tier-c27803)](docs/)
-[![Automated Tests](https://img.shields.io/badge/Tests-11%2F11%20Passing-success)](tests/)
+[Open the public app](https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/index.html) · [Sign in](https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/auth/login.html) · [Week 11 report](docs/week_11/weekly-report.md) · [Verification matrix](docs/week_11/MVP_VERIFICATION_MATRIX.md) · [Documentation hub](docs/README.md)
 
-[Documentation](docs/README.md) · [Schema Migrations](supabase/migrations/) · [Architecture Plan](docs/week5/ARCHITECTURE_AND_SETUP.md) · [Evidence Package](docs/Week6/README.md)
+## On This Page
 
----
+[Overview](#overview) · [Quick Links](#quick-links) · [Student Workflow](#student-workflow) · [Architecture](#architecture) · [Current Capabilities](#current-capabilities) · [Local Setup](#local-setup) · [Verification](#verification) · [Team](#team) · [Limitations](#limitations)
 
-## 🌐 Live Online Application Links (GitHub Pages)
+## Overview
 
-Teammates and reviewers can open and test the live application directly in the browser:
+The first browser prototype used local storage. The current repository adds Supabase-backed authentication, data services, versioned SQL migrations, a Vite build, and automated checks. These are implementation facts, not a blanket claim that every deployed feature or security boundary has passed a live end-to-end test.
 
-| Page | Live Online Link | Source File |
-|---|---|---|
-| **Student Dashboard & Analytics** | [Open Live Dashboard](https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/index.html) | [`public/index.html`](public/index.html), [`public/app.js`](public/app.js) |
-| **Student Sign Up (with Region & University)** | [Open Live Sign Up](https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/auth/signup.html) | [`public/auth/signup.html`](public/auth/signup.html), [`public/auth/auth-init.js`](public/auth/auth-init.js) |
-| **Student Sign In** | [Open Live Sign In](https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/auth/login.html) | [`public/auth/login.html`](public/auth/login.html) |
-| **Forgot Password / Recovery** | [Open Live Forgot Password](https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/auth/forgot-password.html) | [`public/auth/forgot-password.html`](public/auth/forgot-password.html) |
-| **Reset Password (OTP + Link)** | [Open Live Reset Password](https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/auth/reset-password.html) | [`public/auth/reset-password.html`](public/auth/reset-password.html) |
+For a short review path, read the [shared Week 11 report](docs/week_11/weekly-report.md), then the [MVP verification matrix](docs/week_11/MVP_VERIFICATION_MATRIX.md) and [evidence register](docs/week_11/EVIDENCE_REGISTER.md). They distinguish recorded results from checks that remain pending.
 
----
+## Quick Links
 
-## 🗄️ Live Cloud Database & Backend (Supabase PostgreSQL)
-
-The live application is powered by a normalized PostgreSQL database hosted on Supabase Cloud, fully secured with Row Level Security (RLS) policies:
-
-| Database Resource | Live Status / Link | Details & Schema |
-|---|---|---|
-| **Live Database Instance** | Connected & Active (`bcwwnjtmrcxggbaallon.supabase.co`) | Hosted on Supabase Cloud PostgreSQL |
-| **All-in-One Setup Script** | [`supabase/setup_all.sql`](supabase/setup_all.sql) | 1-click script creating all 9 tables, triggers, policies, and seeds |
-| **Versioned Migrations** | [`supabase/migrations/`](supabase/migrations/) | 9 migrations (`001_profiles.sql` to `009_ai_quiz_tables.sql`) |
-| **Subjects Catalog** | `public.subjects` | **32 accredited university subjects** across 4 faculties & 15 majors |
-| **Curricula Mappings** | `public.major_subjects` | **128 program-to-course relations** (Core vs. Elective courses) |
-| **Universities Catalog** | `public.universities` | **46 accredited colleges & universities** across South Korea & South Asia |
-| **Quiz Practice Bank** | `public.quiz_questions` | **345 verified multiple-choice questions** across all 32 subjects |
-| **AI Quiz Generator Schema** | `public.ai_quizzes`, `ai_quiz_questions`, `ai_quiz_attempts` | Dynamic topic-tailored quiz generation with explanations & RLS |
-| **Data Protection & Security** | Row Level Security (RLS) | Student data isolation on `profiles`, `tasks`, `quiz_attempts`, `student_subjects`, `ai_quizzes`, `ai_quiz_attempts` |
-
----
-
-## Documentation Navigation
-
-| Area | Purpose |
+| Destination | Use |
 |---|---|
-| [Documentation hub](docs/README.md) | Main navigation for all project records and weekly documentation |
-| [Project status](docs/PROJECT_STATUS.md) | Ready, pending, blocked, and out-of-scope items |
-| [Documentation roadmap](docs/DOCS_ROADMAP.md) | Week 1-16 documentation plan |
-| [Contribution ledger](docs/CONTRIBUTION_LEDGER.md) | Member contribution rows and evidence links |
-| [Testing documentation](docs/tests/README.md) | Manual testing strategy and proof checklist |
-| [Monday status](docs/MONDAY_STATUS.md) | Milestone summary and snapshot |
-| [Week 6 evidence package](docs/Week6/README.md) | Tested-by note, screenshots, report, and next actions |
-| [Week 7 Midterm Audit](docs/week7/Midterm_Rehersal_Rubric_Self_Audit.md) | Midterm presentation rubric self-audit |
-| [Week 8 Auth Design](docs/week8/LoginIn_signup_Features.md) | Authentication design proposal |
+| [Dashboard and study workspace](https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/index.html) | Public GitHub Pages interface |
+| [Sign up](https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/auth/signup.html) / [sign in](https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/auth/login.html) | Student account entry points |
+| [Forgot password](https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/auth/forgot-password.html) / [reset password](https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/auth/reset-password.html) | Recovery interfaces; delivery and completion need separate verification |
+| [Documentation hub](docs/README.md) | Current guidance and historical records |
+| [Project status](docs/PROJECT_STATUS.md) / [contribution ledger](docs/CONTRIBUTION_LEDGER.md) | Open work and member evidence |
+| [Week 11 report](docs/week_11/weekly-report.md) / [verification matrix](docs/week_11/MVP_VERIFICATION_MATRIX.md) / [evidence register](docs/week_11/EVIDENCE_REGISTER.md) | Expected versus actual results and proof boundaries |
 
----
+The public URL confirms that the interface is reachable. To assess cloud saves, email delivery, or account isolation, use the linked test receipts rather than the URL alone.
 
-### On this page
-
-[Overview](#1-overview--full-stack-pivot) · [Technology Stack](#2-technology-stack) · [Project Directory](#3-project-directory-structure) · [Supabase Setup](#4-supabase-setup-guide) · [Automated Tests](#5-running-automated-tests) · [Deployment](#6-deployment-to-vercel-hobby-free-tier) · [Team Contributions](#7-team-contributions)
-
----
-
-
-
-## 1. Overview & Full-Stack Pivot
-
-Smart Study Companion is an academic study management application designed for university students to organize courses, study tasks, deadlines, and quizzes with real student accounts.
-
-### What Changed (The Full-Stack Pivot):
-- **Authentication First**: Student identity management via Supabase Auth replacing browser-only guest storage.
-- **Persistent Cloud Database**: Supabase PostgreSQL replacing browser `localStorage`.
-- **Row Level Security (RLS)**: Enforced isolation ensuring students cannot view, edit, or delete other students' coursework.
-- **Preserved Core UI & Features**: 5 Computer Science subjects, standard & rapid quizzes, 75 quiz questions, progress tracking, and light/dark theme maintained intact.
-
----
-
-## 2. Technology Stack
-
-| Layer | Technology | Purpose |
-|---|---|---|
-| **Frontend** | HTML5 / CSS3 / Vanilla JavaScript (ES Modules) | Lightweight, standards-based UI with zero framework bloat |
-| **Auth** | Supabase Auth | Sign in, registration, email verification, password reset |
-| **Database** | Supabase PostgreSQL | Normalized relational database with RLS policies |
-| **Client SDK** | `@supabase/supabase-js` | Browser database & auth queries |
-| **Hosting** | Vercel (Hobby Free Tier) | High-speed global edge static deployment |
-| **Testing** | Automated Test Suite (Python 3 / Vitest) | Schema validation, unit tests, and markup verification |
-
----
-
-### System Architecture
+## Student Workflow
 
 ```mermaid
 flowchart LR
-    Student[Student] --> Browser[Browser frontend<br/>HTML5 / CSS3 / Vanilla JavaScript]
-    Vercel[Vercel static hosting] -->|serves the app| Browser
-    Browser -->|sign-in and sign-up| Auth[Supabase Auth]
-    Auth -->|authenticated session| Browser
-    Browser -->|authenticated data queries| Database[Supabase PostgreSQL<br/>Row Level Security]
+    A[Sign in] --> B[Choose subjects]
+    B --> C[Create tasks and deadlines]
+    C --> D[Complete tasks]
+    D --> E[Practice quizzes]
+    E --> F[Review progress]
 ```
 
----
+The task and quiz flows have recorded browser and unit-test evidence in the [matrix](docs/week_11/MVP_VERIFICATION_MATRIX.md). An assisted [November 14 task receipt](docs/week_11/RAI_LIVE_TEST_RECEIPT.md) adds UI-only observations; it is not an independent or server-side isolation test.
 
+## Architecture
 
-
-## 3. Project Directory Structure
-
-
-
+```mermaid
+flowchart LR
+    H[GitHub Pages public UI] --> B[Browser: HTML, CSS, JavaScript]
+    V[Vite build / Vercel preview path] --> B
+    B --> S{Configured service path?}
+    S -->|Supabase| A[Supabase Auth]
+    S -->|Local Preview| L[Browser localStorage]
+    A --> T[Task, subject, and quiz services]
+    T --> D[Supabase PostgreSQL with RLS policies]
 ```
+
+The source includes [Supabase client configuration](src/lib/supabase.js), [service modules](src/services/), and [SQL migrations](supabase/migrations/). GitHub Pages is the public link above. The repository also contains a [Vite build](vite.config.js), [Vercel configuration](vercel.json), and a [deployment decision](docs/week_11/FRONTEND_DEPLOYMENT_DECISION.md); a personal-fork Vercel preview is not the same as a confirmed deployment from the team organization.
+
+The Local Preview branch stores data in this browser. It cannot demonstrate multi-device sync or server-side RLS. Even when Supabase is configured, an authenticated two-account read/update/delete denial still requires a recorded live check.
+
+## Current Capabilities
+
+| Area | In the repository | Evidence boundary |
+|---|---|---|
+| Student accounts | Sign-up, sign-in, verification, and recovery pages under [`public/auth/`](public/auth/) | Recovery email receipt and completed reset are not established by the interface alone. |
+| Study planning | Subject selection, task creation, deadlines, completion, and analytics in [`public/app.js`](public/app.js) and [`src/services/`](src/services/) | Task UI and test results are itemized in the [matrix](docs/week_11/MVP_VERIFICATION_MATRIX.md); exact environment matters. |
+| Quiz practice | Curated quiz and attempt services, plus AI quiz-related schema and service files | Check [database verification](docs/week_11/DATABASE_AND_RLS_VERIFICATION.md) before claiming the AI tables are live. |
+| Data model | [`supabase/setup_all.sql`](supabase/setup_all.sql) and [versioned migrations](supabase/migrations/) | Repository SQL does not prove that every migration is applied to the live project. |
+| Protection | RLS policies in the SQL files and an auth guard in [`src/auth-guard.js`](src/auth-guard.js) | Authenticated cross-account API denial remains **Not run** in the [matrix](docs/week_11/MVP_VERIFICATION_MATRIX.md). |
+
+## Local Setup
+
+1. Install Node.js 18 or newer, then run `npm install` and `npm run dev` from the repository root. Vite opens the sign-in page at `http://localhost:3000/auth/login.html`.
+2. For a Supabase-backed setup, create a disposable project and configure `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` using [`.env.example`](.env.example). Never place a service-role key, password, or token in a frontend file or commit.
+3. Inspect [database verification and migration guidance](docs/week_11/DATABASE_AND_RLS_VERIFICATION.md) before applying SQL. The repository contains migrations beyond `009`, including separate `011` scripts; do not assume that the consolidated script and every versioned migration should be run together or that the live project already has them.
+4. Configure the project's Auth Site URL and redirect allow-list for the chosen local or deployed origin before testing verification and recovery links. Check sign-in, task save/read after reload, and a second account using the [independent verification procedure](docs/week_11/INDEPENDENT_VERIFICATION.md).
+
+The frontend source is in [`public/`](public/) and [`src/`](src/). `npm run build` writes the Vite output to `dist/` as configured in [`vite.config.js`](vite.config.js). A local build is not a live-service test.
+
+### Project Directory
+
+```text
 Smart Study Companion/
-├── public/                      # Static frontend (production root)
-│   ├── index.html               # Student Dashboard (protected view)
-│   ├── styles.css               # Main application styles
-│   ├── app.js                   # Application controller & Supabase synchronization
-│   ├── auth/                    # Authentication UI pages
-│   │   ├── login.html           # Student sign-in
-│   │   ├── signup.html          # Registration with password validation
-│   │   ├── verify.html          # Email confirmation handler
-│   │   ├── forgot-password.html # Password reset request
-│   │   ├── reset-password.html  # Secure password update form
-│   │   ├── auth.css             # Authentication design system
-│   │   └── auth-init.js         # Auth controller & form lifecycle
-│   └── wireframes/              # UI design reference wireframes
-├── src/
+├── public/             # Browser pages, styles, app controller, and auth views
+│   ├── auth/           # Sign-in, sign-up, verification, and recovery
+│   └── wireframes/     # Design reference views
+├── src/                # Supabase client, route guard, and study services
 │   ├── lib/
-│   │   └── supabase.js          # Supabase client singleton
-│   ├── services/
-│   │   ├── auth.js              # Authentication service methods
-│   │   ├── profile.js           # Student profile service
-│   │   ├── tasks.js             # Study task CRUD service
-│   │   ├── subjects.js          # Subject catalog & enrollment
-│   │   └── quiz.js              # Quiz questions & attempt tracking
-│   └── auth-guard.js            # Route protection guard
-├── supabase/
-│   └── migrations/              # Versioned SQL migrations with RLS
-│       ├── 001_profiles.sql     # Profiles table linked to auth.users
-│       ├── 002_subjects.sql     # Subjects catalog & enrollment
-│       ├── 003_tasks.sql        # Study tasks with deadlines
-│       ├── 004_quiz_questions.sql # 75 CS multiple-choice questions
-│       ├── 005_quiz_attempts.sql  # Attempt tracking & responses
-│       └── 006_rls_policies.sql   # Comprehensive Row Level Security
-├── tests/
-│   ├── run_tests.py             # Automated test suite
-│   └── unit/                    # Unit test specs
-├── .env.example                 # Template for Supabase credentials
-├── vercel.json                  # Vercel deployment configuration
-├── package.json                 # Project configuration & scripts
-└── README.md
+│   └── services/
+├── supabase/           # Setup SQL, migrations, functions, and rollbacks
+│   ├── migrations/
+│   └── functions/
+├── tests/              # Unit, database, E2E contract, and browser specs
+├── docs/               # Reports, decisions, verification, and handoff
+├── .env.example
+├── package.json
+├── vite.config.js
+└── vercel.json
 ```
 
----
+## Verification
 
+| Check | Command or record | What it does not prove |
+|---|---|---|
+| Unit tests | `npm test` | A live Supabase save or browser session |
+| Python system checks | `python3 tests/run_tests.py` | Authenticated two-account isolation |
+| AI quiz schema checks | `python3 tests/test_ai_quiz.py` | Live AI quiz table availability |
+| E2E contract runner | `npm run test:e2e` | The 24 Playwright browser scenarios |
+| Production bundle | `npm run build` | A successful organization deployment |
 
+See the [Week 11 matrix](docs/week_11/MVP_VERIFICATION_MATRIX.md) for dated results and operators, and the [evidence register](docs/week_11/EVIDENCE_REGISTER.md) for the proof type and limitation behind each claim. The Playwright specs exist in [`tests/e2e/`](tests/e2e/), but the recorded 24 browser cases remain **Not run**. Do not treat static checks or a successful page load as an end-to-end pass.
 
-## 4. Supabase Setup Guide
-
-### Step 1: Create a Supabase Project (Free Tier)
-1. Go to [https://supabase.com](https://supabase.com) and create a free project.
-2. Note your **Project URL** and **API anon key** from `Settings` → `API`.
-
-### Step 2: Apply Database Migrations
-You can deploy the complete database using either the **1-click consolidated setup script** or the individual versioned migrations:
-
-#### Option A: 1-Click Complete Setup (Recommended)
-In the Supabase SQL Editor, copy and run [`supabase/setup_all.sql`](supabase/setup_all.sql). It creates all 9 tables, triggers, RLS policies, 32 subjects, 46 universities, 128 major curricula, 345 verified quiz questions, and AI quiz schema in one step.
-
-#### Option B: Versioned Migrations
-Run the SQL files in order from `supabase/migrations/`:
-1. `001_profiles.sql` (Creates `profiles` table and auto-creation trigger on new user signup)
-2. `002_subjects.sql` (Creates subjects catalog and student enrollments table)
-3. `003_tasks.sql` (Creates `tasks` table with indexes)
-4. `004_quiz_questions.sql` (Creates `quiz_questions` table and seeds core CS questions)
-5. `005_quiz_attempts.sql` (Creates attempt tracking and response tables)
-6. `006_rls_policies.sql` (Enables Row Level Security and creates student data isolation policies)
-7. `007_universities.sql` (Extends profiles with academic hierarchy and seeds accredited universities)
-8. `008_major_subjects_quiz_bank.sql` (Creates `major_subjects` table, seeds 32 accredited subjects, 128 curricula, and 345 quiz questions)
-9. `009_ai_quiz_tables.sql` (Creates `ai_quizzes`, `ai_quiz_questions`, `ai_quiz_attempts` with RLS student isolation)
-
-### Step 3: Configure Environment Variables
-Copy `.env.example` to `.env`:
-```bash
-cp .env.example .env
-```
-Add your credentials:
-```env
-VITE_SUPABASE_URL=https://your-project-ref.supabase.co
-VITE_SUPABASE_ANON_KEY=your-anon-public-key
-```
-
-### Step 4: Configure Auth URL Redirects
-In the Supabase Dashboard under `Authentication` → `URL Configuration`:
-- Set **Site URL** to your deployment URL (or `http://localhost:3000` for development).
-- Add redirect URLs:
-  - `http://localhost:3000/auth/verify.html`
-  - `http://localhost:3000/auth/reset-password.html`
-  - `https://your-domain.vercel.app/auth/verify.html`
-  - `https://your-domain.vercel.app/auth/reset-password.html`
-
----
-
-## 5. Running Automated Tests
-
-Run the test suite:
-```bash
-python3 tests/run_tests.py
-```
-Expected output:
-
-<details>
-<summary>Show the expected test output</summary>
-
-
-```
-============================================================
-  SMART STUDY COMPANION — AUTOMATED TEST SUITE
-============================================================
-Testing Project File Structure...
-  ✓ All required files and directories present.
-Testing Database Schema Migrations...
-  ✓ All 6 SQL migrations valid with complete tables, 75 seeded questions, and RLS on all 7 tables.
-Testing Authentication HTML Pages...
-  ✓ All 5 Auth pages properly structured with required inputs, toggles, and scripts.
-Testing Auth Validation Logic...
-  ✓ Email regex and 8+ char / letter / digit password validation pass.
-Testing Task Metric Calculations...
-  ✓ Task metrics calculation passes (50% completion on 2/4).
-Testing Quiz Scoring Logic...
-  ✓ Quiz scoring calculation passes (2/3 correct = 67%).
-============================================================
-  ALL TESTS PASSED SUCCESSFULLY (6/6)
-============================================================
-```
-
----
-</details>
-
-
-
-## 6. Deployment to Vercel (Hobby Free Tier)
-
-1. Connect your repository to Vercel.
-2. In Project Settings → Environment Variables, add:
-   - `VITE_SUPABASE_URL`
-   - `VITE_SUPABASE_ANON_KEY`
-3. Set the **Output Directory** to `public` (already configured in `vercel.json`).
-4. Click **Deploy**.
-
----
-
-## 7. Team Contributions
-
-The [contribution ledger](docs/CONTRIBUTION_LEDGER.md) records member contribution areas and evidence links:
+## Team
 
 | Student | GitHub login |
 |---|---|
@@ -272,4 +119,11 @@ The [contribution ledger](docs/CONTRIBUTION_LEDGER.md) records member contributi
 | Prabin Rai | `RaiPrabin697` |
 | J.N. Taj Oli | `jn-oli` |
 
-Nabin Khadka’s current-window evidence: [Evidence.md](Evidence.md), [PR #41](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/41).
+The [Week 11 shared report](docs/week_11/weekly-report.md) and [contribution ledger](docs/CONTRIBUTION_LEDGER.md) link each member's recorded work. Authorship, browser operation, and independent testing are distinct roles; Prabin's assisted observations are described in his [receipt](docs/week_11/RAI_LIVE_TEST_RECEIPT.md).
+
+## Limitations
+
+- The [feature freeze](docs/week_11/FEATURE_FREEZE_DECISION.md) is **proposed**, not approved by all five members.
+- The [database review](docs/week_11/DATABASE_AND_RLS_VERIFICATION.md) still calls for live verification of migrations `009` and `010` and authenticated two-account RLS behavior. UI separation is not proof of server-side denial.
+- Password-recovery email delivery and completion, mobile checks, and the 24 Playwright browser cases have unresolved or **Not run** entries in the [verification matrix](docs/week_11/MVP_VERIFICATION_MATRIX.md).
+- Local Preview data stays in browser storage. A GitHub Pages screen or local screenshot cannot by itself prove cloud persistence or multi-device sync.
