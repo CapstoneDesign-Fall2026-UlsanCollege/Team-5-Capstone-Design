@@ -1,6 +1,10 @@
 # Smart Study Companion
 
+**Plan your study. Track the work. See what is verified.**
+
 Smart Study Companion helps university students organize subjects, study tasks, deadlines, quizzes, and progress in one browser-based workspace. Team 5 is building a vanilla JavaScript frontend with Supabase Auth and PostgreSQL services. The repository also retains a separate Local Preview path for development; a working screen alone does not establish that data reached Supabase.
+
+[![Open app](https://img.shields.io/badge/Open_app-0F766E?style=for-the-badge)](https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/index.html) [![Verification matrix](https://img.shields.io/badge/Verification_matrix-C2410C?style=for-the-badge)](docs/week_11/MVP_VERIFICATION_MATRIX.md) [![Documentation hub](https://img.shields.io/badge/Documentation_hub-8B6F10?style=for-the-badge)](docs/README.md)
 
 [Open the public app](https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/index.html) · [Sign in](https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/auth/login.html) · [Week 11 report](docs/week_11/weekly-report.md) · [Verification matrix](docs/week_11/MVP_VERIFICATION_MATRIX.md) · [Documentation hub](docs/README.md)
 
@@ -36,7 +40,15 @@ flowchart LR
     C --> D[Complete tasks]
     D --> E[Practice quizzes]
     E --> F[Review progress]
+    classDef student fill:#D9F3EC,stroke:#0F766E,color:#123B35
+    classDef work fill:#FFF0DF,stroke:#C2410C,color:#532710
+    classDef insight fill:#FFF5C7,stroke:#8B6F10,color:#44350A
+    class A,B student
+    class C,D work
+    class E,F insight
 ```
+
+Teal marks entry and setup; coral marks study work; gold marks practice and progress.
 
 The task and quiz flows have recorded browser and unit-test evidence in the [matrix](docs/week_11/MVP_VERIFICATION_MATRIX.md). An assisted [November 14 task receipt](docs/week_11/RAI_LIVE_TEST_RECEIPT.md) adds UI-only observations; it is not an independent or server-side isolation test.
 
@@ -51,7 +63,15 @@ flowchart LR
     S -->|Local Preview| L[Browser localStorage]
     A --> T[Task, subject, and quiz services]
     T --> D[Supabase PostgreSQL with RLS policies]
+    classDef interface fill:#D9F3EC,stroke:#0F766E,color:#123B35
+    classDef cloud fill:#FFF0DF,stroke:#C2410C,color:#532710
+    classDef local fill:#FFF5C7,stroke:#8B6F10,color:#44350A
+    class H,V,B,S interface
+    class A,T,D cloud
+    class L local
 ```
+
+Teal is the browser interface; coral is the configured Supabase path; gold is browser-only Local Preview.
 
 The source includes [Supabase client configuration](src/lib/supabase.js), [service modules](src/services/), and [SQL migrations](supabase/migrations/). GitHub Pages is the public link above. The repository also contains a [Vite build](vite.config.js), [Vercel configuration](vercel.json), and a [deployment decision](docs/week_11/FRONTEND_DEPLOYMENT_DECISION.md); a personal-fork Vercel preview is not the same as a confirmed deployment from the team organization.
 
