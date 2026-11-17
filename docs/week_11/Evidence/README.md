@@ -15,7 +15,8 @@
 | **Python System Harness** | `python3 tests/run_tests.py` | **11/11 PASS** (All check groups) | [`docs/week_11/REPOSITORY_AUDIT.md#4-verification-check-commands-run`](../REPOSITORY_AUDIT.md#4-verification-check-commands-run) |
 | **Python AI Quiz Suite** | `python3 tests/test_ai_quiz.py` | **4/4 PASS** (Schema, scoring, UI) | [`docs/week_11/AI_QUIZ_LIVE_VERIFICATION.md#4-verification-check-results`](../AI_QUIZ_LIVE_VERIFICATION.md#4-verification-check-results) |
 | **Vite Multi-Page Build** | `npm run build` | **PASS** (6 HTML entries, 117ms) | [`docs/week_11/DEPLOYMENT_VERIFICATION.md#production-build-verification`](../DEPLOYMENT_VERIFICATION.md#production-build-verification) |
-| **Playwright E2E Runner** | `npm run test:e2e` | **3/3 PASS** (Specs, DOM, Live REST) | [`docs/week_11/E2E_TEST_RESULTS.md#3-standalone-e2e-integration-runner-results`](../E2E_TEST_RESULTS.md#3-standalone-e2e-integration-runner-results) |
+| **Python Contract Runner** | `python3 tests/e2e/e2e_runner.py` | **3/3 PASS** (Specs, DOM, Live REST) | [`docs/week_11/E2E_TEST_RESULTS.md#3-standalone-e2e-integration-runner-results`](../E2E_TEST_RESULTS.md#3-standalone-e2e-integration-runner-results) |
+| **Playwright Browser Tests** | `npx playwright test` | **0/24 EXECUTED** (Specs audited; runner install pending) | [`docs/week_11/E2E_TEST_RESULTS.md#4-playwright-browser-suite-status-honest-disclosure`](../E2E_TEST_RESULTS.md#4-playwright-browser-suite-status-honest-disclosure) |
 
 ---
 
@@ -36,8 +37,20 @@ Executed on 2026-11-15 against `https://bcwwnjtmrcxggbaallon.supabase.co`:
 
 ## 3. Visual & UI Artifacts
 
-- **Study Task Analytics Dashboard (`#analytics`):** Verified screenshot at [`docs/week_10/study-analytics-dashboard.png`](../week_10/study-analytics-dashboard.png).
-- **Academic Hierarchy & University Selector (`#subjects`):** Verified screenshot at [`docs/week_10/subjects-university-selector.png`](../week_10/subjects-university-selector.png).
-- **Automated Theme Toggle Passing:** Verified screenshot at [`docs/week_10/Evidence/Automated test passed.png`](../week_10/Evidence/Automated%20test%20passed.png).
-- **Desktop & Mobile Light/Dark Viewport Evidence:** Documented in [`docs/week_10/Evidence/desktop evidence.md`](../week_10/Evidence/desktop%20evidence.md) and [`docs/week_10/Evidence/mobile evidence.md`](../week_10/Evidence/mobile%20evidence.md).
+### A. Week 11 Member Evidence Folders
+- **Nabin Khadka (Deployment & Release):** [`docs/week_11/Evidence/Nabin-Khadka/`](./Nabin-Khadka/)
+  - `W11-VERCEL-01-project-creation.png`: Vercel project import confirmation for `team-5-capstone-design-761v` from `liftupkhadka555-spec/Team-5-Capstone-Design`.
+  - Detailed evidence dossier in [`docs/week_11/NABIN_KHADKA_EVIDENCE.md`](../NABIN_KHADKA_EVIDENCE.md).
+- **Prince Karki (Study Analytics):** [`docs/week_11/Evidence/Prince-Karki/`](./Prince-Karki/)
+  - 8 sequential test screenshots (`W11-01` through `W11-08`) validating task creation, status toggle, refresh persistence, deletion, and graph metrics.
+  - Detailed report in [`docs/week_11/Study_Analytics_Report.md`](../Study_Analytics_Report.md).
+- **J.N. Taj Oli (UI/UX Verification):** [`docs/week_11/Evidence UI_UX verfication/`](../Evidence%20UI_UX%20verfication/)
+  - 8 desktop layout and theme receipts (Dark mode, Light mode, Five Screen, Quiz, Analytics, Tasks, Subjects, Tab Scrolling).
+  - Detailed report in [`docs/week_11/UI_UX_VERIFICATION.md`](../UI_UX_VERIFICATION.md).
+
+### B. Historical Week 10 Artifacts
+- **Study Task Analytics Dashboard (`#analytics`):** Verified screenshot at [`docs/week_10/study-analytics-dashboard.png`](../../week_10/study-analytics-dashboard.png).
+- **Academic Hierarchy & University Selector (`#subjects`):** Verified screenshot at [`docs/week_10/subjects-university-selector.png`](../../week_10/subjects-university-selector.png).
+- **Automated Theme Toggle Passing:** Verified screenshot at [`docs/week_10/Evidence/Automated test passed.png`](../../week_10/Evidence/Automated%20test%20passed.png).
+- **Desktop & Mobile Light/Dark Viewport Evidence:** Documented in [`docs/week_10/Evidence/desktop evidence.md`](../../week_10/Evidence/desktop%20evidence.md) and [`docs/week_10/Evidence/mobile evidence.md`](../../week_10/Evidence/mobile%20evidence.md).
 

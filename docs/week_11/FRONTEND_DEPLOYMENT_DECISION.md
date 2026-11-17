@@ -39,11 +39,14 @@ I recommend **Vercel** because our repository already contains a tested, product
 
 ---
 
-### Definition of Done
+### Definition of Done & Issue #59 Status
 
 - [x] I compared at least two options (Vercel vs. GitHub Pages vs. Netlify).
 - [x] I linked or attached evidence (`vercel.json` and `docs/week_11/DEPLOYMENT_VERIFICATION.md`).
-- [x] I explained what I observed (passing 117ms Vite build and header support).
+- [x] I explained what I observed (passing 112ms Vite build and header support).
 - [x] I made one recommendation (Vercel).
-- [x] I named one tradeoff or remaining uncertainty (manual dashboard environment variable input).
+- [x] I named one tradeoff or remaining uncertainty (manual dashboard environment variable input and org admin approval).
 - [x] I explained how this affects our project (ensures reliable, secure, zero-maintenance hosting for Capstone evaluation).
+
+**GitHub Issue Tracker:** [Issue #59](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/59)  
+**Status:** **OPEN** (Decision criteria documented; issue to be updated with deployment provenance and closed upon team review).

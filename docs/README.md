@@ -4,11 +4,11 @@
 
 Prepared 2026-11-14. [Week 11 report](week_11/weekly-report.md) separates historical receipts from current checks. Core workflow: sign in, create a task, reject invalid input, reload and verify account isolation. Fresh live/RLS and independent reproduction remain Not run; freeze approval is pending.
 
-**Read first:** [Shared report](week_11/weekly-report.md) → [Verification matrix](week_11/MVP_VERIFICATION_MATRIX.md) → [Freeze decision](week_11/FREEZE_DECISION.md) → [Ownership update](week_10/AI_USE_AND_CODE_OWNERSHIP_AUDIT.md#week-11-reconciliation-2026-11-14).
+**Read first:** [Shared report](week_11/weekly-report.md) → [Verification matrix](week_11/MVP_VERIFICATION_MATRIX.md) → [Freeze decision](week_11/FEATURE_FREEZE_DECISION.md) → [Ownership update](week_10/AI_USE_AND_CODE_OWNERSHIP_AUDIT.md#week-11-reconciliation-2026-11-14).
 
 ### Project Review
 
-[Package index](week_11/README.md), [scope contract](week_11/FREEZE_DECISION.md), [risk register](week_11/DEFECT_AND_RISK_REGISTER.md), [quality review](week_11/SPRINT_QUALITY_REVIEW.md).
+[Package index](week_11/README.md), [scope contract](week_11/FEATURE_FREEZE_DECISION.md), [risk register](week_11/DEFECT_AND_RISK_REGISTER.md), [quality review](week_11/SPRINT_QUALITY_REVIEW.md).
 
 ### Testing and Evidence
 

@@ -6,13 +6,19 @@
 **Team:** Team 5 — Capstone Design, Fall 2026 (Ulsan College)  
 **Date:** 2026-11-15  
 **Milestone:** Week 11 Goal Freeze Gate  
-**Recommendation (proposed, pending team approval):** **CONDITIONAL GO**
+**Recommendation:** **CONDITIONAL GO PROPOSED (Scope Freeze Proposed; Team Sign-offs Pending)**
 
 ---
 
-## 1. Executive Freeze Summary
+## 1. Executive Freeze Summary & Terminology Distinctions
 
-At the close of Week 11, Team 5 formally assesses the readiness of the Smart Study Companion Minimum Viable Product (MVP). The purpose of this gate is to **freeze scope**, prevent late-stage feature creep, and focus the team's remaining timeline on operational deployment, peer QA, hardening, and final presentation rehearsals.
+At the close of Week 11, Team 5 formally assesses the readiness of the Smart Study Companion Minimum Viable Product (MVP). The purpose of this gate is to **propose a frozen scope**, prevent late-stage feature creep, and focus the team's remaining timeline on operational deployment, peer QA, hardening, and final presentation rehearsals.
+
+### Formal Freeze Terminology
+- **Scope Freeze Proposed (Current State):** The team has documented the intended core scope, locked modules, and deferred features, but formal team approval is outstanding.
+- **Scope Frozen:** The required team approvals (5/5 member sign-offs) have been recorded in this agreement.
+- **Conditional Go:** Progress can continue under documented conditions and active risk mitigations; this does **not** mean the complete application is verified or release-ready.
+- **Demo Ready:** All mandatory live cloud acceptance criteria (RLS verification, database migrations, SMTP verification, E2E browser journeys) have passed with reproducible evidence.
 
 ### The Recommendation: CONDITIONAL GO
 - **Why "GO":** The codebase is structurally sound. Unit and service-contract suites pass at **28/28 tests**; system integration passes at **11/11 check groups**; the multi-page production build succeeds in **117ms**; and draft Playwright specs (not yet run in a browser) plus a contract-check runner passing **3/3 check groups**.
@@ -71,12 +77,14 @@ The **Google Gemini AI Chat Assistant (`#view-assistant`)** is formally classifi
 
 ## 5. Team Approval & Sign-Off Status
 
-No teammate has approved this freeze. Approval status is pending for every member.
+As of November 17, 2026, the freeze proposal is actively under review. All five member sign-offs remain **PENDING** until each student confirms their acceptance via review comment on the Week 11 reconciliation pull request:
 
-| Member | Role | Freeze Sign-Off Status |
-|---|---|---|
-| Nabin Khadka (`liftupkhadka555-spec`) | Integration Lead | PENDING |
-| Sumit Adhikari (`adronnie`) | Database Engineer | PENDING |
-| Prince Karki (`princekark`) | QA / Auth Tester | PENDING |
-| Prabin Rai (`RaiPrabin697`) | QA Automation Lead | PENDING |
-| J.N. Taj Oli (`jn-oli`) | UI/UX Lead | PENDING |
+| Member | Role | Freeze Sign-Off Status | Sign-off Evidence / Method |
+| :--- | :--- | :---: | :--- |
+| Nabin Khadka (`liftupkhadka555-spec`) | Full-Stack Integration & Deployment | **PENDING** | To be recorded upon PR review |
+| Sumit Adhikari (`adronnie`) | Database & Supabase Engineer | **PENDING** | To be recorded upon PR review |
+| Prince Karki (`princekark`) | QA & Independent Testing | **PENDING** | To be recorded upon PR review |
+| Prabin Rai (`RaiPrabin697`) | QA Automation Lead | **PENDING** | To be recorded upon PR review |
+| J.N. Taj Oli (`jn-oli`) | UI/UX & Frontend Lead | **PENDING** | To be recorded upon PR review |
+
+> **Sign-Off Rule:** Teammate approvals will NOT be assumed or pre-filled. Each member must personally review the frozen scope boundary, the deferred status of the Gemini AI Chat Assistant, and the active risk register before their status can transition to **APPROVED**.

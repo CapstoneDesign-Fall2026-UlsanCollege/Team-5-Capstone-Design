@@ -7,7 +7,7 @@ This package reconciles published records. No new application test was run while
 
 1. [Shared report](weekly-report.md): objective, progress, contribution and gaps.
 2. [MVP verification matrix](MVP_VERIFICATION_MATRIX.md): acceptance criteria and present evidence boundary.
-3. [Freeze decision](FREEZE_DECISION.md): proposed scope and release gates.
+3. [Freeze decision](FEATURE_FREEZE_DECISION.md): proposed scope and release gates.
 4. [Ownership update](../week_10/AI_USE_AND_CODE_OWNERSHIP_AUDIT.md#week-11-reconciliation-2026-11-14): proposed support and unconfirmed acceptance.
 
 ## Supporting records

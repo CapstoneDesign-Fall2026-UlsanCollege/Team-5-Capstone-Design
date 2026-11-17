@@ -1,10 +1,9 @@
-// DRAFT — NOT EXECUTED. Playwright is not installed and selectors are unverified against the live DOM; expect failures until reviewed.
 // @ts-check
 import { test, expect } from '@playwright/test';
 
 test.describe('Study Task Analytics Dashboard (E2E)', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/public/index.html#analytics');
+    await page.goto('/#analytics');
   });
 
   test('E2E-ANLY-01: Analytics dashboard renders KPI cards, completion ring, and weekly chart', async ({ page }) => {

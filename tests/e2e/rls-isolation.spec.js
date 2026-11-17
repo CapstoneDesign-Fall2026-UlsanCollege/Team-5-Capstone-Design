@@ -1,4 +1,3 @@
-// DRAFT — NOT EXECUTED. Playwright is not installed and selectors are unverified against the live DOM; expect failures until reviewed.
 // @ts-check
 import { test, expect } from '@playwright/test';
 
@@ -7,22 +6,21 @@ test.describe('Two-Student Row Level Security (RLS) Isolation (E2E)', () => {
     // Context 1: Student A
     const contextA = await browser.newContext();
     const pageA = await contextA.newPage();
-    await pageA.goto('/public/index.html#tasks');
+    await pageA.goto('/#tasks');
 
     const studentATask = `Private Task Student A ${Date.now()}`;
     const addBtnA = pageA.locator('#btn-add-task');
-    if (await addBtnA.isVisible()) {
-      await addBtnA.click();
-      await pageA.fill('#task-title', studentATask);
-      await pageA.fill('#task-deadline', '2026-12-31T23:59');
-      await pageA.click('#btn-save-task');
-      await expect(pageA.locator(`text=${studentATask}`)).toBeVisible({ timeout: 5000 });
-    }
+    await expect(addBtnA).toBeVisible({ timeout: 5000 });
+    await addBtnA.click();
+    await pageA.fill('#task-title', studentATask);
+    await pageA.fill('#task-deadline', '2026-12-31T23:59');
+    await pageA.click('#btn-save-task');
+    await expect(pageA.locator(`text=${studentATask}`)).toBeVisible({ timeout: 5000 });
 
     // Context 2: Student B (completely isolated browser session)
     const contextB = await browser.newContext();
     const pageB = await contextB.newPage();
-    await pageB.goto('/public/index.html#tasks');
+    await pageB.goto('/#tasks');
 
     // Student B MUST NOT see Student A's private task
     await expect(pageB.locator(`text=${studentATask}`)).not.toBeVisible({ timeout: 3000 });

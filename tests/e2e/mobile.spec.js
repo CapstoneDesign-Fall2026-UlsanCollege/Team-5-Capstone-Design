@@ -1,4 +1,3 @@
-// DRAFT — NOT EXECUTED. Playwright is not installed and selectors are unverified against the live DOM; expect failures until reviewed.
 // @ts-check
 import { test, expect } from '@playwright/test';
 
@@ -6,7 +5,7 @@ test.describe('Mobile Viewport & Responsive Design (E2E)', () => {
   test.use({ viewport: { width: 375, height: 667 } }); // iPhone SE / Mobile portrait
 
   test('E2E-MOB-01: Mobile dashboard loads without horizontal overflow', async ({ page }) => {
-    await page.goto('/public/index.html');
+    await page.goto('/');
     
     // Check that document body width matches viewport width
     const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
@@ -15,7 +14,7 @@ test.describe('Mobile Viewport & Responsive Design (E2E)', () => {
   });
 
   test('E2E-MOB-02: Mobile navigation drawer or bottom navigation functions', async ({ page }) => {
-    await page.goto('/public/index.html');
+    await page.goto('/');
     const navMenu = page.locator('.sidebar, .nav-menu, #nav-drawer');
     await expect(navMenu).toBeVisible();
 
@@ -30,7 +29,7 @@ test.describe('Mobile Viewport & Responsive Design (E2E)', () => {
   });
 
   test('E2E-MOB-03: Switching views on mobile updates active section smoothly', async ({ page }) => {
-    await page.goto('/public/index.html');
+    await page.goto('/');
     
     // Navigate to Analytics
     await page.click('a[href="#analytics"], .nav-link[data-view="analytics"]');

@@ -19,7 +19,7 @@ export default defineConfig({
     ['html', { outputFolder: 'tests/e2e/playwright-report', open: 'never' }],
   ],
   use: {
-    baseURL: process.env.E2E_BASE_URL || 'http://localhost:5173',
+    baseURL: process.env.E2E_BASE_URL || 'http://localhost:4173',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
