@@ -1,10 +1,9 @@
-// DRAFT — NOT EXECUTED. Playwright is not installed and selectors are unverified against the live DOM; expect failures until reviewed.
 // @ts-check
 import { test, expect } from '@playwright/test';
 
 test.describe('Subject Quiz & AI Quiz Practice (E2E)', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/public/index.html#quiz');
+    await page.goto('/#quiz');
   });
 
   test('E2E-QUIZ-01: Quiz setup view renders mode options and subject selector', async ({ page }) => {

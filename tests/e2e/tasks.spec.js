@@ -1,10 +1,9 @@
-// DRAFT — NOT EXECUTED. Playwright is not installed and selectors are unverified against the live DOM; expect failures until reviewed.
 // @ts-check
 import { test, expect } from '@playwright/test';
 
 test.describe('Study Task Management & CRUD (E2E)', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/public/index.html#tasks');
+    await page.goto('/#tasks');
   });
 
   test('E2E-TASK-01: Tasks view displays create button, filters, and task list', async ({ page }) => {
@@ -15,6 +14,7 @@ test.describe('Study Task Management & CRUD (E2E)', () => {
   });
 
   test('E2E-TASK-02: Empty task title triggers client validation without creating row', async ({ page }) => {
+    const initialCount = await page.locator('.task-item, .task-card').count();
     await page.click('#btn-add-task');
     const modal = page.locator('#task-modal');
     await expect(modal).toBeVisible();
@@ -23,9 +23,9 @@ test.describe('Study Task Management & CRUD (E2E)', () => {
     await page.fill('#task-title', '');
     await page.click('#btn-save-task');
 
-    // Validation alert or required prompt should trigger
-    const initialTaskCount = await page.locator('.task-item, .task-card').count();
-    expect(initialTaskCount).toBeDefined();
+    // Validation alert or required prompt should trigger, modal remains or count unchanged
+    const finalCount = await page.locator('.task-item, .task-card').count();
+    expect(finalCount).toBe(initialCount);
   });
 
   test('E2E-TASK-03: Create new task, verify it appears in list and survives page refresh', async ({ page }) => {
@@ -40,23 +40,20 @@ test.describe('Study Task Management & CRUD (E2E)', () => {
 
     // Refresh page and confirm task persists
     await page.reload();
-    await page.goto('/public/index.html#tasks');
+    await page.goto('/#tasks');
     await expect(page.locator(`text=${taskTitle}`)).toBeVisible({ timeout: 5000 });
 
     // Toggle complete
     const checkbox = page.locator(`.task-item:has-text("${taskTitle}") input[type="checkbox"]`).first();
-    if (await checkbox.isVisible()) {
-      await checkbox.click();
-      await page.waitForTimeout(500);
-    }
+    await expect(checkbox).toBeVisible({ timeout: 5000 });
+    await checkbox.click();
 
     // Clean up: Delete task
+    page.on('dialog', (dialog) => dialog.accept());
     const deleteBtn = page.locator(`.task-item:has-text("${taskTitle}") .btn-delete-task`).first();
-    if (await deleteBtn.isVisible()) {
-      page.on('dialog', (dialog) => dialog.accept());
-      await deleteBtn.click();
-      await expect(page.locator(`text=${taskTitle}`)).not.toBeVisible({ timeout: 5000 });
-    }
+    await expect(deleteBtn).toBeVisible({ timeout: 5000 });
+    await deleteBtn.click();
+    await expect(page.locator(`text=${taskTitle}`)).not.toBeVisible({ timeout: 5000 });
   });
 
   test('E2E-TASK-04: Task search input filters task list dynamically', async ({ page }) => {

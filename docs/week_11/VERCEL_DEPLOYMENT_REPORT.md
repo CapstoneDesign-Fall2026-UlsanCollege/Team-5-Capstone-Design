@@ -1,31 +1,33 @@
-# Vercel Deployment Report — Smart Study Companion
+# Vercel Deployment Report & Provenance Record — Smart Study Companion
 
 **Project:** Smart Study Companion — Team 5 (Ulsan College)  
-**Date:** November 16, 2026 (KST) / November 15, 2026 (UTC)  
+**Reconciliation Date:** November 17, 2026  
+**Primary Owner:** Nabin Khadka (`liftupkhadka555-spec`)  
 **Deployment Platform:** Vercel  
-**Status:** **DEPLOYED**
+**Status:** **PROVENANCE DISCLOSED — Temporary Preview Deployed; Permanent CI/CD Pipeline Configured via Personal Fork**
 
 ---
 
-## 1. Deployment Summary
+## 1. Deployment Provenance & Repository Details
 
-| Field | Configuration / Value |
-| :--- | :--- |
-| **Deployment Status** | **DEPLOYED (Active & Verified)** |
-| **Live Vercel URL** | [https://rapid-oxygen-cicusvj.tmp.now](https://rapid-oxygen-cicusvj.tmp.now) |
-| **Vercel Claim Link** | [Claim Deployment to Vercel Account](https://vercel.com/claim-deployment?code=62008a49-0b55-4807-9dc8-9417b0745521) |
-| **Vercel Project Name** | `smart-study-companion` |
-| **GitHub Repository** | `CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design` |
-| **Production Branch** | `main` |
-| **Root Directory** | `./` (with `public/` as Vite app root) |
-| **Install Command** | `npm ci` (or `npm install`) |
-| **Build Command** | `npm run build` (`vite build`) |
-| **Output Directory** | `dist` |
-| **Preset Detected** | Vite (Multi-page rollup: 6 HTML entry points) |
+Due to third-party GitHub App installation restrictions on the course organization (`CapstoneDesign-Fall2026-UlsanCollege`), deployment verification was executed in two stages:
+
+| Attribute | Temporary Preview Deployment | Dashboard CI/CD Project | Course Organization Repo |
+| :--- | :--- | :--- | :--- |
+| **Target URL** | [`https://rapid-oxygen-cicusvj.tmp.now`](https://rapid-oxygen-cicusvj.tmp.now) | `https://team-5-capstone-design-761v.vercel.app` | `https://team-5-capstone-design.vercel.app` (Target) |
+| **Deployment Type** | Temporary Preview (CLI) | Git-integrated Project (Dashboard) | Course Production (Pending Org Approval) |
+| **Connected Repo** | Local working copy | [`liftupkhadka555-spec/Team-5-Capstone-Design`](https://github.com/liftupkhadka555-spec/Team-5-Capstone-Design) | [`CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design`](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design) |
+| **Source Branch** | Working tree (synced to `main`) | `main` | `main` |
+| **Project Name** | `smart-study-companion` | `team-5-capstone-design-761v` | `team-5-capstone-design` |
+| **Build Status** | **VERIFIED (HTTP 200)** | **Created on Dashboard** | **Pending Org Admin App Approval** |
+| **Source Commit SHA** | Synced to `0dc6372` / `b8d229c` | Synced to `9810a83` | `d274332143ad1727e8aa1bd126bc7d4e2bd834b8` |
+| **Visual Evidence** | CLI output log | [`W11-VERCEL-01-project-creation.png`](Evidence/Nabin-Khadka/W11-VERCEL-01-project-creation.png) | Admin authorization screen |
+
+> **Important Provenance Distinction:** An HTTP 200 response on `rapid-oxygen-cicusvj.tmp.now` establishes that Vite's multi-page build and `vercel.json` headers work on the Vercel Edge Network. It does **not** prove that the latest course repository commit (`d274332`) is automatically deployed. Direct deployment of the course organization repo requires university admin approval.
 
 ---
 
-## 2. Route Verification Evidence
+## 2. Route Verification Evidence (Temporary Deployment)
 
 All 6 application and authentication routes were probed directly against the live Vercel deployment:
 
@@ -42,7 +44,7 @@ All 6 application and authentication routes were probed directly against the liv
 
 ## 3. Environment Variables
 
-The live frontend connects directly to Supabase Cloud using public anonymous client credentials.
+The live frontend connects directly to Supabase Cloud using public anonymous client credentials configured in Vercel project settings:
 
 | Environment Variable Name | Injected / Used | Role / Sensitivity |
 | :--- | :---: | :--- |
@@ -55,26 +57,24 @@ The live frontend connects directly to Supabase Cloud using public anonymous cli
 
 ## 4. Supabase Auth Production Redirect Configuration
 
-Add the following URLs to **Supabase Dashboard &rarr; Authentication &rarr; URL Configuration**:
+Configure the following in **Supabase Dashboard &rarr; Authentication &rarr; URL Configuration**:
 
 - **Site URL:**
   ```text
-  https://rapid-oxygen-cicusvj.tmp.now
+  https://team-5-capstone-design-761v.vercel.app
   ```
 - **Redirect URLs (Allowed Callback URLs):**
   ```text
+  https://team-5-capstone-design-761v.vercel.app/**
+  https://team-5-capstone-design-761v.vercel.app/auth/verify.html
+  https://team-5-capstone-design-761v.vercel.app/auth/reset-password.html
+  https://team-5-capstone-design-761v.vercel.app/auth/login.html
   https://rapid-oxygen-cicusvj.tmp.now/**
-  https://rapid-oxygen-cicusvj.tmp.now/auth/verify.html
-  https://rapid-oxygen-cicusvj.tmp.now/auth/reset-password.html
-  https://rapid-oxygen-cicusvj.tmp.now/auth/login.html
   ```
-  *(If you claim a custom domain or `smart-study-companion.vercel.app`, also append `https://smart-study-companion.vercel.app/**` to the redirect list).*
 
 ---
 
-## 5. Remaining Steps to Permanently Link to Vercel Account
+## 5. Outstanding Deployment Acceptance Actions
 
-1. Open the claim link: [https://vercel.com/claim-deployment?code=62008a49-0b55-4807-9dc8-9417b0745521](https://vercel.com/claim-deployment?code=62008a49-0b55-4807-9dc8-9417b0745521).
-2. Log in with your GitHub account (`liftupkhadka555-spec`).
-3. Select your GitHub repository `Team-5-Capstone-Design` to link automatic Git continuous deployment on every push to `main`.
-
+1. **Vercel Dashboard Inspection:** Confirm whether the build for `team-5-capstone-design-761v` completed successfully on the dashboard and record its exact build ID.
+2. **Organization Access Approval:** Have the university organization administrator approve the Vercel GitHub App for `CapstoneDesign-Fall2026-UlsanCollege` so that automatic CI/CD can be pointed directly to the upstream repository.

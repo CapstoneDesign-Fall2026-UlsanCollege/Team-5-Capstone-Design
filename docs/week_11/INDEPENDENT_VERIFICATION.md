@@ -23,7 +23,7 @@ Use an approved disposable test project, two disposable accounts A/B, known sour
 - Expected/actual for TASK-01, TASK-02 and DATA-01: not recorded; **Not run**.
 - Evidence links: none yet, not placeholder image filenames.
 - Coaching received: not recorded; do not assume none.
-- Observation and decision: pending; [freeze](FREEZE_DECISION.md) remains unapproved.
+- Observation and decision: pending; [freeze](FEATURE_FREEZE_DECISION.md) remains unapproved.
 - Next action: reviewer accepts the task, obtains approved environment, runs steps and records failures as well as successes.
 
 ## Clean-setup receipt

@@ -1,10 +1,9 @@
-// DRAFT — NOT EXECUTED. Playwright is not installed and selectors are unverified against the live DOM; expect failures until reviewed.
 // @ts-check
 import { test, expect } from '@playwright/test';
 
 test.describe('Academic Onboarding & Subject Selection (E2E)', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/public/index.html#subjects');
+    await page.goto('/#subjects');
   });
 
   test('E2E-ONB-01: Subjects view renders 5-tier academic hierarchy selectors', async ({ page }) => {
@@ -50,19 +49,23 @@ test.describe('Academic Onboarding & Subject Selection (E2E)', () => {
   test('E2E-ONB-04: Multi-subject selection updates badge count and persists state', async ({ page }) => {
     // Click on two subject cards
     const cards = page.locator('.subject-select-card');
-    if (await cards.count() >= 2) {
-      await cards.nth(0).click();
-      await cards.nth(1).click();
-      
-      const saveBtn = page.locator('#save-subjects-btn');
-      await expect(saveBtn).toBeEnabled();
-      await saveBtn.click();
+    await expect(cards.first()).toBeVisible({ timeout: 5000 });
+    const cardCount = await cards.count();
+    expect(cardCount).toBeGreaterThanOrEqual(1);
 
-      // Should show success notification or advance to dashboard
-      await page.waitForTimeout(1000);
-      const isDashboardOrToast = page.url().includes('dashboard') || (await page.locator('.toast, .alert').isVisible().catch(() => false));
-      expect(isDashboardOrToast).toBeTruthy();
+    await cards.nth(0).click();
+    if (cardCount >= 2) {
+      await cards.nth(1).click();
     }
+    
+    const saveBtn = page.locator('#save-subjects-btn');
+    await expect(saveBtn).toBeEnabled();
+    await saveBtn.click();
+
+    // Should show success notification or update state
+    await page.waitForTimeout(1000);
+    const isDashboardOrToast = page.url().includes('dashboard') || (await page.locator('.toast, .alert').isVisible().catch(() => false));
+    expect(isDashboardOrToast).toBeTruthy();
   });
 });
 

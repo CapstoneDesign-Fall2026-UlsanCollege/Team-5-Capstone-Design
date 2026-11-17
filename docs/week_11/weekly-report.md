@@ -4,108 +4,114 @@
 **Team:** Team 5 — Capstone Design, Fall 2026 (Ulsan College)  
 **Milestone:** Week 11 — MVP Verification and Goal Freeze Gate  
 **Execution Period:** November 15–18, 2026  
-**Report Date:** November 16, 2026  
-**Milestone Status:** **CONDITIONAL GO (Core Scope Frozen; Live Cloud Deployed)**
+**Report Date:** November 17, 2026  
+**Milestone Status:** **CONDITIONAL GO PROPOSED — Core Scope Defined; Final Team Approval and Live Acceptance Pending**
 
 ---
 
-## 1. Executive Summary & Goals
+## 1. Executive Summary & Reconciliation Baseline
 
-Our Week 11 mission is to achieve the **MVP Verification and Goal Freeze Gate** outlined in [`docs/FINAL_ROADMAP.md`](../FINAL_ROADMAP.md):
-1. **Frontend Production Deployment:** Deploy the multi-page Vite client application to Vercel with security headers and verify all 6 authentication and dashboard routes.
-2. **Repository & Architecture Baseline:** Establish a definitive, verified baseline across all code, database, and test assets, confirming that Supabase operates as the true application backend.
-3. **E2E Testing Suite Authoring:** Implement a comprehensive 7-suite Playwright E2E framework (`tests/e2e/`) backed by an automated integration runner (`tests/e2e/e2e_runner.py`) passing 100% of integration checks.
-4. **Database & RLS Verification:** Execute read-only probes of Supabase Cloud, verify anonymous read blocking by RLS, and document the non-destructive execution plan for Migrations `009` and `010`.
-5. **Issue Resolution & Closure:** Audit all 21 historical repository issues (Sep 19 – Oct 13) and close all 18 completed issues with verified implementation and screenshot evidence.
-6. **Formal MVP Freeze:** Lock core scope across all 5 views (Dashboard, Tasks, Subjects, Analytics, Quiz) and formally defer the Gemini AI Chat Assistant as a documented extended feature.
+At the close of Week 11, Team 5 reconciles its progress against the **MVP Verification and Goal Freeze Gate** outlined in [`docs/FINAL_ROADMAP.md`](../FINAL_ROADMAP.md). In response to faculty review, this report distinguishes verified local and preview results from pending live acceptance criteria:
+
+1. **Scope Defined & Freeze Proposed:** The 5 core student modules (Academic Onboarding, Tasks, Quizzes, Analytics, Auth) are scope-locked, and the Gemini AI Chat Assistant is formally deferred as an extended post-MVP feature. Formal team sign-off remains **PENDING** across all 5 members in [`FEATURE_FREEZE_DECISION.md`](FEATURE_FREEZE_DECISION.md).
+2. **Frontend Hosting Deployed in Part:** A multi-page Vite production build was deployed to the Vercel Edge Network via temporary CLI preview ([`https://rapid-oxygen-cicusvj.tmp.now`](https://rapid-oxygen-cicusvj.tmp.now)) and configured via personal fork ([`liftupkhadka555-spec/Team-5-Capstone-Design`](https://github.com/liftupkhadka555-spec/Team-5-Capstone-Design)). Direct automated CI/CD from the course organization repository (`CapstoneDesign-Fall2026-UlsanCollege`) remains pending university admin app approval.
+3. **Database Probes Completed; Migrations Pending:** Live catalog tables were verified via read-only probes (`universities=46`, `subjects=32`), but migrations `009_ai_quiz_tables.sql` and `010_complete_universities.sql` remain unapplied to live Supabase Cloud (Issue #53 pending).
+4. **Automated Testing Differentiated:** Local unit tests (28/28), Python system checks (11/11), and Python contract checks (3/3) pass 100%. However, Playwright browser execution (**0/24 executed**) and two-student authenticated RLS isolation (**NOT RUN**) remain outstanding.
+5. **Issue Backlog Reduced:** Audited all 21 historical issues (Sep 19 – Oct 13), closing 18 completed items (#15–#23, #25, #28–#35) via merge commit `09d4c64`. Issue #59 remains open pending final deployment sign-off.
 
 ---
 
-## 2. Complete Week 11 Document Directory & Deliverables
+## 2. Complete Week 11 Technical Documentation Directory
 
-During Week 11, Team 5 produced a comprehensive set of **21 technical reports, verification matrices, and deployment runbooks** across all modules of the full stack:
+During Week 11, Team 5 established a comprehensive set of 21 technical documents, verification registers, and test runbooks:
 
-| Category | Deliverable Document | Purpose & Verification Scope |
-| :--- | :--- | :--- |
-| **Deployment** | [`VERCEL_DEPLOYMENT_REPORT.md`](VERCEL_DEPLOYMENT_REPORT.md) | Live production deployment record on Vercel, route HTTP 200 verification, and SSL/security headers (`nosniff`, `DENY`). |
-| **Deployment** | [`FRONTEND_DEPLOYMENT_DECISION.md`](FRONTEND_DEPLOYMENT_DECISION.md) | Architecture investigation comparing Vercel vs. GitHub Pages vs. Netlify; maps to [GitHub Issue #59](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/59). |
-| **Deployment** | [`DEPLOYMENT_VERIFICATION.md`](DEPLOYMENT_VERIFICATION.md) | Multi-page Vite build verification (112ms, 6 HTML entry points) and static hosting configuration. |
-| **Issue Audit** | [`ISSUES_AUDIT_SEP19_OCT13.md`](ISSUES_AUDIT_SEP19_OCT13.md) | Full audit of 21 historical issues (#14–#36), matching code, tests, and screenshots, closing 18 open issues (#15–#23, #25, #28–#35). |
-| **Individual Evidence** | [`NABIN_KHADKA_EVIDENCE.md`](NABIN_KHADKA_EVIDENCE.md) | Comprehensive individual contribution and verification record for Nabin Khadka (`liftupkhadka555-spec`). |
-| **Individual Evidence** | [`RAI_LIVE_TEST_RECEIPT.md`](RAI_LIVE_TEST_RECEIPT.md) | Live testing receipt and local task reproduction documentation for Prabin Rai (`RaiPrabin697`). |
-| **Testing & E2E** | [`E2E_TEST_RESULTS.md`](E2E_TEST_RESULTS.md) | Results of 7 Playwright E2E suites and Python integration contract runner (`tests/e2e/e2e_runner.py` passing 3/3). |
-| **Codebase Audit** | [`REPOSITORY_AUDIT.md`](REPOSITORY_AUDIT.md) | Codebase audit matrix, component verification, dependency audit, and BaaS backend confirmation. |
-| **Database & RLS** | [`DATABASE_AND_RLS_VERIFICATION.md`](DATABASE_AND_RLS_VERIFICATION.md) | Probes of live Supabase Cloud tables (`universities=46`, `subjects=32`), RLS blocking verification, and non-destructive SQL plan for `009`/`010`. |
-| **Authentication** | [`AUTHENTICATION_VERIFICATION.md`](AUTHENTICATION_VERIFICATION.md) | 14-step auth testing journey, session persistence checks, and Brevo Custom SMTP setup guide. |
-| **AI Features** | [`AI_QUIZ_LIVE_VERIFICATION.md`](AI_QUIZ_LIVE_VERIFICATION.md) | Edge Function deployment runbook, Gemini API secret management, and client fallback handling. |
-| **UI / UX** | [`UI_UX_VERIFICATION.md`](UI_UX_VERIFICATION.md) | Static view layout review, responsive design audit, and 6 passing theme unit tests (`theme.test.js`). |
-| **Scope Freeze** | [`FEATURE_FREEZE_DECISION.md`](FEATURE_FREEZE_DECISION.md) | Formal **CONDITIONAL GO** freeze decision, locking the 5 core views and deferring the AI Chat Assistant. |
-| **Quality Review** | [`MVP_VERIFICATION_MATRIX.md`](MVP_VERIFICATION_MATRIX.md) | Feature-by-feature MVP readiness matrix across UI, DB, Auth, and Analytics. |
-| **Quality Review** | [`DEFECT_AND_RISK_REGISTER.md`](DEFECT_AND_RISK_REGISTER.md) | Active bug and risk tracker (PGRST205, AI question quality, recovery email delivery). |
-| **Quality Review** | [`EVIDENCE_REGISTER.md`](EVIDENCE_REGISTER.md) | Index of all historical and current screenshot artifacts across the repository. |
-| **Quality Review** | [`SPRINT_QUALITY_REVIEW.md`](SPRINT_QUALITY_REVIEW.md) | Quality gate review, checklist compliance, and release criteria audit. |
-| **Quality Review** | [`INDEPENDENT_VERIFICATION.md`](INDEPENDENT_VERIFICATION.md) | Protocol for non-author test verification and peer review handoff. |
-| **Overview** | [`README.md`](README.md) | Week 11 documentation package index, navigation guide, and reading order. |
-| **Working Drafts** | [`NABIN_WEEKLY_REPORT_DRAFT.md`](NABIN_WEEKLY_REPORT_DRAFT.md) | Working report draft and technical checklist. |
+| Category | Deliverable Document | Purpose & Verification Scope | Status |
+| :--- | :--- | :--- | :---: |
+| **Verification Gate** | [`MVP_VERIFICATION_MATRIX.md`](MVP_VERIFICATION_MATRIX.md) | Central MVP acceptance matrix tracking 19 gates across deployment, auth, tasks, RLS, and testing. | **Restored & Active** |
+| **Scope Freeze** | [`FEATURE_FREEZE_DECISION.md`](FEATURE_FREEZE_DECISION.md) | Proposed freeze locking core 5 views and deferring Gemini AI Chat; 5/5 member sign-offs pending. | **Proposed (Pending)** |
+| **Deployment** | [`VERCEL_DEPLOYMENT_REPORT.md`](VERCEL_DEPLOYMENT_REPORT.md) | Deployment provenance record reconciling temporary preview URL vs. personal fork vs. course org. | **Active** |
+| **Deployment** | [`FRONTEND_DEPLOYMENT_DECISION.md`](FRONTEND_DEPLOYMENT_DECISION.md) | Architectural comparison of Vercel vs. GitHub Pages vs. Netlify; maps to open Issue #59. | **Active** |
+| **Deployment** | [`DEPLOYMENT_VERIFICATION.md`](DEPLOYMENT_VERIFICATION.md) | Vite 6 multi-page build verification (112ms, 6 HTML pages) and HTTP security headers (`nosniff`, `DENY`). | **Active** |
+| **Issue Audit** | [`ISSUES_AUDIT_SEP19_OCT13.md`](ISSUES_AUDIT_SEP19_OCT13.md) | Audit of 21 historical issues (#14–#36), linking code and screenshots, closing 18 open issues. | **Completed** |
+| **Individual Evidence** | [`NABIN_KHADKA_EVIDENCE.md`](NABIN_KHADKA_EVIDENCE.md) | Individual evidence record for Nabin Khadka (`liftupkhadka555-spec`) with disclosed limits. | **Active** |
+| **Individual Evidence** | [`RAI_LIVE_TEST_RECEIPT.md`](RAI_LIVE_TEST_RECEIPT.md) | Documentation review and repeatable task check protocol for Prabin Rai (`RaiPrabin697`). | **Active** |
+| **Testing & E2E** | [`E2E_TEST_RESULTS.md`](E2E_TEST_RESULTS.md) | Results of 3/3 contract checks and audit of 24 unexecuted Playwright browser specs. | **Active** |
+| **Testing — Analytics** | [`Study_Analytics_Report.md`](Study_Analytics_Report.md) | Prince Karki's manual testing receipt covering 8 analytics checks (8 PASS / 0 FAIL) and 8 screenshots. | **Completed (Manual)** |
+| **Testing — UI/UX** | [`UI_UX_VERIFICATION.md`](UI_UX_VERIFICATION.md) | J.N. Taj Oli's desktop review covering 45 UI checks across 5 views (mobile 390px excluded). | **Completed (Desktop)** |
+| **Codebase Audit** | [`REPOSITORY_AUDIT.md`](REPOSITORY_AUDIT.md) | Baseline code audit confirming BaaS architecture over redundant Express servers. | **Active** |
+| **Database & RLS** | [`DATABASE_AND_RLS_VERIFICATION.md`](DATABASE_AND_RLS_VERIFICATION.md) | Read-only Supabase table probes, RLS policies, and non-destructive SQL plan for `009`/`010`. | **Active** |
+| **Authentication** | [`AUTHENTICATION_VERIFICATION.md`](AUTHENTICATION_VERIFICATION.md) | 14-step auth journey, session persistence, and Brevo Custom SMTP setup guide. | **Active** |
+| **AI Features** | [`AI_QUIZ_LIVE_VERIFICATION.md`](AI_QUIZ_LIVE_VERIFICATION.md) | Edge Function deployment runbook, Gemini API secret management, and client fallback handling. | **Active** |
+| **Quality Review** | [`DEFECT_AND_RISK_REGISTER.md`](DEFECT_AND_RISK_REGISTER.md) | Active risk tracker (PGRST205, AI question quality, recovery email delivery, cold-start latency). | **Active** |
+| **Quality Review** | [`EVIDENCE_REGISTER.md`](EVIDENCE_REGISTER.md) | Master index of historical and fresh Nov 16–17 screenshot artifacts with privacy controls. | **Updated (Nov 17)** |
+| **Quality Review** | [`SPRINT_QUALITY_REVIEW.md`](SPRINT_QUALITY_REVIEW.md) | Quality gate review, release criteria audit, and review checklist. | **Active** |
+| **Quality Review** | [`INDEPENDENT_VERIFICATION.md`](INDEPENDENT_VERIFICATION.md) | Authoritative 7-step reproduction protocol for independent non-author two-student RLS testing. | **Active** |
+| **Overview** | [`README.md`](README.md) | Week 11 package navigation guide, index, and reading order. | **Active** |
+| **Working Drafts** | [`NABIN_WEEKLY_REPORT_DRAFT.md`](NABIN_WEEKLY_REPORT_DRAFT.md) | Working report draft and technical checklist. | **Historical Draft** |
 
 ---
 
 ## 3. Automated & Verification Test Results
 
-All verification suites pass 100% on the current codebase:
+In accordance with faculty instructions, test results are strictly categorized by their verified execution scope:
 
-| Suite | Command | Result | Scope / Coverage |
-| :--- | :--- | :---: | :--- |
-| **Vitest Unit & Services** | `npm test` | **PASS (28/28)** | Auth service, task service, quiz engine, theme toggle, contracts |
-| **Python System Harness** | `python3 tests/run_tests.py` | **PASS (11/11)** | Migration syntax, auth HTML, academic catalog, analytics |
-| **Python AI Quiz Suite** | `python3 tests/test_ai_quiz.py` | **PASS (4/4)** | Migration 009 schema, bounds, scoring, UI tabs |
-| **Playwright E2E Runner** | `npm run test:e2e` | **PASS (3/3)** | E2E specs, DOM contract hooks, live Supabase endpoint probe |
-| **Vite Multi-Page Build** | `npm run build` | **PASS (112ms)** | 6 HTML pages bundled cleanly into `dist/` |
-
----
-
-## 4. Live Deployment Status
-
-- **Frontend Platform:** Vercel
-- **Production URL:** [https://rapid-oxygen-cicusvj.tmp.now](https://rapid-oxygen-cicusvj.tmp.now)
-- **Claimed Repository:** [`liftupkhadka555-spec/Team-5-Capstone-Design`](https://github.com/liftupkhadka555-spec/Team-5-Capstone-Design)
-- **Connected Backend:** Supabase Cloud (`https://bcwwnjtmrcxggbaallon.supabase.co`)
-- **Verified Routes:** All 6 multi-page routes (`/`, `/auth/login.html`, `/auth/signup.html`, `/auth/verify.html`, `/auth/forgot-password.html`, `/auth/reset-password.html`) return `HTTP 200 OK` with strict security headers.
+| Test Suite | Recorded Result | Actual Execution Scope | Evidence Reference |
+| :--- | :---: | :--- | :--- |
+| **Vitest Unit & Services** | **28 / 28 PASS** | Local unit and service contract tests (`auth`, `tasks`, `quiz`, `theme`) | `npm test` passing in 222ms |
+| **Python System Harness** | **11 / 11 PASS** | Structural file checks, schema validation, calculations, catalogs | `python3 tests/run_tests.py` |
+| **Python AI Quiz Suite** | **4 / 4 PASS** | Migration 009 schema syntax, bounds validation, scoring | `python3 tests/test_ai_quiz.py` |
+| **Python E2E Contract Runner** | **3 / 3 PASS** | Static file existence, DOM selector bindings, anonymous REST health | `python3 tests/e2e/e2e_runner.py` |
+| **Playwright Browser Tests** | **0 / 24 EXECUTED** | 24 specs drafted across 7 files; unrun due to missing package installation | [`E2E_TEST_RESULTS.md`](E2E_TEST_RESULTS.md) |
+| **Two-Student Authenticated RLS** | **NOT RUN** | Server-side read/update/delete denial across two live accounts unverified | [`INDEPENDENT_VERIFICATION.md`](INDEPENDENT_VERIFICATION.md) |
+| **Vite Multi-Page Build** | **PASS (112ms)** | Production bundling of 6 HTML entry points to `dist/` | `npm run build` |
 
 ---
 
-## 5. Team 5 Member Contribution Table
+## 4. Frontend Deployment Status & Source Provenance
 
-| Member | GitHub Login | Week 11 Contribution | Primary Evidence Links | Status |
-| :--- | :--- | :--- | :--- | :---: |
-| **Nabin Khadka** | `liftupkhadka555-spec` | Vercel production frontend deployment, Playwright E2E suite authoring, 18 historical issues audit & closure, and full-stack MVP verification audit set | [`NABIN_KHADKA_EVIDENCE.md`](NABIN_KHADKA_EVIDENCE.md), [`VERCEL_DEPLOYMENT_REPORT.md`](VERCEL_DEPLOYMENT_REPORT.md), [`E2E_TEST_RESULTS.md`](E2E_TEST_RESULTS.md), [`ISSUES_AUDIT_SEP19_OCT13.md`](ISSUES_AUDIT_SEP19_OCT13.md) | **Verified & Completed** |
-| **Prabin Rai** | `RaiPrabin697` | Documentation reconciliation, review package structure, evidence classification, and repeatable task reproduction guide | [`README.md`](README.md), [`EVIDENCE_REGISTER.md`](EVIDENCE_REGISTER.md), [`RAI_LIVE_TEST_RECEIPT.md`](RAI_LIVE_TEST_RECEIPT.md) | **Completed** |
-| **Prince Karki** | `princekark` | Independent testing, task CRUD validation, and cross-account isolation evidence review | [`../week_10/TESTING_REPORT.md`](../week_10/TESTING_REPORT.md), [`INDEPENDENT_VERIFICATION.md`](INDEPENDENT_VERIFICATION.md) | **Confirmed** |
-| **Sumit Adhikari** | `adronnie` | Supabase Cloud schema review, catalog data verification, and migration preparation | [`../week_10/SUPABASE_VERIFICATION_REPORT.md`](../week_10/SUPABASE_VERIFICATION_REPORT.md), [`DATABASE_AND_RLS_VERIFICATION.md`](DATABASE_AND_RLS_VERIFICATION.md) | **Confirmed** |
-| **J.N. Taj Oli** | `jn-oli` | UI/UX visual theme audit, dark/light mode consistency review, and wireframe alignment | [UI_UX Verification](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/ba49572591b4aae0bef9ba4e91d2d53dbeb6bf7a/docs/week_11/UI_UX_VERIFICATION.md), [Evidence](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/tree/ba49572591b4aae0bef9ba4e91d2d53dbeb6bf7a/docs/week_11/Evidence%20UI_UX%20verfication) | **Completed** |
+- **Temporary Preview URL:** [`https://rapid-oxygen-cicusvj.tmp.now`](https://rapid-oxygen-cicusvj.tmp.now) (Verified HTTP 200 on all 6 entry points with `nosniff`, `DENY` headers).
+- **Personal Fork CI/CD Project:** [`liftupkhadka555-spec/Team-5-Capstone-Design`](https://github.com/liftupkhadka555-spec/Team-5-Capstone-Design) connected to Vercel project `team-5-capstone-design-761v`.
+- **Course Organization Repository:** Upstream deployment for `CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design` remains pending university administrator approval for the Vercel GitHub App.
+- **Source SHA Provenance:** The temporary preview reflects local working tree assets; automated deployment of the latest course repository commit (`d274332`) is **UNVERIFIED** until admin app authorization is completed.
+- **Backend Role:** Supabase Cloud (`bcwwnjtmrcxggbaallon.supabase.co`) remains the application backend; no redundant Node/Express server on Render is required.
 
 ---
 
-## 6. Formal Scope Freeze Decision
+## 5. Team 5 Member Contributions & Status
 
-**Milestone Decision: CONDITIONAL GO**  
+| Member | GitHub Login | Verified Week 11 Accomplishments | Outstanding Work / Pending Gates | Primary Evidence |
+| :--- | :--- | :--- | :--- | :--- |
+| **Nabin Khadka** | `liftupkhadka555-spec` | Vercel preview deployment, Vite multi-page build, E2E spec authoring, contract runner (3/3), audit & closure of 18 issues (#15–#35), Week 11 technical audit documentation set | Course org Vercel CI/CD setup, live RLS execution, freeze sign-off | [`NABIN_KHADKA_EVIDENCE.md`](NABIN_KHADKA_EVIDENCE.md), [`VERCEL_DEPLOYMENT_REPORT.md`](VERCEL_DEPLOYMENT_REPORT.md), [`ISSUES_AUDIT_SEP19_OCT13.md`](ISSUES_AUDIT_SEP19_OCT13.md) |
+| **Prabin Rai** | `RaiPrabin697` | Review package structure, evidence classification, repeatable task check protocol | Playwright browser suite execution (24 cases), freeze sign-off | [`README.md`](README.md), [`EVIDENCE_REGISTER.md`](EVIDENCE_REGISTER.md), [`RAI_LIVE_TEST_RECEIPT.md`](RAI_LIVE_TEST_RECEIPT.md) |
+| **Prince Karki** | `princekark` | Study Analytics manual testing (8 PASS / 0 FAIL), 8 screenshot artifacts, task CRUD observation | Two-student authenticated RLS testing (`DATA-01`), Brevo SMTP verification, freeze sign-off | [`Study_Analytics_Report.md`](Study_Analytics_Report.md), [`Evidence/Prince-Karki/`](Evidence/Prince-Karki/) |
+| **Sumit Adhikari** | `adronnie` | Supabase Cloud schema review, academic catalog probe verification, non-destructive SQL execution plan | Execution of `009` and `010` in Supabase Cloud SQL Editor, freeze sign-off | [`DATABASE_AND_RLS_VERIFICATION.md`](DATABASE_AND_RLS_VERIFICATION.md) |
+| **J.N. Taj Oli** | `jn-oli` | Desktop UI/UX verification across 5 views (45 PASS / 0 FAIL), theme toggle persistence, Escape key behavior | Mobile 390px viewport testing, freeze sign-off | [`UI_UX_VERIFICATION.md`](UI_UX_VERIFICATION.md) |
+
+---
+
+## 6. Formal Scope Freeze Proposal
+
+**Recommendation:** **CONDITIONAL GO PROPOSED**  
 Documented in: [`FEATURE_FREEZE_DECISION.md`](FEATURE_FREEZE_DECISION.md)
 
-1. **LOCKED Core MVP Modules:**
-   - University/Faculty/Major academic hierarchy and subject enrollment.
-   - Study task creation, deadline tracking, and status toggles.
+1. **LOCKED Core MVP Modules (Scope Freeze Proposed):**
+   - 5-tier cascading academic onboarding (Country → University → Faculty → Major → Subject).
+   - Task CRUD, validation, deadline sorting, and status toggles.
    - Standard curated quiz engine and score calculation.
-   - Study analytics dashboard and progress tracking.
+   - Study task analytics dashboard and progress tracking.
    - User authentication and session persistence.
 2. **DEFERRED Beyond MVP:**
-   - Gemini AI Study Chat Assistant is deferred to preserve team bandwidth for final Capstone presentation delivery.
-   - Reminders, push notifications, and multi-tenant university admin portals remain post-MVP roadmap items.
+   - Google Gemini AI Study Chat Assistant (`#view-assistant`) is formally deferred to post-MVP roadmap to safeguard delivery of core functionality.
+   - Reminders, push notifications, and administrative portals remain post-MVP items.
+3. **Pending Sign-Offs:** Formal freeze approval remains **PENDING** for all 5 team members until each student signs off on the reconciliation PR.
 
 ---
 
 ## 7. Priority Handoff to Week 12
 
-1. **P0 (Supabase SQL Editor):** Execute `009_ai_quiz_tables.sql` and `010_complete_universities.sql` in the Supabase Cloud dashboard to resolve bug #53 (`PGRST205`).
-2. **P0 (Supabase CLI):** Deploy `generate-ai-quiz` Edge Function and set `GEMINI_API_KEY` secret.
-3. **P0 (Supabase Auth Settings):** Configure Brevo Custom SMTP, enable email verification, and set allowed redirect URLs to the live Vercel domain.
-4. **P1 (Final Presentation):** Rehearse the live student walkthrough from signup &rarr; academic onboarding &rarr; study tasks &rarr; practice quiz &rarr; analytics on the live Vercel deployment.
+1. **P0 (Database):** Execute `supabase/migrations/009_ai_quiz_tables.sql` and `010_complete_universities.sql` in Supabase Cloud SQL Editor to resolve Issue #53 (`PGRST205`). *(Owner: Sumit Adhikari)*
+2. **P0 (Security / RLS):** Execute two-student authenticated RLS isolation check (`DATA-01`) per [`INDEPENDENT_VERIFICATION.md`](INDEPENDENT_VERIFICATION.md) using disposable test accounts. *(Reviewer: Prince Karki)*
+3. **P0 (Auth / Email):** Configure Brevo Custom SMTP in Supabase Auth to resolve password recovery delivery (Issue #40). *(Owner: Nabin Khadka / Prince Karki)*
+4. **P1 (Automated Testing):** Install `@playwright/test` and run the 24 drafted browser tests against local preview. *(Owner: Prabin Rai)*
+5. **P1 (Deployment):** Request university admin approval for the Vercel GitHub App to link `CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design` directly. *(Owner: Nabin Khadka)*
+6. **P1 (Freeze Approval):** Collect and record formal sign-offs from all 5 members in [`FEATURE_FREEZE_DECISION.md`](FEATURE_FREEZE_DECISION.md). *(All Members)*

@@ -15,7 +15,7 @@ Proposed support map (all acceptance/explain-back pending):
 - Integration: liftupkhadka555-spec; backups adronnie for data and princekark for auth; trace request and response.
 - Setup/deployment: steward and backup to confirm; complete clean-setup receipt.
 
-These are proposed handoff contacts, not exclusive authorship or accepted assignments. Each member must record their own explanation, acceptance date, assistance disclosure and review receipt. Request a non-author [task reproduction](../week_11/INDEPENDENT_VERIFICATION.md); no request acceptance or successful run is claimed. Use its result to update the [freeze decision](../week_11/FREEZE_DECISION.md).
+These are proposed handoff contacts, not exclusive authorship or accepted assignments. Each member must record their own explanation, acceptance date, assistance disclosure and review receipt. Request a non-author [task reproduction](../week_11/INDEPENDENT_VERIFICATION.md); no request acceptance or successful run is claimed. Use its result to update the [freeze decision](../week_11/FEATURE_FREEZE_DECISION.md).
 
 ## Historical November 8 assessment
 

@@ -36,21 +36,11 @@ vite v6.4.5 building for production...
 ✓ built in 117ms
 ```
 
-### Vercel Configuration ([`vercel.json`](../../vercel.json))
-The repository includes a production-ready `vercel.json` configured with:
-1. **Routing Rewrites:**
-   ```json
-   {
-     "rewrites": [
-       { "source": "/auth/(.*)", "destination": "/auth/$1" },
-       { "source": "/(.*)", "destination": "/$1" }
-     ]
-   }
-   ```
-2. **HTTP Security Headers:**
-   - `X-Content-Type-Options: nosniff` (prevents MIME-type sniffing).
-   - `X-Frame-Options: DENY` (prevents clickjacking attacks).
-   - `Referrer-Policy: strict-origin-when-cross-origin` (protects user privacy on outbound links).
+### Vercel Deployment & Provenance Status
+- **Temporary Preview URL:** [`https://rapid-oxygen-cicusvj.tmp.now`](https://rapid-oxygen-cicusvj.tmp.now) (Verified HTTP 200 on all 6 entry points with `nosniff`, `DENY` headers).
+- **Personal Fork CI/CD Project:** [`liftupkhadka555-spec/Team-5-Capstone-Design`](https://github.com/liftupkhadka555-spec/Team-5-Capstone-Design) &rarr; `team-5-capstone-design-761v.vercel.app` (created on Vercel Dashboard with environment variables `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`).
+- **Course Organization Repository:** Upstream deployment to `CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design` remains pending university organization admin approval for third-party GitHub Apps.
+- **Reference Document:** Full deployment record documented in [`VERCEL_DEPLOYMENT_REPORT.md`](VERCEL_DEPLOYMENT_REPORT.md).
 
 ### Live GitHub Pages Mirror
 - **Live URL:** `https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/index.html`
