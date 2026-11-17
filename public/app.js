@@ -34,8 +34,15 @@ import {
     getStudentSubjects,
     saveStudentSubjects
 } from './src/services/subjects.js';
-import { getQuizQuestions, saveQuizAttempt, getQuizHistory } from './src/services/quiz.js';
+import {
+    getQuizQuestions,
+    saveQuizAttempt,
+    getQuizHistory,
+    getLocalSeenQuestions,
+    recordSeenQuizQuestions
+} from './src/services/quiz.js';
 import { generateAiQuiz, saveAiQuizAttempt, getAiQuizHistory } from './src/services/ai-quiz.js';
+import { selectQuizQuestions } from './src/lib/quiz-engine.js';
 import { initTheme } from './src/theme.js';
 import {
     initStudyAnalytics,
@@ -76,8 +83,9 @@ let subjectSearchQuery = '';
 let subjectCategoryFilter = 'all';
 let subjectScope = 'major';
 let pendingDelete = null;
-let quiz = { subject: '', mode: 'standard', questions: [], index: 0, answers: [], timeLeft: 30, deadline: 0, finished: false };
+let quiz = { subject: '', difficulty: 'all', mode: 'standard', questions: [], index: 0, answers: [], timeLeft: 30, deadline: 0, finished: false };
 let quizTimer = null;
+let quizLoadSeq = 0;
 
 // ---- Utilities ----
 function escapeHtml(value) {
@@ -248,9 +256,20 @@ function fillQuizSubjects() {
             `</optgroup>`;
     }
 
+    const preferredSlugs = new Set([
+        ...Array.from(selectedEnrolledSlugs),
+        ...(currentMajor && MAJOR_SUBJECT_MAP[currentMajor]
+            ? [...(MAJOR_SUBJECT_MAP[currentMajor].core || []), ...(MAJOR_SUBJECT_MAP[currentMajor].electives || [])]
+            : [])
+    ]);
+
     quizSubjectEl.innerHTML = html;
 
-    if (prevSelected && Array.from(quizSubjectEl.options).some(o => o.value === prevSelected)) {
+    const shouldKeepPrev = prevSelected &&
+        Array.from(quizSubjectEl.options).some(o => o.value === prevSelected) &&
+        (preferredSlugs.size === 0 || preferredSlugs.has(prevSelected));
+
+    if (shouldKeepPrev) {
         quizSubjectEl.value = prevSelected;
     } else if (quizSubjectEl.options.length > 0) {
         quizSubjectEl.selectedIndex = 0;
@@ -258,25 +277,79 @@ function fillQuizSubjects() {
 
     const quizAiSubjectEl = document.getElementById('quiz-ai-subject');
     if (quizAiSubjectEl) {
+        const prevAi = quizAiSubjectEl.value;
         quizAiSubjectEl.innerHTML = html;
-        if (prevSelected && Array.from(quizAiSubjectEl.options).some(o => o.value === prevSelected)) {
-            quizAiSubjectEl.value = prevSelected;
+        const keepAi = prevAi &&
+            Array.from(quizAiSubjectEl.options).some(o => o.value === prevAi) &&
+            (preferredSlugs.size === 0 || preferredSlugs.has(prevAi));
+        if (keepAi) {
+            quizAiSubjectEl.value = prevAi;
         } else if (quizAiSubjectEl.options.length > 0) {
             quizAiSubjectEl.selectedIndex = 0;
         }
     }
 
-    // Update Quiz Header text to show university & major!
+    // Update Quiz Header text to show university & major context honestly (subject-level practice)
     const headingEl = document.getElementById('quiz-main-heading');
     const subHeadingEl = document.getElementById('quiz-sub-heading');
     if (headingEl) {
         headingEl.textContent = currentMajor ? `Practice Quiz · ${currentMajor}` : 'Choose your study subject';
     }
     if (subHeadingEl) {
-        const uniText = currentUni ? ` at ${currentUni}` : '';
-        const majorText = currentMajor ? `for ${currentMajor}${uniText}` : 'for your enrolled courses';
-        subHeadingEl.textContent = `Practice questions tailored ${majorText}. Standard quizzes have 15 questions; rapid quizzes have 10 questions and a 30-second limit.`;
+        const uniText = currentUni ? ` (${currentUni})` : '';
+        const majorText = currentMajor ? ` for ${currentMajor}${uniText}` : ' for your enrolled courses';
+        subHeadingEl.textContent = `Subject-level practice${majorText}. Standard quizzes target 15 questions; rapid quizzes target 10 questions in 30 seconds.`;
     }
+    updateQuizContextBanner();
+}
+
+function updateQuizContextBanner() {
+    const banner = document.getElementById('quiz-context-banner');
+    if (!banner) return;
+    const isAiTab = document.getElementById('quiz-tab-ai')?.classList.contains('is-active');
+    const uni = document.getElementById('academic-university')?.value || currentProfile?.university || 'Not set';
+    const major = document.getElementById('academic-major')?.value || currentProfile?.major || 'General';
+    const subjectSlug = isAiTab
+        ? (document.getElementById('quiz-ai-subject')?.value || '')
+        : (document.getElementById('quiz-subject')?.value || '');
+    const difficulty = isAiTab
+        ? (document.getElementById('quiz-ai-difficulty')?.value || 'medium')
+        : (document.getElementById('quiz-difficulty')?.value || 'all');
+    const subObj = SUBJECTS_CATALOG.find(s => s.slug === subjectSlug);
+    const subjectName = subObj ? subObj.name : (subjectSlug || 'None');
+    const diffLabel = difficulty === 'all' ? 'All Difficulties' : difficulty.charAt(0).toUpperCase() + difficulty.slice(1);
+
+    const seen = getLocalSeenQuestions(currentUser?.id || 'local-student', subjectSlug);
+    const preview = selectQuizQuestions(
+        (QUIZ_BANK[subjectSlug] || []).map((item, idx) => ({
+            id: `local-q-${subjectSlug}-${idx}`,
+            question: item.q,
+            options: item.options,
+            correct_answer: item.answer,
+            difficulty: item.difficulty || null,
+            subject_slug: subjectSlug
+        })),
+        {
+            subjectSlug,
+            subjectName,
+            difficulty,
+            limit: 15,
+            seenIds: seen.ids,
+            seenFingerprints: seen.fingerprints
+        }
+    );
+
+    const modeLabel = isAiTab ? 'AI Quiz Generator' : 'Standard / Rapid';
+    const poolText = isAiTab
+        ? `Curated fallback pool for ${subjectName} (${diffLabel}): ${preview.totalEligible} questions`
+        : `${preview.totalEligible} curated ${diffLabel === 'All Difficulties' ? '' : diffLabel + ' '}question${preview.totalEligible === 1 ? '' : 's'} available (${preview.unseenCount} unseen)`;
+
+    banner.innerHTML =
+        `<strong>Context:</strong> ${escapeHtml(uni)} · ${escapeHtml(major)} · ` +
+        `<strong>Subject:</strong> ${escapeHtml(subjectName)} · ` +
+        `<strong>Difficulty:</strong> ${escapeHtml(diffLabel)} · ` +
+        `<strong>Mode:</strong> ${escapeHtml(modeLabel)}<br>` +
+        `<span>${escapeHtml(poolText)}${!isAiTab && preview.totalEligible === 0 ? ' — Choose "All Difficulties" or AI Quiz.' : ''}</span>`;
 }
 
 // ---- Data Synchronization with Supabase ----
@@ -1215,32 +1288,67 @@ function renderRecentTasks() {
 }
 
 // ---- Quiz Logic ----
-function quizQuestionsFor(subject, count) {
-    const list = QUIZ_BANK[subject] || [];
-    const questions = [...list];
-    for (let index = questions.length - 1; index > 0; index -= 1) {
-        const swapIndex = Math.floor(Math.random() * (index + 1));
-        [questions[index], questions[swapIndex]] = [questions[swapIndex], questions[index]];
-    }
-    return questions.slice(0, count);
+function quizQuestionsFor(subject, count, difficulty = 'all') {
+    const subObj = SUBJECTS_CATALOG.find(s => s.slug === subject);
+    const list = (QUIZ_BANK[subject] || []).map((item, idx) => ({
+        id: `local-q-${subject}-${idx}`,
+        question: item.q,
+        options: item.options,
+        correct_answer: item.answer,
+        difficulty: item.difficulty || null,
+        explanation: item.explanation || null,
+        subject_slug: subject
+    }));
+    const seen = getLocalSeenQuestions(currentUser?.id || 'local-student', subject);
+    const selection = selectQuizQuestions(list, {
+        subjectSlug: subject,
+        subjectName: subObj ? subObj.name : subject,
+        difficulty,
+        limit: count,
+        seenIds: seen.ids,
+        seenFingerprints: seen.fingerprints
+    });
+    return {
+        questions: selection.questions.map(item => ({
+            id: item.id,
+            q: item.question,
+            options: item.options,
+            answer: item.correct_answer,
+            explanation: item.explanation || null,
+            fingerprint: item.fingerprint
+        })),
+        meta: selection
+    };
 }
 
-async function loadQuizQuestions(subject, count) {
+async function loadQuizQuestions(subject, count, difficulty = 'all') {
     const subjectRecord = dbSubjects.find((item) => item.slug === subject) || SUBJECTS_CATALOG.find(s => s.slug === subject);
-    if (subjectRecord && subjectRecord.id && !String(subjectRecord.id).startsWith('subj-')) {
-        const { data, error } = await getQuizQuestions(subjectRecord.id, count);
-        if (!error && data && data.length) {
-            return data.map((item) => ({
+    const subjectName = subjectRecord?.name || subject;
+    const targetId = subjectRecord?.id && !String(subjectRecord.id).startsWith('subj-') ? subjectRecord.id : subject;
+
+    const { data, meta, error } = await getQuizQuestions(targetId, count, {
+        difficulty,
+        studentId: currentUser?.id || 'local-student',
+        subjectSlug: subject,
+        subjectName
+    });
+
+    if (!error && Array.isArray(data)) {
+        return {
+            questions: data.map((item) => ({
                 id: item.id,
                 q: item.question,
                 options: Array.isArray(item.options) ? item.options : JSON.parse(item.options),
-                answer: item.correct_answer
-            }));
-        }
-        if (error) console.warn('Could not load quiz questions from database:', error.message);
+                answer: item.correct_answer,
+                explanation: item.explanation || null,
+                fingerprint: item.fingerprint || null
+            })),
+            meta
+        };
     }
 
-    return quizQuestionsFor(subject, count);
+    if (error) console.warn('Could not load quiz questions from database:', error.message);
+    return quizQuestionsFor(subject, count, difficulty);
 }
 
 function clearQuizTimer() {
@@ -1306,20 +1414,32 @@ function renderQuizQuestion() {
 
 async function startQuiz(mode) {
     const subject = document.getElementById('quiz-subject')?.value;
+    const difficulty = document.getElementById('quiz-difficulty')?.value || 'all';
     if (!subject) {
         toast('Please select a subject to start the quiz.');
         return;
     }
-    const count = mode === 'rapid' ? 10 : 15;
-    const questions = await loadQuizQuestions(subject, count);
 
-    if (questions.length === 0) {
-        toast('No questions available for this subject yet.');
+    const seq = ++quizLoadSeq;
+    quiz.questions = [];
+    const count = mode === 'rapid' ? 10 : 15;
+    const { questions, meta } = await loadQuizQuestions(subject, count, difficulty);
+
+    // Prevent stale async response from overwriting a newer selection
+    if (seq !== quizLoadSeq) return;
+
+    if (!questions || questions.length === 0) {
+        toast(meta?.shortageMessage || 'No questions available for this subject and difficulty yet.');
         return;
+    }
+
+    if (meta?.shortageMessage) {
+        toast(meta.shortageMessage);
     }
 
     quiz = {
         subject,
+        difficulty,
         mode,
         questions,
         index: 0,
@@ -1331,8 +1451,9 @@ async function startQuiz(mode) {
 
     const subObj = SUBJECTS_CATALOG.find(s => s.slug === subject);
     const subTitle = subObj ? subObj.name : subject;
+    const diffTag = difficulty !== 'all' ? ` (${difficulty.toUpperCase()})` : '';
     const titleEl = document.getElementById('quiz-title');
-    if (titleEl) titleEl.textContent = `${subTitle} Quiz`;
+    if (titleEl) titleEl.textContent = `${subTitle} Quiz${diffTag}`;
 
     setQuizStage('play');
     renderQuizQuestion();
@@ -1354,9 +1475,14 @@ async function startAiQuiz() {
         return;
     }
 
+    const seq = ++quizLoadSeq;
+    quiz.questions = [];
+
     const subObj = dbSubjects.find(s => s.slug === subjectSlug) || SUBJECTS_CATALOG.find(s => s.slug === subjectSlug);
     const subjectName = subObj ? subObj.name : 'Computer Science';
     const subjectId = subObj ? subObj.id : null;
+    const university = document.getElementById('academic-university')?.value || currentProfile?.university || '';
+    const major = document.getElementById('academic-major')?.value || currentProfile?.major || '';
 
     const loadingEl = document.getElementById('quiz-ai-loading');
     const generateBtn = document.getElementById('quiz-generate-ai-btn');
@@ -1372,8 +1498,12 @@ async function startAiQuiz() {
             topic,
             difficulty,
             questionCount: count,
-            studentId: currentUser?.id || 'local-student'
+            studentId: currentUser?.id || 'local-student',
+            university,
+            major
         });
+
+        if (seq !== quizLoadSeq) return;
 
         if (error || !data || !data.questions || data.questions.length === 0) {
             toast(error?.message || 'Could not generate AI quiz questions. Please try again.');
@@ -1394,6 +1524,7 @@ async function startAiQuiz() {
             difficulty: data.difficulty,
             aiQuizId: data.quizId,
             mode: 'ai',
+            source: data.source || 'ai_gemini',
             questions,
             index: 0,
             answers: new Array(questions.length).fill(null),
@@ -1403,11 +1534,19 @@ async function startAiQuiz() {
         };
 
         const titleEl = document.getElementById('quiz-title');
-        if (titleEl) titleEl.textContent = `AI Quiz: ${data.topic} (${data.difficulty.toUpperCase()})`;
+        if (titleEl) {
+            titleEl.textContent = data.source === 'curated_fallback'
+                ? `${subjectName} (${data.difficulty.toUpperCase()}) — Verified Curated Bank`
+                : `AI Quiz: ${data.topic} (${data.difficulty.toUpperCase()})`;
+        }
 
         setQuizStage('play');
         renderQuizQuestion();
-        toast(`✨ Generated ${questions.length} AI questions on "${data.topic}"!`);
+        if (data.source === 'curated_fallback') {
+            toast(`Live AI unavailable; loaded ${questions.length} verified curated ${subjectName} (${data.difficulty}) questions.`);
+        } else {
+            toast(`✨ Generated ${questions.length} AI questions on "${data.topic}"!`);
+        }
     } catch (err) {
         toast('Error creating AI quiz: ' + err.message);
     } finally {
@@ -1427,6 +1566,10 @@ async function finishQuiz(timedOut = false) {
 
     const total = quiz.questions.length;
     const percentage = Math.round((correctCount / total) * 100);
+
+    // Record seen questions for this student & subject to avoid repeating on next attempt
+    recordSeenQuizQuestions(currentUser?.id || 'local-student', quiz.subject, quiz.questions);
+    updateQuizContextBanner();
 
     // Save to database
     if (currentUser) {
@@ -1464,6 +1607,7 @@ async function finishQuiz(timedOut = false) {
                 subjectId: subjectRecord?.id || null,
                 subjectSlug: quiz.subject,
                 mode: quiz.mode,
+                difficulty: quiz.difficulty || 'all',
                 score: correctCount,
                 totalQuestions: total,
                 responses
@@ -2048,6 +2192,7 @@ function setupEventListeners() {
             tabAi.classList.remove('is-active');
             panelCurated.hidden = false;
             panelAi.hidden = true;
+            updateQuizContextBanner();
         });
 
         tabAi.addEventListener('click', () => {
@@ -2055,8 +2200,22 @@ function setupEventListeners() {
             tabCurated.classList.remove('is-active');
             panelAi.hidden = false;
             panelCurated.hidden = true;
+            updateQuizContextBanner();
         });
     }
+
+    ['quiz-subject', 'quiz-difficulty', 'quiz-ai-subject', 'quiz-ai-difficulty'].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.addEventListener('change', () => {
+                quizLoadSeq += 1;
+                if (!document.getElementById('quiz-setup')?.hidden) {
+                    quiz.questions = [];
+                }
+                updateQuizContextBanner();
+            });
+        }
+    });
 
     const quizGenerateAiBtn = document.getElementById('quiz-generate-ai-btn');
     if (quizGenerateAiBtn) {

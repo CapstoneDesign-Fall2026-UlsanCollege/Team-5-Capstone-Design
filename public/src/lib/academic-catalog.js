@@ -894,7 +894,8 @@ export const QUIZ_BANK = {
         "static",
         "define"
       ],
-      "answer": 1
+      "answer": 1,
+      "difficulty": "easy"
     },
     {
       "q": "Which HTML element represents the most important heading?",
@@ -904,7 +905,8 @@ export const QUIZ_BANK = {
         "<h1>",
         "<title>"
       ],
-      "answer": 2
+      "answer": 2,
+      "difficulty": "easy"
     },
     {
       "q": "Which CSS property changes the color of text?",
@@ -914,7 +916,8 @@ export const QUIZ_BANK = {
         "text-align",
         "color"
       ],
-      "answer": 3
+      "answer": 3,
+      "difficulty": "easy"
     },
     {
       "q": "What does a Boolean value represent?",
@@ -924,7 +927,8 @@ export const QUIZ_BANK = {
         "A sequence of characters",
         "A memory address"
       ],
-      "answer": 0
+      "answer": 0,
+      "difficulty": "easy"
     },
     {
       "q": "What is the main purpose of a function?",
@@ -934,7 +938,8 @@ export const QUIZ_BANK = {
         "To increase screen resolution",
         "To allocate network ports"
       ],
-      "answer": 1
+      "answer": 1,
+      "difficulty": "easy"
     },
     {
       "q": "What does debugging help a programmer do?",
@@ -944,7 +949,8 @@ export const QUIZ_BANK = {
         "Find and fix errors",
         "Encrypt every variable"
       ],
-      "answer": 2
+      "answer": 2,
+      "difficulty": "easy"
     },
     {
       "q": "Which JavaScript operator checks both value and type equality?",
@@ -954,7 +960,8 @@ export const QUIZ_BANK = {
         "!=",
         "==="
       ],
-      "answer": 3
+      "answer": 3,
+      "difficulty": "easy"
     },
     {
       "q": "What is a parameter in a function?",
@@ -964,7 +971,8 @@ export const QUIZ_BANK = {
         "A syntax error",
         "A loop condition"
       ],
-      "answer": 0
+      "answer": 0,
+      "difficulty": "easy"
     },
     {
       "q": "What does an array commonly store?",
@@ -974,7 +982,8 @@ export const QUIZ_BANK = {
         "Only true/false values",
         "A network protocol"
       ],
-      "answer": 1
+      "answer": 1,
+      "difficulty": "easy"
     },
     {
       "q": "Which keyword exits a loop immediately in many programming languages?",
@@ -984,7 +993,8 @@ export const QUIZ_BANK = {
         "break",
         "next-loop"
       ],
-      "answer": 2
+      "answer": 2,
+      "difficulty": "easy"
     },
     {
       "q": "What is the result of 9 % 4 in JavaScript?",
@@ -994,7 +1004,8 @@ export const QUIZ_BANK = {
         "2.25",
         "36"
       ],
-      "answer": 0
+      "answer": 0,
+      "difficulty": "medium"
     },
     {
       "q": "What is a syntax error?",
@@ -1004,7 +1015,8 @@ export const QUIZ_BANK = {
         "A missing user account",
         "A full hard drive"
       ],
-      "answer": 1
+      "answer": 1,
+      "difficulty": "easy"
     },
     {
       "q": "Which statement runs a block only when its condition is true?",
@@ -1014,7 +1026,8 @@ export const QUIZ_BANK = {
         "if",
         "return"
       ],
-      "answer": 2
+      "answer": 2,
+      "difficulty": "easy"
     },
     {
       "q": "What does a return statement do in a function?",
@@ -1024,7 +1037,8 @@ export const QUIZ_BANK = {
         "Catches every error",
         "Sends a value back to the caller"
       ],
-      "answer": 3
+      "answer": 3,
+      "difficulty": "easy"
     },
     {
       "q": "What does source control help a team track?",
@@ -1034,7 +1048,128 @@ export const QUIZ_BANK = {
         "Monitor brightness",
         "Internet speed"
       ],
-      "answer": 0
+      "answer": 0,
+      "difficulty": "easy"
+    },
+    {
+      "q": "What is the output of a loop from i = 0 to 4 that adds i only when i % 2 === 0?",
+      "options": [
+        "6",
+        "4",
+        "10",
+        "2"
+      ],
+      "answer": 0,
+      "difficulty": "medium",
+      "explanation": "The even values in 0..4 are 0, 2, and 4, whose sum is 0 + 2 + 4 = 6."
+    },
+    {
+      "q": "Why does encapsulation improve object-oriented code maintainability?",
+      "options": [
+        "It removes the need for unit tests",
+        "It hides internal state behind controlled methods or interfaces",
+        "It forces every variable to be global",
+        "It compiles interpreted code into machine instructions"
+      ],
+      "answer": 1,
+      "difficulty": "medium",
+      "explanation": "Encapsulation restricts direct external mutation of internal state, allowing implementation details to change safely."
+    },
+    {
+      "q": "In JavaScript, what does Array.prototype.filter() return?",
+      "options": [
+        "The first matching element only",
+        "A boolean indicating whether any element matched",
+        "A new array containing elements for which the callback returns truthy",
+        "The mutated original array with non-matching items deleted"
+      ],
+      "answer": 2,
+      "difficulty": "medium",
+      "explanation": "filter() creates and returns a shallow-copied new array containing only elements that pass the predicate."
+    },
+    {
+      "q": "What is the primary cause of an off-by-one error in an array loop?",
+      "options": [
+        "Using const instead of let for the array reference",
+        "Using <= array.length instead of < array.length as the loop bound",
+        "Declaring the loop variable before the loop",
+        "Returning early inside an if statement"
+      ],
+      "answer": 1,
+      "difficulty": "medium",
+      "explanation": "Zero-indexed arrays have valid indices 0 through length - 1; iterating up to length accesses an out-of-bounds undefined slot."
+    },
+    {
+      "q": "Which statement accurately describes recursion?",
+      "options": [
+        "A function that calls itself on smaller subproblems until reaching a base case",
+        "A loop that cannot terminate without break",
+        "A variable that stores multiple data types simultaneously",
+        "A syntax error raised when two functions share a name"
+      ],
+      "answer": 0,
+      "difficulty": "medium",
+      "explanation": "Recursion solves a problem by reducing it to smaller instances of itself and terminating at a base case."
+    },
+    {
+      "q": "Analyze: for (let i = 1; i <= n; i *= 2) { for (let j = 0; j < n; j++) { count++; } }. What is the time complexity?",
+      "options": [
+        "O(n)",
+        "O(log n)",
+        "O(n log n)",
+        "O(n^2)"
+      ],
+      "answer": 2,
+      "difficulty": "hard",
+      "explanation": "The outer loop doubles i until n (O(log n) iterations) and for each outer step the inner loop runs n times, giving O(n log n)."
+    },
+    {
+      "q": "What is a closure in JavaScript?",
+      "options": [
+        "A syntax block that closes a try/catch statement",
+        "A function bundled with references to its surrounding lexical environment",
+        "An automatic garbage collection cycle after a loop ends",
+        "A method that prevents an object from being serialized"
+      ],
+      "answer": 1,
+      "difficulty": "hard",
+      "explanation": "A closure allows an inner function to retain access to variables from its outer lexical scope even after the outer function has returned."
+    },
+    {
+      "q": "Why can recursive algorithms without memoization exhibit exponential time complexity on overlapping subproblems?",
+      "options": [
+        "Because the call stack automatically sorts parameters on every call",
+        "Because identical subproblems are recomputed repeatedly across branches",
+        "Because recursion disables CPU branch prediction",
+        "Because local variables are persisted in browser localStorage"
+      ],
+      "answer": 1,
+      "difficulty": "hard",
+      "explanation": "Without caching (memoization), naive recursion re-evaluates the same subproblem inputs exponentially many times (e.g., naive Fibonacci)."
+    },
+    {
+      "q": "In asynchronous JavaScript, why can two concurrent await calls run sequentially instead of in parallel if written one after another?",
+      "options": [
+        "Each await pauses execution of the async function until that Promise settles before starting the next",
+        "Promises can only resolve in alphabetical order",
+        "fetch() blocks the entire browser network stack globally",
+        "async functions always execute on a separate CPU thread"
+      ],
+      "answer": 0,
+      "difficulty": "hard",
+      "explanation": "Awaiting each call sequentially waits for the first to finish before initiating the second; Promise.all() starts independent operations concurrently."
+    },
+    {
+      "q": "Which concurrency hazard occurs when two asynchronous callbacks read stale shared state and overwrite each other on completion?",
+      "options": [
+        "Syntax shadowing",
+        "Race condition / lost update",
+        "Tail-call optimization",
+        "Dead code elimination"
+      ],
+      "answer": 1,
+      "difficulty": "hard",
+      "explanation": "When interleaved async operations read and later write shared state without coordination or sequence checks, the later completion overwrites earlier state."
     }
   ],
   "data-structures": [
@@ -1046,7 +1181,8 @@ export const QUIZ_BANK = {
         "Heap",
         "Graph"
       ],
-      "answer": 1
+      "answer": 1,
+      "difficulty": "easy"
     },
     {
       "q": "Which structure follows first-in, first-out order?",
@@ -1056,7 +1192,8 @@ export const QUIZ_BANK = {
         "Queue",
         "Set"
       ],
-      "answer": 2
+      "answer": 2,
+      "difficulty": "easy"
     },
     {
       "q": "In a typical array, what is the time complexity of accessing an element by index?",
@@ -1064,9 +1201,10 @@ export const QUIZ_BANK = {
         "O(1)",
         "O(log n)",
         "O(n)",
-        "O(n\u00b2)"
+        "O(n²)"
       ],
-      "answer": 0
+      "answer": 0,
+      "difficulty": "medium"
     },
     {
       "q": "Which data structure is commonly used to implement a priority queue?",
@@ -1076,7 +1214,8 @@ export const QUIZ_BANK = {
         "Hash set",
         "Stack"
       ],
-      "answer": 1
+      "answer": 1,
+      "difficulty": "medium"
     },
     {
       "q": "What is the average lookup time for a well-distributed hash table?",
@@ -1086,7 +1225,8 @@ export const QUIZ_BANK = {
         "O(1)",
         "O(n log n)"
       ],
-      "answer": 2
+      "answer": 2,
+      "difficulty": "medium"
     },
     {
       "q": "In a binary search tree, values in the left subtree are usually:",
@@ -1096,7 +1236,8 @@ export const QUIZ_BANK = {
         "Always equal to the node",
         "Stored as child indexes"
       ],
-      "answer": 0
+      "answer": 0,
+      "difficulty": "easy"
     },
     {
       "q": "Which traversal explores a graph level by level?",
@@ -1106,7 +1247,8 @@ export const QUIZ_BANK = {
         "Breadth-first search",
         "Binary search"
       ],
-      "answer": 2
+      "answer": 2,
+      "difficulty": "medium"
     },
     {
       "q": "What is the worst-case time complexity of linear search?",
@@ -1116,7 +1258,8 @@ export const QUIZ_BANK = {
         "O(n)",
         "O(n log n)"
       ],
-      "answer": 2
+      "answer": 2,
+      "difficulty": "medium"
     },
     {
       "q": "Which structure connects nodes using edges and has no required root?",
@@ -1126,7 +1269,8 @@ export const QUIZ_BANK = {
         "Array",
         "Queue"
       ],
-      "answer": 0
+      "answer": 0,
+      "difficulty": "easy"
     },
     {
       "q": "What is a leaf in a tree?",
@@ -1136,7 +1280,8 @@ export const QUIZ_BANK = {
         "An edge between roots",
         "A cycle"
       ],
-      "answer": 0
+      "answer": 0,
+      "difficulty": "easy"
     },
     {
       "q": "Which sorting algorithm repeatedly partitions around a pivot?",
@@ -1146,7 +1291,8 @@ export const QUIZ_BANK = {
         "Insertion sort",
         "Counting sort"
       ],
-      "answer": 1
+      "answer": 1,
+      "difficulty": "medium"
     },
     {
       "q": "What does a linked list node typically contain?",
@@ -1156,7 +1302,8 @@ export const QUIZ_BANK = {
         "A database table",
         "A sorting algorithm"
       ],
-      "answer": 1
+      "answer": 1,
+      "difficulty": "easy"
     },
     {
       "q": "Which algorithmic technique solves problems by combining results from smaller subproblems?",
@@ -1166,17 +1313,19 @@ export const QUIZ_BANK = {
         "Divide and conquer",
         "Linear probing"
       ],
-      "answer": 2
+      "answer": 2,
+      "difficulty": "medium"
     },
     {
       "q": "A balanced binary search tree keeps its height approximately:",
       "options": [
         "O(log n)",
-        "O(n\u00b2)",
+        "O(n²)",
         "O(1) for every size",
-        "O(2\u207f)"
+        "O(2ⁿ)"
       ],
-      "answer": 0
+      "answer": 0,
+      "difficulty": "medium"
     },
     {
       "q": "Which data structure is most suitable for checking whether an item has appeared before?",
@@ -1186,7 +1335,104 @@ export const QUIZ_BANK = {
         "Stack",
         "Tree traversal list"
       ],
-      "answer": 1
+      "answer": 1,
+      "difficulty": "medium"
+    },
+    {
+      "q": "Why is a hash table preferred over a sorted array when frequent insertions and exact-key lookups are required?",
+      "options": [
+        "Hash tables guarantee O(1) range queries",
+        "Hash tables provide O(1) average-case insert and lookup without shifting elements",
+        "Hash tables use zero extra memory overhead",
+        "Hash tables preserve insertion order automatically without extra pointers"
+      ],
+      "answer": 1,
+      "difficulty": "medium",
+      "explanation": "Sorted arrays require O(n) element shifts on insert, whereas a well-sized hash table inserts and looks up keys in O(1) average time."
+    },
+    {
+      "q": "Which traversal of a Binary Search Tree visits nodes in non-decreasing sorted order?",
+      "options": [
+        "Pre-order",
+        "Post-order",
+        "In-order",
+        "Level-order"
+      ],
+      "answer": 2,
+      "difficulty": "medium",
+      "explanation": "In-order traversal visits Left -> Node -> Right, which yields keys in sorted ascending order for a valid BST."
+    },
+    {
+      "q": "What is the time complexity of finding the shortest path in an unweighted graph using Breadth-First Search (BFS) with adjacency lists?",
+      "options": [
+        "O(V + E)",
+        "O(V^2 log V)",
+        "O(E log E)",
+        "O(1)"
+      ],
+      "answer": 0,
+      "difficulty": "medium",
+      "explanation": "BFS visits each vertex V and inspects each edge E at most a constant number of times, taking O(V + E)."
+    },
+    {
+      "q": "Why does Quick Sort degrade to O(n^2) worst-case time complexity on already-sorted input when choosing the first element as pivot?",
+      "options": [
+        "Because the pivot divides the array into 0 and n - 1 elements on every step",
+        "Because comparisons take O(n) time each",
+        "Because Quick Sort allocates an O(n^2) auxiliary matrix",
+        "Because already-sorted arrays cannot be partitioned"
+      ],
+      "answer": 0,
+      "difficulty": "hard",
+      "explanation": "Repeatedly picking an extreme value as pivot creates maximally unbalanced partitions of size n-1, leading to n + (n-1) + ... = O(n^2) work."
+    },
+    {
+      "q": "When implementing Dijkstra shortest-path algorithm with a binary min-heap on a graph with V vertices and E edges (E >= V), what is the time complexity?",
+      "options": [
+        "O(V + E)",
+        "O((V + E) log V)",
+        "O(V^3)",
+        "O(E^2)"
+      ],
+      "answer": 1,
+      "difficulty": "hard",
+      "explanation": "Each vertex is extracted once and each edge relaxation can trigger a heap operation taking O(log V), yielding O((V + E) log V)."
+    },
+    {
+      "q": "In an open-addressing hash table, what happens as the load factor approaches 1.0?",
+      "options": [
+        "Lookup time improves to strictly O(1) worst-case",
+        "Clustering increases probe lengths sharply, degrading operations toward O(n)",
+        "Collisions stop occurring",
+        "Memory usage shrinks to zero"
+      ],
+      "answer": 1,
+      "difficulty": "hard",
+      "explanation": "High load factors leave few empty slots, causing long probe sequences (primary/secondary clustering) and degraded lookup/insert performance."
+    },
+    {
+      "q": "Which condition distinguishes dynamic programming from plain divide-and-conquer?",
+      "options": [
+        "Dynamic programming requires sorting the input first",
+        "Dynamic programming applies when subproblems overlap and optimal substructure holds",
+        "Dynamic programming only works on trees",
+        "Divide-and-conquer cannot use recursion"
+      ],
+      "answer": 1,
+      "difficulty": "hard",
+      "explanation": "Divide-and-conquer solves disjoint subproblems, whereas dynamic programming caches solutions to overlapping subproblems."
+    },
+    {
+      "q": "What is the amortized time complexity of appending n elements to a dynamic array that doubles its capacity when full?",
+      "options": [
+        "O(n) per append",
+        "O(log n) per append",
+        "O(1) per append",
+        "O(n^2) total"
+      ],
+      "answer": 2,
+      "difficulty": "hard",
+      "explanation": "Doubling capacity spreads the O(n) copy cost across n/2 insertions, yielding O(1) amortized time per append."
     }
   ],
   "databases": [
@@ -1198,7 +1444,8 @@ export const QUIZ_BANK = {
         "System Quality Layer",
         "Simple Queue Language"
       ],
-      "answer": 0
+      "answer": 0,
+      "difficulty": "easy"
     },
     {
       "q": "Which key uniquely identifies a row in a relational table?",
@@ -1208,7 +1455,8 @@ export const QUIZ_BANK = {
         "Index label",
         "Nullable key"
       ],
-      "answer": 1
+      "answer": 1,
+      "difficulty": "easy"
     },
     {
       "q": "What is the purpose of a foreign key?",
@@ -1218,7 +1466,8 @@ export const QUIZ_BANK = {
         "To reference a key in another table",
         "To create a backup"
       ],
-      "answer": 2
+      "answer": 2,
+      "difficulty": "easy"
     },
     {
       "q": "Which SQL command retrieves rows from a table?",
@@ -1228,7 +1477,8 @@ export const QUIZ_BANK = {
         "RETRIEVE",
         "SELECT"
       ],
-      "answer": 3
+      "answer": 3,
+      "difficulty": "easy"
     },
     {
       "q": "Which clause filters rows before grouping?",
@@ -1238,7 +1488,8 @@ export const QUIZ_BANK = {
         "HAVING",
         "LIMIT"
       ],
-      "answer": 0
+      "answer": 0,
+      "difficulty": "medium"
     },
     {
       "q": "What does a JOIN do in a relational query?",
@@ -1248,7 +1499,8 @@ export const QUIZ_BANK = {
         "Changes a column type",
         "Backs up a table"
       ],
-      "answer": 1
+      "answer": 1,
+      "difficulty": "medium"
     },
     {
       "q": "Which property is expected of a transaction under ACID?",
@@ -1258,7 +1510,8 @@ export const QUIZ_BANK = {
         "Atomicity",
         "Duplication"
       ],
-      "answer": 2
+      "answer": 2,
+      "difficulty": "medium"
     },
     {
       "q": "What is database normalization primarily intended to reduce?",
@@ -1268,7 +1521,8 @@ export const QUIZ_BANK = {
         "The number of users",
         "All indexes"
       ],
-      "answer": 0
+      "answer": 0,
+      "difficulty": "medium"
     },
     {
       "q": "Which SQL command adds a new row?",
@@ -1278,7 +1532,8 @@ export const QUIZ_BANK = {
         "ADD COLUMN",
         "CREATE ROW"
       ],
-      "answer": 1
+      "answer": 1,
+      "difficulty": "easy"
     },
     {
       "q": "What does an index generally improve?",
@@ -1288,7 +1543,8 @@ export const QUIZ_BANK = {
         "Data accuracy automatically",
         "Network encryption"
       ],
-      "answer": 0
+      "answer": 0,
+      "difficulty": "medium"
     },
     {
       "q": "Which clause sorts query results?",
@@ -1298,7 +1554,8 @@ export const QUIZ_BANK = {
         "ORDER BY",
         "SORT TABLE"
       ],
-      "answer": 2
+      "answer": 2,
+      "difficulty": "easy"
     },
     {
       "q": "What does NULL typically mean in a database?",
@@ -1308,7 +1565,8 @@ export const QUIZ_BANK = {
         "False",
         "A missing or unknown value"
       ],
-      "answer": 3
+      "answer": 3,
+      "difficulty": "easy"
     },
     {
       "q": "Which SQL operation changes existing rows?",
@@ -1318,7 +1576,8 @@ export const QUIZ_BANK = {
         "SELECT",
         "GRANT"
       ],
-      "answer": 0
+      "answer": 0,
+      "difficulty": "easy"
     },
     {
       "q": "What does GROUP BY do?",
@@ -1328,7 +1587,8 @@ export const QUIZ_BANK = {
         "Encrypts grouped columns",
         "Orders rows alphabetically only"
       ],
-      "answer": 1
+      "answer": 1,
+      "difficulty": "medium"
     },
     {
       "q": "Which database model stores data as documents, key-value pairs, or graphs instead of only relational tables?",
@@ -1338,7 +1598,104 @@ export const QUIZ_BANK = {
         "NoSQL",
         "Flat-file index"
       ],
-      "answer": 2
+      "answer": 2,
+      "difficulty": "easy"
+    },
+    {
+      "q": "What is the key difference between WHERE and HAVING in SQL?",
+      "options": [
+        "WHERE filters individual rows before grouping; HAVING filters grouped aggregates after GROUP BY",
+        "HAVING runs before FROM; WHERE runs after ORDER BY",
+        "WHERE can only be used with DELETE",
+        "HAVING cannot reference aggregate functions like COUNT()"
+      ],
+      "answer": 0,
+      "difficulty": "medium",
+      "explanation": "WHERE filters source rows prior to aggregation, whereas HAVING filters groups produced by GROUP BY."
+    },
+    {
+      "q": "What does a LEFT JOIN return when a row in the left table has no matching row in the right table?",
+      "options": [
+        "The left row is omitted from the result",
+        "The left row is returned with NULLs for the right table columns",
+        "PostgreSQL raises a foreign key error",
+        "The right row is duplicated"
+      ],
+      "answer": 1,
+      "difficulty": "medium",
+      "explanation": "LEFT JOIN preserves every row from the left table and fills unmatched right-side columns with NULL."
+    },
+    {
+      "q": "Which normal form eliminates transitive dependencies of non-key attributes on a candidate key?",
+      "options": [
+        "First Normal Form (1NF)",
+        "Second Normal Form (2NF)",
+        "Third Normal Form (3NF)",
+        "Unnormalized Form"
+      ],
+      "answer": 2,
+      "difficulty": "medium",
+      "explanation": "3NF requires 2NF plus no transitive functional dependencies from non-prime attributes to a superkey."
+    },
+    {
+      "q": "Why can adding too many B-tree indexes on a write-heavy table degrade performance?",
+      "options": [
+        "Indexes prevent SELECT queries from using WHERE",
+        "Every INSERT, UPDATE, or DELETE on indexed columns must also maintain those index structures",
+        "PostgreSQL limits tables to 100 rows when indexed",
+        "Indexes disable primary key uniqueness"
+      ],
+      "answer": 1,
+      "difficulty": "medium",
+      "explanation": "While indexes speed up reads, write operations incur extra I/O and CPU overhead to update each affected index."
+    },
+    {
+      "q": "In a composite B-tree index on (student_id, completed_at), which query benefits most directly from the index ordering?",
+      "options": [
+        "WHERE completed_at > now() - interval '7 days' only",
+        "WHERE student_id =  ORDER BY completed_at DESC",
+        "WHERE title ILIKE '%lab%'",
+        "SELECT count(*) FROM tasks with no filter"
+      ],
+      "answer": 1,
+      "difficulty": "hard",
+      "explanation": "A composite B-tree index on (student_id, completed_at) narrows to the leading column student_id and reads entries already ordered by completed_at."
+    },
+    {
+      "q": "Which concurrency anomaly occurs when Transaction A reads a value, Transaction B updates and commits it, and Transaction A reads the same row again seeing a different value?",
+      "options": [
+        "Dirty write",
+        "Non-repeatable read",
+        "Deadlock resolution",
+        "Referential cascade"
+      ],
+      "answer": 1,
+      "difficulty": "hard",
+      "explanation": "A non-repeatable read happens under Read Committed when two reads of the same row within one transaction observe different committed versions."
+    },
+    {
+      "q": "Why does PostgreSQL Row Level Security (RLS) protect multi-tenant data more reliably than client-side filtering alone?",
+      "options": [
+        "RLS compresses JSON responses automatically",
+        "RLS enforces row predicates inside the database engine regardless of client query parameters",
+        "RLS caches all user passwords in the browser",
+        "RLS disables SQL joins across tables"
+      ],
+      "answer": 1,
+      "difficulty": "hard",
+      "explanation": "Client filters can be bypassed by calling REST APIs directly; RLS enforces auth.uid() predicates at the PostgreSQL execution layer."
+    },
+    {
+      "q": "When designing a query to exclude rows present in another set, why can NOT IN behave unexpectedly if the subquery contains NULL?",
+      "options": [
+        "NOT IN treats NULL as zero",
+        "Three-valued SQL logic causes x NOT IN (..., NULL) to evaluate to UNKNOWN, returning 0 rows",
+        "NOT IN automatically drops the table",
+        "NOT IN is identical to INNER JOIN"
+      ],
+      "answer": 1,
+      "difficulty": "hard",
+      "explanation": "Because x != NULL evaluates to UNKNOWN, NOT IN returns UNKNOWN (falsy in WHERE) whenever any subquery row is NULL; NOT EXISTS avoids this."
     }
   ],
   "networks": [
@@ -1350,7 +1707,8 @@ export const QUIZ_BANK = {
         "Interface Program",
         "Integrated Port"
       ],
-      "answer": 0
+      "answer": 0,
+      "difficulty": "easy"
     },
     {
       "q": "Which protocol provides reliable, ordered delivery using a connection?",
@@ -1360,7 +1718,8 @@ export const QUIZ_BANK = {
         "IP",
         "ARP"
       ],
-      "answer": 1
+      "answer": 1,
+      "difficulty": "easy"
     },
     {
       "q": "What is the main purpose of DNS?",
@@ -1370,7 +1729,8 @@ export const QUIZ_BANK = {
         "Translate domain names to IP addresses",
         "Detect hardware errors"
       ],
-      "answer": 2
+      "answer": 2,
+      "difficulty": "easy"
     },
     {
       "q": "Which device forwards packets between different networks?",
@@ -1380,7 +1740,8 @@ export const QUIZ_BANK = {
         "Switch",
         "Router"
       ],
-      "answer": 3
+      "answer": 3,
+      "difficulty": "easy"
     },
     {
       "q": "How many layers are in the commonly taught OSI model?",
@@ -1390,7 +1751,8 @@ export const QUIZ_BANK = {
         "Five",
         "Eight"
       ],
-      "answer": 0
+      "answer": 0,
+      "difficulty": "easy"
     },
     {
       "q": "Which protocol is commonly used to securely browse websites?",
@@ -1400,7 +1762,8 @@ export const QUIZ_BANK = {
         "SMTP",
         "DHCP"
       ],
-      "answer": 1
+      "answer": 1,
+      "difficulty": "easy"
     },
     {
       "q": "What does DHCP commonly provide to a client?",
@@ -1410,7 +1773,8 @@ export const QUIZ_BANK = {
         "Network configuration such as an IP address",
         "A web page"
       ],
-      "answer": 2
+      "answer": 2,
+      "difficulty": "medium"
     },
     {
       "q": "Which transport protocol is connectionless and does not guarantee delivery?",
@@ -1420,7 +1784,8 @@ export const QUIZ_BANK = {
         "SSH",
         "UDP"
       ],
-      "answer": 3
+      "answer": 3,
+      "difficulty": "easy"
     },
     {
       "q": "What is a MAC address associated with?",
@@ -1430,7 +1795,8 @@ export const QUIZ_BANK = {
         "A TCP port",
         "A file system"
       ],
-      "answer": 0
+      "answer": 0,
+      "difficulty": "easy"
     },
     {
       "q": "What is the purpose of a subnet mask?",
@@ -1440,7 +1806,8 @@ export const QUIZ_BANK = {
         "To map a URL to HTML",
         "To increase Wi-Fi signal"
       ],
-      "answer": 1
+      "answer": 1,
+      "difficulty": "medium"
     },
     {
       "q": "Which protocol is used to send email between mail servers?",
@@ -1450,17 +1817,19 @@ export const QUIZ_BANK = {
         "SMTP",
         "SNMP"
       ],
-      "answer": 2
+      "answer": 2,
+      "difficulty": "medium"
     },
     {
       "q": "What does bandwidth describe in a data connection?",
       "options": [
         "The physical length of a cable",
         "The number of devices on a LAN",
-        "A packet\u2019s destination",
+        "A packet’s destination",
         "The maximum data transfer capacity"
       ],
-      "answer": 3
+      "answer": 3,
+      "difficulty": "medium"
     },
     {
       "q": "Which network topology connects devices to a central switch or hub?",
@@ -1470,7 +1839,8 @@ export const QUIZ_BANK = {
         "Bus",
         "Mesh only"
       ],
-      "answer": 0
+      "answer": 0,
+      "difficulty": "easy"
     },
     {
       "q": "What is latency?",
@@ -1480,7 +1850,8 @@ export const QUIZ_BANK = {
         "The size of a hard drive",
         "The encryption key length"
       ],
-      "answer": 1
+      "answer": 1,
+      "difficulty": "easy"
     },
     {
       "q": "Which protocol securely supports remote command-line access?",
@@ -1490,7 +1861,104 @@ export const QUIZ_BANK = {
         "SSH",
         "TFTP"
       ],
-      "answer": 2
+      "answer": 2,
+      "difficulty": "medium"
+    },
+    {
+      "q": "How many usable host IPv4 addresses are available in a /26 subnet?",
+      "options": [
+        "64",
+        "62",
+        "30",
+        "126"
+      ],
+      "answer": 1,
+      "difficulty": "medium",
+      "explanation": "A /26 mask leaves 6 host bits (2^6 = 64 addresses); subtracting the network and broadcast addresses leaves 62 usable host addresses."
+    },
+    {
+      "q": "What happens during the TCP three-way handshake?",
+      "options": [
+        "Client sends SYN, server replies SYN-ACK, client sends ACK",
+        "Client sends ACK, server sends FIN, client sends SYN",
+        "DNS resolves the MAC address via ARP",
+        "TLS exchanges symmetric keys before IP routing"
+      ],
+      "answer": 0,
+      "difficulty": "medium",
+      "explanation": "TCP establishes a reliable connection using SYN -> SYN-ACK -> ACK to synchronize initial sequence numbers."
+    },
+    {
+      "q": "Which HTTP status code indicates the client must authenticate, versus authenticated but forbidden?",
+      "options": [
+        "403 for unauthenticated, 401 for forbidden",
+        "401 Unauthorized for missing/invalid credentials; 403 Forbidden for insufficient permissions",
+        "404 for unauthenticated; 500 for forbidden",
+        "301 for unauthenticated; 204 for forbidden"
+      ],
+      "answer": 1,
+      "difficulty": "medium",
+      "explanation": "HTTP 401 indicates missing or invalid authentication credentials, while 403 indicates the server understood the identity but refuses authorization."
+    },
+    {
+      "q": "Why is UDP often chosen over TCP for real-time voice and video streaming?",
+      "options": [
+        "UDP encrypts all packets automatically",
+        "UDP avoids retransmission delays and head-of-line blocking for time-sensitive frames",
+        "UDP has a larger header than TCP",
+        "UDP guarantees zero packet loss"
+      ],
+      "answer": 1,
+      "difficulty": "medium",
+      "explanation": "In real-time media, waiting to retransmit a lost packet stalls newer frames (head-of-line blocking); UDP prioritizes low latency."
+    },
+    {
+      "q": "Under TCP congestion control, how does the congestion window (cwnd) behave during Slow Start?",
+      "options": [
+        "It decreases linearly each RTT",
+        "It grows exponentially (roughly doubling each RTT) until reaching ssthresh or packet loss",
+        "It stays fixed at 1 MSS for the entire connection",
+        "It bypasses flow control advertised by the receiver"
+      ],
+      "answer": 1,
+      "difficulty": "hard",
+      "explanation": "Slow Start increases cwnd by 1 MSS per ACK received, resulting in exponential growth per round-trip time until ssthresh or congestion."
+    },
+    {
+      "q": "Why does HTTPS protect against on-path (man-in-the-middle) tampering while plain HTTP does not?",
+      "options": [
+        "HTTPS uses static IP addresses",
+        "TLS verifies server identity via certificates and provides authenticated encryption for payloads",
+        "HTTPS disables DNS caching",
+        "HTTPS routes packets only over fiber-optic cables"
+      ],
+      "answer": 1,
+      "difficulty": "hard",
+      "explanation": "TLS authenticates the server using X.509 certificate chains and encrypts/integrity-protects HTTP traffic against eavesdropping and modification."
+    },
+    {
+      "q": "What is the primary cause of TCP head-of-line (HOL) blocking at the transport layer?",
+      "options": [
+        "DNS TTL expiration",
+        "A single lost packet prevents in-order delivery of subsequent buffered segments until retransmitted",
+        "MAC address collisions on a point-to-point link",
+        "ARP cache expiration"
+      ],
+      "answer": 1,
+      "difficulty": "hard",
+      "explanation": "Because TCP exposes a single ordered byte stream, loss of one segment stalls delivery of later already-arrived segments to the application."
+    },
+    {
+      "q": "When a host sends a packet to an IP outside its local subnet, whose MAC address is placed in the Ethernet destination field?",
+      "options": [
+        "The final remote server MAC address",
+        "The default gateway (router) interface MAC address on the local LAN",
+        "The DNS root server MAC address",
+        "The broadcast MAC FF:FF:FF:FF:FF:FF"
+      ],
+      "answer": 1,
+      "difficulty": "hard",
+      "explanation": "Layer 2 frames are scoped to the local link; traffic destined for another subnet is addressed at Layer 2 to the default gateway router."
     }
   ],
   "operating-systems": [
@@ -2177,7 +2645,7 @@ export const QUIZ_BANK = {
       "answer": 1
     },
     {
-      "q": "The intersection A \u2229 B contains:",
+      "q": "The intersection A ∩ B contains:",
       "options": [
         "All elements in either set",
         "Elements only in A",
@@ -2217,7 +2685,7 @@ export const QUIZ_BANK = {
       "answer": 1
     },
     {
-      "q": "The implication p \u2192 q is false only when:",
+      "q": "The implication p → q is false only when:",
       "options": [
         "p is false and q is true",
         "Both are false",
@@ -2250,7 +2718,7 @@ export const QUIZ_BANK = {
       "q": "A tree with n vertices has how many edges?",
       "options": [
         "n",
-        "n \u2212 1",
+        "n − 1",
         "n + 1",
         "2n"
       ],
@@ -2259,11 +2727,11 @@ export const QUIZ_BANK = {
   ],
   "calculus-linear-algebra": [
     {
-      "q": "What is the derivative of x\u00b2?",
+      "q": "What is the derivative of x²?",
       "options": [
         "2x",
         "x",
-        "x\u00b3/3",
+        "x³/3",
         "2"
       ],
       "answer": 0
@@ -2271,20 +2739,20 @@ export const QUIZ_BANK = {
     {
       "q": "What is the integral of 1/x dx?",
       "options": [
-        "x\u00b2",
+        "x²",
         "ln|x| + C",
-        "1/x\u00b2",
-        "e\u02e3"
+        "1/x²",
+        "eˣ"
       ],
       "answer": 1
     },
     {
-      "q": "Multiplying a 2\u00d73 matrix by a 3\u00d74 matrix gives a matrix of size:",
+      "q": "Multiplying a 2×3 matrix by a 3×4 matrix gives a matrix of size:",
       "options": [
-        "3\u00d73",
-        "2\u00d73",
-        "2\u00d74",
-        "4\u00d72"
+        "3×3",
+        "2×3",
+        "2×4",
+        "4×2"
       ],
       "answer": 2
     },
@@ -2294,7 +2762,7 @@ export const QUIZ_BANK = {
         "10",
         "2",
         "5",
-        "\u22122"
+        "−2"
       ],
       "answer": 3
     },
@@ -2302,9 +2770,9 @@ export const QUIZ_BANK = {
       "q": "What is the derivative of sin x?",
       "options": [
         "cos x",
-        "\u2212cos x",
+        "−cos x",
         "sin x",
-        "\u2212sin x"
+        "−sin x"
       ],
       "answer": 0
     },
@@ -2332,9 +2800,9 @@ export const QUIZ_BANK = {
       "q": "An eigenvector v of matrix A satisfies:",
       "options": [
         "Av = 0 always",
-        "A + v = \u03bb",
+        "A + v = λ",
         "vA = A",
-        "Av = \u03bbv"
+        "Av = λv"
       ],
       "answer": 3
     },
@@ -2373,7 +2841,7 @@ export const QUIZ_BANK = {
     {
       "q": "Probability values always lie between:",
       "options": [
-        "\u22121 and 1",
+        "−1 and 1",
         "0 and 1",
         "0 and 100",
         "1 and 10"
@@ -2394,9 +2862,9 @@ export const QUIZ_BANK = {
       "q": "If events A and B are independent, P(A and B) equals:",
       "options": [
         "P(A) + P(B)",
-        "P(A) \u2212 P(B)",
+        "P(A) − P(B)",
         "P(A|B) + P(B)",
-        "P(A) \u00b7 P(B)"
+        "P(A) · P(B)"
       ],
       "answer": 3
     },
@@ -2473,10 +2941,10 @@ export const QUIZ_BANK = {
       "answer": 0
     },
     {
-      "q": "The Newton\u2013Raphson update uses:",
+      "q": "The Newton–Raphson update uses:",
       "options": [
         "Only f(x)",
-        "Both f(x) and f\u2032(x)",
+        "Both f(x) and f′(x)",
         "Random guesses",
         "The integral of f"
       ],
@@ -2772,7 +3240,7 @@ export const QUIZ_BANK = {
       "q": "Which equation expresses Ohm's law?",
       "options": [
         "V = IR",
-        "P = IV\u00b2",
+        "P = IV²",
         "I = VR",
         "R = VI"
       ],
@@ -2789,22 +3257,22 @@ export const QUIZ_BANK = {
       "answer": 1
     },
     {
-      "q": "Two 10 \u03a9 resistors in series have a total resistance of:",
+      "q": "Two 10 Ω resistors in series have a total resistance of:",
       "options": [
-        "5 \u03a9",
-        "10 \u03a9",
-        "20 \u03a9",
-        "100 \u03a9"
+        "5 Ω",
+        "10 Ω",
+        "20 Ω",
+        "100 Ω"
       ],
       "answer": 2
     },
     {
-      "q": "Two 10 \u03a9 resistors in parallel have an equivalent resistance of:",
+      "q": "Two 10 Ω resistors in parallel have an equivalent resistance of:",
       "options": [
-        "20 \u03a9",
-        "10 \u03a9",
-        "100 \u03a9",
-        "5 \u03a9"
+        "20 Ω",
+        "10 Ω",
+        "100 Ω",
+        "5 Ω"
       ],
       "answer": 3
     },
@@ -2819,7 +3287,7 @@ export const QUIZ_BANK = {
       "answer": 0
     },
     {
-      "q": "What power is dissipated when 2 A flows through a 5 \u03a9 resistor?",
+      "q": "What power is dissipated when 2 A flows through a 5 Ω resistor?",
       "options": [
         "10 W",
         "20 W",
@@ -3230,7 +3698,7 @@ export const QUIZ_BANK = {
       "q": "High-voltage transmission is used mainly to reduce:",
       "options": [
         "Voltage",
-        "I\u00b2R line losses",
+        "I²R line losses",
         "Frequency",
         "Generation"
       ],
@@ -3291,9 +3759,9 @@ export const QUIZ_BANK = {
     {
       "q": "The moment of a force equals:",
       "options": [
-        "Force \u00f7 distance",
-        "Force \u00d7 perpendicular distance",
-        "Mass \u00d7 velocity",
+        "Force ÷ distance",
+        "Force × perpendicular distance",
+        "Mass × velocity",
         "Force + distance"
       ],
       "answer": 1
@@ -3321,10 +3789,10 @@ export const QUIZ_BANK = {
     {
       "q": "The maximum static friction force equals:",
       "options": [
-        "\u03bcN",
-        "N/\u03bc",
-        "\u03bc/N",
-        "\u03bc + N"
+        "μN",
+        "N/μ",
+        "μ/N",
+        "μ + N"
       ],
       "answer": 0
     },
@@ -3361,10 +3829,10 @@ export const QUIZ_BANK = {
     {
       "q": "Work done by a constant force equals:",
       "options": [
-        "Force \u00d7 displacement in the direction of the force",
-        "Mass \u00d7 acceleration",
-        "Power \u00d7 velocity",
-        "Force \u00f7 time"
+        "Force × displacement in the direction of the force",
+        "Mass × acceleration",
+        "Power × velocity",
+        "Force ÷ time"
       ],
       "answer": 0
     },
@@ -3523,7 +3991,7 @@ export const QUIZ_BANK = {
       "answer": 3
     },
     {
-      "q": "The continuity equation A\u2081V\u2081 = A\u2082V\u2082 comes from conservation of:",
+      "q": "The continuity equation A₁V₁ = A₂V₂ comes from conservation of:",
       "options": [
         "Mass",
         "Energy",
@@ -3627,7 +4095,7 @@ export const QUIZ_BANK = {
     {
       "q": "The Carnot efficiency equals:",
       "options": [
-        "1 \u2212 Tc/Th",
+        "1 − Tc/Th",
         "Tc/Th",
         "Th/Tc",
         "1 + Tc/Th"
@@ -3699,10 +4167,10 @@ export const QUIZ_BANK = {
     {
       "q": "Linear momentum equals:",
       "options": [
-        "m \u00b7 a",
-        "m \u00b7 v",
-        "m \u00b7 g",
-        "F \u00b7 t\u00b2"
+        "m · a",
+        "m · v",
+        "m · g",
+        "F · t²"
       ],
       "answer": 1
     },
@@ -3711,7 +4179,7 @@ export const QUIZ_BANK = {
       "options": [
         "mgh",
         "mv",
-        "\u00bdmv\u00b2",
+        "½mv²",
         "ma"
       ],
       "answer": 2
@@ -3719,10 +4187,10 @@ export const QUIZ_BANK = {
     {
       "q": "Acceleration due to gravity near Earth's surface is about:",
       "options": [
-        "1.6 m/s\u00b2",
-        "3.0 m/s\u00b2",
-        "15 m/s\u00b2",
-        "9.8 m/s\u00b2"
+        "1.6 m/s²",
+        "3.0 m/s²",
+        "15 m/s²",
+        "9.8 m/s²"
       ],
       "answer": 3
     },
@@ -3737,7 +4205,7 @@ export const QUIZ_BANK = {
       "answer": 0
     },
     {
-      "q": "The work\u2013energy theorem says net work equals the change in:",
+      "q": "The work–energy theorem says net work equals the change in:",
       "options": [
         "Potential energy only",
         "Kinetic energy",
@@ -3747,7 +4215,7 @@ export const QUIZ_BANK = {
       "answer": 1
     },
     {
-      "q": "The period of a mass\u2013spring oscillator depends on:",
+      "q": "The period of a mass–spring oscillator depends on:",
       "options": [
         "Amplitude",
         "Color",
@@ -3770,7 +4238,7 @@ export const QUIZ_BANK = {
       "q": "Gravitational potential energy near Earth equals:",
       "options": [
         "mgh",
-        "\u00bdmv\u00b2",
+        "½mv²",
         "mv",
         "F/d"
       ],
@@ -3996,7 +4464,7 @@ export const QUIZ_BANK = {
       "q": "What is the basic accounting equation?",
       "options": [
         "Assets = Liabilities + Equity",
-        "Assets = Revenue \u2212 Expenses",
+        "Assets = Revenue − Expenses",
         "Equity = Assets + Liabilities",
         "Liabilities = Assets + Equity"
       ],
@@ -4075,10 +4543,10 @@ export const QUIZ_BANK = {
     {
       "q": "Net income equals:",
       "options": [
-        "Revenues \u2212 Expenses",
-        "Assets \u2212 Liabilities",
+        "Revenues − Expenses",
+        "Assets − Liabilities",
         "Revenues + Expenses",
-        "Cash \u2212 Debt"
+        "Cash − Debt"
       ],
       "answer": 0
     },

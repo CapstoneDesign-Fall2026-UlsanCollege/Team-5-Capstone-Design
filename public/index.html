@@ -440,6 +440,10 @@
                 <h2 id="quiz-main-heading">Choose your study subject</h2>
                 <p id="quiz-sub-heading" class="muted">Practice one subject at a time with faculty-curated question banks or generate custom AI quizzes tailored to your topic.</p>
                 
+                <div id="quiz-context-banner" class="muted" style="font-size: 13px; margin-top: 10px; padding: 10px 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--bg);">
+                    Subject-level practice · Select a subject and difficulty to see available questions.
+                </div>
+
                 <div class="quiz-type-tabs" style="display: flex; gap: 10px; margin-top: 16px; margin-bottom: 8px;">
                     <button id="quiz-tab-curated" class="btn-ghost is-active" type="button" style="border-radius: 9999px;">
                         <i class="fa-solid fa-book-bookmark"></i> Standard &amp; Rapid Quiz
@@ -450,11 +454,21 @@
                 </div>
 
                 <div id="quiz-curated-panel" class="quiz-setup-controls">
-                    <label for="quiz-subject">Subject
-                        <select id="quiz-subject">
-                            <!-- Populated dynamically based on enrolled subjects & selected major -->
-                        </select>
-                    </label>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; max-width: 640px;">
+                        <label for="quiz-subject">Subject
+                            <select id="quiz-subject" style="width: 100%; margin-top: 4px;">
+                                <!-- Populated dynamically based on enrolled subjects & selected major -->
+                            </select>
+                        </label>
+                        <label for="quiz-difficulty">Difficulty Level
+                            <select id="quiz-difficulty" style="width: 100%; margin-top: 4px;">
+                                <option value="all" selected>All Difficulties (Mixed)</option>
+                                <option value="easy">Easy (Fundamentals)</option>
+                                <option value="medium">Medium (Application)</option>
+                                <option value="hard">Hard (Analysis &amp; Edge Cases)</option>
+                            </select>
+                        </label>
+                    </div>
                     <div class="quiz-mode-actions">
                         <button id="quiz-start-btn" class="btn-primary" type="button">Start 15-question quiz</button>
                         <button id="quiz-rapid-btn" class="btn-ghost" type="button">Start rapid quiz · 10 questions / 30 sec</button>
