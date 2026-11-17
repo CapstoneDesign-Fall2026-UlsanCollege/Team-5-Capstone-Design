@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650;9..144,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="study-analytics-upgrade.css">
 </head>
 <body>
     <div class="ambient" aria-hidden="true">
@@ -342,6 +343,9 @@
                 </div>
             </section>
 
+            <!-- Study Analytics 2.0 (proposal): streak, goal and protection cards (rendered by src/study-analytics-upgrade.js) -->
+            <section id="study-streak-section" aria-label="Study streak, daily goal and protection"></section>
+
             <div class="analytics-section">
                 <!-- Weekly Study Activity Chart -->
                 <article class="analytics-card">
@@ -385,6 +389,9 @@
                 </article>
             </div>
 
+            <!-- Study Analytics 2.0 (proposal): Study Consistency Calendar (separate from the scheduled-task Weekly Activity chart) -->
+            <div id="study-calendar-section"></div>
+
             <!-- Subject-Wise Progress Breakdown -->
             <section class="plan-board">
                 <div class="board-toolbar">
@@ -398,6 +405,9 @@
                     <p>Enroll in subjects and add study tasks to generate detailed performance analytics.</p>
                 </div>
             </section>
+
+            <!-- Study Analytics 2.0 (proposal): Achievement Badges -->
+            <div id="study-badges-section"></div>
 
             <!-- Quiz Performance Summary -->
             <section class="plan-board" style="margin-top: 24px;" id="analytics-quiz-summary">

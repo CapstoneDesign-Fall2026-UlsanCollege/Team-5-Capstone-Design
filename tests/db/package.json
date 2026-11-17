@@ -1,0 +1,13 @@
+{
+  "name": "smart-study-companion-db-tests",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Isolated local SQL tests (PGlite, in-memory Postgres). Not part of the root app install.",
+  "type": "module",
+  "scripts": {
+    "test": "node --test ./study-streak.db.test.js"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.2.17"
+  }
+}
