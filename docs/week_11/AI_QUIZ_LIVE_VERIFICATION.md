@@ -5,7 +5,7 @@
 **Database Support:** Sumit Adhikari (`adronnie`)  
 **Component:** AI Quiz Generator (Edge Function + Client Service + Schema Migration 009)  
 **Date:** 2026-11-15  
-**Status:** Function code and client fallback engine pass 100% of tests; cloud Edge Function deployment and SQL table creation are pending Supabase CLI / Dashboard execution.
+**Status:** Function code and client fallback engine pass the documented tests; cloud Edge Function deployment and SQL table creation are pending Supabase CLI / Dashboard execution. The live quiz database and PostgREST schema-cache visibility have not been verified.
 
 ---
 
@@ -46,15 +46,38 @@ POST https://bcwwnjtmrcxggbaallon.supabase.co/functions/v1/generate-ai-quiz
 - **Observed Result:** **HTTP 404** `{"code":"NOT_FOUND","message":"Requested function was not found"}`.
 - **Diagnosis:** The Edge Function code is complete in the repository, but has not yet been pushed to Supabase Cloud using the Supabase CLI.
 
-### Resilient Client Fallback Engine
-When the live Edge Function returns 404 or network is unavailable, the client service [`src/services/ai-quiz.js`](../../src/services/ai-quiz.js) activates an internal topic-aware template engine:
-- Generates 5 valid questions tailored to the requested subject.
-- Sets `dbPersisted: false` to be transparent about cloud persistence status.
-- **Rule of Honesty:** The local template fallback is a safety mechanism; it is **not presented as proof of live Gemini API integration**.
+### Client Fallback
+When the live Edge Function is unavailable, `src/services/ai-quiz.js` falls back only to verified, curated quiz questions for the selected subject and difficulty, clearly labels them as `curated_fallback`, and sets `dbPersisted: false`. It does not treat fallback questions as proof of live Gemini integration.
 
 ---
 
-## 3. Deployment Instructions (Week 11 Action)
+## 3. Database / `PGRST205` Verification
+
+**Required migration:** [`supabase/migrations/009_ai_quiz_tables.sql`](../../supabase/migrations/009_ai_quiz_tables.sql). It defines `ai_quizzes`, `ai_quiz_questions`, and `ai_quiz_attempts`, enables RLS, and adds policies. The migration file exists in the repository, but the report's current evidence does **not** show that it has been applied to the live Supabase project.
+
+`PGRST205` means PostgREST cannot find the requested table in its schema cache. It does not by itself prove whether the underlying table is absent or whether the API schema cache is stale. Before claiming quiz database persistence works, verify all of the following in the linked Supabase project:
+
+1. Apply migration 009 (instructions below) and confirm all three tables exist in the `public` schema. The migration uses unqualified table names; verify the resulting schema rather than assuming it.
+2. Confirm the tables are exposed to the API and accessible to the intended API role, with the migration's RLS policies in place.
+3. If tables exist but requests still return `PGRST205`, reload the PostgREST schema cache from the SQL Editor:
+   ```sql
+   NOTIFY pgrst, 'reload schema';
+   ```
+4. Retry a request against the exact table name, such as `ai_quizzes`, using an authenticated user. Confirm the response is successful and that inserts/reads obey RLS.
+
+To check table presence and schema in the Supabase SQL Editor:
+```sql
+SELECT table_schema, table_name
+FROM information_schema.tables
+WHERE table_name IN ('ai_quizzes', 'ai_quiz_questions', 'ai_quiz_attempts')
+ORDER BY table_schema, table_name;
+```
+
+A successful local test of the migration SQL or a successful schema-cache reload alone is not proof of live API access. Record the live query/API result before marking database persistence verified.
+
+---
+
+## 4. Deployment Instructions (Week 11 Action)
 
 To make the AI Quiz Generator live on Supabase Cloud:
 
@@ -73,11 +96,11 @@ To make the AI Quiz Generator live on Supabase Cloud:
    ```
    *(Note: The function performs its own `supabaseClient.auth.getUser()` verification inside `index.ts`.)*
 4. **Execute Migration `009` in SQL Editor:**
-   Run [`supabase/migrations/009_ai_quiz_tables.sql`](../../supabase/migrations/009_ai_quiz_tables.sql) to create `ai_quizzes`, `ai_quiz_questions`, and `ai_quiz_attempts` with RLS.
+   Run [`supabase/migrations/009_ai_quiz_tables.sql`](../../supabase/migrations/009_ai_quiz_tables.sql) to create `ai_quizzes`, `ai_quiz_questions`, and `ai_quiz_attempts` with RLS. Then perform the database and PostgREST checks in Section 3.
 
 ---
 
-## 4. Verification Check Results
+## 5. Verification Check Results
 
 The dedicated AI Quiz test suite ([`tests/test_ai_quiz.py`](../../tests/test_ai_quiz.py)) was executed:
 
@@ -90,5 +113,6 @@ Testing AI Quiz Generator Schema, Validation, Scoring, and UI...
 ALL AI QUIZ TESTS PASSED!
 ```
 
-Additionally, contract tests in [`tests/unit/backend-services.test.js`](../../tests/unit/backend-services.test.js) verify that when `ai_quizzes` is missing from the database, the service handles the `PGRST205` error cleanly without crashing the UI, warning the user and saving the attempt locally.
+These are repository-level checks; they verify migration contents and application behavior, not that migration 009 was applied to the live database or that PostgREST recognizes the tables. Contract tests in [`tests/unit/backend-services.test.js`](../../tests/unit/backend-services.test.js) also verify that the service handles a missing `ai_quizzes` table without crashing and reports that persistence did not occur.
 
+**Live database status:** Pending confirmation that migration 009 is applied, all three tables are in `public` and API-accessible, and authenticated quiz persistence succeeds without `PGRST205`.
