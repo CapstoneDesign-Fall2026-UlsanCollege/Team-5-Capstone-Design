@@ -2,6 +2,7 @@
 **Project:** Smart Study Companion — Team 5  
 **Tester:** J.N. Taj Oli (`jn-oli`)  
 **Date:** 2026-11-16  
+**Browser:** Google Chrome 157.0.8103.79  
 **Scope:** Desktop browser check of the five application views  
 **Overall status:** Desktop UI checks passed
 
