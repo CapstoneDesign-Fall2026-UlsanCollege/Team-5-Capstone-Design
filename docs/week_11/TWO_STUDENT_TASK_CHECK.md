@@ -6,7 +6,7 @@
 **Browser:** Google Chrome 157.0.8103.79  
 **Environment:** authenticated two-student check  
 **OS:** Windows  
-**Account:** test student A and test student B  
+**Account:** Student A and Student B  
 **Result:** PASS
 
 This result is separate from the November 16 desktop UI result.
@@ -29,7 +29,6 @@ This result is separate from the November 16 desktop UI result.
 
 This check verifies task visibility and persistence across two authenticated student sessions. It does not independently test task creation, update, or deletion restrictions beyond the observed isolation case.
 
-## Not in this report
+## Evidence
 
-- Desktop UI result from 2026-11-16
-- 390px phone-width layout check
+
