@@ -3,6 +3,10 @@
 **Tester:** J.N. Taj Oli (`jn-oli`)  
 **Date:** 2026-11-16  
 **Browser:** Google Chrome 157.0.8103.79  
+**Environment:** desktop UI only  
+**OS:** Windows  
+**Window:** desktop width, sidebar visible  
+**Account:** one signed-in test student  
 **Scope:** Desktop browser check of the five application views  
 **Overall status:** Desktop UI checks passed
 
@@ -59,4 +63,4 @@ Signed in on the desktop app and walked through Dashboard, Study Tasks, Subjects
 - Light and dark mode at phone width
 
 ## 4. Screenshot files
-[Evidence](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/tree/ba49572591b4aae0bef9ba4e91d2d53dbeb6bf7a/docs/week_11/Evidence%20UI_UX%20verfication)
+[Evidence](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/tree/ba49572591b4aae0bef9ba4e91d2d53dbebd5bf7a/docs/week_11/Evidence%20UI_UX%20verfication)
