@@ -19,7 +19,7 @@ Signed in at a 390px phone width. Opened Dashboard, Study Tasks, Subjects & Univ
 The console check on every view was:
 
 ```javascript
-document.documentElement.scrollWidth <= document.documentElement.clientWidth + 2
+document.documentElement.scrollWidth <= document.documentElement.clientWidth
 ```
 
 Every view returned `true`.
@@ -37,7 +37,5 @@ Every view returned `true`.
 | Study Analytics | Dark | Up and down only | `true` | PASS |
 | Quiz Practice | Dark | Up and down only | `true` | PASS |
 
-## 2. Not in this note
-
-- Desktop UI result from 2026-11-16; see [UI/UX Verification](UI_UX_VERIFICATION.md).
-- Two-student task check.
+## Evidence
+[Evidence Mobile UI_UX Verification](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/tree/16a0f407db3990691ecb8dd2213d665ebe82f21b/docs/week_11/Evidence%20Mobile%20UI_UX)
