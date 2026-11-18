@@ -10,7 +10,7 @@
 **Scope:** Desktop browser check of the five application views  
 **Overall status:** Desktop UI checks passed
 
-This note records the desktop session.
+This note records the desktop session only. The separate 390px mobile UI result recorded on 2026-11-18 is in [Mobile UI Evidence](MOBILE_UI_EVIDENCE.md); it is not part of this desktop result.
 
 ## 1. What was checked
 Signed in on the desktop app and walked through Dashboard, Study Tasks, Subjects & University, Study Analytics, and Quiz Practice.
@@ -59,8 +59,8 @@ Signed in on the desktop app and walked through Dashboard, Study Tasks, Subjects
 - Pressing Escape closes the window.
 
 ## 3. Not in this session
-- 390px phone-width layout and sideways-scroll check
-- Light and dark mode at phone width
+- 390px phone-width layout and sideways-scroll check. This was checked separately on 2026-11-18; see [Mobile UI Evidence](MOBILE_UI_EVIDENCE.md).
+- Light and dark mode at phone width. This was checked separately on 2026-11-18; see [Mobile UI Evidence](MOBILE_UI_EVIDENCE.md).
 
 ## 4. Screenshot files
 [Evidence](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/tree/fee10f6a898ef271820969a92d94f4165e7a1082/docs/week_11/Evidence%20UI_UX%20verfication)
