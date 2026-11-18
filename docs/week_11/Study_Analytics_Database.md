@@ -1,9 +1,33 @@
+**Migration 011: Study Analytics 2.0**
 
+**Features:** Study Streaks, Protection, Daily Goals, Achievements
+
+**Status:** PROPOSED (feature branch only). NOT applied to any Supabase project.
+
+**Important notes:**
+- Requires explicit team approval and a rollback plan before execution.
+- Rollback file: `supabase/rollbacks/011_study_streak_analytics_down.sql`
+
+**Design summary:** See `docs/week_11/STUDY_ANALYTICS_2_PROPOSAL.md`.
+
+- The `tasks` table has no `completed_at` column, so completion dates cannot be proven for existing rows. This migration adds an append-only, server-timestamped `study_activity_events` log, written only by a trigger on `tasks.completed`.
+- No backfill: tasks completed before this migration create no events and no streak days.
+- Streak, protection balance, longest streak, totals, and the calendar are derived deterministically from the event log by `study_streak_compute()`. There are no mutable counters, so page refreshes, retries, and multiple devices cannot double-award protection.
+- Achievements are persisted once per student (`UNIQUE`) and written only by the server.
+- Students get SELECT-only RLS on all four new objects; every write goes through `SECURITY DEFINER` functions that derive the student from `auth.uid()`.
+
+**Migration approach:** Additive only. No existing table, column, policy, trigger, or function is altered or dropped. (`CREATE TRIGGER` on `tasks` adds a new, independent `AFTER` trigger.)
+
+---
+
+**1. Tables**
+
+```sql
 -- Migration 011: Study Analytics 2.0
 -- Study Streaks, Protection, Daily Goals, Achievements
 --
 -- STATUS: PROPOSED (feature branch only). NOT applied to any Supabase project.
--- Requires explicit team approval + rollback plan before execution.
+--         Requires explicit team approval + rollback plan before execution.
 -- Rollback: supabase/rollbacks/011_study_streak_analytics_down.sql
 --
 -- Design summary (see docs/week_11/STUDY_ANALYTICS_2_PROPOSAL.md):
@@ -409,4 +433,4 @@ REVOKE ALL ON FUNCTION public.get_study_summary()                 FROM PUBLIC, a
 GRANT EXECUTE ON FUNCTION public.sync_study_timezone(TEXT)        TO authenticated;
 GRANT EXECUTE ON FUNCTION public.set_daily_study_goal(INTEGER)    TO authenticated;
 GRANT EXECUTE ON FUNCTION public.get_study_summary()              TO authenticated;
-
+```
