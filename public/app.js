@@ -42,7 +42,11 @@ import {
     recordSeenQuizQuestions
 } from './src/services/quiz.js';
 import { generateAiQuiz, saveAiQuizAttempt, getAiQuizHistory } from './src/services/ai-quiz.js';
-import { selectQuizQuestions } from './src/lib/quiz-engine.js';
+import {
+    selectQuizQuestions,
+    snapshotQuizConfig,
+    createQuizAttemptState
+} from './src/lib/quiz-engine.js';
 import { initTheme } from './src/theme.js';
 import {
     initStudyAnalytics,
@@ -86,6 +90,8 @@ let pendingDelete = null;
 let quiz = { subject: '', difficulty: 'all', mode: 'standard', questions: [], index: 0, answers: [], timeLeft: 30, deadline: 0, finished: false };
 let quizTimer = null;
 let quizLoadSeq = 0;
+let lastQuizConfig = null;
+let isRetakingQuiz = false;
 
 // ---- Utilities ----
 function escapeHtml(value) {
@@ -1412,17 +1418,16 @@ function renderQuizQuestion() {
     }
 }
 
-async function startQuiz(mode) {
-    const subject = document.getElementById('quiz-subject')?.value;
-    const difficulty = document.getElementById('quiz-difficulty')?.value || 'all';
+async function startQuiz(mode, overrideConfig = null) {
+    const subject = overrideConfig?.subject || document.getElementById('quiz-subject')?.value;
+    const difficulty = overrideConfig?.difficulty || document.getElementById('quiz-difficulty')?.value || 'all';
     if (!subject) {
         toast('Please select a subject to start the quiz.');
         return;
     }
 
     const seq = ++quizLoadSeq;
-    quiz.questions = [];
-    const count = mode === 'rapid' ? 10 : 15;
+    const count = overrideConfig?.count || (mode === 'rapid' ? 10 : 15);
     const { questions, meta } = await loadQuizQuestions(subject, count, difficulty);
 
     // Prevent stale async response from overwriting a newer selection
@@ -1437,17 +1442,9 @@ async function startQuiz(mode) {
         toast(meta.shortageMessage);
     }
 
-    quiz = {
-        subject,
-        difficulty,
-        mode,
-        questions,
-        index: 0,
-        answers: new Array(questions.length).fill(null),
-        timeLeft: 30,
-        deadline: 0,
-        finished: false
-    };
+    clearQuizTimer();
+    lastQuizConfig = snapshotQuizConfig({ mode, subject, difficulty, count });
+    quiz = createQuizAttemptState({ mode, subject, difficulty, questions });
 
     const subObj = SUBJECTS_CATALOG.find(s => s.slug === subject);
     const subTitle = subObj ? subObj.name : subject;
@@ -1463,11 +1460,11 @@ async function startQuiz(mode) {
     }
 }
 
-async function startAiQuiz() {
-    const subjectSlug = document.getElementById('quiz-ai-subject')?.value || document.getElementById('quiz-subject')?.value;
-    const topic = document.getElementById('quiz-ai-topic')?.value?.trim();
-    const difficulty = document.getElementById('quiz-ai-difficulty')?.value || 'medium';
-    const count = parseInt(document.getElementById('quiz-ai-count')?.value || '5', 10);
+async function startAiQuiz(overrideConfig = null) {
+    const subjectSlug = overrideConfig?.subject || document.getElementById('quiz-ai-subject')?.value || document.getElementById('quiz-subject')?.value;
+    const topic = (overrideConfig?.topic ?? document.getElementById('quiz-ai-topic')?.value ?? '').trim();
+    const difficulty = overrideConfig?.difficulty || document.getElementById('quiz-ai-difficulty')?.value || 'medium';
+    const count = parseInt(overrideConfig?.count || document.getElementById('quiz-ai-count')?.value || '5', 10);
 
     if (!topic || topic.length < 2) {
         toast('Please enter a topic prompt (at least 2 characters).');
@@ -1476,7 +1473,6 @@ async function startAiQuiz() {
     }
 
     const seq = ++quizLoadSeq;
-    quiz.questions = [];
 
     const subObj = dbSubjects.find(s => s.slug === subjectSlug) || SUBJECTS_CATALOG.find(s => s.slug === subjectSlug);
     const subjectName = subObj ? subObj.name : 'Computer Science';
@@ -1518,20 +1514,23 @@ async function startAiQuiz() {
             explanation: item.explanation
         }));
 
-        quiz = {
+        clearQuizTimer();
+        lastQuizConfig = snapshotQuizConfig({
+            mode: 'ai',
+            subject: subjectSlug,
+            topic: data.topic,
+            difficulty: data.difficulty,
+            count
+        });
+        quiz = createQuizAttemptState({
+            mode: 'ai',
             subject: subjectSlug,
             topic: data.topic,
             difficulty: data.difficulty,
             aiQuizId: data.quizId,
-            mode: 'ai',
             source: data.source || 'ai_gemini',
-            questions,
-            index: 0,
-            answers: new Array(questions.length).fill(null),
-            timeLeft: 0,
-            deadline: 0,
-            finished: false
-        };
+            questions
+        });
 
         const titleEl = document.getElementById('quiz-title');
         if (titleEl) {
@@ -1555,9 +1554,47 @@ async function startAiQuiz() {
     }
 }
 
+async function retakeCurrentQuiz() {
+    if (isRetakingQuiz) return;
+    const cfg = lastQuizConfig || snapshotQuizConfig(quiz);
+    if (!cfg.subject) {
+        setQuizStage('setup');
+        return;
+    }
+
+    isRetakingQuiz = true;
+    const retakeBtn = document.getElementById('quiz-retake-btn');
+    if (retakeBtn) retakeBtn.disabled = true;
+
+    try {
+        if (cfg.mode === 'ai') {
+            const aiSubjectEl = document.getElementById('quiz-ai-subject');
+            const aiTopicEl = document.getElementById('quiz-ai-topic');
+            const aiDiffEl = document.getElementById('quiz-ai-difficulty');
+            const aiCountEl = document.getElementById('quiz-ai-count');
+            if (aiSubjectEl && cfg.subject) aiSubjectEl.value = cfg.subject;
+            if (aiTopicEl && cfg.topic) aiTopicEl.value = cfg.topic;
+            if (aiDiffEl && cfg.difficulty) aiDiffEl.value = cfg.difficulty;
+            if (aiCountEl && cfg.count) aiCountEl.value = String(cfg.count);
+            await startAiQuiz(cfg);
+        } else {
+            const subjectEl = document.getElementById('quiz-subject');
+            const diffEl = document.getElementById('quiz-difficulty');
+            if (subjectEl && cfg.subject) subjectEl.value = cfg.subject;
+            if (diffEl && cfg.difficulty) diffEl.value = cfg.difficulty;
+            await startQuiz(cfg.mode, cfg);
+        }
+    } finally {
+        isRetakingQuiz = false;
+        if (retakeBtn) retakeBtn.disabled = false;
+    }
+}
+
 async function finishQuiz(timedOut = false) {
+    if (quiz.finished || !quiz.questions || quiz.questions.length === 0) return;
     clearQuizTimer();
     quiz.finished = true;
+    lastQuizConfig = lastQuizConfig || snapshotQuizConfig(quiz);
 
     let correctCount = 0;
     quiz.questions.forEach((q, idx) => {
@@ -2266,7 +2303,7 @@ function setupEventListeners() {
     }
 
     const quizRetake = document.getElementById('quiz-retake-btn');
-    if (quizRetake) quizRetake.addEventListener('click', () => setQuizStage('setup'));
+    if (quizRetake) quizRetake.addEventListener('click', () => retakeCurrentQuiz());
 
     const quizToPlan = document.getElementById('quiz-to-plan-btn');
     if (quizToPlan) quizToPlan.addEventListener('click', () => setQuizStage('setup'));
