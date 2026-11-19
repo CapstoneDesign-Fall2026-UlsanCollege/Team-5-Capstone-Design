@@ -192,3 +192,48 @@ export function selectQuizQuestions(
     shortageMessage,
   };
 }
+
+/**
+ * Snapshot the active quiz configuration so Retake Quiz can restart the exact
+ * same mode, subject, difficulty, topic, and question count.
+ */
+export function snapshotQuizConfig(source = {}) {
+  const mode = source.mode === 'rapid' ? 'rapid' : source.mode === 'ai' ? 'ai' : 'standard';
+  const defaultDiff = mode === 'ai' ? 'medium' : 'all';
+  return {
+    mode,
+    subject: String(source.subject || ''),
+    difficulty: normalizeDifficulty(source.difficulty || defaultDiff),
+    topic: source.topic ? String(source.topic).trim() : '',
+    count: Math.max(1, Number(source.count || (mode === 'rapid' ? 10 : mode === 'ai' ? 5 : 15))),
+  };
+}
+
+/**
+ * Create a clean, reset attempt state for a newly started or retaken quiz.
+ */
+export function createQuizAttemptState({
+  mode = 'standard',
+  subject = '',
+  difficulty = 'all',
+  topic = '',
+  aiQuizId = null,
+  source = null,
+  questions = [],
+} = {}) {
+  const list = Array.isArray(questions) ? questions : [];
+  return {
+    subject,
+    difficulty: normalizeDifficulty(difficulty),
+    mode: mode === 'rapid' ? 'rapid' : mode === 'ai' ? 'ai' : 'standard',
+    ...(topic ? { topic } : {}),
+    ...(aiQuizId ? { aiQuizId } : {}),
+    ...(source ? { source } : {}),
+    questions: list,
+    index: 0,
+    answers: new Array(list.length).fill(null),
+    timeLeft: mode === 'rapid' ? 30 : 0,
+    deadline: 0,
+    finished: false,
+  };
+}
