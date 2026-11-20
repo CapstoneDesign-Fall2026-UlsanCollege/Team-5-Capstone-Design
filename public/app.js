@@ -47,6 +47,11 @@ import {
     snapshotQuizConfig,
     createQuizAttemptState
 } from './src/lib/quiz-engine.js';
+import {
+    formatLocalDateInput,
+    formatForDateTimeLocalInput,
+    parseDeadlineInputToIso
+} from './src/lib/date-utils.js';
 import { initTheme } from './src/theme.js';
 import {
     initStudyAnalytics,
@@ -135,14 +140,11 @@ function relativeDeadline(dateString, completed) {
 }
 
 function formatForInput(dateString) {
-    const d = new Date(dateString);
-    return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+    return formatForDateTimeLocalInput(dateString);
 }
 
 function dateInputValue(daysAhead = 1) {
-    const date = new Date();
-    date.setDate(date.getDate() + daysAhead);
-    return date.toISOString().slice(0, 10);
+    return formatLocalDateInput(new Date(), daysAhead);
 }
 
 function toast(message) {
@@ -1695,8 +1697,8 @@ async function loadAndRenderQuizHistory() {
     }
 
     const [curatedRes, aiRes] = await Promise.all([
-        getQuizHistory(currentUser.id, 20),
-        getAiQuizHistory(currentUser.id, 20)
+        getQuizHistory(currentUser.id, 200),
+        getAiQuizHistory(currentUser.id, 200)
     ]);
 
     if (curatedRes.error) {
@@ -1736,8 +1738,7 @@ async function loadAndRenderQuizHistory() {
     });
 
     quizHistory = [...curatedItems, ...aiItems]
-        .sort((a, b) => new Date(b.completedAt) - new Date(a.completedAt))
-        .slice(0, 20);
+        .sort((a, b) => new Date(b.completedAt) - new Date(a.completedAt));
 
     renderQuizHistoryList();
     renderQuizAnalytics();
@@ -2039,9 +2040,15 @@ function setupEventListeners() {
             const id = document.getElementById('task-id').value;
             const subject = document.getElementById('task-subject').value;
             const title = document.getElementById('task-name').value.trim();
-            const deadline = new Date(document.getElementById('task-deadline').value).toISOString();
+            const parsedDeadline = parseDeadlineInputToIso(document.getElementById('task-deadline').value);
 
             if (!title || !currentUser) return;
+            if (!parsedDeadline.ok) {
+                toast(parsedDeadline.error);
+                document.getElementById('task-deadline')?.focus();
+                return;
+            }
+            const deadline = parsedDeadline.iso;
 
             const subjectId = getSubjectId(subject);
 
