@@ -4,6 +4,8 @@
 **Date:** November 20, 2026  
 **Branch:** `week12/p0-p1-verification-and-fixes`
 
+**Merge note:** The changes described here were merged into `main` through [PR #72](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/72) and [PR #75](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/75). Results below are recorded local checks, not proof that a particular Vercel build contains the fixes or that browser regressions passed.
+
 ---
 
 ## 1. Bug A — Task Modal Empty / Invalid Deadline Crash

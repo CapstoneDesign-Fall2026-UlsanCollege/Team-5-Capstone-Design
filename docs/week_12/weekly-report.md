@@ -3,8 +3,10 @@
 **Project:** Smart Study Companion — Team 5 (Ulsan College)  
 **Repository:** https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design  
 **Date:** November 20, 2026  
-**Branch:** `week12/p0-p1-verification-and-fixes`  
+**Recorded work branch:** `week12/p0-p1-verification-and-fixes` (subsequently merged through PRs #72 and #75)
 **Final Week 12 Status:** **NO-GO (Critical P0 Live Verification & Sign-Off Gates Pending)**
+
+**Reading note:** This report records the November 20 Week 12 assessment. The code changes described below are now on `main`; their presence in Git does not verify the active Vercel build. See the [Week 12 evidence map](README.md#evidence-map) for claim boundaries and unresolved checks.
 
 ---
 
@@ -14,7 +16,7 @@ Week 12 focused on P0/P1 stabilization, bug fixes, peer QA handoff, migration hy
 ## 2. Work Completed
 - **PR #69 (merged `f2c1134`):** Removed broken **Wireframes** sidebar link that caused `404: NOT_FOUND` on Vercel.
 - **PR #71 (merged `4183944`):** Fixed **Retake quiz** button (`retakeCurrentQuiz()`, `snapshotQuizConfig()`, `createQuizAttemptState()`) and added 5 Vitest regression tests.
-- **Week 12 Branch (`week12/p0-p1-verification-and-fixes`):**
+- **Week 12 work branch (`week12/p0-p1-verification-and-fixes`, merged via [#72](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/72) and [#75](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/75)):**
   - Fixed Task Modal empty/invalid deadline crash (`parseDeadlineInputToIso()`).
   - Fixed UTC date offset in `dateInputValue()` (`formatLocalDateInput()`).
   - Removed the 20-attempt slice cap in `loadAndRenderQuizHistory()` (fetch limit raised to `200`).
@@ -25,17 +27,17 @@ Week 12 focused on P0/P1 stabilization, bug fixes, peer QA handoff, migration hy
 ## 3. Database and Backend
 - `011_study_streak_analytics.sql`: Applied by user in Supabase SQL Editor on Nov 17.
 - `009_ai_quiz_tables.sql`, `010_complete_universities.sql`, `012_quiz_difficulty_and_repetition.sql`: **UNVERIFIED** in live Supabase from local session.
-- **Brevo Custom SMTP / Password Reset (Issue #40):** **VERIFIED FOR PASSWORD RESET** (configured and confirmed working live on Nov 20, 2026).
+- **Brevo Custom SMTP / Password Reset (Issue #40):** **User-reported live password-reset success** on Nov 20, 2026; the [SMTP report](AUTH_SMTP_VERIFICATION.md) does not link an independent, sanitized run receipt. Other email paths remain unverified.
 - **`generate-ai-quiz` Edge Function:** **UNVERIFIED** pending Supabase CLI deployment & live API test.
 
 ## 4. Security Verification
 - **`DATA-01` (Two-Student Authenticated RLS):** **NOT RUN** in live Supabase (procedure documented in [`DATA-01-RLS-VERIFICATION.md`](DATA-01-RLS-VERIFICATION.md)).
 
 ## 5. Automated Testing
-- **Vitest (`npm test`):** **79 / 79 PASS** (11 files, local unit & contract tests).
-- **Python System Harness (`tests/run_tests.py`):** **11 / 11 PASS**.
-- **Python AI Quiz Suite (`tests/test_ai_quiz.py`):** **4 / 4 PASS**.
-- **Vite Build (`npm run build`):** **PASS** (6 HTML entry points).
+- **Vitest (`npm test`):** **79 / 79 PASS** (11 files, as recorded for the Week 12 work branch; local unit & contract tests).
+- **Python System Harness (`tests/run_tests.py`):** **11 / 11 PASS** (recorded local result).
+- **Python AI Quiz Suite (`tests/test_ai_quiz.py`):** **4 / 4 PASS** (recorded local result).
+- **Vite Build (`npm run build`):** **PASS** (recorded local result; 6 HTML entry points).
 - **Playwright Browser E2E (`npx playwright test`):** **0 / 24 EXECUTED** (`@playwright/test` not installed).
 
 ## 6. Manual Testing
@@ -56,6 +58,7 @@ Week 12 focused on P0/P1 stabilization, bug fixes, peer QA handoff, migration hy
 
 ## 9. Deployment
 - Personal fork `liftupkhadka555-spec/Team-5-Capstone-Design` `main` verified synced to `4183944`.
+- The fork-sync receipt predates the Week 12 merge. The active Vercel deployment SHA and its relationship to current `main` remain unknown.
 - Course organization Vercel GitHub App approval (Issue #59) remains **PENDING**. See [`DEPLOYMENT_VERIFICATION.md`](DEPLOYMENT_VERIFICATION.md).
 
 ## 10. Remaining Problems
@@ -68,6 +71,7 @@ Week 12 focused on P0/P1 stabilization, bug fixes, peer QA handoff, migration hy
 - **Sumit / Nabin:** Verify/run `009`, `010`, `012` in Supabase Dashboard, deploy `generate-ai-quiz`, and log live signup/token-expiry email checks.
 - **Prince / Prabin / Sumit:** Execute `DATA-01` with 2 disposable accounts and capture redacted screenshots.
 - **Prabin / Nabin:** Install `@playwright/test`, run `npx playwright test`, and capture `RT-03`–`RT-08` screenshots.
+- **Nabin:** Record the active Vercel deployment SHA and compare it with the intended merged revision; keep fork-sync and deployment claims separate.
 - **All 5 Members:** Complete peer QA swaps in [`docs/week9/QA_EVIDENCE_MATRIX.md`](../week9/QA_EVIDENCE_MATRIX.md) and sign [`docs/week_11/FEATURE_FREEZE_DECISION.md`](../week_11/FEATURE_FREEZE_DECISION.md).
 
 ## 12. Evidence Links
