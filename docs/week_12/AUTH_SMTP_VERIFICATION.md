@@ -1,7 +1,7 @@
 # Week 12 — Authentication & Brevo Custom SMTP Verification
 
 **Related Issue:** [#40](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/40)  
-**Responsible:** Sumit Adhikari / Nabin Khadka  
+**Responsible:**  Nabin Khadka  / Adhikari sumit
 **Date:** November 20, 2026  
 **Live SMTP Status:** **UNVERIFIED / BLOCKED** (Supabase Dashboard SMTP credentials not available in local session)
 
