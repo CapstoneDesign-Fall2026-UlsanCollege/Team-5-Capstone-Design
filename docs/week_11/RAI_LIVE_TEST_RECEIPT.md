@@ -28,3 +28,20 @@ The assisted run took place on 2026-11-14 (Asia/Seoul); the exact time was not r
 | Account A final read | Original task remains unchanged | **Not run:** Chrome did not present a reliable Account A view after switching back from B. The earlier A reload check is not a post-B integrity check. | None |
 
 Next: capture sanitized proof on a known deployed build, repeat the final A read, and have a non-author perform the authenticated read/update/delete protocol in [the handoff](INDEPENDENT_VERIFICATION.md). That protocol and the 24 Playwright browser cases remain **Not run**; do not label UI separation as server-side RLS verification.
+
+## Candidate build check: 2026-11-20
+
+This is a preparation check, **not a new task test**. An automated assistant opened the public Pages URL above in Google Chrome on macOS. The app loaded a signed-in Subjects view, but the displayed account has not been confirmed as a disposable test account. No task was created or changed, no screenshot was saved, and no authenticated network response was inspected. The account shown in the browser is deliberately not identified here.
+
+| Field | Recorded value |
+|---|---|
+| Check date / operator | 2026-11-20 (Asia/Seoul); automated assistant; `RaiPrabin697` account authorization pending |
+| Candidate URL | `https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/index.html#subjects` |
+| Repository `main` at check | `8004e2108f2719cfc6ed1c1fceb0a6655951e255` (source reference only) |
+| Deployed build revision | Unknown; no Pages deployment-to-commit mapping captured |
+| Browser | Google Chrome on macOS; version not recorded |
+| Runtime mode | Unknown; signed-in UI alone does not establish a live Supabase request |
+| New Account A save/reload, Account B list, direct RLS, final A read | **Not run**; disposable A/B account authorization and build provenance pending |
+| Screenshot / service-response proof | None; do not promote this page-load observation to task or isolation evidence |
+
+**Next action:** `RaiPrabin697` confirms two disposable accounts and the candidate build; the assistant can then run the [written protocol](INDEPENDENT_VERIFICATION.md) and capture sanitized evidence. A non-author teammate must separately accept and execute the independent reproduction. Until then, the November 14 observations above remain historical, and `DATA-01` remains **Not run**.

@@ -27,7 +27,7 @@
 | **QUIZ-01** | Standard Curated Quiz & Scoring | 4 choices per question; immediate feedback; score calculated; attempt saved | Curated quiz flows work; questions load from catalog; attempt history rendered | **PASS** | Desktop Browser & Vitest | J.N. Taj Oli / Vitest | [`UI_UX_VERIFICATION.md`](UI_UX_VERIFICATION.md), `tests/unit/quiz.test.js` |
 | **QUIZ-02** | Live AI Quiz Storage (Migration 009) | AI quiz generated via Edge Function and saved to `ai_quiz_attempts` table | Live Supabase returns HTTP 404 (PGRST205) because migration 009 is unapplied | **FAIL / BLOCKED** | Supabase Cloud | Prince Karki (`princekark`) | Issue #53, [`AI_QUIZ_LIVE_VERIFICATION.md`](AI_QUIZ_LIVE_VERIFICATION.md) |
 | **UI-01** | Desktop 5-View & Theme Integrity | Dashboard, Tasks, Subjects, Analytics, Quiz readable in Light and Dark mode | 45 desktop UI checks passed on 2026-11-16; focus and Escape verified | **PASS** | Desktop Browser (macOS Safari/Chrome) | J.N. Taj Oli (`jn-oli`) | [`UI_UX_VERIFICATION.md`](UI_UX_VERIFICATION.md) |
-| **UI-02** | Responsive Mobile (390px Viewport) | Layouts stack vertically; no horizontal scrollbar on mobile width | Excluded from Nov 16 desktop session; unverified on real mobile device | **NOT RUN** | Mobile Safari / Chrome (390px) | J.N. Taj Oli (`jn-oli`) | [`UI_UX_VERIFICATION.md`](UI_UX_VERIFICATION.md) |
+| **UI-02** | Responsive Mobile (390px Viewport) | Layouts stack vertically; no horizontal scrollbar on mobile width | A separate Nov 18 390px browser-viewport receipt reports 10 PASS / 0 FAIL across five views in light/dark mode; physical-device touch behavior was not checked | **PASS (Viewport only)** | 390px browser viewport; physical device not verified | J.N. Taj Oli (`jn-oli`) | [`MOBILE_UI_EVIDENCE.md`](MOBILE_UI_EVIDENCE.md) |
 | **E2E-01** | Playwright Browser Automated Suite | 24 browser test cases execute automatically across 7 specifications | Spec files authored, but `@playwright/test` is not installed; 0/24 browser runs executed | **NOT RUN** | Playwright Chromium/WebKit | Prabin Rai (`RaiPrabin697`) | [`E2E_TEST_RESULTS.md`](E2E_TEST_RESULTS.md) |
 | **E2E-02** | Python Contract & DOM Runner | Verifies spec files, HTML IDs, and live anonymous endpoints | 3/3 contract check groups pass in 0.5s | **PASS (Contract)** | Python 3.9 CLI / HTTPS | Nabin Khadka (`liftupkhadka555-spec`) | [`E2E_TEST_RESULTS.md`](E2E_TEST_RESULTS.md) |
 | **GATE-01** | Formal Team Freeze Approval | All 5 team members formally approve freezing MVP scope and deferring AI Chat | Freeze proposed in `FEATURE_FREEZE_DECISION.md`; 5/5 member sign-offs pending | **PENDING** | Team Review Process | All 5 Members | [`FEATURE_FREEZE_DECISION.md`](FEATURE_FREEZE_DECISION.md) |
@@ -37,13 +37,15 @@
 ## 2. Summary Status Counts
 
 - **Total Cases Tracked:** 19
-- **PASS (Verified with Evidence):** 12 (DEPL-01, DEPL-02, AUTH-01, ONB-01, TASK-01, TASK-02, TASK-03, DATA-02, ANLY-01, QUIZ-01, UI-01, E2E-02)
+- **PASS (Within recorded scope):** 13 (DEPL-01, DEPL-02, AUTH-01, ONB-01, TASK-01, TASK-02, TASK-03, DATA-02, ANLY-01, QUIZ-01, UI-01, UI-02, E2E-02)
 - **PARTIAL:** 1 (DEPL-03)
 - **FAIL / BLOCKED:** 2 (AUTH-02 [Brevo SMTP], QUIZ-02 [PGRST205 Migration 009])
-- **NOT RUN:** 3 (DATA-01 [Two-Student RLS], UI-02 [Mobile Viewport], E2E-01 [Playwright Browser Suite])
+- **NOT RUN:** 2 (DATA-01 [Two-Student RLS], E2E-01 [Playwright Browser Suite])
 - **PENDING:** 1 (GATE-01 [Team Freeze Sign-off])
 
 Prabin's [November 14 assisted browser receipt](RAI_LIVE_TEST_RECEIPT.md) adds limited UI observations of task save/reload and separate Account B listing, without a sanitized proof artifact or known deployed build SHA. It does not replace the attributed team checks above or change `DATA-01`, `E2E-01`, or the freeze gate status.
+
+The [November 20 candidate-build check](RAI_LIVE_TEST_RECEIPT.md#candidate-build-check-2026-11-20) established only that the public page loaded in a signed-in browser session. It is **not** a new task test, a cloud-persistence result, or an RLS result. No matrix task/security status changes from that check. `UI-02` is reconciled to the separate November 18 browser-viewport receipt; physical-device touch remains outside its pass scope.
 
 ---
 
