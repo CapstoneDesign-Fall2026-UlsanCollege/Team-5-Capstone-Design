@@ -51,3 +51,13 @@ This matrix is documentation authored for the Week 9 evidence package. RaiPrabin
 | [#40 Backend: Login & Signup](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/40) | Backend/auth work history reference. | Keep its proposed scope distinct from any live test result. |
 
 These links are navigation only. This documentation update does not modify the issues or claim their Definition of Done is satisfied.
+
+---
+
+## Week 12 Independent Peer QA Swaps (Added Nov 20, 2026)
+
+| Swap / Reviewer | Component Reviewed | Verification Scope | Sign-Off Status | Evidence Link |
+| :--- | :--- | :--- | :---: | :--- |
+| **Sumit ↔ Nabin** | Database, Migrations (`009`–`012`), Edge Function & Backend Integration | Schema parity, RLS policies, rollback scripts, `Backend/` mirror sync | **PENDING** | [`docs/week_12/TECHNICAL_AUDIT.md`](../week_12/TECHNICAL_AUDIT.md) |
+| **Prabin ↔ Prince** | Playwright E2E (`tests/e2e/`), Two-Student RLS (`DATA-01`) & Quiz Retake QA | Cross-account isolation, 24 browser specs, `RT-03`–`RT-08` screenshots | **PENDING** | [`docs/week_12/DATA-01-RLS-VERIFICATION.md`](../week_12/DATA-01-RLS-VERIFICATION.md) |
+| **J.N. Taj → Nabin** | UI/UX, Responsive (Desktop/Tablet/Mobile), Light/Dark Mode, Modals & Readability | 5-view layout, Study Analytics 2.0 cards, Quiz difficulty/retake UI | **PENDING** | [`docs/week_12/QUIZ_RETAKE_BUG_FIX_REPORT.md`](../week_12/QUIZ_RETAKE_BUG_FIX_REPORT.md) |
