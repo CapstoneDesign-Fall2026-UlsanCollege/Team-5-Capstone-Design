@@ -22,7 +22,7 @@
 ## 3. Unverified / External-Access Components
 - **Live Supabase Migrations `009`, `010`, `012`:** Remote DB schema inspection requires Supabase Dashboard/CLI credentials (status: `UNVERIFIED` from local environment).
 - **Gemini Edge Function (`generate-ai-quiz`):** Requires Supabase CLI deploy & `GEMINI_API_KEY` secret (`UNVERIFIED` live).
-- **Brevo Custom SMTP (Issue #40):** Requires Supabase Auth Dashboard + Brevo DNS/SMTP credentials (`BLOCKED / UNVERIFIED`).
+- **Brevo Custom SMTP / Password Reset (Issue #40):** **RESOLVED FOR PASSWORD RESET (Nov 20, 2026)** — configured in Supabase Auth Dashboard (`smtp-relay.brevo.com:587`, verified sender, Brevo SMTP key IP blocking deactivated, URL Configuration verified) and confirmed working live; dedicated signup-verification & expired-token live tests remain unverified.
 - **Two-Student Live RLS (`DATA-01`):** Requires 2 live disposable student accounts (`NOT RUN` in real cloud).
 - **Playwright Browser E2E (`0/24`):** `@playwright/test` is not installed in `node_modules` (`NOT RUN`).
 - **Vercel Org Integration (Issue #59):** Requires university GitHub org admin approval (`PENDING`).
