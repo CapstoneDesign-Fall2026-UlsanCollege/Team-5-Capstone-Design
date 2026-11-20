@@ -3,7 +3,8 @@
 **Project:** Smart Study Companion — Team 5  
 **QA report location / owner:** Prince Karki (`princekark`)  
 **Testing date:** November 20, 2026 (confirm before committing)  
-**Role:** Independent QA / Password Recovery Regression Testing  
+**Role:** Independent QA / Password Recovery Regression Testing 
+**testing** backend testing 
 **Feature:** Forgot Password → Recovery Email / 6-Digit OTP → Set New Password → Re-login  
 **Related issue:** [#40 — Password recovery / SMTP](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/40)  
 **Implementation reference:** [Week 12 SMTP verification](AUTH_SMTP_VERIFICATION.md)  
