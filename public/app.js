@@ -62,6 +62,12 @@ import {
     ensureStudyTimezoneSynced
 } from './src/study-analytics-upgrade.js';
 import {
+    initAiTutor,
+    refreshAiTutorContext,
+    openAiTutorWithContext,
+    resetAiTutorState
+} from './src/ai-tutor-ui.js';
+import {
     getCountries,
     getUniversities,
     getFaculties,
@@ -469,6 +475,7 @@ async function loadUserData() {
         await loadAndRenderQuizHistory();
         render();
         loadStudyAnalytics(); // Study Analytics 2.0: non-blocking; failures never affect existing analytics
+        refreshAiTutorContext();
     } catch (err) {
         console.error('Failed to load user data:', err);
     }
@@ -499,14 +506,15 @@ function renderUserProfile() {
 function showView(view) {
     if (view === 'create' || view === 'onboarding') view = 'subjects';
     if (view === 'plan') view = 'tasks';
-    if (!['dashboard', 'tasks', 'subjects', 'analytics', 'quiz'].includes(view)) {
+    if (view === 'assistant') view = 'ai-tutor';
+    if (!['dashboard', 'tasks', 'subjects', 'analytics', 'quiz', 'ai-tutor'].includes(view)) {
         view = 'dashboard';
     }
 
     currentView = view;
 
     // Show/hide view canvases
-    ['dashboard', 'tasks', 'subjects', 'analytics', 'quiz'].forEach((name) => {
+    ['dashboard', 'tasks', 'subjects', 'analytics', 'quiz', 'ai-tutor'].forEach((name) => {
         const el = document.getElementById(`view-${name}`);
         if (el) el.hidden = (name !== view);
     });
@@ -525,7 +533,8 @@ function showView(view) {
         tasks: 'Study Task Tracker',
         subjects: 'Subjects & University Onboarding',
         analytics: 'Study Task Analytics & Workload Breakdown',
-        quiz: 'Quiz Practice & Results'
+        quiz: 'Quiz Practice & Results',
+        'ai-tutor': 'AI Tutor'
     };
     const titleEl = document.getElementById('page-title');
     if (titleEl) titleEl.textContent = titles[view] || 'Dashboard';
@@ -534,7 +543,7 @@ function showView(view) {
     if (searchWrap) searchWrap.hidden = (view !== 'tasks' && view !== 'dashboard');
 
     const addTaskBtn = document.getElementById('add-task-btn');
-    if (addTaskBtn) addTaskBtn.hidden = (view === 'quiz');
+    if (addTaskBtn) addTaskBtn.hidden = (view === 'quiz' || view === 'ai-tutor');
 
     const goPlanBtn = document.getElementById('go-plan-btn');
     if (goPlanBtn) {
@@ -560,6 +569,8 @@ function showView(view) {
     } else if (view === 'subjects') {
         renderSubjectCategoryChips();
         renderScrollableSubjects();
+    } else if (view === 'ai-tutor') {
+        refreshAiTutorContext();
     }
 
     render();
@@ -937,6 +948,7 @@ async function saveAcademicProfileAndSubjects() {
 
     fillSubjectSelects();
     fillQuizSubjects();
+    refreshAiTutorContext();
     toast('Academic profile & subjects saved successfully!');
     showView('dashboard');
 }
@@ -2312,6 +2324,27 @@ function setupEventListeners() {
     const quizRetake = document.getElementById('quiz-retake-btn');
     if (quizRetake) quizRetake.addEventListener('click', () => retakeCurrentQuiz());
 
+    const quizAskTutor = document.getElementById('quiz-ask-tutor-btn');
+    if (quizAskTutor) {
+        quizAskTutor.addEventListener('click', () => {
+            showView('ai-tutor');
+            openAiTutorWithContext({
+                subjectSlug: quiz.subject,
+                topic: quiz.topic || getSubjectName(quiz.subject),
+                mode: 'explain',
+                prefillOnly: true
+            });
+        });
+    }
+
+    const quizReturnTutor = document.getElementById('quiz-return-tutor-btn');
+    if (quizReturnTutor) {
+        quizReturnTutor.addEventListener('click', () => {
+            quizReturnTutor.hidden = true;
+            showView('ai-tutor');
+        });
+    }
+
     const quizToPlan = document.getElementById('quiz-to-plan-btn');
     if (quizToPlan) quizToPlan.addEventListener('click', () => setQuizStage('setup'));
 
@@ -2376,6 +2409,7 @@ function setupEventListeners() {
     const logoutBtn = document.getElementById('logout-btn');
     if (logoutBtn) {
         logoutBtn.addEventListener('click', async () => {
+            resetAiTutorState();
             await signOut();
         });
     }
@@ -2400,10 +2434,74 @@ function setupEventListeners() {
     // Hash change router
     window.addEventListener('hashchange', () => {
         const view = location.hash.replace('#', '');
-        if (['dashboard', 'tasks', 'subjects', 'analytics', 'quiz', 'create', 'plan', 'onboarding'].includes(view) && view !== currentView) {
+        if (['dashboard', 'tasks', 'subjects', 'analytics', 'quiz', 'ai-tutor', 'assistant', 'create', 'plan', 'onboarding'].includes(view) && view !== currentView) {
             showView(view);
         }
     });
+}
+
+async function openPracticeFromAiTutor({ subjectSlug, topic, difficulty }) {
+    showView('quiz');
+    setQuizStage('setup');
+
+    const tabAi = document.getElementById('quiz-tab-ai');
+    const tabCurated = document.getElementById('quiz-tab-curated');
+    const panelAi = document.getElementById('quiz-ai-panel');
+    const panelCurated = document.getElementById('quiz-curated-panel');
+    if (tabAi && tabCurated && panelAi && panelCurated) {
+        tabAi.classList.add('is-active');
+        tabCurated.classList.remove('is-active');
+        panelAi.hidden = false;
+        panelCurated.hidden = true;
+    }
+
+    fillQuizSubjects();
+
+    const aiSubjectEl = document.getElementById('quiz-ai-subject');
+    const aiTopicEl = document.getElementById('quiz-ai-topic');
+    const aiDiffEl = document.getElementById('quiz-ai-difficulty');
+    if (aiSubjectEl && subjectSlug && Array.from(aiSubjectEl.options).some((o) => o.value === subjectSlug)) {
+        aiSubjectEl.value = subjectSlug;
+    }
+    if (aiTopicEl && topic) {
+        aiTopicEl.value = topic;
+    }
+    if (aiDiffEl && ['easy', 'medium', 'hard'].includes(difficulty)) {
+        aiDiffEl.value = difficulty;
+    }
+    updateQuizContextBanner();
+
+    const returnBtn = document.getElementById('quiz-return-tutor-btn');
+    if (returnBtn) returnBtn.hidden = false;
+
+    await startAiQuiz({
+        subject: aiSubjectEl?.value || subjectSlug,
+        topic,
+        difficulty: difficulty || 'medium',
+        count: Number(document.getElementById('quiz-ai-count')?.value || 5)
+    });
+}
+
+async function createConfirmedTaskFromTutor(payload) {
+    if (!currentUser) return { error: { message: 'Sign in required' } };
+    const subjectId = payload.subjectId || getSubjectId(payload.subjectName);
+    const { data, error } = await apiCreateTask({
+        studentId: currentUser.id,
+        subjectId,
+        title: payload.title,
+        deadline: payload.deadline
+    });
+    if (!error) {
+        tasks.push({
+            id: data ? data.id : `task-${Date.now()}`,
+            subject: payload.subjectName || getSubjectName(subjectId),
+            subject_id: subjectId,
+            name: payload.title,
+            deadline: payload.deadline,
+            completed: false
+        });
+    }
+    return { data, error };
 }
 
 async function init() {
@@ -2411,12 +2509,26 @@ async function init() {
     setupEventListeners();
     initAcademicHierarchy();
     initStudyAnalytics({ toast, getTasks: () => tasks, getStudentId: () => currentUser?.id || null });
+    initAiTutor({
+        getCurrentUser: () => currentUser,
+        getCurrentProfile: () => currentProfile,
+        getDbSubjects: () => dbSubjects,
+        getEnrolledSlugs: () => selectedEnrolledSlugs,
+        getTasks: () => tasks,
+        createTask: createConfirmedTaskFromTutor,
+        onOpenPracticeQuiz: openPracticeFromAiTutor,
+        onTasksUpdated: () => {
+            render();
+            loadStudyAnalytics();
+        },
+        toast
+    });
 
     const deadlineInput = document.getElementById('create-task-deadline');
     if (deadlineInput) deadlineInput.value = dateInputValue();
 
     const initial = location.hash.replace('#', '');
-    showView(['dashboard', 'tasks', 'subjects', 'analytics', 'quiz'].includes(initial) ? initial : 'dashboard');
+    showView(['dashboard', 'tasks', 'subjects', 'analytics', 'quiz', 'ai-tutor', 'assistant'].includes(initial) ? initial : 'dashboard');
 
     // Load user data from Supabase
     await loadUserData();
@@ -2424,6 +2536,7 @@ async function init() {
     // Listen for auth state changes
     onAuthStateChange((event, session) => {
         if (event === 'SIGNED_OUT') {
+            resetAiTutorState();
             window.location.href = 'auth/login.html';
         }
     });
