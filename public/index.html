@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="study-analytics-upgrade.css">
+    <link rel="stylesheet" href="ai-tutor.css">
 </head>
 <body>
     <div class="ambient" aria-hidden="true">
@@ -54,6 +55,10 @@
             <a href="#quiz" class="nav-link" data-view="quiz">
                 <i class="fa-solid fa-circle-question"></i>
                 Quiz Practice
+            </a>
+            <a href="#ai-tutor" class="nav-link" data-view="ai-tutor">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                AI Tutor
             </a>
         </nav>
 
@@ -539,8 +544,141 @@
                 <ol id="quiz-answer-review" class="quiz-answer-review"></ol>
                 <div class="modal-actions">
                     <button id="quiz-retake-btn" class="btn-ghost" type="button">Retake quiz</button>
+                    <button id="quiz-ask-tutor-btn" class="btn-ghost" type="button">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> Ask AI Tutor
+                    </button>
+                    <button id="quiz-return-tutor-btn" class="btn-ghost" type="button" hidden>
+                        <i class="fa-solid fa-arrow-left"></i> Return to AI Tutor
+                    </button>
                     <button id="quiz-to-plan-btn" class="btn-primary" type="button">Choose another quiz</button>
                 </div>
+            </section>
+        </div>
+
+        <!-- VIEW 6: AI TUTOR -->
+        <div id="view-ai-tutor" class="canvas custom-scrollbar" hidden>
+            <section class="ai-tutor-shell" aria-label="AI Tutor workspace">
+                <!-- Left History & Learning Summary Drawer -->
+                <aside id="ai-tutor-sidebar-panel" class="ai-tutor-sidebar" aria-label="Conversation history">
+                    <div class="ai-tutor-sidebar-top">
+                        <button id="ai-tutor-new-btn" class="btn-primary" type="button">
+                            <i class="fa-solid fa-plus"></i> New Conversation
+                        </button>
+                    </div>
+
+                    <label class="ai-tutor-search-box" aria-label="Search conversation titles">
+                        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                        <input id="ai-tutor-search-input" type="search" placeholder="Search conversations..." autocomplete="off">
+                    </label>
+
+                    <div id="ai-tutor-conversation-list" class="ai-conv-list custom-scrollbar" role="list"></div>
+
+                    <section class="ai-learning-summary-box" aria-label="AI Tutor learning summary">
+                        <h3>Tutor Progress</h3>
+                        <div id="ai-tutor-learning-summary"></div>
+                    </section>
+                </aside>
+
+                <!-- Main AI Tutor Chat Panel -->
+                <section class="ai-tutor-main">
+                    <div class="ai-tutor-toolbar">
+                        <div class="ai-toolbar-left">
+                            <button id="ai-tutor-history-toggle" class="btn-ghost ai-mobile-only" type="button" aria-label="Toggle chat history">
+                                <i class="fa-solid fa-clock-rotate-left"></i> History
+                            </button>
+                            <h2 class="ai-toolbar-title">Personalized AI Tutor</h2>
+                            <span id="ai-tutor-quota-badge" class="ai-quota-pill">30/30 left today</span>
+                        </div>
+                        <button id="ai-tutor-practice-topic-btn" class="btn-ghost" type="button">
+                            <i class="fa-solid fa-circle-question"></i> Practice This Topic
+                        </button>
+                    </div>
+
+                    <div class="ai-controls-grid">
+                        <label class="ai-control-field" for="ai-tutor-subject">
+                            Subject
+                            <select id="ai-tutor-subject"></select>
+                        </label>
+                        <label class="ai-control-field" for="ai-tutor-difficulty">
+                            Difficulty
+                            <select id="ai-tutor-difficulty">
+                                <option value="beginner" selected>Beginner</option>
+                                <option value="intermediate">Intermediate</option>
+                                <option value="advanced">Advanced</option>
+                            </select>
+                        </label>
+                        <label class="ai-control-field" for="ai-tutor-mode">
+                            Teaching Mode
+                            <select id="ai-tutor-mode">
+                                <option value="explain" selected>Explain Concept</option>
+                                <option value="step_by_step">Step-by-Step Learning</option>
+                                <option value="simple_example">Simple Example</option>
+                                <option value="exam_prep">Exam Preparation</option>
+                                <option value="practice_with_me">Practice With Me</option>
+                                <option value="hint">Hint Mode</option>
+                                <option value="summarize">Summarize Topic</option>
+                            </select>
+                        </label>
+                        <label class="ai-control-field" for="ai-tutor-language">
+                            Language
+                            <select id="ai-tutor-language">
+                                <option value="auto" selected>Auto (Match Question)</option>
+                                <option value="en">English</option>
+                                <option value="ko">Korean (한국어)</option>
+                                <option value="ne">Nepali (नेपाली)</option>
+                                <option value="hi">Hindi (हिन्दी)</option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <div id="ai-tutor-context-banner" class="ai-context-banner"></div>
+
+                    <div id="ai-tutor-quick-actions" class="ai-quick-actions" aria-label="Quick study actions"></div>
+
+                    <div class="ai-chat-viewport custom-scrollbar">
+                        <div id="ai-tutor-welcome" class="ai-welcome-card">
+                            <p class="eyebrow">Academic Study Assistant</p>
+                            <h3>What topic shall we master today?</h3>
+                            <p class="muted">Select a subject, difficulty level, and teaching mode above—or choose a quick prompt below.</p>
+                            <div class="ai-starter-grid">
+                                <button type="button" class="ai-starter-btn" data-starter-prompt="Explain binary search trees with a simple step-by-step trace.">
+                                    <strong>Explain binary search trees</strong>
+                                    <small>Step-by-step Data Structures walkthrough</small>
+                                </button>
+                                <button type="button" class="ai-starter-btn" data-starter-prompt="What is database normalization (1NF, 2NF, 3NF) and why does it matter?">
+                                    <strong>Database normalization</strong>
+                                    <small>Clear definitions &amp; examples</small>
+                                </button>
+                                <button type="button" class="ai-starter-btn" data-starter-prompt="Help me build a realistic study plan for my upcoming exams based on my tasks and subjects.">
+                                    <strong>Create a study plan</strong>
+                                    <small>Tailored sessions you can save to Study Tasks</small>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="ai-tutor-messages" class="ai-msg-list" aria-live="polite"></div>
+                    </div>
+
+                    <form id="ai-tutor-composer" class="ai-composer-form">
+                        <div class="ai-composer-row">
+                            <textarea
+                                id="ai-tutor-input"
+                                rows="2"
+                                maxlength="4000"
+                                aria-label="Ask AI Tutor a study question"
+                                placeholder="Ask about your subject, paste an error message, or ask for a study plan... (Enter to send, Shift+Enter for newline)"
+                            ></textarea>
+                            <button id="ai-tutor-send-btn" class="btn-primary" type="submit">
+                                <i class="fa-solid fa-paper-plane"></i>
+                                <span>Send</span>
+                            </button>
+                        </div>
+                        <div class="ai-composer-foot">
+                            <span>Press Enter to send · Shift+Enter for a new line</span>
+                            <span id="ai-tutor-char-count">0 / 4000</span>
+                        </div>
+                    </form>
+                </section>
             </section>
         </div>
     </main>
