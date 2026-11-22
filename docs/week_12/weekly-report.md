@@ -85,3 +85,63 @@ Week 12 focused on P0/P1 stabilization, bug fixes, peer QA handoff, migration hy
 
 ## 13. Final Week 12 Status
 **NO-GO (Critical P0 Gates Remain Unverified):** While all local unit/system/build checks pass, the P1 code fixes are implemented, and Brevo Custom SMTP password reset is verified working live, full production/demo readiness cannot be declared until live `DATA-01` RLS verification, `generate-ai-quiz` Edge Function live check, Playwright browser runs, and team sign-offs are completed with evidence.
+
+---
+
+## 14. November 22 — Independent Playwright QA Update (Prince Karki)
+
+**Tester:** Prince Karki (`princekark`)  
+**Role:** Independent QA / Tester  
+**Date:** November 22, 2026  
+**Testing Tool:** Playwright + Chromium  
+**Environment:** Local Vite Preview  
+**Status:** Partial Verification Completed
+
+### Automated Testing Results
+
+| Result | Count |
+|---|---:|
+| Total drafted Playwright test cases | 24 |
+| Executed with confirmed results | 15 |
+| Reported PASS | 7 |
+| FAIL | 8 |
+| Unconfirmed / Not executed | 9 |
+
+The original November 20 report recorded 0/24 browser tests executed. This November 22 update documents subsequent independent testing.
+
+Testing covered Authentication, Study Analytics, Quiz, Study Tasks, and Mobile responsiveness.
+
+Several failures were caused by outdated Playwright selectors or missing navigation steps, rather than confirmed application bugs.
+
+One AI Quiz test reported PASS with limited assertion coverage.
+
+### Manual Password Recovery
+
+Independently verified:
+
+- Password recovery email delivery.
+- Password reset using verification code.
+- Successful login using the new password.
+- Previous password rejected after reset.
+
+**Result:** PASS
+
+### Findings and Follow-up
+
+The automated testing identified test-script maintenance requirements, including incorrect selectors, incomplete mobile navigation steps, and insufficient AI Quiz assertions.
+
+Remaining Tasks, Onboarding, and two-student Supabase RLS verification require additional testing.
+
+**GitHub Issue:** [#81 — Fix Playwright Test Failures](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/81)
+
+**Detailed Report:** [Prince Karki — Week 12 Automated QA Report](PRINCE_KARKI_AUTOMATED_QA_REPORT.md)
+
+**Evidence:** [Week 12 Screenshots](Evidence/)
+
+### QA Conclusion
+
+Independent Playwright testing has progressed from the earlier 0/24 recorded status to 15/24 cases with confirmed execution results.
+
+Developer fixes and regression retesting remain pending.
+
+The overall project NO-GO status remains unchanged because live RLS verification and other release gates have not yet been completed.
