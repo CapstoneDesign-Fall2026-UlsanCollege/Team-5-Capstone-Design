@@ -1,45 +1,39 @@
 // @ts-check
 import { test, expect } from '@playwright/test';
+import { loginAsStudent, navigateToView } from './helpers/auth.js';
 
 test.describe('Academic Onboarding & Subject Selection (E2E)', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/#subjects');
+    await loginAsStudent(page, 'A');
+    await navigateToView(page, 'subjects');
   });
 
   test('E2E-ONB-01: Subjects view renders 5-tier academic hierarchy selectors', async ({ page }) => {
-    await expect(page.locator('#onboarding-country')).toBeVisible();
-    await expect(page.locator('#onboarding-university')).toBeVisible();
-    await expect(page.locator('#onboarding-faculty')).toBeVisible();
-    await expect(page.locator('#onboarding-major')).toBeVisible();
-    await expect(page.locator('#subject-search')).toBeVisible();
+    await expect(page.locator('#academic-country')).toBeVisible();
+    await expect(page.locator('#academic-university')).toBeVisible();
+    await expect(page.locator('#academic-faculty')).toBeVisible();
+    await expect(page.locator('#academic-major')).toBeVisible();
+    await expect(page.locator('#subject-search-input')).toBeVisible();
     await expect(page.locator('#save-subjects-btn')).toBeVisible();
   });
 
   test('E2E-ONB-02: Cascading dropdowns dynamically populate options on selection', async ({ page }) => {
-    // Select Country
-    await page.selectOption('#onboarding-country', 'South Korea');
-    const uniOptions = page.locator('#onboarding-university option');
-    await expect(uniOptions).not.toHaveCount(0);
+    await page.selectOption('#academic-country', 'South Korea');
+    await expect(page.locator('#academic-university option')).not.toHaveCount(0);
 
-    // Select Faculty of Computer Science
-    await page.selectOption('#onboarding-faculty', 'Faculty of Computer Science & Information Technology');
-    const majorOptions = page.locator('#onboarding-major option');
-    await expect(majorOptions).not.toHaveCount(0);
+    await page.selectOption('#academic-faculty', 'Faculty of Computer Science & Information Technology');
+    await expect(page.locator('#academic-major option')).not.toHaveCount(0);
 
-    // Select Computer Science Major
-    await page.selectOption('#onboarding-major', 'Computer Science');
-    
-    // Check that curriculum badges (CORE / ELECTIVE) are displayed on subject cards
-    const coreBadges = page.locator('.badge-core');
-    await expect(coreBadges.first()).toBeVisible({ timeout: 5000 });
+    await page.selectOption('#academic-major', 'Computer Science & Engineering (CSE)');
+    await expect(page.locator('.core-badge').first()).toBeVisible({ timeout: 5000 });
   });
 
   test('E2E-ONB-03: Subject search input filters card list dynamically', async ({ page }) => {
-    const searchInput = page.locator('#subject-search');
+    const searchInput = page.locator('#subject-search-input');
     await searchInput.fill('Algorithms');
 
-    // Cards should filter to matching subjects
-    const cards = page.locator('.subject-select-card:visible');
+    const cards = page.locator('#subject-scroll-container .scrollable-subject-card:visible');
+    await expect(cards.first()).toBeVisible({ timeout: 5000 });
     const count = await cards.count();
     expect(count).toBeGreaterThan(0);
     const cardText = await cards.first().innerText();
@@ -47,25 +41,23 @@ test.describe('Academic Onboarding & Subject Selection (E2E)', () => {
   });
 
   test('E2E-ONB-04: Multi-subject selection updates badge count and persists state', async ({ page }) => {
-    // Click on two subject cards
-    const cards = page.locator('.subject-select-card');
+    const cards = page.locator('#subject-scroll-container .scrollable-subject-card');
     await expect(cards.first()).toBeVisible({ timeout: 5000 });
-    const cardCount = await cards.count();
-    expect(cardCount).toBeGreaterThanOrEqual(1);
 
+    const beforeCount = Number(await page.locator('#selected-subjects-count').innerText());
     await cards.nth(0).click();
-    if (cardCount >= 2) {
-      await cards.nth(1).click();
+    const afterClickCount = Number(await page.locator('#selected-subjects-count').innerText());
+    expect(afterClickCount).not.toBe(beforeCount);
+
+    // Ensure at least one subject stays selected before saving
+    if (afterClickCount === 0) {
+      await cards.nth(0).click();
     }
-    
+
     const saveBtn = page.locator('#save-subjects-btn');
     await expect(saveBtn).toBeEnabled();
     await saveBtn.click();
 
-    // Should show success notification or update state
-    await page.waitForTimeout(1000);
-    const isDashboardOrToast = page.url().includes('dashboard') || (await page.locator('.toast, .alert').isVisible().catch(() => false));
-    expect(isDashboardOrToast).toBeTruthy();
+    await expect(page.locator('.toast').first()).toBeVisible({ timeout: 8000 });
   });
 });
-

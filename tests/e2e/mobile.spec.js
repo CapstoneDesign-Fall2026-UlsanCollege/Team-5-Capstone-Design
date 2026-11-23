@@ -1,43 +1,59 @@
 // @ts-check
 import { test, expect } from '@playwright/test';
+import { loginAsStudent, navigateToView } from './helpers/auth.js';
 
 test.describe('Mobile Viewport & Responsive Design (E2E)', () => {
-  test.use({ viewport: { width: 375, height: 667 } }); // iPhone SE / Mobile portrait
+  test.use({ viewport: { width: 375, height: 667 } });
+
+  test.beforeEach(async ({ page }) => {
+    await loginAsStudent(page, 'A');
+  });
 
   test('E2E-MOB-01: Mobile dashboard loads without horizontal overflow', async ({ page }) => {
-    await page.goto('/');
-    
-    // Check that document body width matches viewport width
     const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
     const clientWidth = await page.evaluate(() => document.documentElement.clientWidth);
-    expect(scrollWidth).toBeLessThanOrEqual(clientWidth + 2); // Allow 1-2px tolerance
+    expect(scrollWidth).toBeLessThanOrEqual(clientWidth + 2);
   });
 
-  test('E2E-MOB-02: Mobile navigation drawer or bottom navigation functions', async ({ page }) => {
-    await page.goto('/');
-    const navMenu = page.locator('.sidebar, .nav-menu, #nav-drawer');
-    await expect(navMenu).toBeVisible();
+  test('E2E-MOB-02: Mobile navigation drawer opens and dark theme toggle works', async ({ page }) => {
+    await page.click('#open-sidebar-btn');
+    const sidebar = page.locator('#sidebar');
+    await expect(sidebar).toHaveClass(/is-open/);
+    await expect(sidebar).toBeVisible();
 
-    // Check theme toggle button is accessible on mobile
-    const themeBtn = page.locator('#theme-toggle, .theme-toggle-btn');
+    const themeBtn = page.locator('#theme-toggle-btn');
     await expect(themeBtn).toBeVisible();
-    await themeBtn.click();
 
-    // Verify dark/light class toggles on body or html
-    const isDark = await page.evaluate(() => document.body.classList.contains('dark-theme') || document.documentElement.classList.contains('dark-theme') || document.documentElement.getAttribute('data-theme') === 'dark');
-    expect(typeof isDark).toBe('boolean');
+    const beforeDark = await page.evaluate(() => document.documentElement.classList.contains('dark'));
+    await themeBtn.click();
+    const afterDark = await page.evaluate(() => document.documentElement.classList.contains('dark'));
+    expect(afterDark).not.toBe(beforeDark);
+
+    await page.click('#close-sidebar-btn');
+    await expect(sidebar).not.toHaveClass(/is-open/);
   });
 
-  test('E2E-MOB-03: Switching views on mobile updates active section smoothly', async ({ page }) => {
-    await page.goto('/');
-    
-    // Navigate to Analytics
-    await page.click('a[href="#analytics"], .nav-link[data-view="analytics"]');
+  test('E2E-MOB-03: Switching views through mobile navigation drawer works smoothly', async ({ page }) => {
+    await navigateToView(page, 'analytics');
     await expect(page.locator('#view-analytics')).toBeVisible();
 
-    // Navigate to Tasks
-    await page.click('a[href="#tasks"], .nav-link[data-view="tasks"]');
+    await navigateToView(page, 'tasks');
     await expect(page.locator('#view-tasks')).toBeVisible();
   });
-});
 
+  test('E2E-MOB-04: Mobile quiz setup and AI tab have zero horizontal overflow', async ({ page }) => {
+    await navigateToView(page, 'quiz');
+    const curatedWidth = await page.evaluate(() => ({
+      scrollWidth: document.documentElement.scrollWidth,
+      clientWidth: document.documentElement.clientWidth,
+    }));
+    expect(curatedWidth.scrollWidth).toBeLessThanOrEqual(curatedWidth.clientWidth + 2);
+
+    await page.click('#quiz-tab-ai');
+    const aiWidth = await page.evaluate(() => ({
+      scrollWidth: document.documentElement.scrollWidth,
+      clientWidth: document.documentElement.clientWidth,
+    }));
+    expect(aiWidth.scrollWidth).toBeLessThanOrEqual(aiWidth.clientWidth + 2);
+  });
+});
