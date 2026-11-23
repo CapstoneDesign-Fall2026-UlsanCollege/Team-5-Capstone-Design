@@ -50,18 +50,7 @@ The Quiz page should remain inside the viewport width with no sideways scroll. T
 
 ## 6. Evidence
 
-Screenshots were not attached to this report. If the screenshots are available, save them in:
-
-`docs/week_12/Evidence/Quiz-Retake-Fix/`
-
-The following evidence files should be attached:
-
-- `RT-03-after-results.png` — results page after the first quiz
-- `RT-04-retake-started.png` — quiz open immediately after selecting **Retake quiz**
-- `RT-05-reset-answers.png` — question 1 of the retake with no answer selected
-- `RT-06-retake-new-results.png` — new score with earlier attempt still in history
-- `RT-07-choose-another.png` — setup page after selecting **Choose another quiz**
-- `mobile-horizontal-scroll.png` — phone-width Quiz view showing the sideways overflow
+[Evidence](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/tree/81ccdecb0eaead8124b3d7265882ccb809d9c950/docs/week_12/Evidence1)
 
 ## 7. Conclusion
 
