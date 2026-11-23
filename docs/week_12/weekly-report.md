@@ -1,103 +1,149 @@
-# Week 12 Weekly Report — Smart Study Companion (Team 5)
+# Weekly Report
 
-**Project:** Smart Study Companion — Team 5 (Ulsan College)  
-**Repository:** https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design  
+**Team:** Team 5 — Smart Study Companion (Ulsan College)  
+**Week:** 12  
 **Date:** November 20, 2026  
-**Recorded work branch:** `week12/p0-p1-verification-and-fixes` (subsequently merged through PRs #72 and #75)
+**Repository:** [Team-5-Capstone-Design](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design)  
+**Recorded work branch:** `week12/p0-p1-verification-and-fixes` (merged through [PR #72](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/72) and [PR #75](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/75))  
 **Final Week 12 Status:** **NO-GO (Critical P0 Live Verification & Sign-Off Gates Pending)**
 
-**Reading note:** This report records the November 20 Week 12 assessment. The code changes described below are now on `main`; their presence in Git does not verify the active Vercel build. See the [Week 12 evidence map](README.md#evidence-map) for claim boundaries and unresolved checks.
+**Reading note:** This report records the November 20 Week 12 assessment and the November 22 independent QA update. The code changes are on `main`. Their presence in Git does not verify the active Vercel build. Claim boundaries are in the [Week 12 evidence map](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_12/README.md#evidence-map).
 
----
+## This week's goal
 
-## 1. Project Overview
-Week 12 focused on P0/P1 stabilization, bug fixes, peer QA handoff, migration hygiene, and honest verification of deployment and security gates prior to final handoff.
+Week 12 focused on P0/P1 stabilization, bug fixes, peer QA handoff, migration hygiene, and honest verification of deployment and security gates before final handoff.
 
-## 2. Work Completed
-- **PR #69 (merged `f2c1134`):** Removed broken **Wireframes** sidebar link that caused `404: NOT_FOUND` on Vercel.
-- **PR #71 (merged `4183944`):** Fixed **Retake quiz** button (`retakeCurrentQuiz()`, `snapshotQuizConfig()`, `createQuizAttemptState()`) and added 5 Vitest regression tests.
-- **Week 12 work branch (`week12/p0-p1-verification-and-fixes`, merged via [#72](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/72) and [#75](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/75)):**
-  - Fixed Task Modal empty/invalid deadline crash (`parseDeadlineInputToIso()`).
-  - Fixed UTC date offset in `dateInputValue()` (`formatLocalDateInput()`).
+> Fix defects found after Week 11, record only what was actually verified, and keep the deferred AI Tutor unimplemented.
+
+## What we committed to do
+
+- [x] **PR #69 (merged `f2c1134`):** Remove the broken Wireframes sidebar link that returned `404: NOT_FOUND` on Vercel.
+- [x] **PR #71 (merged `4183944`):** Fix Retake Quiz through `retakeCurrentQuiz()`, `snapshotQuizConfig()`, and `createQuizAttemptState()`, and add 5 Vitest regression tests.
+- [x] **PRs #72 and #75:** Fix the Task Modal empty/invalid deadline crash with `parseDeadlineInputToIso()`.
+- [x] Fix the UTC date offset in `dateInputValue()` with `formatLocalDateInput()`.
+- [x] Remove the 20-attempt slice cap in `loadAndRenderQuizHistory()` and raise the fetch limit to `200`.
+- [x] Rename the unapplied quiz migration to `012_quiz_difficulty_and_repetition.sql` so it no longer shares the `011_` prefix.
+- [x] Write the Week 12 audit, SMTP, DATA-01, Playwright, bug-fix, and deployment reports.
+- [x] Configure Brevo Custom SMTP in the Supabase Dashboard (verified sender, deactivated Brevo SMTP key IP blocking, fixed the SMTP login `Username`, verified URL Configuration and the recovery template). Live password reset was confirmed on November 20, 2026, and Prince Karki independently rechecked the manual recovery path on November 22.
+- [ ] Apply and verify `009_ai_quiz_tables.sql`, `010_complete_universities.sql`, and `012_quiz_difficulty_and_repetition.sql` in live Supabase.
+- [ ] Deploy `generate-ai-quiz` and run a live API test.
+- [ ] Run live DATA-01 two-student RLS.
+- [ ] Finish Playwright: November 22 executed 15 of 24 cases (7 reported PASS, 8 FAIL, 9 unconfirmed). Script fixes and a full rerun are still open ([Issue #81](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/81)).
+- [ ] Capture `RT-03`–`RT-08`, record the active Vercel SHA, and collect five peer sign-offs.
+
+## 2. Work completed
+
+- **PR #69 (merged `f2c1134`):** Removed the broken Wireframes sidebar link.
+- **PR #71 (merged `4183944`):** Fixed Retake Quiz and added 5 Vitest regression tests.
+- **Week 12 work branch `week12/p0-p1-verification-and-fixes`, merged via [PR #72](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/72) and [PR #75](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/75):**
+  - Fixed the Task Modal empty/invalid deadline crash (`parseDeadlineInputToIso()`).
+  - Fixed the UTC date offset in `dateInputValue()` (`formatLocalDateInput()`).
   - Removed the 20-attempt slice cap in `loadAndRenderQuizHistory()` (fetch limit raised to `200`).
-  - Resolved duplicate `011_` migration prefix by renaming the unapplied quiz migration to `012_quiz_difficulty_and_repetition.sql`.
-  - Authored Week 12 audit, SMTP, `DATA-01`, Playwright, bug-fix, and deployment verification reports.
-  - Configured Brevo Custom SMTP in Supabase Dashboard (verified sender, deactivated Brevo SMTP key IP blocking, fixed SMTP login `Username`, verified URL Configuration & recovery template) and confirmed live password reset working (Nov 20, 2026).
+  - Resolved the duplicate `011_` prefix by renaming the unapplied quiz migration to `012_quiz_difficulty_and_repetition.sql`.
+  - Authored the Week 12 audit, SMTP, DATA-01, Playwright, bug-fix, and deployment verification reports.
+  - Configured Brevo Custom SMTP and confirmed live password reset on November 20, 2026.
 
-## 3. Database and Backend
-- `011_study_streak_analytics.sql`: Applied by user in Supabase SQL Editor on Nov 17.
-- `009_ai_quiz_tables.sql`, `010_complete_universities.sql`, `012_quiz_difficulty_and_repetition.sql`: **UNVERIFIED** in live Supabase from local session.
-- **Brevo Custom SMTP / Password Reset (Issue #40):** **User-reported live password-reset success** on Nov 20, 2026; the [SMTP report](AUTH_SMTP_VERIFICATION.md) does not link an independent, sanitized run receipt. Other email paths remain unverified.
-- **`generate-ai-quiz` Edge Function:** **UNVERIFIED** pending Supabase CLI deployment & live API test.
+## 3. Database and backend
 
-## 4. Security Verification
-- **`DATA-01` (Two-Student Authenticated RLS):** **NOT RUN** in live Supabase (procedure documented in [`DATA-01-RLS-VERIFICATION.md`](DATA-01-RLS-VERIFICATION.md)).
+- `011_study_streak_analytics.sql`: Applied by user in the Supabase SQL Editor on November 17.
+- `009_ai_quiz_tables.sql`, `010_complete_universities.sql`, and `012_quiz_difficulty_and_repetition.sql`: **UNVERIFIED** in live Supabase from the local session.
+- **Brevo Custom SMTP / Password Reset ([Issue #40](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/40)):** User-reported live password-reset success on November 20, 2026. The [SMTP report](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_12/AUTH_SMTP_VERIFICATION.md) does not itself link an independent sanitized run receipt. On November 22, Prince Karki independently verified email delivery, reset by verification code, login with the new password, and rejection of the previous password. Signup verification and expired-token checks remain unverified.
+- **`generate-ai-quiz` Edge Function:** **UNVERIFIED**, pending Supabase CLI deployment and a live API test.
 
-## 5. Automated Testing
-- **Vitest (`npm test`):** **79 / 79 PASS** (11 files, as recorded for the Week 12 work branch; local unit & contract tests).
-- **Python System Harness (`tests/run_tests.py`):** **11 / 11 PASS** (recorded local result).
-- **Python AI Quiz Suite (`tests/test_ai_quiz.py`):** **4 / 4 PASS** (recorded local result).
-- **Vite Build (`npm run build`):** **PASS** (recorded local result; 6 HTML entry points).
-- **Playwright Browser E2E (`npx playwright test`):** **0 / 24 EXECUTED** (`@playwright/test` not installed).
+## 4. Security verification
 
-## 6. Manual Testing
-- Browser screenshot evidence (`RT-03`–`RT-08`, `DATA-01`) remains **NOT RUN** in this local session.
+- **DATA-01 (Two-Student Authenticated RLS):** **NOT RUN** in live Supabase. The procedure is in [DATA-01-RLS-VERIFICATION.md](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_12/DATA-01-RLS-VERIFICATION.md). The November 22 session also left `E2E-RLS-01` and `E2E-RLS-02` not run.
 
-## 7. Bug Fixes
-- Retake Quiz button (`PR #71`), broken Wireframes `404` link (`PR #69`), Task Modal empty-deadline crash, UTC midnight date offset, Quiz History 20-attempt cap, and duplicate `011_` migration prefix. See [`BUG_FIX_REGRESSION_REPORT.md`](BUG_FIX_REGRESSION_REPORT.md) and [`QUIZ_RETAKE_BUG_FIX_REPORT.md`](QUIZ_RETAKE_BUG_FIX_REPORT.md).
+## 5. Automated testing
 
-## 8. Independent Peer QA & Sign-Off Status
+November 20 recorded result for the Week 12 work branch:
+
+- **Vitest (`npm test`):** **79 / 79 PASS** (11 files; local unit and contract tests).
+- **Python system harness (`tests/run_tests.py`):** **11 / 11 PASS**.
+- **Python AI Quiz suite (`tests/test_ai_quiz.py`):** **4 / 4 PASS**.
+- **Vite build (`npm run build`):** **PASS** (6 HTML entry points).
+- **Playwright (`npx playwright test`):** **0 / 24 EXECUTED** on November 20, because `@playwright/test` was not installed in that session.
+
+November 22 independent update (Prince Karki, local Vite preview, Playwright + Chromium): **15 executed with confirmed results, 7 reported PASS, 8 FAIL, 9 unconfirmed.** Details are in section 14.
+
+## 6. Manual testing
+
+- On November 20, browser screenshot evidence `RT-03`–`RT-08` and DATA-01 was **NOT RUN**.
+- On November 22, manual password recovery was independently verified as **PASS**: recovery email, verification code, new-password login, and previous-password rejection. Evidence is in the [Week 12 Evidence folder](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/tree/main/docs/week_12/Evidence).
+
+## 7. Bug fixes
+
+Retake Quiz ([PR #71](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/71)), Wireframes `404` ([PR #69](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/69)), Task Modal empty-deadline crash, UTC midnight date offset, Quiz History 20-attempt cap, and the duplicate `011_` migration prefix.
+
+See [BUG_FIX_REGRESSION_REPORT.md](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_12/BUG_FIX_REGRESSION_REPORT.md) and [QUIZ_RETAKE_BUG_FIX_REPORT.md](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_12/QUIZ_RETAKE_BUG_FIX_REPORT.md).
+
+## 8. Independent peer QA and sign-off status
 
 | Member | Assigned Area | Verification | Sign-off |
-| :--- | :--- | :--- | :---: |
-| Sumit Adhikari (`adronnie`) | Database & Supabase | Local SQL verified; live `009`/`010`/`012` & `DATA-01` pending | **PENDING** |
-| Nabin Khadka (`liftupkhadka555-spec`) | Full-Stack Integration & Deployment | Code fixes, local suites & Brevo password reset verified; Vercel org & Playwright QA pending | **PENDING** |
-| Prabin Rai (`RaiPrabin697`) | QA Automation | `0/24` Playwright browser run pending | **PENDING** |
-| Prince Karki (`princekark`) | QA & Independent Testing | Live `DATA-01` two-account test pending | **PENDING** |
-| J.N. Taj Oli (`jn-oli`) | UI/UX & Frontend | Week 12 UI/retake peer review pending | **PENDING** |
+|---|---|---|---|
+| Sumit Adhikari (`adronnie`) | Database & Supabase | Local SQL verified; live `009` / `010` / `012` and DATA-01 pending | **PENDING** |
+| Nabin Khadka (`liftupkhadka555-spec`) | Full-Stack Integration & Deployment | Code fixes, local suites, and Brevo password reset verified; Vercel org and Playwright QA pending | **PENDING** |
+| Prabin Rai (`RaiPrabin697`) | QA Automation | November 20 recorded 0/24. November 22 moved execution to 15/24; script fixes in Issue #81 are still pending | **PENDING** |
+| Prince Karki (`princekark`) | QA & Independent Testing | November 22 Playwright partial run and manual password-recovery PASS recorded; live DATA-01 still pending | **PENDING** |
+| J.N. Taj Oli (`jn-oli`) | UI/UX & Frontend | Week 12 UI/retake peer review pending. Design-only AI Tutor spec is local commit `1476c9f` and is not on `origin` yet | **PENDING** |
 
 ## 9. Deployment
-- Personal fork `liftupkhadka555-spec/Team-5-Capstone-Design` `main` verified synced to `4183944`.
-- The fork-sync receipt predates the Week 12 merge. The active Vercel deployment SHA and its relationship to current `main` remain unknown.
-- Course organization Vercel GitHub App approval (Issue #59) remains **PENDING**. See [`DEPLOYMENT_VERIFICATION.md`](DEPLOYMENT_VERIFICATION.md).
 
-## 10. Remaining Problems
-1. Live Supabase `DATA-01` two-student RLS test not executed.
-2. `generate-ai-quiz` Edge Function live deployment and remaining live email cases (signup verification & expired recovery token) not yet verified *(Brevo Custom SMTP password reset resolved Nov 20, 2026)*.
-3. Playwright browser suite (`0/24`) and manual browser screenshots (`RT-03`–`RT-08`) not executed.
-4. All 5 team member peer QA & freeze sign-offs remain `PENDING`.
+- Personal fork `liftupkhadka555-spec/Team-5-Capstone-Design` `main` was verified synced to `4183944`.
+- That fork-sync receipt predates the Week 12 merge. The active Vercel deployment SHA, and its relationship to current `main`, remain unknown.
+- Course-organization Vercel GitHub App approval ([Issue #59](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/59)) remains **PENDING**. See [DEPLOYMENT_VERIFICATION.md](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_12/DEPLOYMENT_VERIFICATION.md).
 
-## 11. Next Actions
-- **Sumit / Nabin:** Verify/run `009`, `010`, `012` in Supabase Dashboard, deploy `generate-ai-quiz`, and log live signup/token-expiry email checks.
-- **Prince / Prabin / Sumit:** Execute `DATA-01` with 2 disposable accounts and capture redacted screenshots.
-- **Prabin / Nabin:** Install `@playwright/test`, run `npx playwright test`, and capture `RT-03`–`RT-08` screenshots.
-- **Nabin:** Record the active Vercel deployment SHA and compare it with the intended merged revision; keep fork-sync and deployment claims separate.
-- **All 5 Members:** Complete peer QA swaps in [`docs/week9/QA_EVIDENCE_MATRIX.md`](../week9/QA_EVIDENCE_MATRIX.md) and sign [`docs/week_11/FEATURE_FREEZE_DECISION.md`](../week_11/FEATURE_FREEZE_DECISION.md).
+## Evidence links
 
-## 12. Evidence Links
-- [`TECHNICAL_AUDIT.md`](TECHNICAL_AUDIT.md)
-- [`AUTH_SMTP_VERIFICATION.md`](AUTH_SMTP_VERIFICATION.md)
-- [`DATA-01-RLS-VERIFICATION.md`](DATA-01-RLS-VERIFICATION.md)
-- [`PLAYWRIGHT_E2E_REPORT.md`](PLAYWRIGHT_E2E_REPORT.md)
-- [`QUIZ_RETAKE_BUG_FIX_REPORT.md`](QUIZ_RETAKE_BUG_FIX_REPORT.md)
-- [`BUG_FIX_REGRESSION_REPORT.md`](BUG_FIX_REGRESSION_REPORT.md)
-- [`DEPLOYMENT_VERIFICATION.md`](DEPLOYMENT_VERIFICATION.md)
+| Evidence | Link |
+|---|---|
+| Issue(s) | [Issue #40 — password recovery / SMTP](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/40); [Issue #59 — Vercel GitHub App approval](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/59); [Issue #81 — Fix Playwright test failures](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/81) |
+| PR(s) / commits | [#69](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/69) `f2c1134`; [#71](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/71) `4183944`; [#72](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/72); [#75](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/75); [#76](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/76) |
+| Screenshot / demo | [Week 12 Evidence](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/tree/main/docs/week_12/Evidence). `RT-03`–`RT-08` and DATA-01 screenshots were not run on November 20. November 22 recovery and Playwright captures are listed in the automated QA report. |
+| Test/check note | [Playwright, November 20, 0/24](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_12/PLAYWRIGHT_E2E_REPORT.md); [Prince automated QA, November 22, 15/24](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_12/PRINCE_KARKI_AUTOMATED_QA_REPORT.md); [bug-fix regression](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_12/BUG_FIX_REGRESSION_REPORT.md); [SMTP](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_12/AUTH_SMTP_VERIFICATION.md) |
+| Document update | [Week 12 weekly report](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_12/weekly-report.md); [technical audit](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_12/TECHNICAL_AUDIT.md); [quiz retake report](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_12/QUIZ_RETAKE_BUG_FIX_REPORT.md); [deployment verification](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_12/DEPLOYMENT_VERIFICATION.md) |
+| Current codebase area map / ownership audit | [Ownership audit](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_10/AI_USE_AND_CODE_OWNERSHIP_AUDIT.md) and [Slice plan](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_10/Slice.md). No ownership-map update was committed this week. |
 
-## 13. Final Week 12 Status
-**NO-GO (Critical P0 Gates Remain Unverified):** While all local unit/system/build checks pass, the P1 code fixes are implemented, and Brevo Custom SMTP password reset is verified working live, full production/demo readiness cannot be declared until live `DATA-01` RLS verification, `generate-ai-quiz` Edge Function live check, Playwright browser runs, and team sign-offs are completed with evidence.
+## Individual contribution entries — one row per student
 
----
+| Student | What they did | Evidence link |
+|---|---|---|
+| Nabin Khadka (`liftupkhadka555-spec`) | Fixed Wireframes, Retake Quiz, deadline validation, the local date offset, the quiz-history cap, and the `012_` migration, and wrote the Week 12 verification package. | [PR #75](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/75) |
+| Prabin Rai (`RaiPrabin697`) | Reconciled Week 11 evidence boundaries and merged the evidence-led Week 12 package. | [PR #76](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/76) |
+| Prince Karki (`princekark`) | On November 22, ran 15 of 24 Playwright cases (7 reported PASS, 8 FAIL, 9 unconfirmed) and independently passed manual password recovery. | [Issue #81](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/81) and [automated QA report](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_12/PRINCE_KARKI_AUTOMATED_QA_REPORT.md) |
+| J.N. Taj Oli (`jn-oli`) | Wrote a design-only AI Tutor UI/UX specification outside the frozen MVP. Week 12 UI/retake peer review is still pending. |[AI_TUTOR_UI_UX_SPEC](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/f1184cc48ad7ae967bfdc92d39848cc72dd543f6/docs/week_12/AI_TUTOR_UI_UX_SPEC.md)|
+| Sumit Adhikari (`adronnie`) | No new Week 12 repository check from November 19–22. Live `009` / `010` / `012` and DATA-01 remain pending. | No Week 12 evidence link |
 
-## 14. November 22 — Independent Playwright QA Update (Prince Karki)
+## Blockers or risks
+
+| Blocker/risk | Owner | Next action |
+|---|---|---|
+| Live DATA-01 two-student RLS is not executed | Prince Karki, Prabin Rai, Sumit Adhikari | Run DATA-01 with 2 disposable accounts and capture redacted screenshots |
+| `generate-ai-quiz` is unverified; signup verification and expired recovery token are still open | Sumit Adhikari, Nabin Khadka | Run `009`, `010`, and `012` in the Supabase Dashboard, deploy the Edge Function, and log those email checks |
+| Playwright is 8 FAIL and 9 unconfirmed; failures are mostly outdated selectors, missing mobile navigation, and weak AI Quiz assertions | Prabin Rai, Nabin Khadka | Fix the scripts in Issue #81, then rerun and capture `RT-03`–`RT-08` |
+| Active Vercel SHA is unknown; fork sync to `4183944` predates the Week 12 merge. Issue #59 is pending | Nabin Khadka | Record the live deployment SHA and compare it with the merged revision |
+| All 5 peer QA and freeze sign-offs are pending | All 5 members | Complete the swaps in [QA_EVIDENCE_MATRIX.md](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week9/QA_EVIDENCE_MATRIX.md) and sign [FEATURE_FREEZE_DECISION.md](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_11/FEATURE_FREEZE_DECISION.md) |
+
+## Decision record
+
+| Decision | Why we chose it | Owner | Evidence / Issue link |
+|---|---|---|---|
+| Week 12 stays NO-GO | Local unit, system, and build checks pass, and the P1 fixes are merged, but live RLS, the Edge Function, a full browser rerun, the Vercel SHA, and sign-offs are still open | Team 5 | [Week 12 weekly report](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_12/weekly-report.md) |
+| Rename the unapplied quiz migration to `012_quiz_difficulty_and_repetition.sql` | `011_study_streak_analytics.sql` was already applied on November 17 | Nabin Khadka | [PR #75](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/75) |
+| Treat November 22 password recovery as an independent manual PASS, and leave other email paths unverified | Prince verified email, code, new-password login, and old-password rejection. Signup verification and expired-token checks were not part of that run | Prince Karki | [Issue #40](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/40) |
+| Keep the November 22 Playwright failures as test-script work, not confirmed product bugs, until the scripts are corrected and rerun | Most failures came from outdated selectors or missing navigation steps. One AI Quiz PASS has limited assertion coverage | Prince Karki | [Issue #81](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/81) |
+| Keep the AI Tutor out of the MVP | The Week 11 freeze deferred `#view-assistant` so bug triage would stay ahead of a new feature | Team 5 | [Feature freeze decision](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_11/FEATURE_FREEZE_DECISION.md) |
+
+## 14. November 22 — Independent Playwright QA update (Prince Karki)
 
 **Tester:** Prince Karki (`princekark`)  
 **Role:** Independent QA / Tester  
 **Date:** November 22, 2026  
 **Testing Tool:** Playwright + Chromium  
 **Environment:** Local Vite Preview  
-**Status:** Partial Verification Completed
+**Status:** Partial verification completed
 
-### Automated Testing Results
+### Automated testing results
 
 | Result | Count |
 |---|---:|
@@ -107,41 +153,41 @@ Week 12 focused on P0/P1 stabilization, bug fixes, peer QA handoff, migration hy
 | FAIL | 8 |
 | Unconfirmed / Not executed | 9 |
 
-The original November 20 report recorded 0/24 browser tests executed. This November 22 update documents subsequent independent testing.
+The November 20 report recorded 0/24 browser tests executed. This November 22 update is the later independent run. It covered Authentication, Study Analytics, Quiz, Study Tasks, and Mobile responsiveness.
 
-Testing covered Authentication, Study Analytics, Quiz, Study Tasks, and Mobile responsiveness.
+Several failures were caused by outdated Playwright selectors or missing navigation steps, rather than confirmed application bugs. One AI Quiz test reported PASS with limited assertion coverage.
 
-Several failures were caused by outdated Playwright selectors or missing navigation steps, rather than confirmed application bugs.
-
-One AI Quiz test reported PASS with limited assertion coverage.
-
-### Manual Password Recovery
+### Manual password recovery
 
 Independently verified:
 
 - Password recovery email delivery.
-- Password reset using verification code.
+- Password reset using the verification code.
 - Successful login using the new password.
 - Previous password rejected after reset.
 
 **Result:** PASS
 
-### Findings and Follow-up
+### Findings and follow-up
 
-The automated testing identified test-script maintenance requirements, including incorrect selectors, incomplete mobile navigation steps, and insufficient AI Quiz assertions.
+The run found test-script maintenance work: incorrect selectors, incomplete mobile navigation steps, and insufficient AI Quiz assertions. Remaining Tasks, Onboarding, and two-student Supabase RLS verification still need testing.
 
-Remaining Tasks, Onboarding, and two-student Supabase RLS verification require additional testing.
+**GitHub Issue:** [#81 — Fix Playwright Test Failures](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/81)  
+**Detailed report:** [Prince Karki — Week 12 Automated QA Report](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_12/PRINCE_KARKI_AUTOMATED_QA_REPORT.md)  
+**Evidence:** [Week 12 Screenshots](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/tree/main/docs/week_12/Evidence)
 
-**GitHub Issue:** [#81 — Fix Playwright Test Failures](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/81)
+### QA conclusion
 
-**Detailed Report:** [Prince Karki — Week 12 Automated QA Report](PRINCE_KARKI_AUTOMATED_QA_REPORT.md)
+Independent Playwright testing moved from the earlier 0/24 recorded status to 15/24 cases with confirmed execution results. Developer fixes and regression retesting remain pending. The project NO-GO status stays in place because live RLS verification and the other release gates are not complete.
 
-**Evidence:** [Week 12 Screenshots](Evidence/)
+## 13. Final Week 12 status
 
-### QA Conclusion
+**NO-GO (Critical P0 Gates Remain Unverified).** Local unit, system, and build checks passed, the P1 code fixes are implemented, Brevo password reset had a reported live success on November 20, and Prince’s November 22 manual recovery check passed. Production or demo readiness stays unclaimed until live DATA-01 RLS verification, a live `generate-ai-quiz` check, the Playwright script fixes and rerun, and team sign-offs are completed with evidence.
 
-Independent Playwright testing has progressed from the earlier 0/24 recorded status to 15/24 cases with confirmed execution results.
+## Next week's bridge task
 
-Developer fixes and regression retesting remain pending.
-
-The overall project NO-GO status remains unchanged because live RLS verification and other release gates have not yet been completed.
+- **Sumit / Nabin:** Verify or run `009`, `010`, and `012` in the Supabase Dashboard, deploy `generate-ai-quiz`, and log live signup and token-expiry email checks.
+- **Prince / Prabin / Sumit:** Execute DATA-01 with 2 disposable accounts and capture redacted screenshots.
+- **Prabin / Nabin:** Correct the Playwright scripts from Issue #81, rerun the 8 failures and 9 unconfirmed cases, and capture `RT-03`–`RT-08`.
+- **Nabin:** Record the active Vercel deployment SHA and compare it with the intended merged revision. Keep the fork-sync claim separate from the deployment claim.
+- **All 5 members:** Complete the peer QA swaps and sign the feature-freeze decision. A non-author also runs the Week 13 clean-start setup from `README.md` and `supabase/setup_all.sql`.
