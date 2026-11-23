@@ -1,9 +1,36 @@
-import { defineConfig, devices } from '@playwright/test';
+import fs from 'node:fs';
+import { chromium, defineConfig, devices } from '@playwright/test';
 
 /**
  * Playwright E2E Configuration — Smart Study Companion (Team 5)
- * Configured for testing local Vite preview / dev server and live deployment builds.
+ * Configured for local Vite preview/dev server and live deployment verification.
+ * Uses Playwright-managed Chromium when installed, falling back to local Chrome
+ * (or PW_CHROMIUM_EXECUTABLE_PATH) when running on developer workstations without
+ * downloading a separate Playwright browser binary.
  */
+function resolveLocalChromeExecutable() {
+  if (process.env.PW_CHROMIUM_EXECUTABLE_PATH) {
+    return process.env.PW_CHROMIUM_EXECUTABLE_PATH;
+  }
+  try {
+    const managedPath = chromium.executablePath();
+    if (managedPath && fs.existsSync(managedPath)) {
+      return undefined;
+    }
+  } catch (_) {
+    // Fall through to system Chrome candidates
+  }
+  const candidates = [
+    '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+    '/usr/bin/google-chrome',
+    '/usr/bin/chromium',
+  ];
+  return candidates.find((candidate) => fs.existsSync(candidate));
+}
+
+const chromeExecutable = resolveLocalChromeExecutable();
+const chromiumLaunchOptions = chromeExecutable ? { executablePath: chromeExecutable } : undefined;
+
 export default defineConfig({
   testDir: './tests/e2e',
   timeout: 30000,
@@ -22,12 +49,15 @@ export default defineConfig({
     baseURL: process.env.E2E_BASE_URL || 'http://localhost:4173',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
+    video: chromeExecutable ? 'off' : 'retain-on-failure',
   },
   projects: [
     {
       name: 'Desktop Chrome',
-      use: { ...devices['Desktop Chrome'] },
+      use: {
+        ...devices['Desktop Chrome'],
+        launchOptions: chromiumLaunchOptions,
+      },
     },
     {
       name: 'Desktop Firefox',
@@ -39,7 +69,10 @@ export default defineConfig({
     },
     {
       name: 'Mobile Chrome (Pixel 5)',
-      use: { ...devices['Pixel 5'] },
+      use: {
+        ...devices['Pixel 5'],
+        launchOptions: chromiumLaunchOptions,
+      },
     },
     {
       name: 'Mobile Safari (iPhone 12)',
@@ -53,4 +86,3 @@ export default defineConfig({
     timeout: 120000,
   },
 });
-

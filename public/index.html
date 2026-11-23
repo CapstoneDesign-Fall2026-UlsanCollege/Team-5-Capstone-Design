@@ -445,17 +445,17 @@
                     Subject-level practice · Select a subject and difficulty to see available questions.
                 </div>
 
-                <div class="quiz-type-tabs" style="display: flex; gap: 10px; margin-top: 16px; margin-bottom: 8px;">
-                    <button id="quiz-tab-curated" class="btn-ghost is-active" type="button" style="border-radius: 9999px;">
+                <div class="quiz-type-tabs" role="tablist" aria-label="Quiz modes">
+                    <button id="quiz-tab-curated" class="btn-ghost is-active" type="button" role="tab" aria-selected="true" aria-pressed="true" aria-controls="quiz-curated-panel">
                         <i class="fa-solid fa-book-bookmark"></i> Standard &amp; Rapid Quiz
                     </button>
-                    <button id="quiz-tab-ai" class="btn-ghost" type="button" style="border-radius: 9999px;">
+                    <button id="quiz-tab-ai" class="btn-ghost" type="button" role="tab" aria-selected="false" aria-pressed="false" aria-controls="quiz-ai-panel">
                         <i class="fa-solid fa-wand-magic-sparkles"></i> AI Quiz Generator
                     </button>
                 </div>
 
                 <div id="quiz-curated-panel" class="quiz-setup-controls">
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; max-width: 640px;">
+                    <div class="quiz-setup-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); gap: 14px; max-width: 640px;">
                         <label for="quiz-subject">Subject
                             <select id="quiz-subject" style="width: 100%; margin-top: 4px;">
                                 <!-- Populated dynamically based on enrolled subjects & selected major -->
@@ -485,7 +485,7 @@
                     <label for="quiz-ai-topic" style="max-width: 520px;">Quiz Topic / Concept Prompt
                         <input type="text" id="quiz-ai-topic" placeholder="e.g. Binary Search Trees, Normalization, Newton's Laws" required style="width: 100%; margin-top: 4px; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface);">
                     </label>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; max-width: 520px;">
+                    <div class="quiz-setup-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); gap: 16px; max-width: 520px;">
                         <label for="quiz-ai-difficulty">Difficulty Level
                             <select id="quiz-ai-difficulty" style="width: 100%; margin-top: 4px;">
                                 <option value="easy">Easy (Fundamentals)</option>

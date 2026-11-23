@@ -1,45 +1,39 @@
-# Week 12 — QA, Bug Fixes & Verification
+# Week 12 — Verification & Release Readiness Hub
 
 **Project:** Smart Study Companion — Team 5 (Ulsan College)  
 **Repository:** https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design  
-**Date:** November 20, 2026  
+**Updated:** November 23, 2026  
 
 ---
 
 ## Read First
 
-**Status: NO-GO.** The Week 12 fixes are merged into `main` through [PR #72](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/72) and [PR #75](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/75). This does not establish which revision Vercel serves. Live two-account RLS, browser E2E, and team sign-offs remain unverified.
+**Status: NO-GO.** Week 12 P1 fixes and PRs `#69`, `#71`, `#72`, `#75`, `#78`, `#82` are merged on `origin/main` (`e9f86df`), and additional November 23 UI/QA fixes (`#79`, `#80`, `#83`, `#84`, `.quiz-setup-controls[hidden]`, and updated Playwright specs) are staged on branch `week12/release-readiness-qa-fixes`. Production course Vercel deployment SHA verification (**BLOCKED locally / bundle mismatch**), live Supabase migrations (`009`, `010`, `012`), live `DATA-01` two-student RLS, live `generate-ai-quiz` Edge Function verification, credentialed Playwright runs, and team sign-offs remain open.
 
-1. [Shared weekly report](./weekly-report.md): decisions, ownership, and remaining gates.
-2. [Evidence map](#evidence-map): what each result actually establishes.
-3. [Unresolved gates](#unresolved-gates): the next checks before a GO decision.
+1. [Release Verification Report (Nov 23)](./RELEASE_VERIFICATION_REPORT.md): complete Sections A–F audit, database remediation plan, UI/QA fixes, and GO/NO-GO gates.
+2. [Shared weekly report](./weekly-report.md): decisions, ownership, and remaining gates.
+3. [Evidence map](#evidence-map): what each result actually establishes.
 
 ## Evidence Map
 
 | Claim | Source and method | Operator / date | Revision or environment | Result and limit |
 | :--- | :--- | :--- | :--- | :--- |
-| Task deadline, local date, quiz-history, and migration changes | [PR #72](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/72), [PR #75](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/75), [regression report](./BUG_FIX_REGRESSION_REPORT.md); code review and recorded local suites | Individual test operator not stated; November 20 report | Merged into `main`; deployed revision unknown | Fixes are in the repository. No linked live browser regression receipt for these changes. |
-| Quiz retake fix | [PR #71](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/71), [fix report](./QUIZ_RETAKE_BUG_FIX_REPORT.md); unit tests | See fix report; Week 12 | Repository change; deployed revision unknown | Unit coverage is not a fresh browser retake result. |
-| Password recovery | [Issue #40](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/40), [SMTP report](./AUTH_SMTP_VERIFICATION.md); reported live user confirmation | Nabin / Sumit report; November 20 | Supabase/Brevo; exact build unknown | Password reset reported working. Signup verification, expired token, and independently linked capture remain unverified. |
-| Two-account data isolation | [DATA-01 protocol](./DATA-01-RLS-VERIFICATION.md); planned live test | Prince / Prabin / Sumit assigned; no run date | Live Supabase revision unknown | **Not run.** Local SQL emulation does not prove live RLS. |
-| Browser E2E | [Playwright report](./PLAYWRIGHT_E2E_REPORT.md); planned browser suite | Prabin / Nabin assigned; no run date | Browser/build unknown | **0/24 executed.** Static or contract checks are separate. |
-| Public deployment | [Deployment report](./DEPLOYMENT_VERIFICATION.md); fork sync and config inspection | Nabin; November 20 | Fork `4183944`; live Vercel SHA unknown | Fork synchronization does not verify the deployed build. |
-
-## Unresolved Gates
-
-- **Live RLS:** Prince / Prabin / Sumit run [DATA-01](./DATA-01-RLS-VERIFICATION.md) with two disposable accounts and record redacted responses plus Account A recheck.
-- **Browser regression:** Prabin / Nabin run the [Playwright suite](./PLAYWRIGHT_E2E_REPORT.md) and record its actual counts, browser/build, and artifacts.
-- **Deployment identity:** Nabin records the active Vercel deployment SHA and checks it against the intended merged revision.
-- **Team decision:** Each member reviews their area and records their own result in the [shared report](./weekly-report.md); sign-off remains pending until then.
+| Week 12 bug fixes (`#69`, `#71`, `#72`, `#75`) & Nov 23 UI fixes (`#79`, `#80`, `#83`, `#84`, hidden panel fix) | [Regression report](./BUG_FIX_REGRESSION_REPORT.md), [Release report](./RELEASE_VERIFICATION_REPORT.md); Vitest (`93/93`), PGlite, Vite build, mocked Chromium checks (`10/10`) | Nabin Khadka / Nov 20–23, 2026 | `week12/release-readiness-qa-fixes` (`e9f86df` + fixes) | Verified locally & in Chromium UI regression; requires merge & authorized production deploy before claiming live |
+| Quiz retake fix | [PR #71](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/71), [Peer review](./QUIZ_RETAKE_PEER_REVIEW.md), [Evidence1](./Evidence1/Retake%20Quiz%20Evidence.md); manual dark-mode + Chrome `UI-REG-05` | J.N. Taj Oli / Nov 23; Nabin Khadka / Nov 23 | Desktop & 375px mobile | Retake path passed; `Issue #83` mobile Quiz sideways scroll & `Issue #84` dark-mode dropdown contrast fixed on `week12/release-readiness-qa-fixes` pending peer recheck |
+| Password recovery | [Issue #40](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/40), [Prince Recovery QA](./PRINCE_KARKI_PASSWORD_RECOVERY_QA.md), [SMTP report](./AUTH_SMTP_VERIFICATION.md) | Prince Karki / Nov 22, 2026 | Live Supabase/Brevo | Manual password recovery PASS; signup confirmation & expired-token checks remain unverified |
+| Two-account data isolation | [DATA-01 protocol](./DATA-01-RLS-VERIFICATION.md); anon probe (`E2E-RLS-02`) + PGlite (`36/36`) vs live two-account test | Live `DATA-01` unassigned/pending; `E2E-RLS-02` Nov 23 | Live Supabase (`bcwwnjtmrcxggbaallon`) | Anonymous REST returns `0` rows across 8 tables; live two-student `DATA-01` remains **Not run** |
+| Browser E2E | [Playwright report](./PLAYWRIGHT_E2E_REPORT.md), [Prince QA report](./PRINCE_KARKI_AUTOMATED_QA_REPORT.md) | Prince Karki (Nov 22); Nabin Khadka (Nov 23) | Local Vite preview (`Desktop Chrome` + `Mobile Pixel 5`) | Nov 22: **15/24** executed (**7 PASS, 8 FAIL, 9 unconfirmed**). Nov 23 post-fix: **22 PASS** (12 real unauth/anon + 10 mocked UI regression), **40 SKIPPED** pending live student credentials |
+| Live Supabase migrations & AI Edge Functions | Live anon REST/Function probes in [Release report §C & §E](./RELEASE_VERIFICATION_REPORT.md) | Nabin Khadka / Nov 23, 2026 | Live Supabase cloud | `011` **APPLIED**; `009`, `010`, `012`, `013`, `generate-ai-quiz`, and `ai-tutor-chat` are **NOT APPLIED / NOT DEPLOYED** |
+| Public deployment | [Deployment report](./DEPLOYMENT_VERIFICATION.md); live HTTP header/asset checks | Nabin Khadka / Nov 23, 2026 | Course URL & fork URL (`03ae6a4` / `etag: "e6cce49db1d3fbd659ee860ed84f94f2"`) | Official Vercel SHA **BLOCKED** locally (`Issue #59` pending); active bundle predates `e9f86df` and QA fixes |
 
 ## Supporting Documents
 
-1. **[weekly-report.md](./weekly-report.md)** — Complete Week 12 status report, sign-off table, and blockers.
-2. **[TECHNICAL_AUDIT.md](./TECHNICAL_AUDIT.md)** — Baseline repository audit and confirmed defects.
-3. **[BUG_FIX_REGRESSION_REPORT.md](./BUG_FIX_REGRESSION_REPORT.md)** — Task modal deadline crash, UTC date offset, 20-attempt cap, and `012_` migration fix.
-4. **[QUIZ_RETAKE_BUG_FIX_REPORT.md](./QUIZ_RETAKE_BUG_FIX_REPORT.md)** — Root cause and QA report for the Retake Quiz button bug (`PR #71`).
-5. **[AUTH_SMTP_VERIFICATION.md](./AUTH_SMTP_VERIFICATION.md)** — Password recovery verification & Brevo Custom SMTP setup (Issue #40 — **Password Reset Resolved Live**).
-6. **[DATA-01-RLS-VERIFICATION.md](./DATA-01-RLS-VERIFICATION.md)** — Two-student authenticated RLS verification protocol & status (`NOT RUN`).
-7. **[PLAYWRIGHT_E2E_REPORT.md](./PLAYWRIGHT_E2E_REPORT.md)** — Playwright browser E2E status (`0 / 24` executed) & run instructions.
-8. **[DEPLOYMENT_VERIFICATION.md](./DEPLOYMENT_VERIFICATION.md)** — Fork sync (`4183944`), Vercel status, and Issue #59 org approval.
-9. **[Evidence/Quiz-Retake-Fix/README.md](./Evidence/Quiz-Retake-Fix/README.md)** & **[Evidence/DATA-01-RLS/README.md](./Evidence/DATA-01-RLS/README.md)** — Screenshot evidence checklists.
+1. **[RELEASE_VERIFICATION_REPORT.md](./RELEASE_VERIFICATION_REPORT.md)** — Master Week 12 release readiness report (Sections A–F).
+2. **[weekly-report.md](./weekly-report.md)** — Complete Week 12 team report, sign-off table, and blockers.
+3. **[DEPLOYMENT_VERIFICATION.md](./DEPLOYMENT_VERIFICATION.md)** — Course vs. fork Vercel audit, `origin/main` SHA check, and Issue #59 org approval.
+4. **[PLAYWRIGHT_E2E_REPORT.md](./PLAYWRIGHT_E2E_REPORT.md)** — Nov 20 (`0/24`), Nov 22 (`15/24`), and Nov 23 (`22 PASS / 40 SKIPPED`) browser E2E records.
+5. **[PRINCE_KARKI_AUTOMATED_QA_REPORT.md](./PRINCE_KARKI_AUTOMATED_QA_REPORT.md)** & **[PRINCE_KARKI_PASSWORD_RECOVERY_QA.md](./PRINCE_KARKI_PASSWORD_RECOVERY_QA.md)** — Independent Nov 22 Playwright & password recovery QA reports.
+6. **[QUIZ_RETAKE_PEER_REVIEW.md](./QUIZ_RETAKE_PEER_REVIEW.md)** & **[Evidence1/Retake Quiz Evidence.md](./Evidence1/Retake%20Quiz%20Evidence.md)** — Nov 23 UI peer review of Retake Quiz.
+7. **[TECHNICAL_AUDIT.md](./TECHNICAL_AUDIT.md)** & **[BUG_FIX_REGRESSION_REPORT.md](./BUG_FIX_REGRESSION_REPORT.md)** — Baseline technical audit and bug fixes (`#69`, `#72`, `#75`).
+8. **[DATA-01-RLS-VERIFICATION.md](./DATA-01-RLS-VERIFICATION.md)** & **[AUTH_SMTP_VERIFICATION.md](./AUTH_SMTP_VERIFICATION.md)** — Security RLS protocol and Brevo SMTP configuration record.
+9. **[Evidence/Playwright-Fixes/](./Evidence/Playwright-Fixes/)** — November 23 Chromium screenshots (`375px` mobile quiz & dark-mode task modal fixes).

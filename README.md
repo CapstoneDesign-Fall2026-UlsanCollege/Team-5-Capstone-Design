@@ -124,10 +124,11 @@ Smart Study Companion/
 | Unit tests | `npm test` | A live Supabase save or browser session |
 | Python system checks | `python3 tests/run_tests.py` | Authenticated two-account isolation |
 | AI quiz schema checks | `python3 tests/test_ai_quiz.py` | Live AI quiz table availability |
-| E2E contract runner | `npm run test:e2e` | The 24 Playwright browser scenarios |
+| E2E contract runner | `npm run test:e2e` | Authenticated multi-page Playwright flows |
+| Playwright browser E2E | `npm run test:e2e:playwright` | Live multi-student login flows when `E2E_STUDENT_A_*` / `E2E_STUDENT_B_*` credentials are omitted |
 | Production bundle | `npm run build` | A successful organization deployment |
 
-See the [Week 11 matrix](docs/week_11/MVP_VERIFICATION_MATRIX.md) for dated results and operators, and the [evidence register](docs/week_11/EVIDENCE_REGISTER.md) for the proof type and limitation behind each claim. The Playwright specs exist in [`tests/e2e/`](tests/e2e/), but the recorded 24 browser cases remain **Not run**. Do not treat static checks or a successful page load as an end-to-end pass.
+See the [Week 11 matrix](docs/week_11/MVP_VERIFICATION_MATRIX.md) for dated results and operators, the [evidence register](docs/week_11/EVIDENCE_REGISTER.md) for proof scope and limits, the [Week 12 Release Verification Report](docs/week_12/RELEASE_VERIFICATION_REPORT.md), and the [Playwright E2E Report](docs/week_12/PLAYWRIGHT_E2E_REPORT.md). In [`tests/e2e/`](tests/e2e/), **24** core Playwright scenarios are defined: the November 22 automated QA run executed **15** cases against local Vite preview (**7 passed, 8 failed, 9 unconfirmed**) due primarily to outdated test selectors, missing mobile navigation steps, strict-mode locator issues, and incomplete assertions; after November 23 script and UI fixes, **12** unauthenticated/live-anon checks and **10** non-cloud mocked UI regression checks passed on Chrome Desktop & Mobile (**22 passed total**), while live authenticated student flows remain **skipped pending test credentials**. Do not treat static checks or mocked runs as proof of live cloud auth or two-student RLS.
 
 ## Team
 
@@ -145,5 +146,5 @@ The [Week 11 shared report](docs/week_11/weekly-report.md) and [contribution led
 
 - The [feature freeze](docs/week_11/FEATURE_FREEZE_DECISION.md) is **proposed**, not approved by all five members.
 - The [database review](docs/week_11/DATABASE_AND_RLS_VERIFICATION.md) still calls for live verification of migrations `009` and `010` and authenticated two-account RLS behavior. UI separation is not proof of server-side denial.
-- Password-recovery email delivery and completion, mobile checks, and the 24 Playwright browser cases have unresolved or **Not run** entries in the [verification matrix](docs/week_11/MVP_VERIFICATION_MATRIX.md).
+- Live two-student RLS (`DATA-01`), live Supabase migrations `009`/`010`/`012` & Edge Function `generate-ai-quiz`, official course Vercel deployment SHA verification, and credentialed live Playwright browser suites (**15/24** executed Nov 22: **7 PASS / 8 FAIL / 9 unconfirmed**; Nov 23 rerun **22 PASS** unauthenticated/mocked + **40** credential-gated project runs **Skipped**) remain unresolved. Week 12 status stays **NO-GO**.
 - Local Preview data stays in browser storage. A GitHub Pages screen or local screenshot cannot by itself prove cloud persistence or multi-device sync.

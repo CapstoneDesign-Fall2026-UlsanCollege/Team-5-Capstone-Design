@@ -1956,23 +1956,40 @@ function setupEventListeners() {
         });
     }
 
-    // Scrollable Subjects Container clicks
+    // Scrollable Subjects Container clicks & keyboard activation
     const scrollContainer = document.getElementById('subject-scroll-container');
+    const toggleSubjectCard = (card, restoreFocus = false) => {
+        const slug = card?.dataset?.subjectSlug;
+        if (!slug) return;
+
+        if (selectedEnrolledSlugs.has(slug)) {
+            selectedEnrolledSlugs.delete(slug);
+        } else {
+            selectedEnrolledSlugs.add(slug);
+        }
+
+        renderScrollableSubjects();
+        fillSubjectSelects();
+
+        if (restoreFocus) {
+            const selectorSlug = typeof CSS !== 'undefined' && typeof CSS.escape === 'function'
+                ? CSS.escape(slug)
+                : slug.replace(/"/g, '\\"');
+            scrollContainer?.querySelector(`.scrollable-subject-card[data-subject-slug="${selectorSlug}"]`)?.focus();
+        }
+    };
+
     if (scrollContainer) {
         scrollContainer.addEventListener('click', (e) => {
+            toggleSubjectCard(e.target.closest('.scrollable-subject-card'));
+        });
+
+        scrollContainer.addEventListener('keydown', (e) => {
+            if (e.key !== 'Enter' && e.key !== ' ') return;
             const card = e.target.closest('.scrollable-subject-card');
             if (!card) return;
-            const slug = card.dataset.subjectSlug;
-            if (!slug) return;
-
-            if (selectedEnrolledSlugs.has(slug)) {
-                selectedEnrolledSlugs.delete(slug);
-            } else {
-                selectedEnrolledSlugs.add(slug);
-            }
-
-            renderScrollableSubjects();
-            fillSubjectSelects();
+            e.preventDefault();
+            toggleSubjectCard(card, true);
         });
     }
 
@@ -2239,23 +2256,15 @@ function setupEventListeners() {
     // AI Quiz Tab Switching & Generation
     const tabCurated = document.getElementById('quiz-tab-curated');
     const tabAi = document.getElementById('quiz-tab-ai');
-    const panelCurated = document.getElementById('quiz-curated-panel');
-    const panelAi = document.getElementById('quiz-ai-panel');
 
-    if (tabCurated && tabAi && panelCurated && panelAi) {
+    if (tabCurated && tabAi) {
         tabCurated.addEventListener('click', () => {
-            tabCurated.classList.add('is-active');
-            tabAi.classList.remove('is-active');
-            panelCurated.hidden = false;
-            panelAi.hidden = true;
+            setQuizSetupMode('curated');
             updateQuizContextBanner();
         });
 
         tabAi.addEventListener('click', () => {
-            tabAi.classList.add('is-active');
-            tabCurated.classList.remove('is-active');
-            panelAi.hidden = false;
-            panelCurated.hidden = true;
+            setQuizSetupMode('ai');
             updateQuizContextBanner();
         });
     }
@@ -2440,20 +2449,29 @@ function setupEventListeners() {
     });
 }
 
-async function openPracticeFromAiTutor({ subjectSlug, topic, difficulty }) {
-    showView('quiz');
-    setQuizStage('setup');
-
+/** Switch Quiz Setup between Curated and AI Quiz tabs with synchronized ARIA state. */
+function setQuizSetupMode(mode) {
     const tabAi = document.getElementById('quiz-tab-ai');
     const tabCurated = document.getElementById('quiz-tab-curated');
     const panelAi = document.getElementById('quiz-ai-panel');
     const panelCurated = document.getElementById('quiz-curated-panel');
-    if (tabAi && tabCurated && panelAi && panelCurated) {
-        tabAi.classList.add('is-active');
-        tabCurated.classList.remove('is-active');
-        panelAi.hidden = false;
-        panelCurated.hidden = true;
-    }
+    if (!tabAi || !tabCurated || !panelAi || !panelCurated) return;
+
+    const isAi = mode === 'ai';
+    tabAi.classList.toggle('is-active', isAi);
+    tabCurated.classList.toggle('is-active', !isAi);
+    tabAi.setAttribute('aria-selected', String(isAi));
+    tabAi.setAttribute('aria-pressed', String(isAi));
+    tabCurated.setAttribute('aria-selected', String(!isAi));
+    tabCurated.setAttribute('aria-pressed', String(!isAi));
+    panelAi.hidden = !isAi;
+    panelCurated.hidden = isAi;
+}
+
+async function openPracticeFromAiTutor({ subjectSlug, topic, difficulty }) {
+    showView('quiz');
+    setQuizStage('setup');
+    setQuizSetupMode('ai');
 
     fillQuizSubjects();
 
