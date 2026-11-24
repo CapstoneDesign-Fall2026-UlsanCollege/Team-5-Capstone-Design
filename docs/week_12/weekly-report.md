@@ -4,7 +4,7 @@
 **Week:** 12  
 **Date:** November 20, 2026, updated through November 25, 2026  
 **Repository:** [Team-5-Capstone-Design](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design)  
-**Recorded work branch:** `week12/p0-p1-verification-and-fixes` ([PR #72](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/72), [PR #75](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/75)); reconciled on `week12/final-qa-reconciliation` (`bb7c974`)  
+**Recorded work branch:** `week12/p0-p1-verification-and-fixes` ([PR #72](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/72), [PR #75](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/75)); reconciled on `main` via [PR #85](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/85) (`22879a9`) & [PR #87](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/87) (`032e6cd`)  
 **Final Week 12 Status:** **NO-GO — Pending Live Security and Release Verification.**
 
 **Reading note:** This report records the November 20 Week 12 assessment, the November 22 independent QA update, and the November 23 retake review. The code changes are on `main`. Their presence in Git does not verify the active Vercel build. Claim boundaries are in the [Week 12 evidence map](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_12/README.md#evidence-map).
@@ -81,7 +81,7 @@ Retake Quiz ([PR #71](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Te
 
 See [BUG_FIX_REGRESSION_REPORT.md](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_12/BUG_FIX_REGRESSION_REPORT.md) and [QUIZ_RETAKE_BUG_FIX_REPORT.md](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_12/QUIZ_RETAKE_BUG_FIX_REPORT.md).
 
-The November 23 mobile Quiz sideways scroll is tracked in [Issue #83](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/83), and dark-mode subject dropdown contrast in [Issue #84](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/84) (reported by `adronnie`). CSS/JS fixes (`#79`, `#80`, `#83`, `#84`, `.quiz-setup-controls[hidden]`) are implemented agent-assisted on `week12/final-qa-reconciliation` (`bb7c974`) under `jn-oli`'s UI fix ownership and remain **UNCONFIRMED / OPEN** pending `jn-oli` & independent live QA recheck.
+The November 23 mobile Quiz sideways scroll is tracked in [Issue #83](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/83), and dark-mode subject dropdown contrast in [Issue #84](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/84) (reported by `adronnie`). CSS/JS fixes (`#79`, `#80`, `#83`, `#84`, `.quiz-setup-controls[hidden]`, plus WAI-ARIA tab arrow navigation and active-tab fill parity) are merged into `main` via [PR #85](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/85) / [PR #87](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/87) and remain **UNCONFIRMED / OPEN** on GitHub pending `jn-oli` & independent live QA recheck.
 
 ## 8. Independent peer QA and sign-off status
 
@@ -128,7 +128,7 @@ The November 23 mobile Quiz sideways scroll is tracked in [Issue #83](https://gi
 | `009`, `010`, `012` unapplied & `generate-ai-quiz` (`404`) unverified; signup verification and expired recovery token open (`013` stays **DEFERRED**) | Sumit Adhikari (`adronnie`), Nabin Khadka (`liftupkhadka555-spec`) | Apply `009`, `010`, `012` after admin authorization, deploy `generate-ai-quiz` with `GEMINI_API_KEY`, log signup/expiry email checks |
 | Credentialed 18/24 Playwright live cases (`NOT RUN`) pending personal execution after Issue #81 repairs | Prabin Rai (`RaiPrabin697`), Prince Karki (`princekark`) | Review repaired semantic harness and run full 24-case suite with `E2E_STUDENT_A_*` & `E2E_STUDENT_B_*` |
 | Phone-width Quiz overflow (`Issue #83`) & Dark subject dropdown (`Issue #84`, reported by `adronnie`) pending live verification | J.N. Taj Oli (`jn-oli`) fix owner | Verify `320px–1440px` Light/Dark fixes live before posting [ISSUE_83_UPDATE_DRAFT.md](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_12/ISSUE_83_UPDATE_DRAFT.md) and closing `#83`/`#84` |
-| Active course Vercel SHA is **`UNKNOWN / UNVERIFIED`** (bundle lags `bb7c974`; Issue #59 pending) | Nabin Khadka (`liftupkhadka555-spec`) | Complete org Vercel approval and verify official production deployment SHA matches release commit |
+| Active course Vercel SHA is **`UNKNOWN / UNVERIFIED`** (bundle lags `main` `032e6cd`; Issue #59 pending) | Nabin Khadka (`liftupkhadka555-spec`) | Complete org Vercel approval and verify official production deployment SHA matches release commit |
 | All 5 peer QA and freeze sign-offs remain `PENDING` | All 5 members | Complete swaps in [MVP_VERIFICATION_MATRIX.md](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_12/MVP_VERIFICATION_MATRIX.md) and sign [FEATURE_FREEZE_DECISION.md](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_11/FEATURE_FREEZE_DECISION.md) |
 
 ## Decision record
@@ -142,7 +142,7 @@ The November 23 mobile Quiz sideways scroll is tracked in [Issue #83](https://gi
 | Record the AI Tutor as a local implementation, with live deploy still pending | Week 11 deferred it. PR #78 merged a local Gemini tutor. Live `013` and `GEMINI_API_KEY` are not verified | Nabin Khadka | [PR #78](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/78) |
 | Treat the November 23 retake as a browser pass for the retake path, and leave the mobile sideways scroll open | The Evidence1 shots show the same subject and difficulty, Question 1 of 6, no selected answer, a changed question order, and preserved history. Issue #83 tracks the layout bug | J.N. Taj Oli | [Evidence1](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_12/Evidence1/Retake%20Quiz%20Evidence.md); [Issue #83](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/83) |
 
-## 14. November 22 — Independent Playwright QA update (Prince Karki)
+## 10. November 22 — Independent Playwright QA update (Prince Karki)
 
 **Tester:** Prince Karki (`princekark`)  
 **Role:** Independent QA / Tester  
@@ -188,7 +188,7 @@ The run found test-script maintenance work: incorrect selectors, incomplete mobi
 
 Independent Playwright testing moved from the earlier 0/24 recorded status to 15/24 cases with confirmed execution results. Developer fixes and regression retesting remain pending. The project NO-GO status stays in place because live RLS verification and the other release gates are not complete.
 
-## 15. November 23 — Retake Quiz UI review (J.N. Taj Oli)
+## 11. November 23 — Retake Quiz UI review (J.N. Taj Oli)
 
 **Tester:** J.N. Taj Oli (`jn-oli`)  
 **Role:** UI/UX & Frontend  
@@ -209,7 +209,7 @@ The named files `RT-03`–`RT-08` were not added. [Issue #83](https://github.com
 **Evidence:** [Retake Quiz Evidence](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_12/Evidence1/Retake%20Quiz%20Evidence.md)  
 **Write-up:** [QUIZ_RETAKE_PEER_REVIEW.md](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_12/QUIZ_RETAKE_PEER_REVIEW.md)
 
-## 16. November 23 — Release Readiness Audit, Playwright Fixes & UI Defects Fixed (Nabin Khadka)
+## 12. November 23 — Release Readiness Audit, Playwright Fixes & UI Defects Fixed (Nabin Khadka)
 
 **Branch:** `week12/release-readiness-qa-fixes` (from `origin/main` @ `e9f86df`)  
 **Status:** Fixes committed on QA branch; release remains **NO-GO** pending live P0 gates
@@ -219,8 +219,9 @@ The named files `RT-03`–`RT-08` were not added. [Issue #83](https://github.com
 - **Playwright & Regression Checks:** Updated `tests/e2e/*.spec.js` selectors/drawer navigation, removed weak conditional bypasses, separated non-cloud UI regression checks (`ui-regression-mocked.spec.js`), and ran Chrome Desktop & Mobile (`22 PASS`, `40 SKIPPED` credential-gated live flows, `0 FAIL`) plus Vitest (`93/93`), PGlite (`36/36`, `4/4`), and Python suites (`PASS`).
 - **Full Audit Report:** [RELEASE_VERIFICATION_REPORT.md](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_12/RELEASE_VERIFICATION_REPORT.md) & [Evidence/Playwright-Fixes/](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/tree/main/docs/week_12/Evidence/Playwright-Fixes)
 
-## 17. November 25 — Final QA, Ownership Reconciliation & 7-Viewport Verification (`week12/final-qa-reconciliation`)
+## 13. November 25 — Final QA, Ownership Reconciliation & Accessibility Hardening (`main` @ `032e6cd`+)
 
+- **Quiz Tab WAI-ARIA & Documentation Hardening:** Upgraded `#quiz-tab-curated` / `#quiz-tab-ai` with WAI-ARIA `ArrowLeft`/`ArrowRight`/`Home`/`End` navigation, roving `tabindex`, and active filled contrast parity with `.filter-btn.is-on`; reconciled Week 12 section numbering, README Week 12 navigation, and evaluator quick-verification commands (`Vitest 94/94`, `PGlite 40/40`, `Python 11/11` & `4/4`, `Playwright UI-REG-01..06 12/12`).
 - **Individual Report Ownership Reconciled:** Created/updated dedicated member reports distinguishing reporters, implementation/fix owners, independent QA, and agent-assisted work:
   - [`Sumit-Adhikari-Database-Security-Report.md`](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_12/Sumit-Adhikari-Database-Security-Report.md) (`adronnie` — `009`/`010`/`012`/`013` audit, `DATA-01` API test upgrades, Issue `#84` reporter attribution)
   - [`Prabin-Rai-Automation-Repair-Report.md`](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_12/Prabin-Rai-Automation-Repair-Report.md) (`RaiPrabin697` — semantic locator upgrades, removed fixed delays, separated non-cloud regression suite)
@@ -229,14 +230,14 @@ The named files `RT-03`–`RT-08` were not added. [Issue #83](https://github.com
 - **Reconciled Verification Matrix:** Added [`MVP_VERIFICATION_MATRIX.md`](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_12/MVP_VERIFICATION_MATRIX.md) with explicit Week 11 frozen-core gates and **DEFERRED** boundary for AI Tutor (`PR #78` / `013`).
 - **Live Cloud Probe Recheck (Nov 25, 2026):** Confirmed `011` active, `009`/`010`/`012`/`013` not applied live (`404`/`[]`/`400`), `generate-ai-quiz` & `ai-tutor-chat` HTTP `404`, and Course Vercel SHA **`UNKNOWN / UNVERIFIED`**.
 
-## 13. Final Week 12 status
+## 14. Final Week 12 status
 
-**NO-GO — Pending Live Security and Release Verification.** Local unit (`93/93`), PGlite (`36/36`, `4/4`), Python integration suites, Vite build, unauth/live-anon Playwright (`6/24` = `12` Chrome runs), Nov 22 manual password recovery (`princekark`), Nov 23 manual Retake (`jn-oli`), and agent-assisted 7-viewport Light/Dark UI regressions (`UI-REG-01..06`, `12` Chrome runs) pass. Production readiness stays **NO-GO** until live `DATA-01` RLS (`NOT RUN`), live `009`/`010`/`012` migrations (`UNVERIFIED`), live `generate-ai-quiz` (`UNVERIFIED`), official course Vercel SHA (`UNKNOWN / UNVERIFIED`), credentialed 18/24 Playwright live execution (`NOT RUN`), peer confirmation of `#83`/`#84` (`UNCONFIRMED`), and 5/5 team freeze sign-offs (`BLOCKED`) are completed with evidence. AI Tutor remains **DEFERRED** outside the frozen MVP release gate.
+**NO-GO — Pending Live Security and Release Verification.** Local unit, PGlite (`36/36`, `4/4`), Python integration suites, Vite build, unauth/live-anon Playwright (`6/24` = `12` Chrome runs), Nov 22 manual password recovery (`princekark`), Nov 23 manual Retake (`jn-oli`), and agent-assisted 7-viewport Light/Dark UI regressions (`UI-REG-01..06`, `12` Chrome runs on `PR #87`) pass. Production readiness stays **NO-GO** until live `DATA-01` RLS (`NOT RUN`), live `009`/`010`/`012` migrations (`UNVERIFIED`), live `generate-ai-quiz` (`UNVERIFIED`), official course Vercel SHA (`UNKNOWN / UNVERIFIED`), credentialed 18/24 Playwright live execution (`NOT RUN`), peer confirmation of `#79`/`#80`/`#83`/`#84` (`UNCONFIRMED`), and 5/5 team freeze sign-offs (`BLOCKED`) are completed with evidence. AI Tutor remains **DEFERRED** outside the frozen MVP release gate.
 
-## Next week's bridge task
+## 15. Next week's bridge task
 
 - **Sumit / Nabin:** Verify or run `009`, `010`, and `012` in the Supabase Dashboard, deploy `generate-ai-quiz`, and log live signup and token-expiry email checks. Live `013` and `GEMINI_API_KEY` stay with that deploy work.
-- **Prince / Prabin / Sumit:** Execute DATA-01 with 2 disposable accounts and capture redacted screenshots.
-- **Prabin / Nabin:** Correct the Playwright scripts from Issue #81 and rerun the 8 failures and 9 unconfirmed cases. The named `RT-03`–`RT-08` files are still absent. November 23 manual shots are in Evidence1.
-- **Nabin:** Fix the phone-width Quiz sideways scroll in Issue #83. Record the active course Vercel deployment SHA and compare it with the intended merged revision. Keep the fork-sync claims (`4183944`, then `03ae6a4`) separate from the course deployment claim.
-- **All 5 members:** Complete the peer QA swaps and sign the feature-freeze decision. A non-author also runs the Week 13 clean-start setup from `README.md` and `supabase/setup_all.sql`.
+- **Prince / Prabin / Sumit:** Execute DATA-01 with 2 disposable accounts and capture redacted screenshots into [`Evidence/DATA-01-RLS/`](Evidence/DATA-01-RLS/README.md).
+- **Prabin / Prince:** Review repaired Playwright semantic locators (`PR #85`, `PR #87`) and execute all 24 scenarios with live `E2E_STUDENT_A_*` & `E2E_STUDENT_B_*` credentials.
+- **Nabin / J.N. Taj Oli:** Redeploy approved `main` commit onto the official course Vercel project (`team-5-capstone-design.vercel.app`), record its actual production SHA, and confirm Issues `#79`, `#80`, `#83`, and `#84` live in both light and dark modes before closing them on GitHub. Keep personal-fork receipts separate from course deployment proof.
+- **All 5 members:** Complete peer QA swaps and record formal freeze approvals in `docs/week_11/FEATURE_FREEZE_DECISION.md` & `docs/week_12/weekly-report.md`. A non-author also runs the Week 13 clean-start setup from `README.md` and `supabase/setup_all.sql`.

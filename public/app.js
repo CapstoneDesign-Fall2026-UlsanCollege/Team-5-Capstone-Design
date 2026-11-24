@@ -2258,14 +2258,30 @@ function setupEventListeners() {
     const tabAi = document.getElementById('quiz-tab-ai');
 
     if (tabCurated && tabAi) {
-        tabCurated.addEventListener('click', () => {
-            setQuizSetupMode('curated');
+        const activateTab = (mode, moveFocus = false) => {
+            setQuizSetupMode(mode);
             updateQuizContextBanner();
-        });
+            if (moveFocus) {
+                (mode === 'ai' ? tabAi : tabCurated).focus();
+            }
+        };
 
-        tabAi.addEventListener('click', () => {
-            setQuizSetupMode('ai');
-            updateQuizContextBanner();
+        tabCurated.addEventListener('click', () => activateTab('curated'));
+        tabAi.addEventListener('click', () => activateTab('ai'));
+
+        [tabCurated, tabAi].forEach((tabEl) => {
+            tabEl.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    activateTab(tabEl === tabCurated ? 'ai' : 'curated', true);
+                } else if (e.key === 'Home') {
+                    e.preventDefault();
+                    activateTab('curated', true);
+                } else if (e.key === 'End') {
+                    e.preventDefault();
+                    activateTab('ai', true);
+                }
+            });
         });
     }
 
@@ -2449,7 +2465,7 @@ function setupEventListeners() {
     });
 }
 
-/** Switch Quiz Setup between Curated and AI Quiz tabs with synchronized ARIA state. */
+/** Switch Quiz Setup between Curated and AI Quiz tabs with synchronized ARIA & roving tabindex state. */
 function setQuizSetupMode(mode) {
     const tabAi = document.getElementById('quiz-tab-ai');
     const tabCurated = document.getElementById('quiz-tab-curated');
@@ -2462,8 +2478,10 @@ function setQuizSetupMode(mode) {
     tabCurated.classList.toggle('is-active', !isAi);
     tabAi.setAttribute('aria-selected', String(isAi));
     tabAi.setAttribute('aria-pressed', String(isAi));
+    tabAi.setAttribute('tabindex', isAi ? '0' : '-1');
     tabCurated.setAttribute('aria-selected', String(!isAi));
     tabCurated.setAttribute('aria-pressed', String(!isAi));
+    tabCurated.setAttribute('tabindex', !isAi ? '0' : '-1');
     panelAi.hidden = !isAi;
     panelCurated.hidden = isAi;
 }

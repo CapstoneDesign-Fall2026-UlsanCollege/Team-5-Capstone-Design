@@ -7,11 +7,11 @@ Prepared through 2026-11-25 (**Release Decision: `NO-GO — Pending Live Securit
 
 ### Project Review
 
-[Package index](week_11/README.md), [scope contract](week_11/FEATURE_FREEZE_DECISION.md), [risk register](week_11/DEFECT_AND_RISK_REGISTER.md), [quality review](week_11/SPRINT_QUALITY_REVIEW.md).
+[Week 12 Release Hub](week_12/README.md), [Week 12 Matrix](week_12/MVP_VERIFICATION_MATRIX.md), [Release Verification Report](week_12/RELEASE_VERIFICATION_REPORT.md), [Week 11 Scope Contract](week_11/FEATURE_FREEZE_DECISION.md).
 
 ### Testing and Evidence
 
-[Evidence register](week_11/EVIDENCE_REGISTER.md), [verification matrix](week_11/MVP_VERIFICATION_MATRIX.md), [independent check](week_11/INDEPENDENT_VERIFICATION.md). Unit, browser, live-service and independent results have different proof boundaries.
+[Week 12 Playwright Report](week_12/PLAYWRIGHT_E2E_REPORT.md), [Week 12 Deployment Check](week_12/DEPLOYMENT_VERIFICATION.md), [Week 11 Evidence Register](week_11/EVIDENCE_REGISTER.md), [Independent Check](week_11/INDEPENDENT_VERIFICATION.md). Unit, browser, live-service and independent results have different proof boundaries.
 
 ### Setup and Handoff
 
