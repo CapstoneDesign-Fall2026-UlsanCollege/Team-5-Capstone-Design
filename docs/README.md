@@ -2,8 +2,8 @@
 
 ## Current review - Week 12
 
-Prepared from the repository state recorded through 2026-11-23. Start with the [Week 12 release-readiness hub](week_12/README.md) for current evidence, test boundaries, deployment status, and unresolved gates. Week 11 remains a dated historical verification package.
-**Read first:** [Shared report](week_11/weekly-report.md) → [Verification matrix](week_11/MVP_VERIFICATION_MATRIX.md) → [Freeze decision](week_11/FEATURE_FREEZE_DECISION.md) → [Ownership update](week_10/AI_USE_AND_CODE_OWNERSHIP_AUDIT.md#week-11-reconciliation-2026-11-14).
+Prepared through 2026-11-25 (**Release Decision: `NO-GO — Pending Live Security and Release Verification.`**). Start with the [Week 12 release-readiness hub](week_12/README.md), the [reconciled Week 12 MVP matrix](week_12/MVP_VERIFICATION_MATRIX.md), the [Release Verification Report](week_12/RELEASE_VERIFICATION_REPORT.md), and the [Week 12 shared report](week_12/weekly-report.md). Week 11 remains a dated historical verification package.
+**Read first:** [Week 12 matrix](week_12/MVP_VERIFICATION_MATRIX.md) → [Week 12 shared report](week_12/weekly-report.md) → [Week 11 Freeze decision](week_11/FEATURE_FREEZE_DECISION.md) → [Ownership ledger](CONTRIBUTION_LEDGER.md).
 
 ### Project Review
 
@@ -15,7 +15,7 @@ Prepared from the repository state recorded through 2026-11-23. Start with the [
 
 ### Setup and Handoff
 
-[Current setup](week5/SETUP_INSTRUCTIONS.md#current-application-setup-2026-11-14), [architecture](week_10/backend-architecture.md#week-11-current-task-boundary), [handoff](week_11/INDEPENDENT_VERIFICATION.md), [demo runbook](week_11/DEMO_RUNBOOK.md).
+[Current setup](week5/SETUP_INSTRUCTIONS.md#current-application-setup-2026-11-14), [architecture](week_10/backend-architecture.md#week-11-current-task-boundary), [handoff](week_11/INDEPENDENT_VERIFICATION.md), [demo roadmap](week9/FINAL_DEMO_ROADMAP.md).
 
 ```mermaid
 flowchart LR

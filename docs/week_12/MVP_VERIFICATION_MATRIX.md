@@ -1,0 +1,47 @@
+# Week 12 — Reconciled MVP Verification Matrix
+
+**Project:** Smart Study Companion — Team 5 (Ulsan College)  
+**Repository:** https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design  
+**Reconciled Baseline:** `bb7c974` (`origin/main` + `week12/final-qa-reconciliation`)  
+**Reconciliation Date:** November 25, 2026  
+**Overall Release Decision:** **NO-GO — Pending Live Security and Release Verification.**
+
+> Status taxonomy per release rules: `PASS`, `FAIL`, `BLOCKED`, `NOT RUN`, `UNCONFIRMED`, `UNVERIFIED`, `DEFERRED`.  
+> Mandatory gates below reflect the frozen Week 11 MVP scope. AI Tutor (`PR #78`, migration `013`, `ai-tutor-chat`) is **DEFERRED** outside the frozen-core gate.
+
+---
+
+## 1. Frozen-Core MVP Release Gates
+
+| Gate ID | Feature or Requirement | Owner | Verification Method | Status | Evidence | Remaining Action |
+|---|---|---|---|---|---|---|
+| **MVP-AUTH-01** | Authentication & Protected Route Guard | Nabin Khadka (`liftupkhadka555-spec`) / Prince Karki (`princekark`) QA | Vitest (`auth.test.js` 3/3) + Playwright `E2E-AUTH-01,02,03,05` (Desktop & Mobile Chrome) | **PASS** *(live reload `UNCONFIRMED`)* | [`auth.spec.js`](../../tests/e2e/auth.spec.js), [`PLAYWRIGHT_E2E_REPORT.md`](PLAYWRIGHT_E2E_REPORT.md) | Confirm live authenticated session refresh with `E2E_STUDENT_A_*`. |
+| **MVP-AUTH-02** | Password Recovery & Brevo Custom SMTP | Nabin Khadka (`liftupkhadka555-spec`) / Prince Karki (`princekark`) QA | Nov 20 live confirmation + Nov 22 manual E2E (`W12-01`–`W12-06`) + Playwright `E2E-AUTH-04` UI | **PASS** *(signup & expiry `UNVERIFIED`)* | [`AUTH_SMTP_VERIFICATION.md`](AUTH_SMTP_VERIFICATION.md), [`PRINCE_KARKI_PASSWORD_RECOVERY_QA.md`](PRINCE_KARKI_PASSWORD_RECOVERY_QA.md), [`Evidence/`](Evidence/) | Execute and log live signup verification email and expired recovery-token checks. |
+| **MVP-NAV-01** | Dashboard Navigation & Wireframes Link Removal | Nabin Khadka (`liftupkhadka555-spec`) | PR #69 (`f2c1134`) + Chromium UI regression (`UI-REG-01`) + Python DOM checks | **PASS** | [`ui-regression-mocked.spec.js`](../../tests/e2e/ui-regression-mocked.spec.js), [PR #69](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/69) | Confirm live after redeploy. |
+| **MVP-TASK-01** | Task Management, Deadline Validation & Local Date Handling | Nabin Khadka (`liftupkhadka555-spec`) / Prabin Rai (`RaiPrabin697`) QA | Vitest (`tasks.test.js`, `bug-fixes-week12.test.js`) + Chrome `UI-REG-04` *(live `E2E-TASK-01..04` credential-gated)* | **PASS** *(live `E2E-TASK-*` `NOT RUN`)* | [`BUG_FIX_REGRESSION_REPORT.md`](BUG_FIX_REGRESSION_REPORT.md), [`tasks.spec.js`](../../tests/e2e/tasks.spec.js) | Run live `E2E-TASK-01..04` with `E2E_STUDENT_A_*`. |
+| **MVP-ONB-01** | Academic Onboarding & `#79` Keyboard Card Toggle | Nabin Khadka (`liftupkhadka555-spec`) / J.N. Taj Oli (`jn-oli`) | Nov 16 UI audit + Python catalog checks + Chrome `UI-REG-02` (`Enter`/`Space` focus retain) | **PASS** *(live `E2E-ONB-*` `NOT RUN`)* | [`onboarding.spec.js`](../../tests/e2e/onboarding.spec.js), [`JN-Taj-Oli-Responsive-UI-Report.md`](JN-Taj-Oli-Responsive-UI-Report.md) | Run live `E2E-ONB-01..04` with `E2E_STUDENT_A_*`; confirm `#79` after deploy. |
+| **MVP-ANLY-01** | Study Analytics & Quiz-History 200-Cap | Nabin Khadka (`liftupkhadka555-spec`) / Prince Karki (`princekark`) | Nov 16 analytics receipts + `bug-fixes-week12.test.js` + `study-streak.db.test.js` (36/36) | **PASS** *(live `E2E-ANLY-*` `NOT RUN`)* | [`analytics.spec.js`](../../tests/e2e/analytics.spec.js), [`BUG_FIX_REGRESSION_REPORT.md`](BUG_FIX_REGRESSION_REPORT.md) | Run live `E2E-ANLY-01..03` with `E2E_STUDENT_A_*`. |
+| **MVP-QUIZ-01** | Standard/Rapid Curated Quiz & `#80` Mode Tab / Hidden Panel Fix | Nabin Khadka (`liftupkhadka555-spec`) / J.N. Taj Oli (`jn-oli`) | Vitest (`quiz.test.js`, `quiz-engine.test.js`) + Chrome `UI-REG-03/05` (`#quiz-setup-controls[hidden]` fixed) | **PASS** *(live `generate-ai-quiz` `UNVERIFIED`)* | [`quiz.spec.js`](../../tests/e2e/quiz.spec.js), [`Evidence/Playwright-Fixes/`](Evidence/Playwright-Fixes/) | Deploy `generate-ai-quiz` & test live Gemini generation cleanly (see `MVP-AIQ-01`). |
+| **MVP-QUIZ-02** | Retake Quiz Functionality | Nabin Khadka (`liftupkhadka555-spec`) / J.N. Taj Oli (`jn-oli`) reviewer | PR #71 + Vitest (`quiz-retake.test.js` 5/5) + Nov 23 `QUIZ_RETAKE_PEER_REVIEW.md` + Chrome `UI-REG-05` | **PASS** | [`QUIZ_RETAKE_PEER_REVIEW.md`](QUIZ_RETAKE_PEER_REVIEW.md), [`Evidence1/`](Evidence1/Retake%20Quiz%20Evidence.md) | Preserve intact during final redeploy. |
+| **MVP-AIQ-01** | Live AI Quiz Edge Function (`generate-ai-quiz` + `GEMINI_API_KEY`) | Nabin Khadka (`liftupkhadka555-spec`) / Sumit Adhikari (`adronnie`) | Live HTTP `POST /functions/v1/generate-ai-quiz` probe (Nov 25, 2026) | **UNVERIFIED** | [`RELEASE_VERIFICATION_REPORT.md`](RELEASE_VERIFICATION_REPORT.md#e-ai-features-status) | Apply `009`, set `GEMINI_API_KEY`, deploy `generate-ai-quiz`, and capture HTTP `200` test. |
+| **MVP-E2E-01** | Playwright Browser Automation (24 Core Cases) | Prabin Rai (`RaiPrabin697`) harness / Prince Karki (`princekark`) QA | Nov 22 baseline (**15/24**: 7 PASS, 8 FAIL, 9 unconfirmed); Nov 25 agent-assisted repaired suite (`6/24` unauth/anon **PASS** [12 Chrome runs], `18/24` authenticated **NOT RUN** [36 Chrome runs]) | **UNCONFIRMED** | [`Prabin-Rai-Automation-Repair-Report.md`](Prabin-Rai-Automation-Repair-Report.md), [`PRINCE_KARKI_AUTOMATED_QA_REPORT.md`](PRINCE_KARKI_AUTOMATED_QA_REPORT.md), [`PLAYWRIGHT_E2E_REPORT.md`](PLAYWRIGHT_E2E_REPORT.md) | `RaiPrabin697` & `princekark` run all 24 cases with live disposable `E2E_STUDENT_A/B` credentials. |
+| **MVP-SEC-01** | Database Security & `DATA-01` Two-Student Authenticated RLS | Sumit Adhikari (`adronnie`) owner / Prince Karki (`princekark`), Prabin Rai (`RaiPrabin697`) QA | Anon `E2E-RLS-02` **PASS** (0 rows across 8 tables); PGlite **36/36 PASS**; Live Student A/B `DATA-01` | **NOT RUN** | [`Sumit-Adhikari-Database-Security-Report.md`](Sumit-Adhikari-Database-Security-Report.md), [`DATA-01-RLS-VERIFICATION.md`](DATA-01-RLS-VERIFICATION.md), [`rls-isolation.spec.js`](../../tests/e2e/rls-isolation.spec.js) | Execute live 2-account `DATA-01` with ordinary JWTs and attach redacted screenshots to `Evidence/DATA-01-RLS/`. |
+| **MVP-DB-01** | Required Live Supabase Migrations (`009`, `010`, `012`) | Sumit Adhikari (`adronnie`) | Live PostgREST probes (Nov 25, 2026): `009` (`404`), `010` (`[]`), `012` (`400`); `011` active (`200`) | **UNVERIFIED** | [`Sumit-Adhikari-Database-Security-Report.md`](Sumit-Adhikari-Database-Security-Report.md) | Authorized admin executes `009`, `010`, `012` in SQL Editor & captures schema proof. |
+| **MVP-DEP-01** | Official Course Vercel Production Deployment SHA | Nabin Khadka (`liftupkhadka555-spec`) | Live HTTP headers (`etag: "e6cce49db1d3fbd659ee860ed84f94f2"`, stale `03ae6a4`); CLI/API unavailable locally; Issue #59 | **UNVERIFIED** | [`DEPLOYMENT_VERIFICATION.md`](DEPLOYMENT_VERIFICATION.md) | Org admin approves Issue #59; authorized member records Course Vercel Project SHA matching release commit. |
+| **MVP-RESP-01** | Responsive Quiz Compatibility (`#83`) & Dark Dropdown Contrast (`#84`) | J.N. Taj Oli (`jn-oli`) fix owner (`#84` reported by `adronnie`) | Agent-assisted Chrome `UI-REG-04` & `UI-REG-06`: **PASS** across `320px`, `375px`, `390px`, `430px`, `768px`, `1024px`, `1440px` (Light & Dark) | **UNCONFIRMED** *(awaiting `jn-oli` & live QA verification)* | [`JN-Taj-Oli-Responsive-UI-Report.md`](JN-Taj-Oli-Responsive-UI-Report.md), [`ISSUE_83_UPDATE_DRAFT.md`](ISSUE_83_UPDATE_DRAFT.md), [`Evidence/Playwright-Fixes/`](Evidence/Playwright-Fixes/) | `jn-oli` & independent tester verify on deployed build and update/close Issue #83 & #84. |
+| **MVP-GOV-01** | Formal 5-Member Team Freeze & Release Approvals | All 5 Team Members | Approval table in `docs/week_11/FEATURE_FREEZE_DECISION.md` & `weekly-report.md` | **BLOCKED** | [`FEATURE_FREEZE_DECISION.md`](../week_11/FEATURE_FREEZE_DECISION.md), [`weekly-report.md`](weekly-report.md) | Record personal review and sign-offs from all 5 members after P0 gates clear. |
+
+---
+
+## 2. Out-of-Scope / Deferred Features (Excluded from MVP Gate)
+
+| Gate ID | Feature or Requirement | Owner | Verification Method | Status | Evidence | Remaining Action |
+|---|---|---|---|---|---|---|
+| **EXT-AIT-01** | Google Gemini AI Tutor (`#ai-tutor`, `PR #78`, migration `013_ai_tutor.sql`, `ai-tutor-chat`) | Nabin Khadka (`liftupkhadka555-spec`) impl / Sumit Adhikari (`adronnie`) DB model / J.N. Taj Oli (`jn-oli`) UI spec | Local Vitest (`ai-tutor.test.js` 14/14), PGlite (`4/4 PASS`), `test_ai_tutor.py`; live probes return `404` for `013` & `ai-tutor-chat` | **DEFERRED** | [`AI_TUTOR_IMPLEMENTATION_REPORT.md`](../ai_tutor/AI_TUTOR_IMPLEMENTATION_REPORT.md), [`AI tutor DB model.md`](AI%20tutor%20DB%20model.md), [`AI_TUTOR_UI_UX_SPEC.md`](AI_TUTOR_UI_UX_SPEC.md) | Deferred / Post-Freeze Feature — Live `013` apply, `ai-tutor-chat` deploy, and `GEMINI_API_KEY` remain out of Week 12 MVP release gate. |
+
+---
+
+## 3. Reconciliation Verdict
+
+**Status: NO-GO — Pending Live Security and Release Verification.**  
+Mandatory P0 gates (`MVP-SEC-01` `DATA-01`, `MVP-DB-01` migrations `009`/`010`/`012`, `MVP-DEP-01` official course Vercel SHA, and `MVP-GOV-01` 5/5 sign-offs) plus P1 live credentialed E2E (`MVP-E2E-01`), live AI Quiz (`MVP-AIQ-01`), and peer recheck of Issues `#83`/`#84` (`MVP-RESP-01`) remain open.

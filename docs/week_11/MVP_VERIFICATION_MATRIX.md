@@ -1,5 +1,7 @@
 # MVP Verification Matrix — Week 11 Reconciliation
 
+> **Note (Nov 25, 2026):** This file preserves the dated Week 11 (Nov 17) freeze baseline. For the current reconciled release gates, status labels (`PASS`/`FAIL`/`BLOCKED`/`NOT RUN`/`UNCONFIRMED`/`UNVERIFIED`/`DEFERRED`), and deferred AI Tutor separation, see [`docs/week_12/MVP_VERIFICATION_MATRIX.md`](../week_12/MVP_VERIFICATION_MATRIX.md).
+
 **Project:** Smart Study Companion — Team 5 (Ulsan College)  
 **Milestone:** Week 11 — MVP Goal Freeze  
 **Reconciliation Date:** November 17, 2026  

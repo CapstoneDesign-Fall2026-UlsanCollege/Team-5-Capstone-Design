@@ -57,3 +57,10 @@ The Quiz page should remain inside the viewport width with no sideways scroll. T
 The quiz retake flow passes the peer review. The new attempt remains in the Quiz view, retains the subject and difficulty, loads the same questions, and shuffles the question order.
 
 One issue remains: the mobile Quiz layout has horizontal overflow and must be adjusted so the page stays within the phone viewport.
+
+---
+
+## 8. Follow-Up Reconciliation Note (November 25, 2026)
+
+- The November 23 Retake Quiz verification above remains intact (subject/difficulty retained, shuffled order, cleared selections, history preserved).
+- Subsequent responsive CSS fixes for [Issue #83](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/83) (mobile Quiz horizontal overflow) and [Issue #84](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/84) (dark-mode subject dropdown, reported by `adronnie`) are documented under `jn-oli`'s responsive UI ownership in [`JN-Taj-Oli-Responsive-UI-Report.md`](JN-Taj-Oli-Responsive-UI-Report.md) and [`ISSUE_83_UPDATE_DRAFT.md`](ISSUE_83_UPDATE_DRAFT.md). Issue #83 stays open until `jn-oli` and an independent tester confirm the fix on the live deployed build.
