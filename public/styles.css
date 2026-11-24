@@ -649,6 +649,24 @@ kbd {
     border-radius: 12px;
     padding: 11px 12px;
     font: inherit;
+    transition: border-color 0.15s ease;
+}
+
+.modal-card select:hover,
+.quiz-setup select:hover,
+.stack-form select:hover {
+    border-color: var(--teal);
+}
+
+.modal-card input:focus-visible,
+.modal-card select:focus-visible,
+.quiz-setup select:focus-visible,
+.quiz-setup input:focus-visible,
+.stack-form input:focus-visible,
+.stack-form select:focus-visible {
+    border-color: var(--teal);
+    outline: 2px solid var(--teal);
+    outline-offset: 2px;
 }
 
 select option {
@@ -934,6 +952,16 @@ html.dark select option {
     .inline-form input { min-width: 0; flex-basis: 100%; }
 }
 
+@media (max-width: 380px) {
+    .topbar-actions { flex-wrap: wrap; }
+    .topbar-actions .btn-primary,
+    .topbar-actions .btn-ghost { max-width: 100%; }
+    .plan-board { padding: 14px; }
+    .score-big { font-size: clamp(32px, 11vw, 48px); }
+    .quiz-question { font-size: clamp(18px, 5vw, 22px); }
+    .quiz-answer-review { padding-left: 14px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
         animation: none !important;
@@ -1083,12 +1111,19 @@ html.dark select option {
     color: var(--ink);
     font-family: inherit;
     font-size: 14px;
-    outline: none;
+    transition: border-color 0.15s ease;
 }
 
-.academic-fields-grid select:focus,
-.academic-fields-grid input:focus {
+.academic-fields-grid select:hover,
+.academic-fields-grid input:hover {
     border-color: var(--teal);
+}
+
+.academic-fields-grid select:focus-visible,
+.academic-fields-grid input:focus-visible {
+    border-color: var(--teal);
+    outline: 2px solid var(--teal);
+    outline-offset: 2px;
 }
 
 /* Scrollable Subject Selector Container */
