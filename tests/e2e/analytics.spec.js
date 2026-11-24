@@ -9,7 +9,7 @@ test.describe('Study Task Analytics Dashboard (E2E)', () => {
   });
 
   test('E2E-ANLY-01: Analytics dashboard renders KPI ring, weekly chart, and workload counts', async ({ page }) => {
-    await expect(page.locator('#view-analytics')).toBeVisible();
+    await expect(page.getByRole('heading', { name: /Study Task Analytics/i })).toBeVisible();
     await expect(page.locator('#analytics-progress-text')).toBeVisible();
     await expect(page.locator('#weekly-activity-chart')).toBeVisible();
     await expect(page.locator('#analytics-task-total')).toBeVisible();

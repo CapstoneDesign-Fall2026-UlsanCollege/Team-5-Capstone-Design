@@ -490,3 +490,39 @@ The application should be retested after the automated test scripts are updated.
 **Role:** Tester / QA  
 **Project:** Smart Study Companion — Team 5  
 **Date:** November 22, 2026
+
+---
+
+## 16. November 25, 2026 Addendum — Failure Classification & Agent-Assisted Retest (Pending `princekark` Independent Review)
+
+> **Attribution & Scope Disclosure:** Sections 1–15 above preserve Prince Karki's November 22 independent testing baseline (**24 planned, 15 executed: 7 PASS, 8 FAIL, 9 unconfirmed** + **manual password recovery PASS**). The harness repairs and retests below were executed **agent-assisted** on branch `week12/final-qa-reconciliation` (`bb7c974`) and require independent review and credentialed rerun by **Prince Karki (`princekark`)**. Live **`DATA-01`** remains **`NOT RUN`**.
+
+### 16.1 Classification of November 22 Playwright Failures (8 FAIL + Caveated Cases)
+
+| Test ID | Original Result (Nov 22) | Failure Cause (Extracted from Sections 4–11) | Classification | Correction Applied | Nov 25 Retest Result (Agent-Assisted) | Evidence |
+|---|---|---|---|---|---|---|
+| **E2E-AUTH-04** | **FAIL** | Expected `#reset-btn`, `#new-password`, `#submit-btn` instead of `#forgot-btn`, `New password`, `#reset-btn` + ambiguous `a[href*="reset-password"]` | `HARNESS DEFECT — stale selector` | Updated to semantic `getByRole` / `getByLabel` locators matching `forgot-password.html` & `reset-password.html` | **PASS** (Desktop Chrome & Mobile Chrome) | [`auth.spec.js`](../../tests/e2e/auth.spec.js) |
+| **E2E-ANLY-01** | **FAIL** | Expected `#stat-total-tasks` / `.stat-total`; app renders `#analytics-task-total` | `HARNESS DEFECT — stale selector` | Updated selectors to `#analytics-progress-text`, `#analytics-task-total`, `#weekly-activity-chart`, `#workload-*-text` | **NOT RUN (`SKIPPED` — needs `E2E_STUDENT_A_*`)** *(DOM verified present & functional)* | [`analytics.spec.js`](../../tests/e2e/analytics.spec.js) |
+| **E2E-ANLY-02** | **FAIL** | Expected `#subject-progress-list`; app renders `#subject-progress-container` | `HARNESS DEFECT — stale selector` | Updated to `#subject-progress-container` & `#workload-*-bar` | **NOT RUN (`SKIPPED` — needs `E2E_STUDENT_A_*`)** | [`analytics.spec.js`](../../tests/e2e/analytics.spec.js) |
+| **E2E-QUIZ-01** | **FAIL** | Strict-mode ambiguity matching multiple buttons containing `"Rapid"` | `HARNESS DEFECT — stale selector` | Updated to exact `getByRole('tab', ...)` and `getByRole('button', { name: /Start rapid quiz/i })` | **NOT RUN (`SKIPPED` — live)** / **PASS** (`UI-REG-05/06` mocked) | [`quiz.spec.js`](../../tests/e2e/quiz.spec.js), [`mobile-quiz-setup-320px-dark.png`](Evidence/Playwright-Fixes/mobile-quiz-setup-320px-dark.png) |
+| **E2E-QUIZ-03** | **FAIL** | Expected `#btn-start-standard-quiz` instead of `#quiz-start-btn` (`Start 15-question quiz`) | `HARNESS DEFECT — stale selector` | Updated to `getByRole('button', { name: /Start 15-question quiz/i })` & `#quiz-play` / `#quiz-question` | **NOT RUN (`SKIPPED` — live)** / **PASS** (`UI-REG-05/06` mocked) | [`quiz.spec.js`](../../tests/e2e/quiz.spec.js) |
+| **E2E-TASK-01** | **FAIL** | Expected `#btn-add-task`, `#task-list-container` instead of `#add-task-btn`, `getByRole('button', { name: /New task/i })` | `HARNESS DEFECT — stale selector` | Updated selectors across `tasks.spec.js` to semantic labels/roles | **NOT RUN (`SKIPPED` — needs `E2E_STUDENT_A_*`)** | [`tasks.spec.js`](../../tests/e2e/tasks.spec.js) |
+| **E2E-MOB-02** | **FAIL** | Expected `#theme-toggle` inside closed mobile drawer without opening menu | `HARNESS DEFECT — missing navigation` & `stale selector` | Opens mobile drawer via `#open-sidebar-btn` first and toggles `#theme-toggle-btn` | **NOT RUN (`SKIPPED` — live)** / **PASS** (`UI-REG-04/06` mocked) | [`mobile.spec.js`](../../tests/e2e/mobile.spec.js) |
+| **E2E-MOB-03** | **FAIL** | Clicked `.nav-link[data-view="analytics"]` on 375px screen while `#sidebar` drawer was closed off-screen | `HARNESS DEFECT — missing navigation` | Uses shared `navigateToView()` opening mobile hamburger menu first | **NOT RUN (`SKIPPED` — live)** / **PASS** (`UI-REG-06` 320–1440px mocked) | [`mobile.spec.js`](../../tests/e2e/mobile.spec.js) |
+| *(Caveat)* **E2E-AUTH-03** | **FAIL → local PASS** | Repo spec checked `#auth-alert`; Prince fixed locally only | `HARNESS DEFECT — stale selector` | Fixed permanently in repo to `#form-alert.is-visible` | **PASS** (Desktop Chrome & Mobile Chrome) | [`auth.spec.js`](../../tests/e2e/auth.spec.js) |
+| *(Caveat)* **E2E-QUIZ-02** | **Reported PASS (weak)** | Wrapped AI Quiz assertions inside `if (await aiTab.isVisible())`, skipping assertions if missed; also **product defect** `.quiz-setup-controls[hidden]` failed to hide curated panel on tab click | `HARNESS DEFECT` + **`PRODUCT DEFECT`** (fixed in `styles.css` & `app.js`) | Made `E2E-QUIZ-02` unconditional + fixed `.quiz-setup-controls[hidden]` and Issue #80 active tab styling | **NOT RUN (`SKIPPED` — live)** / **PASS** (`UI-REG-03` mocked) | [`quiz.spec.js`](../../tests/e2e/quiz.spec.js), [`PLAYWRIGHT_E2E_REPORT.md`](PLAYWRIGHT_E2E_REPORT.md) |
+
+> *(Plus November 23 manual UI product defects confirmed separately: **Issue #83** phone-width Quiz horizontal overflow and **Issue #84** dark-mode task subject dropdown contrast — both reproduced and repaired on branch `week12/final-qa-reconciliation`, pending `princekark` / `jn-oli` independent live verification.)*
+
+### 16.2 Reconciled Playwright Execution Summary (November 25, 2026)
+
+- **Tested Environment:** Local Vite production preview (`npm run build` + `http://localhost:4173`), Desktop Chrome + Mobile Chrome (Pixel 5) on branch `week12/final-qa-reconciliation` (`bb7c974`).
+- **Original 24-Case Baseline Breakdown:**
+  - **PASS (6 / 24 scenarios = 12 / 12 runs across Desktop + Mobile Chrome):** `E2E-AUTH-01`, `E2E-AUTH-02`, `E2E-AUTH-03`, `E2E-AUTH-04`, `E2E-AUTH-05`, `E2E-RLS-02` (live anonymous REST check against 8 private tables).
+  - **FAIL:** **0**
+  - **NOT RUN / SKIPPED (18 / 24 scenarios = 36 / 36 runs across Desktop + Mobile Chrome):** `E2E-ONB-01..04`, `E2E-TASK-01..04`, `E2E-ANLY-01..03`, `E2E-QUIZ-01..03`, `E2E-MOB-01..03`, `E2E-RLS-01` (`DATA-01`) — explicitly skipped because disposable `E2E_STUDENT_A_*` / `E2E_STUDENT_B_*` live credentials are not available in this session. *(Cannot claim `24/24 PASS` until executed with live accounts.)*
+- **Additional Non-Baseline Automated Checks (Counted Separately):**
+  - Live-gated extra specs `E2E-QUIZ-04` (Retake) & `E2E-MOB-04` (Quiz 375px overflow): **4 runs SKIPPED**.
+  - Non-cloud Mocked UI & Responsive Regression Suite (`UI-REG-01..06` in `tests/e2e/ui-regression-mocked.spec.js`): **6 / 6 PASS (`12 / 12` runs across Desktop + Mobile Chrome)** covering Wireframes removal, Issue #79, Issue #80 + hidden-panel fix, Issue #84 dark/light subject dropdown, Retake Quiz (`Rapid`), and full 7-viewport (`320px–1440px`) light/dark zero-overflow checks.
+- **DATA-01 Security Status:** **`NOT RUN`** live (scheduled with `adronnie` and `RaiPrabin697`).
+- **Existing Nov 22 Password Recovery Manual QA:** Remains **PASS** (verified in Section 5 above).

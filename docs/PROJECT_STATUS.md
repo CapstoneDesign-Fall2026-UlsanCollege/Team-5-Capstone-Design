@@ -1,10 +1,12 @@
 # Project Status
 
-## Current review - 2026-11-14
+## Current review - Week 12 (2026-11-25)
 
-The [Week 11 package](week_11/README.md) is the current documentation review. Historical Prabin unit/local-storage results and Prince browser/task-service observations are recorded separately in the [register](week_11/EVIDENCE_REGISTER.md). They are not fresh Week 11 tests.
+**Release Decision: `NO-GO — Pending Live Security and Release Verification.`**
 
-Current gaps: independent task reproduction, server-side two-account checks, clean setup, accepted ownership and freeze approval. Historical recovery/AI failures remain visible; see the [risk register](week_11/DEFECT_AND_RISK_REGISTER.md). No new live test is claimed here.
+Start with the [Week 12 Release Hub](week_12/README.md), [Week 12 MVP Verification Matrix](week_12/MVP_VERIFICATION_MATRIX.md), and [Release Verification Report](week_12/RELEASE_VERIFICATION_REPORT.md). Frozen Week 11 core bug fixes (`#69`, `#71`, `#72`, `#75`, Brevo SMTP `#40` password reset) are verified in repo/local tests, while **AI Tutor** (`PR #78`, migration `013`, `ai-tutor-chat`) stays **`DEFERRED`** outside frozen-core release gates. Live migrations (`009`, `010`, `012`), live `DATA-01` two-student RLS (`NOT RUN`), live `generate-ai-quiz` (`404 UNVERIFIED`), official course Vercel SHA (`UNKNOWN / UNVERIFIED`), 18 credentialed live Playwright scenarios (`NOT RUN`), peer confirmation of `#83`/`#84`, and `5/5` member freeze approvals remain open.
+
+## Earlier Week 11 & Week 10 snapshots (Historical Preserved)
 
 ## Historical snapshot - 2026-11-04
 

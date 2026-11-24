@@ -9,27 +9,27 @@ test.describe('Academic Onboarding & Subject Selection (E2E)', () => {
   });
 
   test('E2E-ONB-01: Subjects view renders 5-tier academic hierarchy selectors', async ({ page }) => {
-    await expect(page.locator('#academic-country')).toBeVisible();
-    await expect(page.locator('#academic-university')).toBeVisible();
-    await expect(page.locator('#academic-faculty')).toBeVisible();
-    await expect(page.locator('#academic-major')).toBeVisible();
-    await expect(page.locator('#subject-search-input')).toBeVisible();
+    await expect(page.getByLabel(/Country \/ Region/i)).toBeVisible();
+    await expect(page.getByLabel(/University \/ College/i)).toBeVisible();
+    await expect(page.getByLabel(/Faculty \/ College School/i)).toBeVisible();
+    await expect(page.getByLabel(/Department \/ Major/i)).toBeVisible();
+    await expect(page.getByPlaceholder(/Search subjects by name or topic/i)).toBeVisible();
     await expect(page.locator('#save-subjects-btn')).toBeVisible();
   });
 
   test('E2E-ONB-02: Cascading dropdowns dynamically populate options on selection', async ({ page }) => {
-    await page.selectOption('#academic-country', 'South Korea');
+    await page.getByLabel(/Country \/ Region/i).selectOption('South Korea');
     await expect(page.locator('#academic-university option')).not.toHaveCount(0);
 
-    await page.selectOption('#academic-faculty', 'Faculty of Computer Science & Information Technology');
+    await page.getByLabel(/Faculty \/ College School/i).selectOption('Faculty of Computer Science & Information Technology');
     await expect(page.locator('#academic-major option')).not.toHaveCount(0);
 
-    await page.selectOption('#academic-major', 'Computer Science & Engineering (CSE)');
+    await page.getByLabel(/Department \/ Major/i).selectOption('Computer Science & Engineering (CSE)');
     await expect(page.locator('.core-badge').first()).toBeVisible({ timeout: 5000 });
   });
 
   test('E2E-ONB-03: Subject search input filters card list dynamically', async ({ page }) => {
-    const searchInput = page.locator('#subject-search-input');
+    const searchInput = page.getByPlaceholder(/Search subjects by name or topic/i);
     await searchInput.fill('Algorithms');
 
     const cards = page.locator('#subject-scroll-container .scrollable-subject-card:visible');
@@ -49,7 +49,6 @@ test.describe('Academic Onboarding & Subject Selection (E2E)', () => {
     const afterClickCount = Number(await page.locator('#selected-subjects-count').innerText());
     expect(afterClickCount).not.toBe(beforeCount);
 
-    // Ensure at least one subject stays selected before saving
     if (afterClickCount === 0) {
       await cards.nth(0).click();
     }
