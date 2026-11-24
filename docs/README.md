@@ -1,9 +1,8 @@
 # Smart Study Companion Documentation
 
-## Current review - Week 11
+## Current review - Week 12
 
-Prepared 2026-11-14. [Week 11 report](week_11/weekly-report.md) separates historical receipts from current checks. Core workflow: sign in, create a task, reject invalid input, reload and verify account isolation. Fresh live/RLS and independent reproduction remain Not run; freeze approval is pending.
-
+Prepared from the repository state recorded through 2026-11-23. Start with the [Week 12 release-readiness hub](week_12/README.md) for current evidence, test boundaries, deployment status, and unresolved gates. Week 11 remains a dated historical verification package.
 **Read first:** [Shared report](week_11/weekly-report.md) → [Verification matrix](week_11/MVP_VERIFICATION_MATRIX.md) → [Freeze decision](week_11/FEATURE_FREEZE_DECISION.md) → [Ownership update](week_10/AI_USE_AND_CODE_OWNERSHIP_AUDIT.md#week-11-reconciliation-2026-11-14).
 
 ### Project Review
