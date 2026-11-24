@@ -1,17 +1,23 @@
 // @ts-check
 import { test, expect } from '@playwright/test';
-import { navigateToView, setupMockedDashboardSession, toggleTheme } from './helpers/auth.js';
+import { ensureThemeMode, navigateToView, setupMockedDashboardSession } from './helpers/auth.js';
+
+const RESPONSIVE_VIEWPORTS = [
+  { width: 320, height: 568 },
+  { width: 375, height: 667 },
+  { width: 390, height: 844 },
+  { width: 430, height: 932 },
+  { width: 768, height: 1024 },
+  { width: 1024, height: 768 },
+  { width: 1440, height: 900 },
+];
 
 /**
  * Local Mocked UI & Responsive Regression Suite (Non-Cloud)
  *
- * Uses Playwright HTTP route interception for Supabase REST/Auth endpoints so the
- * real Vite-built dashboard (public/index.html, public/app.js, public/styles.css)
- * runs in Chromium without live student passwords.
- *
- * Scope boundary: verifies UI layout, DOM selectors, keyboard accessibility, client-side
- * validation, dark theme styles, and quiz retake flow. Does NOT verify live Supabase RLS,
- * live Edge Functions, or real Supabase authentication.
+ * Tracked separately from the 24-case live Playwright E2E baseline.
+ * Uses Playwright route interception to test public/index.html + app.js + styles.css
+ * across viewports, themes, keyboard interactions, and form validations without live passwords.
  */
 test.describe('Mocked UI & Week 12 Regression Checks (Non-Cloud Browser Verification)', () => {
   test.beforeEach(async ({ page }) => {
@@ -51,8 +57,8 @@ test.describe('Mocked UI & Week 12 Regression Checks (Non-Cloud Browser Verifica
   test('UI-REG-03 (Issue #80): Selected quiz-mode tab updates ARIA state and visual styling', async ({ page }) => {
     await navigateToView(page, 'quiz');
 
-    const curatedTab = page.locator('#quiz-tab-curated');
-    const aiTab = page.locator('#quiz-tab-ai');
+    const curatedTab = page.getByRole('tab', { name: /Standard & Rapid Quiz/i });
+    const aiTab = page.getByRole('tab', { name: /AI Quiz Generator/i });
 
     await expect(curatedTab).toHaveClass(/is-active/);
     await expect(curatedTab).toHaveAttribute('aria-pressed', 'true');
@@ -71,13 +77,14 @@ test.describe('Mocked UI & Week 12 Regression Checks (Non-Cloud Browser Verifica
     await expect(page.locator('#quiz-curated-panel')).toBeHidden();
   });
 
-  test('UI-REG-04: Task deadline validation rejects invalid/missing deadlines cleanly', async ({ page }) => {
+  test('UI-REG-04 (Issue #84): Task deadline validation & dark/light subject dropdown contrast and focus', async ({ page }) => {
     await navigateToView(page, 'tasks');
     const beforeCount = await page.locator('#task-container .task-card').count();
 
-    await page.click('#add-task-btn');
-    await expect(page.locator('#task-modal')).toBeVisible();
-    await page.fill('#task-name', 'Invalid Deadline Regression Task');
+    await page.getByRole('button', { name: /New task/i }).click();
+    const dialog = page.getByRole('dialog');
+    await expect(dialog).toBeVisible();
+    await dialog.getByLabel(/Task name/i).fill('Invalid Deadline Regression Task');
     await page.evaluate(() => {
       const form = document.getElementById('task-form');
       const deadline = document.getElementById('task-deadline');
@@ -87,80 +94,112 @@ test.describe('Mocked UI & Week 12 Regression Checks (Non-Cloud Browser Verifica
       }
       if (form) form.noValidate = true;
     });
-    await page.click('#task-form button[type="submit"]');
+    await dialog.getByRole('button', { name: /Save task/i }).click();
 
-    await expect(page.locator('#task-modal')).toBeVisible();
+    await expect(dialog).toBeVisible();
     await expect(page.locator('.toast').first()).toContainText(/Please enter a valid deadline date and time/i);
 
-    // Issue #84 regression: verify task subject select & option keep readable contrast in dark mode
-    await page.click('#cancel-modal-btn');
-    await toggleTheme(page);
-    await expect(page.locator('html')).toHaveClass(/dark/);
-    await page.click('#add-task-btn');
-    await expect(page.locator('#task-modal')).toBeVisible();
-    const darkSelectColors = await page.locator('#task-subject').evaluate((sel) => {
-      const sStyle = getComputedStyle(sel);
-      const opt = sel.querySelector('option');
-      const oStyle = opt ? getComputedStyle(opt) : null;
-      return {
-        selectColor: sStyle.color,
-        selectBg: sStyle.backgroundColor,
-        optionColor: oStyle?.color || '',
-        optionBg: oStyle?.backgroundColor || '',
-      };
-    });
-    expect(darkSelectColors.selectColor).not.toBe(darkSelectColors.selectBg);
-    expect(darkSelectColors.optionColor).not.toBe(darkSelectColors.optionBg);
+    for (const mode of ['light', 'dark']) {
+      await dialog.getByRole('button', { name: /Cancel/i }).click();
+      await ensureThemeMode(page, mode);
+      await page.getByRole('button', { name: /New task/i }).click();
+      await expect(dialog).toBeVisible();
+      const subjectSelect = page.locator('#task-subject');
+      await subjectSelect.focus();
+      const styles = await subjectSelect.evaluate((sel) => {
+        const sStyle = getComputedStyle(sel);
+        const opt = sel.querySelector('option');
+        const oStyle = opt ? getComputedStyle(opt) : null;
+        return {
+          selectColor: sStyle.color,
+          selectBg: sStyle.backgroundColor,
+          optionColor: oStyle?.color || '',
+          optionBg: oStyle?.backgroundColor || '',
+        };
+      });
+      expect(styles.selectColor).not.toBe(styles.selectBg);
+      expect(styles.optionColor).not.toBe(styles.optionBg);
+    }
 
-    await page.click('#cancel-modal-btn');
+    await dialog.getByRole('button', { name: /Cancel/i }).click();
     await expect(page.locator('#task-container .task-card')).toHaveCount(beforeCount);
   });
 
-  test('UI-REG-05: Curated quiz completion and Retake Quiz regression flow works in desktop & mobile', async ({ page }) => {
-    await page.setViewportSize({ width: 375, height: 667 });
+  test('UI-REG-05: Curated & Rapid quiz completion and Retake Quiz preserve config cleanly', async ({ page }) => {
     await navigateToView(page, 'quiz');
-
-    const setupOverflow = await page.evaluate(() => ({
-      scrollWidth: document.documentElement.scrollWidth,
-      clientWidth: document.documentElement.clientWidth,
-    }));
-    expect(setupOverflow.scrollWidth).toBeLessThanOrEqual(setupOverflow.clientWidth + 2);
-
-    await page.click('#quiz-tab-ai');
-    const aiOverflow = await page.evaluate(() => ({
-      scrollWidth: document.documentElement.scrollWidth,
-      clientWidth: document.documentElement.clientWidth,
-    }));
-    expect(aiOverflow.scrollWidth).toBeLessThanOrEqual(aiOverflow.clientWidth + 2);
-
-    await page.click('#quiz-tab-curated');
-    await page.click('#quiz-start-btn');
+    await page.getByRole('button', { name: /Start rapid quiz/i }).click();
     await expect(page.locator('#quiz-play')).toBeVisible({ timeout: 5000 });
-
-    const playOverflow = await page.evaluate(() => ({
-      scrollWidth: document.documentElement.scrollWidth,
-      clientWidth: document.documentElement.clientWidth,
-    }));
-    expect(playOverflow.scrollWidth).toBeLessThanOrEqual(playOverflow.clientWidth + 2);
+    await expect(page.locator('#quiz-timer')).toBeVisible();
 
     const totalText = await page.locator('#quiz-progress').innerText();
     const match = totalText.match(/of\s+(\d+)/i);
-    const total = match ? Number(match[1]) : 15;
+    const total = match ? Number(match[1]) : 10;
 
     for (let i = 0; i < total; i += 1) {
       await page.locator('#quiz-options .choice').first().click();
-      await page.click('#quiz-next-btn');
+      await page.locator('#quiz-next-btn').click();
     }
 
     await expect(page.locator('#quiz-result')).toBeVisible({ timeout: 10000 });
-    const resultOverflow = await page.evaluate(() => ({
-      scrollWidth: document.documentElement.scrollWidth,
-      clientWidth: document.documentElement.clientWidth,
-    }));
-    expect(resultOverflow.scrollWidth).toBeLessThanOrEqual(resultOverflow.clientWidth + 2);
-
-    await page.click('#quiz-retake-btn');
+    await page.getByRole('button', { name: /Retake quiz/i }).click();
     await expect(page.locator('#quiz-play')).toBeVisible({ timeout: 5000 });
-    await expect(page.locator('#quiz-progress')).toContainText('Question 1 of');
+    await expect(page.locator('#quiz-timer')).toBeVisible();
+    await expect(page.locator('#quiz-progress')).toContainText(`Question 1 of ${total}`);
+  });
+
+  test('UI-REG-06 (Issue #83): Full 7-viewport Light/Dark responsive Quiz check has zero horizontal overflow', async ({ page }) => {
+    test.setTimeout(120000);
+    for (const vp of RESPONSIVE_VIEWPORTS) {
+      await page.setViewportSize(vp);
+      for (const theme of ['light', 'dark']) {
+        await ensureThemeMode(page, theme);
+        await navigateToView(page, 'quiz');
+
+        // 1. Setup Curated tab
+        const curatedCheck = await page.evaluate(() => ({
+          scrollWidth: document.documentElement.scrollWidth,
+          clientWidth: document.documentElement.clientWidth,
+        }));
+        expect(curatedCheck.scrollWidth, `${vp.width}px ${theme} curated setup`).toBeLessThanOrEqual(curatedCheck.clientWidth + 2);
+
+        // 2. Setup AI Quiz tab
+        await page.getByRole('tab', { name: /AI Quiz Generator/i }).click();
+        const aiCheck = await page.evaluate(() => ({
+          scrollWidth: document.documentElement.scrollWidth,
+          clientWidth: document.documentElement.clientWidth,
+        }));
+        expect(aiCheck.scrollWidth, `${vp.width}px ${theme} AI setup`).toBeLessThanOrEqual(aiCheck.clientWidth + 2);
+
+        // 3. Rapid Quiz Play (with live timer & 4 options)
+        await page.getByRole('tab', { name: /Standard & Rapid Quiz/i }).click();
+        await page.getByRole('button', { name: /Start rapid quiz/i }).click();
+        await expect(page.locator('#quiz-play')).toBeVisible();
+        await expect(page.locator('#quiz-timer')).toBeVisible();
+
+        const playCheck = await page.evaluate(() => ({
+          scrollWidth: document.documentElement.scrollWidth,
+          clientWidth: document.documentElement.clientWidth,
+        }));
+        expect(playCheck.scrollWidth, `${vp.width}px ${theme} quiz play`).toBeLessThanOrEqual(playCheck.clientWidth + 2);
+
+        const totalText = await page.locator('#quiz-progress').innerText();
+        const total = Number(totalText.match(/of\s+(\d+)/i)?.[1] || 10);
+        for (let i = 0; i < total; i += 1) {
+          await page.locator('#quiz-options .choice').first().click();
+          await page.locator('#quiz-next-btn').click();
+        }
+
+        // 4. Quiz Result + Retake actions
+        await expect(page.locator('#quiz-result')).toBeVisible();
+        const resultCheck = await page.evaluate(() => ({
+          scrollWidth: document.documentElement.scrollWidth,
+          clientWidth: document.documentElement.clientWidth,
+        }));
+        expect(resultCheck.scrollWidth, `${vp.width}px ${theme} quiz result`).toBeLessThanOrEqual(resultCheck.clientWidth + 2);
+
+        await page.getByRole('button', { name: /Choose another quiz/i }).click();
+        await expect(page.locator('#quiz-setup')).toBeVisible();
+      }
+    }
   });
 });

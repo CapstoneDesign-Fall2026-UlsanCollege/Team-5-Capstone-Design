@@ -1,8 +1,9 @@
 // @ts-check
 import { test, expect } from '@playwright/test';
 
-const SUPABASE_URL = 'https://bcwwnjtmrcxggbaallon.supabase.co';
-const AUTH_STORAGE_KEY = 'sb-bcwwnjtmrcxggbaallon-auth-token';
+export const SUPABASE_URL = 'https://bcwwnjtmrcxggbaallon.supabase.co';
+export const SUPABASE_ANON_KEY = 'sb_publishable_w2FL6KB5yEyy_iatIN993Q_ifuBdl7i';
+export const AUTH_STORAGE_KEY = 'sb-bcwwnjtmrcxggbaallon-auth-token';
 
 /**
  * Returns { email, password } for Student A or Student B from environment variables.
@@ -33,7 +34,8 @@ export function hasStudentCredentials(role = 'A') {
 
 /**
  * Skips the current test explicitly if live student credentials are absent,
- * otherwise signs in through the actual login page and waits for the dashboard.
+ * otherwise signs in through the actual login page using accessible locators
+ * and waits for the protected dashboard shell.
  * @param {import('@playwright/test').Page} page
  * @param {'A'|'B'} [role]
  */
@@ -45,13 +47,34 @@ export async function loginAsStudent(page, role = 'A') {
   );
 
   await page.goto('/auth/login.html');
-  await page.fill('#email', email);
-  await page.fill('#password', password);
-  await page.click('#login-btn');
+  await page.getByLabel(/Email/i).fill(email);
+  await page.getByLabel('Password', { exact: true }).fill(password);
+  await page.getByRole('button', { name: /Sign In/i }).click();
   await page.waitForURL((url) => !url.pathname.includes('/auth/login.html'), {
     timeout: 15000,
   });
   await expect(page.locator('#sidebar')).toBeAttached({ timeout: 10000 });
+}
+
+/**
+ * Reads the authenticated Supabase session token from browser localStorage
+ * (ordinary student JWT, never a service-role key).
+ * @param {import('@playwright/test').Page} page
+ */
+export async function getSessionFromBrowser(page) {
+  return page.evaluate((storageKey) => {
+    const raw = window.localStorage.getItem(storageKey);
+    if (!raw) return null;
+    try {
+      const parsed = JSON.parse(raw);
+      return {
+        accessToken: parsed?.access_token || '',
+        userId: parsed?.user?.id || '',
+      };
+    } catch (_) {
+      return null;
+    }
+  }, AUTH_STORAGE_KEY);
 }
 
 /**
@@ -61,7 +84,7 @@ export async function loginAsStudent(page, role = 'A') {
  * @param {'dashboard'|'tasks'|'subjects'|'analytics'|'quiz'|'ai-tutor'} view
  */
 export async function navigateToView(page, view) {
-  const openMenuBtn = page.locator('#open-sidebar-btn');
+  const openMenuBtn = page.getByRole('button', { name: /Open menu/i });
   if (await openMenuBtn.isVisible()) {
     const isOpen = await page.locator('#sidebar').evaluate((el) => el.classList.contains('is-open'));
     if (!isOpen) {
@@ -82,24 +105,41 @@ export async function navigateToView(page, view) {
  * @param {import('@playwright/test').Page} page
  */
 export async function toggleTheme(page) {
-  const openMenuBtn = page.locator('#open-sidebar-btn');
+  const openMenuBtn = page.getByRole('button', { name: /Open menu/i });
   const openedDrawer = (await openMenuBtn.isVisible())
     && !(await page.locator('#sidebar').evaluate((el) => el.classList.contains('is-open')));
   if (openedDrawer) {
     await openMenuBtn.click();
     await expect(page.locator('#sidebar')).toHaveClass(/is-open/);
   }
-  await page.click('#theme-toggle-btn');
+  await page.locator('#theme-toggle-btn').click();
   if (openedDrawer) {
-    await page.click('#close-sidebar-btn');
+    await page.getByRole('button', { name: /Close menu/i }).click();
     await expect(page.locator('#sidebar')).not.toHaveClass(/is-open/);
   }
 }
 
 /**
+ * Ensures the document is in the requested 'light' or 'dark' theme mode.
+ * @param {import('@playwright/test').Page} page
+ * @param {'light'|'dark'} targetTheme
+ */
+export async function ensureThemeMode(page, targetTheme) {
+  const isDark = await page.evaluate(() => document.documentElement.classList.contains('dark'));
+  if ((targetTheme === 'dark' && !isDark) || (targetTheme === 'light' && isDark)) {
+    await toggleTheme(page);
+  }
+  if (targetTheme === 'dark') {
+    await expect(page.locator('html')).toHaveClass(/dark/);
+  } else {
+    await expect(page.locator('html')).not.toHaveClass(/dark/);
+  }
+}
+
+/**
  * Sets up a stateful in-memory Supabase REST/Auth mock inside Playwright's browser
- * context for UI regression checks when live student credentials are unavailable.
- * Clearly scoped to offline UI/CSS/DOM verification — does not verify cloud auth or RLS.
+ * context for UI/responsive regression checks when live student credentials are
+ * unavailable. Strictly non-cloud — does not verify live auth or Supabase RLS.
  * @param {import('@playwright/test').Page} page
  * @param {{ subjects?: Array<{id:string,name:string,slug:string,description?:string,category?:string,icon?:string}> }} [options]
  */

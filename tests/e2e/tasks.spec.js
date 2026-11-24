@@ -9,35 +9,35 @@ test.describe('Study Task Management & CRUD (E2E)', () => {
   });
 
   test('E2E-TASK-01: Tasks view displays create button, filters, and search bar', async ({ page }) => {
-    await expect(page.locator('#add-task-btn')).toBeVisible();
-    await expect(page.locator('#search-input')).toBeVisible();
-    await expect(page.locator('.filters .filter-btn')).toHaveCount(4);
+    await expect(page.getByRole('button', { name: /New task/i })).toBeVisible();
+    await expect(page.getByPlaceholder(/Search tasks or subjects/i)).toBeVisible();
+    await expect(page.getByRole('tablist', { name: /Task status/i }).getByRole('button')).toHaveCount(4);
     await expect(page.locator('#view-tasks .plan-board')).toBeVisible();
   });
 
   test('E2E-TASK-02: Empty task title triggers client validation without creating row', async ({ page }) => {
     const initialCount = await page.locator('#task-container .task-card').count();
-    await page.click('#add-task-btn');
-    const modal = page.locator('#task-modal');
-    await expect(modal).toBeVisible();
+    await page.getByRole('button', { name: /New task/i }).click();
+    const dialog = page.getByRole('dialog');
+    await expect(dialog).toBeVisible();
 
-    await page.fill('#task-name', '');
-    await page.click('#task-form button[type="submit"]');
+    await dialog.getByLabel(/Task name/i).fill('');
+    await dialog.getByRole('button', { name: /Save task/i }).click();
 
-    await expect(modal).toBeVisible();
-    await page.click('#cancel-modal-btn');
-    const finalCount = await page.locator('#task-container .task-card').count();
-    expect(finalCount).toBe(initialCount);
+    await expect(dialog).toBeVisible();
+    await dialog.getByRole('button', { name: /Cancel/i }).click();
+    await expect(page.locator('#task-container .task-card')).toHaveCount(initialCount);
   });
 
   test('E2E-TASK-03: Create new task, verify persistence across refresh, toggle complete, and delete', async ({ page }) => {
     const taskTitle = `E2E Test Task ${Date.now()}`;
-    await page.click('#add-task-btn');
-    await expect(page.locator('#task-modal')).toBeVisible();
+    await page.getByRole('button', { name: /New task/i }).click();
+    const dialog = page.getByRole('dialog');
+    await expect(dialog).toBeVisible();
 
-    await page.fill('#task-name', taskTitle);
-    await page.fill('#task-deadline', '2026-12-31T23:59');
-    await page.click('#task-form button[type="submit"]');
+    await dialog.getByLabel(/Task name/i).fill(taskTitle);
+    await dialog.getByLabel(/Deadline/i).fill('2026-12-31T23:59');
+    await dialog.getByRole('button', { name: /Save task/i }).click();
 
     const taskCard = page.locator('#task-container .task-card', { hasText: taskTitle }).first();
     await expect(taskCard).toBeVisible({ timeout: 8000 });
@@ -46,18 +46,19 @@ test.describe('Study Task Management & CRUD (E2E)', () => {
     await navigateToView(page, 'tasks');
     await expect(taskCard).toBeVisible({ timeout: 8000 });
 
-    const toggleBtn = taskCard.locator('.toggle-btn');
+    const toggleBtn = taskCard.getByRole('button', { name: /Mark as completed/i });
     await toggleBtn.click();
-    await expect(toggleBtn).toHaveClass(/is-on/, { timeout: 5000 });
+    await expect(taskCard.locator('.toggle-btn')).toHaveClass(/is-on/, { timeout: 5000 });
 
-    await taskCard.locator('.delete-btn').click();
-    await expect(page.locator('#confirm-modal')).toBeVisible();
-    await page.click('#confirm-delete');
+    await taskCard.getByRole('button', { name: /Delete task/i }).click();
+    const confirmDialog = page.locator('#confirm-modal');
+    await expect(confirmDialog).toBeVisible();
+    await confirmDialog.getByRole('button', { name: 'Delete', exact: true }).click();
     await expect(taskCard).toHaveCount(0, { timeout: 8000 });
   });
 
   test('E2E-TASK-04: Task search input filters task list dynamically', async ({ page }) => {
-    await page.fill('#search-input', 'NonExistentTaskQueryXYZ999');
+    await page.getByPlaceholder(/Search tasks or subjects/i).fill('NonExistentTaskQueryXYZ999');
     await expect(page.locator('#task-container .task-card:visible')).toHaveCount(0);
     await expect(page.locator('#empty-state')).toBeVisible();
   });

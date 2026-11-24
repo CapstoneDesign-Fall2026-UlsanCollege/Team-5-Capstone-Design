@@ -16,7 +16,7 @@ test.describe('Mobile Viewport & Responsive Design (E2E)', () => {
   });
 
   test('E2E-MOB-02: Mobile navigation drawer opens and dark theme toggle works', async ({ page }) => {
-    await page.click('#open-sidebar-btn');
+    await page.getByRole('button', { name: /Open menu/i }).click();
     const sidebar = page.locator('#sidebar');
     await expect(sidebar).toHaveClass(/is-open/);
     await expect(sidebar).toBeVisible();
@@ -29,7 +29,7 @@ test.describe('Mobile Viewport & Responsive Design (E2E)', () => {
     const afterDark = await page.evaluate(() => document.documentElement.classList.contains('dark'));
     expect(afterDark).not.toBe(beforeDark);
 
-    await page.click('#close-sidebar-btn');
+    await page.getByRole('button', { name: /Close menu/i }).click();
     await expect(sidebar).not.toHaveClass(/is-open/);
   });
 
@@ -49,7 +49,7 @@ test.describe('Mobile Viewport & Responsive Design (E2E)', () => {
     }));
     expect(curatedWidth.scrollWidth).toBeLessThanOrEqual(curatedWidth.clientWidth + 2);
 
-    await page.click('#quiz-tab-ai');
+    await page.getByRole('tab', { name: /AI Quiz Generator/i }).click();
     const aiWidth = await page.evaluate(() => ({
       scrollWidth: document.documentElement.scrollWidth,
       clientWidth: document.documentElement.clientWidth,
