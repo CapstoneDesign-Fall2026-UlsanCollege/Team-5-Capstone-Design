@@ -2,8 +2,7 @@
 
 **Project:** Smart Study Companion — Team 5 (Ulsan College)  
 **Repository:** https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design  
-**Verified Baseline Commit (`origin/main`):** `bb7c974` (incl. PR #85 `22879a9` & PR #86 `391961f`)  
-**QA Reconciliation Branch:** `week12/final-qa-reconciliation`  
+**Verified Baseline (`origin/main`):** `032e6cd` (incl. [PR #85](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/85), [PR #86](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/86), & [PR #87](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/87); plus Quiz tab WAI-ARIA & doc polish)  
 **Verification Date:** November 25, 2026  
 **Target Deadline:** Wednesday, November 25, 2026  
 **Release Decision:** **NO-GO — Pending Live Security and Release Verification.**
@@ -14,7 +13,7 @@
 
 Week 12 release readiness remains **NO-GO — Pending Live Security and Release Verification.** While local Vitest suites (**12 files, 93/93 PASS**), PGlite database RLS tests (**36/36** and **4/4 PASS**), Python integration/contract checks (**PASS**), production Vite build (**PASS**), unauthenticated/live-anon Playwright checks (**6/24 scenarios = 12/12 Chrome desktop/mobile PASS**), and non-cloud responsive/UI regression checks (**`UI-REG-01..06`: 12/12 Chrome runs PASS across `320px–1440px` Light & Dark modes**) succeed, mandatory P0 live gates remain open:
 
-1. **Official Course Vercel Deployment SHA (`MVP-DEP-01` — Owner: `liftupkhadka555-spec`):** **`UNKNOWN / UNVERIFIED`** (`BLOCKED` locally; active HTTP `etag: "e6cce49db1d3fbd659ee860ed84f94f2"` reflects older `03ae6a4` build and lags `bb7c974` + `week12/final-qa-reconciliation`, [Issue #59](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/59) pending). Production was **not** redeployed.
+1. **Official Course Vercel Deployment SHA (`MVP-DEP-01` — Owner: `liftupkhadka555-spec`):** **`UNKNOWN / UNVERIFIED`** (`BLOCKED` locally; active HTTP `etag: "e6cce49db1d3fbd659ee860ed84f94f2"` reflects older `03ae6a4` build and lags `main` `032e6cd`, [Issue #59](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/59) pending). Production was **not** redeployed.
 2. **Live Supabase Migrations `009`, `010`, `012` (`MVP-DB-01` — Owner: `adronnie`):** **`UNVERIFIED` / NOT APPLIED** in live Supabase (`bcwwnjtmrcxggbaallon.supabase.co`). Only `011_study_streak_analytics.sql` (plus `001`–`008`) returned live `HTTP 200`. See [Sumit Adhikari Report](./Sumit-Adhikari-Database-Security-Report.md).
 3. **Live `DATA-01` Two-Student Authenticated RLS (`MVP-SEC-01` — Owner: `adronnie`, Collaborators: `princekark` & `RaiPrabin697`):** **`NOT RUN`**. Live anonymous `E2E-RLS-02` **`PASS`** (0 rows across 8 tables) does not substitute for live Student A/B isolation.
 4. **Live AI Quiz Edge Function (`MVP-AIQ-01` — Owners: `liftupkhadka555-spec` / `adronnie`):** **`UNVERIFIED`** (`POST /functions/v1/generate-ai-quiz` returns **HTTP 404**; `GEMINI_API_KEY` secret unverified).
@@ -29,11 +28,11 @@ Week 12 release readiness remains **NO-GO — Pending Live Security and Release 
 
 | Check Item | Value / Observation (November 25, 2026) |
 |---|---|
-| **`origin/main` Commit SHA** | `bb7c974` (including PR #85 `22879a9` & PR #86 `391961f`) |
+| **`origin/main` Commit SHA** | `032e6cd` (including PR #85 `22879a9`, PR #86 `391961f`, & PR #87 `032e6cd`) |
 | **Course Vercel URL Probed** | `https://team-5-capstone-design.vercel.app/` (`HTTP/2 200`, `etag: "e6cce49db1d3fbd659ee860ed84f94f2"`, `last-modified: Tue, 24 Nov 2026 15:23:08 GMT`) |
 | **Fork Vercel URL Probed** | `https://team-5-capstone-design-761v.vercel.app/` (`HTTP/2 200`, identical `etag: "e6cce49db1d3fbd659ee860ed84f94f2"`, bundle `main-C9nMNtAi.js` from `03ae6a4`) |
 | **Vercel Org Integration ([Issue #59](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/59))** | Pending org admin approval (`vercel` CLI / API token unavailable locally) |
-| **Official SHA Status** | **`UNKNOWN / UNVERIFIED`** (`BLOCKED` locally; active bundle lags `bb7c974` and `week12/final-qa-reconciliation`) |
+| **Official SHA Status** | **`UNKNOWN / UNVERIFIED`** (`BLOCKED` locally; active bundle lags `main` `032e6cd`) |
 
 *(Note: Preserves all Nabin Khadka completed work intact; fork sync and local build are explicitly not treated as course Vercel deployment proof. Full instructions in [DEPLOYMENT_VERIFICATION.md](./DEPLOYMENT_VERIFICATION.md).)*
 

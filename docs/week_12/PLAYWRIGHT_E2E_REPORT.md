@@ -2,7 +2,7 @@
 
 **Automation Harness Owner:** Prabin Rai (`RaiPrabin697`)  
 **Independent QA Execution Owner:** Prince Karki (`princekark`)  
-**Latest Agent-Assisted Reconciliation Run:** November 25, 2026 (`bb7c974` + `week12/final-qa-reconciliation`, Local Vite Preview + Desktop Chrome & Mobile Chrome Pixel 5)  
+**Latest Agent-Assisted Reconciliation Run:** November 25, 2026 (`032e6cd` / PR #87 baseline, Local Vite Preview + Desktop Chrome & Mobile Chrome Pixel 5)  
 **Command:** `npx playwright test tests/e2e/auth.spec.js tests/e2e/onboarding.spec.js tests/e2e/tasks.spec.js tests/e2e/analytics.spec.js tests/e2e/quiz.spec.js tests/e2e/mobile.spec.js tests/e2e/rls-isolation.spec.js tests/e2e/ui-regression-mocked.spec.js --project="Desktop Chrome" --project="Mobile Chrome (Pixel 5)"`
 
 ---

@@ -9,7 +9,16 @@
 ## Read First
 
 **Status: NO-GO — Pending Live Security and Release Verification.**  
-Reconciled through `origin/main` (`bb7c974`) and branch `week12/final-qa-reconciliation`. Frozen Week 11 core bug fixes (`PR #69`, `#71`, `#72`, `#75`) and PR #85 QA/UI fixes are merged or staged for review; **AI Tutor** ([PR #78](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/78), migration `013`) remains **DEFERRED** outside the frozen-core gate. Official course Vercel SHA (`UNKNOWN / UNVERIFIED`), live migrations (`009`, `010`, `012`), live `DATA-01` RLS (`NOT RUN`), live `generate-ai-quiz` (`UNVERIFIED`), credentialed live E2E runs (`18/24 NOT RUN`), and `5/5` team freeze approvals remain open.
+Reconciled on `main` (`032e6cd` via [PR #87](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/87)), with WAI-ARIA Quiz tab keyboard parity and Week 12 documentation cleanup added on top. Frozen Week 11 core bug fixes (`PR #69`, `#71`, `#72`, `#75`) and Week 12 QA/UI fixes (`PR #85`, `#87`) are merged on `main`; **AI Tutor** ([PR #78](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/78), migration `013`) remains **DEFERRED** outside the frozen-core gate. Official course Vercel SHA (`UNKNOWN / UNVERIFIED`), live migrations (`009`, `010`, `012`), live `DATA-01` RLS (`NOT RUN`), live `generate-ai-quiz` (`UNVERIFIED`), credentialed live E2E runs (`18/24 NOT RUN`), and `5/5` team freeze approvals remain open.
+
+### 60-Second Evaluator / Grader Verification Guide
+
+| Verification Layer | Command / Location | What It Proves vs. What Stays Open |
+|---|---|---|
+| **1. Local Unit & SQL Checks** | `npm test && (cd tests/db && node --test study-streak.db.test.js ai-tutor.db.test.js)` | Verifies client logic (`94` Vitest tests) and PGlite Postgres RLS (`36` + `4` tests); not a live Supabase deployment |
+| **2. Offline Python & Vite Build** | `python3 tests/run_tests.py && python3 tests/test_ai_quiz.py && npm run build` | Verifies static HTML/JS contracts, schema constraints, and multi-entry Vite build (`dist/`) |
+| **3. Responsive & UI Chrome Suite** | `npx playwright test tests/e2e/ui-regression-mocked.spec.js --project="Desktop Chrome" --project="Mobile Chrome (Pixel 5)"` | Verifies Issues `#79`, `#80`, `#83`, `#84`, Retake Quiz, and all 7 viewports (`320px–1440px`) in Light & Dark mode under route mocks (`12/12` Chrome runs) |
+| **4. Remaining Live Team Actions** | `009`/`010`/`012` SQL + `DATA-01` + Vercel redeploy + `5/5` sign-offs | Required live team execution before moving overall release status from **NO-GO** to **GO** |
 
 1. [MVP Verification Matrix (Week 12)](./MVP_VERIFICATION_MATRIX.md): reconciled mandatory release gates using strict `PASS` / `FAIL` / `BLOCKED` / `NOT RUN` / `UNCONFIRMED` / `UNVERIFIED` / `DEFERRED` taxonomy.
 2. [Release Verification Report](./RELEASE_VERIFICATION_REPORT.md): complete Sections A–F release readiness audit.

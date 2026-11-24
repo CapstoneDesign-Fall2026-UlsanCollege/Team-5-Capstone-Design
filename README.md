@@ -4,9 +4,9 @@
 
 Smart Study Companion helps university students organize subjects, study tasks, deadlines, quizzes, and progress in one browser-based workspace. Team 5 is building a vanilla JavaScript frontend with Supabase Auth and PostgreSQL services. The repository also retains a separate Local Preview path for development; a working screen alone does not establish that data reached Supabase.
 
-[![Open app](https://img.shields.io/badge/Open_app-0F766E?style=for-the-badge)](https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/index.html) [![Verification matrix](https://img.shields.io/badge/Verification_matrix-C2410C?style=for-the-badge)](docs/week_11/MVP_VERIFICATION_MATRIX.md) [![Documentation hub](https://img.shields.io/badge/Documentation_hub-8B6F10?style=for-the-badge)](docs/README.md)
+[![Open app](https://img.shields.io/badge/Open_app-0F766E?style=for-the-badge)](https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/index.html) [![Week 12 Matrix](https://img.shields.io/badge/Week_12_Matrix-C2410C?style=for-the-badge)](docs/week_12/MVP_VERIFICATION_MATRIX.md) [![Documentation hub](https://img.shields.io/badge/Documentation_hub-8B6F10?style=for-the-badge)](docs/README.md)
 
-[Open the public app](https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/index.html) · [Sign in](https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/auth/login.html) · [Week 11 report](docs/week_11/weekly-report.md) · [Verification matrix](docs/week_11/MVP_VERIFICATION_MATRIX.md) · [Documentation hub](docs/README.md)
+[Open the public app](https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/index.html) · [Sign in](https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/auth/login.html) · [Week 12 Hub](docs/week_12/README.md) · [Week 12 Report](docs/week_12/weekly-report.md) · [Week 12 Matrix](docs/week_12/MVP_VERIFICATION_MATRIX.md) · [Documentation hub](docs/README.md)
 
 ## On This Page
 
@@ -16,7 +16,7 @@ Smart Study Companion helps university students organize subjects, study tasks, 
 
 The first browser prototype used local storage. The current repository adds Supabase-backed authentication, data services, versioned SQL migrations, a Vite build, and automated checks. These are implementation facts, not a blanket claim that every deployed feature or security boundary has passed a live end-to-end test.
 
-For a short review path, read the [shared Week 11 report](docs/week_11/weekly-report.md), then the [MVP verification matrix](docs/week_11/MVP_VERIFICATION_MATRIX.md) and [evidence register](docs/week_11/EVIDENCE_REGISTER.md). They distinguish recorded results from checks that remain pending.
+For a short review path, read the [Week 12 verification hub](docs/week_12/README.md), then the [Week 12 MVP verification matrix](docs/week_12/MVP_VERIFICATION_MATRIX.md) and [Week 12 shared report](docs/week_12/weekly-report.md) (see also the [Week 11 baseline](docs/week_11/weekly-report.md)). They distinguish recorded results from checks that remain pending.
 
 ## Quick Links
 
@@ -25,9 +25,10 @@ For a short review path, read the [shared Week 11 report](docs/week_11/weekly-re
 | [Dashboard and study workspace](https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/index.html) | Public GitHub Pages interface |
 | [Sign up](https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/auth/signup.html) / [sign in](https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/auth/login.html) | Student account entry points |
 | [Forgot password](https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/auth/forgot-password.html) / [reset password](https://capstonedesign-fall2026-ulsancollege.github.io/Team-5-Capstone-Design/public/auth/reset-password.html) | Recovery interfaces; delivery and completion need separate verification |
+| [Week 12 Verification Hub](docs/week_12/README.md) | Evaluator 60-second quick-start and release readiness |
 | [Documentation hub](docs/README.md) | Current guidance and historical records |
 | [Project status](docs/PROJECT_STATUS.md) / [contribution ledger](docs/CONTRIBUTION_LEDGER.md) | Open work and member evidence |
-| [Week 11 report](docs/week_11/weekly-report.md) / [verification matrix](docs/week_11/MVP_VERIFICATION_MATRIX.md) / [evidence register](docs/week_11/EVIDENCE_REGISTER.md) | Expected versus actual results and proof boundaries |
+| [Week 12 report](docs/week_12/weekly-report.md) / [Week 12 matrix](docs/week_12/MVP_VERIFICATION_MATRIX.md) / [Release audit](docs/week_12/RELEASE_VERIFICATION_REPORT.md) | Expected versus actual results and proof boundaries |
 
 The public URL confirms that the interface is reachable. To assess cloud saves, email delivery, or account isolation, use the linked test receipts rather than the URL alone.
 
@@ -133,7 +134,7 @@ See the [Week 12 verification matrix](docs/week_12/MVP_VERIFICATION_MATRIX.md), 
 **Historical Browser Testing Baseline (November 22, 2026 — `princekark`):**
 > Independent browser testing on November 22, 2026, executed 15 of 24 planned Playwright cases on local Vite preview, resulting in 7 reported passes, 8 failures and 9 unconfirmed cases. Failure classification and regression retesting are in progress.
 
-**Updated Agent-Assisted Browser Run (November 25, 2026 — branch `week12/final-qa-reconciliation` from `bb7c974`):**
+**Updated Agent-Assisted Browser Run (November 25, 2026 — merged `PR #87` / `032e6cd` on `main`):**
 - **Environment:** Local Vite production preview (`http://localhost:4173`), Chromium (`Desktop Chrome` + `Mobile Chrome Pixel 5`), pending independent review by `RaiPrabin697` and `princekark`.
 - **Original 24 Planned Cases:** **6 passed** (`E2E-AUTH-01..05` and live anonymous `E2E-RLS-02` = 12 passing Chrome desktop/mobile runs), **0 failed**, **0 blocked**, and **18 not run / unconfirmed** in live mode (skipped explicitly because disposable `E2E_STUDENT_A_*` / `E2E_STUDENT_B_*` credentials were unavailable: `E2E-ONB-01..04`, `E2E-TASK-01..04`, `E2E-ANLY-01..03`, `E2E-QUIZ-01..03`, `E2E-MOB-01..03`, `E2E-RLS-01`).
 - **Separate Non-Cloud & Extra Regression Checks (Counted Separately from the 24-Case Baseline):** `UI-REG-01..06` mocked UI regression suite passed **6 / 6** (**12 / 12** Chrome desktop/mobile runs, including the 7-viewport `320px–1440px` Light/Dark Quiz sweep and `#84` dark-mode dropdown check), while extra live-gated specs (`E2E-QUIZ-04`, `E2E-MOB-04`) were skipped pending credentials.

@@ -41,4 +41,16 @@ describe('Week 12 Bug Fixes — Deadline Validation, Local Date & Quiz History C
     expect(appJs).toContain('getAiQuizHistory(currentUser.id, 200)');
     expect(appJs).not.toContain('quizHistory = [...curatedItems, ...aiItems]\n        .sort((a, b) => new Date(b.completedAt) - new Date(a.completedAt))\n        .slice(0, 20);');
   });
+
+  it('Issue #80 Accessibility Gate: Quiz tabs support roving tabindex, arrow keys, and filled active styling', () => {
+    const html = readFileSync(resolve('public/index.html'), 'utf8');
+    const css = readFileSync(resolve('public/styles.css'), 'utf8');
+    const appJs = readFileSync(resolve('public/app.js'), 'utf8');
+
+    expect(html).toContain('id="quiz-tab-curated"');
+    expect(html).toContain('tabindex="-1"');
+    expect(css).toMatch(/\.quiz-type-tabs \.btn-ghost\.is-active\s*\{[^}]*background:\s*var\(--ink\);[^}]*color:\s*var\(--bg\);/s);
+    expect(appJs).toContain("tabAi.setAttribute('tabindex', isAi ? '0' : '-1')");
+    expect(appJs).toContain("e.key === 'ArrowRight'");
+  });
 });

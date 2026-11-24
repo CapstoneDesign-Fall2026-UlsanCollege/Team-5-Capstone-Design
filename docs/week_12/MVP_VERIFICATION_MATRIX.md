@@ -2,7 +2,7 @@
 
 **Project:** Smart Study Companion — Team 5 (Ulsan College)  
 **Repository:** https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design  
-**Reconciled Baseline:** `bb7c974` (`origin/main` + `week12/final-qa-reconciliation`)  
+**Reconciled Baseline:** `032e6cd` (`origin/main` via [PR #87](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/87); plus WAI-ARIA Quiz tab & Week 12 doc reconciliation)  
 **Reconciliation Date:** November 25, 2026  
 **Overall Release Decision:** **NO-GO — Pending Live Security and Release Verification.**
 

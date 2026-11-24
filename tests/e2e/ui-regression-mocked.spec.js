@@ -72,9 +72,20 @@ test.describe('Mocked UI & Week 12 Regression Checks (Non-Cloud Browser Verifica
     await aiTab.click();
     await expect(aiTab).toHaveClass(/is-active/);
     await expect(aiTab).toHaveAttribute('aria-pressed', 'true');
+    await expect(aiTab).toHaveAttribute('tabindex', '0');
     await expect(curatedTab).not.toHaveClass(/is-active/);
+    await expect(curatedTab).toHaveAttribute('tabindex', '-1');
     await expect(page.locator('#quiz-ai-panel')).toBeVisible();
     await expect(page.locator('#quiz-curated-panel')).toBeHidden();
+
+    // WAI-ARIA keyboard tab switching (ArrowLeft / ArrowRight)
+    await aiTab.focus();
+    await page.keyboard.press('ArrowLeft');
+    await expect(curatedTab).toHaveClass(/is-active/);
+    await expect(curatedTab).toHaveAttribute('aria-pressed', 'true');
+    await expect(curatedTab).toBeFocused();
+    await expect(page.locator('#quiz-curated-panel')).toBeVisible();
+    await expect(page.locator('#quiz-ai-panel')).toBeHidden();
   });
 
   test('UI-REG-04 (Issue #84): Task deadline validation & dark/light subject dropdown contrast and focus', async ({ page }) => {
