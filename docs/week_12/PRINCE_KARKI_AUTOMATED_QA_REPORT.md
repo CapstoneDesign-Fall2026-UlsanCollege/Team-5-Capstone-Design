@@ -82,19 +82,7 @@ These separate results suggest test-script maintenance has progressed in the rep
 
 ## 7. Evidence Register
 
-The accompanying ZIP contains unchanged copies of screenshots previously shared in the conversation. None is a fabricated screenshot or a new execution by the assistant. The evidence index (`EVIDENCE_INDEX.md`) lists the scope and limitations of each capture.
-
-- `W12-RETEST-ANLY-02-FAIL.png`
-- `W12-RETEST-QUIZ-01-FAIL.png`
-- `W12-RETEST-QUIZ-03-FAIL.png`
-- `W12-RETEST-QUIZ-03-ERROR.png`
-- `W12-RETEST-TASK-04-FAIL.png`
-- `W12-BASELINE-MOB-02-SELECTOR-FAIL.png`
-- `W12-BASELINE-MOB-03-NAVIGATION-TIMEOUT.png`
-- `W12-BASELINE-TASK-01-SELECTOR-FAIL.png`
-- `W12-BASELINE-QUIZ-AUTHENTICATED.png`
-
-No new screenshot for a test which was not actually executed has been created. Earlier password recovery screenshots are excluded from the ZIP to avoid redistributing possible email addresses, verification codes, or passwords.
+[Evidence Link](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/4c154f0a8b7f56d70e495a39203bda4ee6e2b0e4/docs/week_12/Evidence/Independent%20Playwright%20QA/Evidence%20index.md)
 
 ## 8. Tester Conclusion for the Professor
 
