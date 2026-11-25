@@ -1,0 +1,9 @@
+<img width="1303" height="1028" alt="W12-BASELINE-TASK-01-SELECTOR-FAIL" src="https://github.com/user-attachments/assets/da42ab02-2589-445a-8ac9-092eb31fc288" />
+<img width="951" height="589" alt="W12-RETEST-TASK-04-FAIL" src="https://github.com/user-attachments/assets/5adab7b5-390d-4462-b0e7-48a80bd39893" />
+<img width="1261" height="995" alt="W12-RETEST-QUIZ-03-FAIL" src="https://github.com/user-attachments/assets/1f56822d-ad2e-42b6-9f58-9c2908bf4145" />
+<img width="1068" height="880" alt="W12-RETEST-QUIZ-03-ERROR" src="https://github.com/user-attachments/assets/644c366e-8d3d-4f81-b883-5528be2c83ec" />
+<img width="1258" height="976" alt="W12-RETEST-QUIZ-01-FAIL" src="https://github.com/user-attachments/assets/ae160b95-d00e-4643-999c-a5ecad9c3fd8" />
+<img width="1259" height="983" alt="W12-RETEST-ANLY-02-FAIL" src="https://github.com/user-attachments/assets/df2284a7-62ea-432f-9eaf-ccadbcb150df" />
+<img width="1285" height="1038" alt="W12-BASELINE-QUIZ-AUTHENTICATED" src="https://github.com/user-attachments/assets/99603495-3418-4ac5-b598-0e522ff036e9" />
+<img width="1144" height="894" alt="W12-BASELINE-MOB-03-NAVIGATION-TIMEOUT" src="https://github.com/user-attachments/assets/578fb3c0-51a9-4d43-9217-9c70654d0818" />
+<img width="1179" height="588" alt="W12-BASELINE-MOB-02-SELECTOR-FAIL" src="https://github.com/user-attachments/assets/8404b672-e6db-448d-a334-fec5c8566ae5" />
