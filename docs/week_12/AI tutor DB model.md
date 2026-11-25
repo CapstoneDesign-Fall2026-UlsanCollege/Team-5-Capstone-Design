@@ -1,5 +1,3 @@
-The report below keeps your original four-section layout. The corrections from the issue and this week’s documents are applied in place. Nothing was written to the repo or pushed.
-
 # AI Tutor — PostgreSQL / Supabase Database Model
 
 **Project:** Smart Study Companion — Team 5 (Ulsan College Capstone Design)  
