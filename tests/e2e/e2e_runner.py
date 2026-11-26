@@ -61,7 +61,7 @@ def check_html_entry_points():
     print("\nTesting HTML Entry Points & DOM Bindings for E2E...")
     public_dir = os.path.join(PROJECT_ROOT, "public")
     checks = [
-        ("index.html", ["#view-dashboard", "#view-tasks", "#view-subjects", "#view-analytics", "#view-quiz", "#view-ai-tutor", "#add-task-btn", "#weekly-activity-chart"]),
+        ("index.html", ["#view-dashboard", "#view-tasks", "#view-subjects", "#view-analytics", "#view-quiz", "#view-schedule", "#view-ai-tutor", "#add-task-btn", "#weekly-activity-chart"]),
         ("auth/login.html", ["#email", "#password", "#login-btn", "forgot-password.html", "signup.html"]),
         ("auth/signup.html", ["#fullname", "#email", "#password", "#country", "#university", "#signup-btn"]),
         ("auth/forgot-password.html", ["#email", "#forgot-btn", "reset-password.html"]),

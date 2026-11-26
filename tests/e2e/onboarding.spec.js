@@ -45,7 +45,16 @@ test.describe('Academic Onboarding & Subject Selection (E2E)', () => {
     await expect(cards.first()).toBeVisible({ timeout: 5000 });
 
     const beforeCount = Number(await page.locator('#selected-subjects-count').innerText());
-    await cards.nth(0).click();
+    const unselectedCard = page.locator('#subject-scroll-container .scrollable-subject-card[aria-checked="false"]').first();
+    if ((await unselectedCard.count()) > 0) {
+      await unselectedCard.click();
+    } else {
+      await cards.nth(0).click();
+      const confirmBtn = page.locator('#subject-remove-confirm');
+      if (await confirmBtn.isVisible()) {
+        await confirmBtn.click();
+      }
+    }
     const afterClickCount = Number(await page.locator('#selected-subjects-count').innerText());
     expect(afterClickCount).not.toBe(beforeCount);
 

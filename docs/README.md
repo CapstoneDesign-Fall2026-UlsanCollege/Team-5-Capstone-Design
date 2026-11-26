@@ -106,3 +106,9 @@ This folder is the project documentation hub. It keeps weekly records, testing e
 | [Week 9 Final Demo Roadmap](week9/FINAL_DEMO_ROADMAP.md) | Demo journey, acceptance evidence, and fallback criteria |
 
 The new Week 9 matrix and roadmap are planning/evidence documents; they do not indicate that a fresh live test has been performed.
+
+## Post-MVP Feature Branch (2026-11-26)
+
+| Document | Use it for |
+|---|---|
+| [Improvements & Time Schedule Report](time_schedule/IMPROVEMENTS_AND_TIME_SCHEDULE_REPORT.md) | Feature branch (`feature/manual-time-schedule-and-improvements`) details for Subject Removal Confirmation, Navigation Order, Task Description/Details (`014`), and Manual Time Schedule (`015`), isolated from the frozen Week 12 MVP gate. |
