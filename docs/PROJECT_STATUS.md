@@ -6,6 +6,8 @@
 
 Start with the [Week 12 Release Hub](week_12/README.md), [Week 12 MVP Verification Matrix](week_12/MVP_VERIFICATION_MATRIX.md), and [Release Verification Report](week_12/RELEASE_VERIFICATION_REPORT.md). Frozen Week 11 core bug fixes (`#69`, `#71`, `#72`, `#75`, Brevo SMTP `#40` password reset) are verified in repo/local tests, while **AI Tutor** (`PR #78`, migration `013`, `ai-tutor-chat`) stays **`DEFERRED`** outside frozen-core release gates. Live migrations (`009`, `010`, `012`), live `DATA-01` two-student RLS (`NOT RUN`), live `generate-ai-quiz` (`404 UNVERIFIED`), official course Vercel SHA (`UNKNOWN / UNVERIFIED`), 18 credentialed live Playwright scenarios (`NOT RUN`), peer confirmation of `#83`/`#84`, and `5/5` member freeze approvals remain open.
 
+> **Post-MVP Feature Branch Note (2026-11-26):** Additional usability features (Subject Removal Confirmation, Reordered Sidebar, Task Description/Details migration `014`, and Manual Time Schedule migration `015`) live on isolated branch `feature/manual-time-schedule-and-improvements` ([report](time_schedule/IMPROVEMENTS_AND_TIME_SCHEDULE_REPORT.md)) and remain separate from the frozen `main` release candidate until reviewed and deployed to live Supabase.
+
 ## Earlier Week 11 & Week 10 snapshots (Historical Preserved)
 
 ## Historical snapshot - 2026-11-04

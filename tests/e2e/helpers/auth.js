@@ -141,7 +141,11 @@ export async function ensureThemeMode(page, targetTheme) {
  * context for UI/responsive regression checks when live student credentials are
  * unavailable. Strictly non-cloud — does not verify live auth or Supabase RLS.
  * @param {import('@playwright/test').Page} page
- * @param {{ subjects?: Array<{id:string,name:string,slug:string,description?:string,category?:string,icon?:string}> }} [options]
+ * @param {{
+ *   subjects?: Array<{id:string,name:string,slug:string,description?:string,category?:string,icon?:string}>,
+ *   schedules?: Array<Record<string, any>>,
+ *   failStudentSubjectsSave?: boolean,
+ * }} [options]
  */
 export async function setupMockedDashboardSession(page, options = {}) {
   const studentId = '11111111-1111-4111-8111-111111111111';
@@ -170,6 +174,22 @@ export async function setupMockedDashboardSession(page, options = {}) {
       category: 'CS Core',
       icon: 'fa-database',
     },
+    {
+      id: '22222222-2222-4222-8222-222222222203',
+      name: 'Programming Fundamentals',
+      slug: 'programming',
+      description: 'Core programming logic, syntax, and modular design',
+      category: 'CS Core',
+      icon: 'fa-code',
+    },
+    {
+      id: '22222222-2222-4222-8222-222222222204',
+      name: 'Computer Networks',
+      slug: 'computer-networks',
+      description: 'OSI model, TCP/IP, routing, and transport protocols',
+      category: 'CS Core',
+      icon: 'fa-network-wired',
+    },
   ];
 
   let profile = {
@@ -183,7 +203,8 @@ export async function setupMockedDashboardSession(page, options = {}) {
     updated_at: '2026-11-23T00:00:00.000Z',
   };
 
-  const enrolledRows = subjects.map((s) => ({
+  const initialEnrolled = options.subjects ? subjects : subjects.slice(0, 2);
+  const enrolledRows = initialEnrolled.map((s) => ({
     id: `33333333-3333-4333-8333-${s.id.slice(-12)}`,
     student_id: studentId,
     subject_id: s.id,
@@ -197,12 +218,15 @@ export async function setupMockedDashboardSession(page, options = {}) {
       subject_id: subjects[0].id,
       subject: { id: subjects[0].id, name: subjects[0].name, slug: subjects[0].slug },
       title: 'Review Binary Search Tree Traversals',
+      description: 'Read balanced-tree slides and trace pre-order, in-order, and post-order walks.',
       deadline: '2026-12-20T14:59:00.000Z',
       completed: false,
       created_at: '2026-11-22T09:00:00.000Z',
     },
   ];
 
+  const studySchedules = Array.isArray(options.schedules) ? [...options.schedules] : [];
+  const scheduleExceptions = [];
   const quizAttempts = [];
   const expiresAt = Math.floor(Date.now() / 1000) + 3600;
   const sessionPayload = {
@@ -249,12 +273,67 @@ export async function setupMockedDashboardSession(page, options = {}) {
     }
 
     if (url.pathname.startsWith('/rest/v1/subjects')) {
+      const slugFilter = url.searchParams.get('slug');
+      if (slugFilter && slugFilter.startsWith('in.(') && slugFilter.endsWith(')')) {
+        const wanted = new Set(
+          slugFilter
+            .slice(4, -1)
+            .split(',')
+            .map((s) => s.replace(/^"|"$/g, '').trim()),
+        );
+        return jsonReply(subjects.filter((s) => wanted.has(s.slug)));
+      }
+      if (slugFilter && slugFilter.startsWith('eq.')) {
+        const wanted = slugFilter.slice(3).trim();
+        const found = subjects.filter((s) => s.slug === wanted);
+        return jsonReply(wantsSingleObject ? (found[0] || null) : found);
+      }
       return jsonReply(subjects);
     }
 
     if (url.pathname.startsWith('/rest/v1/student_subjects')) {
-      if (method === 'DELETE' || method === 'POST') {
+      if (options.failStudentSubjectsSave && (method === 'DELETE' || method === 'POST')) {
+        return jsonReply({ message: 'Simulated network failure saving subjects' }, 500);
+      }
+      if (method === 'DELETE') {
+        const inParam = url.searchParams.get('subject_id');
+        if (inParam && inParam.startsWith('in.(') && inParam.endsWith(')')) {
+          const toRemove = new Set(
+            inParam
+              .slice(4, -1)
+              .split(',')
+              .map((s) => s.replace(/^"|"$/g, '').trim()),
+          );
+          for (let i = enrolledRows.length - 1; i >= 0; i -= 1) {
+            if (toRemove.has(enrolledRows[i].subject_id)) enrolledRows.splice(i, 1);
+          }
+        } else {
+          enrolledRows.length = 0;
+        }
         return jsonReply([]);
+      }
+      if (method === 'POST') {
+        const body = req.postDataJSON();
+        const incoming = Array.isArray(body) ? body : [body];
+        const upserted = [];
+        for (const row of incoming) {
+          if (!row?.subject_id) continue;
+          const existing = enrolledRows.find((r) => r.subject_id === row.subject_id);
+          if (existing) {
+            upserted.push(existing);
+          } else {
+            const subObj = subjects.find((s) => s.id === row.subject_id) || null;
+            const created = {
+              id: `33333333-3333-4333-8333-${String(row.subject_id).slice(-12)}`,
+              student_id: studentId,
+              subject_id: row.subject_id,
+              subject: subObj,
+            };
+            enrolledRows.push(created);
+            upserted.push(created);
+          }
+        }
+        return jsonReply(upserted);
       }
       return jsonReply(enrolledRows);
     }
@@ -269,6 +348,7 @@ export async function setupMockedDashboardSession(page, options = {}) {
           subject_id: body.subject_id || matchedSubject.id,
           subject: { id: matchedSubject.id, name: matchedSubject.name, slug: matchedSubject.slug },
           title: body.title || 'Untitled Task',
+          description: body.description ?? null,
           deadline: body.deadline || '2026-12-31T14:59:00.000Z',
           completed: Boolean(body.completed),
           created_at: new Date().toISOString(),
@@ -293,6 +373,78 @@ export async function setupMockedDashboardSession(page, options = {}) {
         return jsonReply([]);
       }
       return jsonReply(tasks);
+    }
+
+    if (url.pathname.startsWith('/rest/v1/study_schedules')) {
+      const joinSubject = (row) => {
+        const sub = row.subject_id ? subjects.find((s) => s.id === row.subject_id) : null;
+        return { ...row, subject: sub ? { id: sub.id, name: sub.name, slug: sub.slug } : null };
+      };
+      if (method === 'POST') {
+        const body = req.postDataJSON() || {};
+        const created = joinSubject({
+          id: `66666666-6666-4666-8666-${String(Date.now()).slice(-12)}`,
+          student_id: studentId,
+          completed: false,
+          completed_at: null,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+          ...body,
+        });
+        studySchedules.push(created);
+        return jsonReply(wantsSingleObject ? created : [created], 201);
+      }
+      if (method === 'PATCH') {
+        const body = req.postDataJSON() || {};
+        const idFilter = url.searchParams.get('id')?.replace('eq.', '');
+        const idx = studySchedules.findIndex((s) => s.id === idFilter);
+        if (idx >= 0) {
+          studySchedules[idx] = joinSubject({ ...studySchedules[idx], ...body, updated_at: new Date().toISOString() });
+          return jsonReply(wantsSingleObject ? studySchedules[idx] : [studySchedules[idx]]);
+        }
+        return jsonReply([]);
+      }
+      if (method === 'DELETE') {
+        const idFilter = url.searchParams.get('id')?.replace('eq.', '');
+        for (let i = studySchedules.length - 1; i >= 0; i -= 1) {
+          if (studySchedules[i].id === idFilter) studySchedules.splice(i, 1);
+        }
+        for (let i = scheduleExceptions.length - 1; i >= 0; i -= 1) {
+          if (scheduleExceptions[i].schedule_id === idFilter) scheduleExceptions.splice(i, 1);
+        }
+        return jsonReply([]);
+      }
+      return jsonReply(studySchedules.map(joinSubject));
+    }
+
+    if (url.pathname.startsWith('/rest/v1/study_schedule_exceptions')) {
+      if (method === 'POST') {
+        const body = req.postDataJSON() || {};
+        const idx = scheduleExceptions.findIndex(
+          (e) => e.schedule_id === body.schedule_id && e.occurrence_date === body.occurrence_date,
+        );
+        const record = {
+          id: idx >= 0 ? scheduleExceptions[idx].id : `77777777-7777-4777-8777-${String(Date.now()).slice(-12)}`,
+          student_id: studentId,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+          ...body,
+        };
+        if (idx >= 0) {
+          scheduleExceptions[idx] = { ...scheduleExceptions[idx], ...record };
+        } else {
+          scheduleExceptions.push(record);
+        }
+        return jsonReply(wantsSingleObject ? record : [record], 201);
+      }
+      if (method === 'DELETE') {
+        const idFilter = url.searchParams.get('id')?.replace('eq.', '');
+        for (let i = scheduleExceptions.length - 1; i >= 0; i -= 1) {
+          if (!idFilter || scheduleExceptions[i].id === idFilter) scheduleExceptions.splice(i, 1);
+        }
+        return jsonReply([]);
+      }
+      return jsonReply(scheduleExceptions);
     }
 
     if (url.pathname.startsWith('/rest/v1/quiz_attempts')) {

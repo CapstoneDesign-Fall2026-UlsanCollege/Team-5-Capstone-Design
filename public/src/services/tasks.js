@@ -1,11 +1,14 @@
 /**
  * Task Service
- * 
- * Supports both live Supabase PostgreSQL queries and local storage fallback.
+ *
+ * Supports both live Supabase PostgreSQL queries and local storage fallback,
+ * including optional multiline Task Description / Details (up to 1000 chars).
  */
 import { supabase, isConfigured } from '../lib/supabase.js';
+import { MAX_TASK_DESCRIPTION_LENGTH, normalizeOptionalDescription } from '../lib/time-schedule.js';
 
 const LOCAL_TASKS_KEY = 'smart_study_tasks';
+const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 function getLocalTasks() {
   try {
@@ -18,6 +21,12 @@ function getLocalTasks() {
 
 function saveLocalTasks(tasks) {
   localStorage.setItem(LOCAL_TASKS_KEY, JSON.stringify(tasks));
+}
+
+function isMissingDescriptionColumnError(error) {
+  const msg = String(error?.message || '').toLowerCase();
+  const code = String(error?.code || '');
+  return (code === '42703' || code === 'PGRST204') && msg.includes('description');
 }
 
 export async function getTasks(studentId) {
@@ -52,8 +61,6 @@ export async function getTasksBySubject(studentId, subjectId) {
   return { data: tasks, error: null };
 }
 
-const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-
 export async function createTask(task) {
   const studentId = task.student_id || task.studentId;
   const subjectId = task.subject_id || task.subjectId;
@@ -66,21 +73,38 @@ export async function createTask(task) {
     return { data: null, error: { message: 'Please enter a valid deadline date and time.' } };
   }
 
+  const descCheck = normalizeOptionalDescription(task.description, MAX_TASK_DESCRIPTION_LENGTH);
+  if (!descCheck.valid) {
+    return { data: null, error: { message: descCheck.error } };
+  }
+
   if (isConfigured && studentId && !String(studentId).startsWith('local-')) {
     if (!UUID_REGEX.test(String(subjectId || ''))) {
       return { data: null, error: { message: 'Could not resolve the subject ID in Supabase. Please save your subjects first.' } };
     }
-    return supabase
+    const insertPayload = {
+      student_id: studentId,
+      subject_id: subjectId,
+      title,
+      description: descCheck.value,
+      deadline: task.deadline,
+      completed: Boolean(task.completed),
+    };
+    const res = await supabase
       .from('tasks')
-      .insert({
-        student_id: studentId,
-        subject_id: subjectId,
-        title,
-        deadline: task.deadline,
-        completed: Boolean(task.completed),
-      })
+      .insert(insertPayload)
       .select('*, subject:subjects(id, name, slug)')
       .single();
+
+    if (res.error && isMissingDescriptionColumnError(res.error) && descCheck.value === null) {
+      const { description: _omitted, ...legacyPayload } = insertPayload;
+      return supabase
+        .from('tasks')
+        .insert(legacyPayload)
+        .select('*, subject:subjects(id, name, slug)')
+        .single();
+    }
+    return res;
   }
 
   const tasks = getLocalTasks();
@@ -89,6 +113,7 @@ export async function createTask(task) {
     student_id: studentId,
     subject_id: subjectId,
     title,
+    description: descCheck.value,
     deadline: task.deadline,
     completed: Boolean(task.completed),
     created_at: new Date().toISOString(),
@@ -120,17 +145,35 @@ export async function updateTask(taskId, updates) {
       return { data: null, error: { message: 'Please enter a valid deadline date and time.' } };
     }
   }
+  if ('description' in mappedUpdates) {
+    const descCheck = normalizeOptionalDescription(mappedUpdates.description, MAX_TASK_DESCRIPTION_LENGTH);
+    if (!descCheck.valid) {
+      return { data: null, error: { message: descCheck.error } };
+    }
+    mappedUpdates.description = descCheck.value;
+  }
 
   if (isConfigured && !String(taskId).startsWith('local-task-')) {
     if ('subject_id' in mappedUpdates && !UUID_REGEX.test(String(mappedUpdates.subject_id || ''))) {
       return { data: null, error: { message: 'Could not resolve the subject ID in Supabase. Please save your subjects first.' } };
     }
-    return supabase
+    const res = await supabase
       .from('tasks')
       .update({ ...mappedUpdates, updated_at: new Date().toISOString() })
       .eq('id', taskId)
       .select('*, subject:subjects(id, name, slug)')
       .single();
+
+    if (res.error && isMissingDescriptionColumnError(res.error) && (!('description' in mappedUpdates) || mappedUpdates.description === null)) {
+      const { description: _omitted, ...legacyUpdates } = mappedUpdates;
+      return supabase
+        .from('tasks')
+        .update({ ...legacyUpdates, updated_at: new Date().toISOString() })
+        .eq('id', taskId)
+        .select('*, subject:subjects(id, name, slug)')
+        .single();
+    }
+    return res;
   }
 
   const tasks = getLocalTasks();

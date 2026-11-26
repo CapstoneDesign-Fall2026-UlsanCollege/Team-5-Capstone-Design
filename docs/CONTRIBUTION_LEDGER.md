@@ -20,6 +20,16 @@ Use both the legal name and the exact GitHub login in report rows. These mapping
 
 **Identity note:** The report row **Nabin Khadka is `liftupkhadka555-spec`**. Confirmed by Nabin Khadka. It is not `RaiPrabin697` (that login is Prabin Rai).
 
+## Week 13 personal records (Usability Improvements & Manual Time Schedule Branch)
+
+| Member | GitHub login | Week 13 contribution | Evidence (Branches, Commits & Created Documents) | Status |
+|---|---|---|---|---|
+| Nabin Khadka | `liftupkhadka555-spec` | Delivered all 4 Week 13 features on isolated branch `feature/manual-time-schedule-and-improvements` (`d7a80af`, `bb866c4`, `9eb04d5`): custom Subject Removal Confirmation modal (`#subject-remove-modal`) with Supabase sync & error rollback; reordered desktop/mobile sidebar navigation (`Study Tasks` #1, `Dashboard` #2, `Time Schedule` #6); optional 1,000-char multiline `Task Description / Details` (`014_task_description.sql` + rollback, UI forms, escaped task cards & search); and manual `Time Schedule` study planner (`015_time_schedules.sql` + rollback, pure recurrence/conflict engine `time-schedule.js`, service CRUD `schedules.js`, Daily/Weekly/mobile UI `time-schedule-ui.js`). Added Vitest (`105/105`), PGlite Postgres WASM (`7/7`), and mocked Playwright Desktop/Mobile (`14/14`) checks, captured 12 before/after screenshots, and authored Week 13 & feature reports. | Branch `feature/manual-time-schedule-and-improvements` (`d7a80af`, `bb866c4`, `9eb04d5`), [`docs/week_13/README.md`](week_13/README.md), [`docs/week_13/weekly-report.md`](week_13/weekly-report.md), [`docs/time_schedule/IMPROVEMENTS_AND_TIME_SCHEDULE_REPORT.md`](time_schedule/IMPROVEMENTS_AND_TIME_SCHEDULE_REPORT.md), [`docs/time_schedule/Evidence/`](time_schedule/Evidence/), [`supabase/migrations/014_task_description.sql`](../supabase/migrations/014_task_description.sql), [`supabase/migrations/015_time_schedules.sql`](../supabase/migrations/015_time_schedules.sql), [`tests/db/time-schedule.db.test.js`](../tests/db/time-schedule.db.test.js), [`tests/e2e/improvements-schedule.spec.js`](../tests/e2e/improvements-schedule.spec.js) | **Local build, Vitest, PGlite & mocked Chrome suites `PASS`; PR merge & live cloud apply `NOT RUN`** |
+| Sumit Adhikari | `adronnie` | _Pending personal review & live `014`/`015` / `DATA-01` execution_ | [`docs/week_13/weekly-report.md`](week_13/weekly-report.md) | **PENDING** |
+| Prabin Rai | `RaiPrabin697` | _Pending personal review of Week 13 E2E specs & live rerun_ | [`docs/week_13/weekly-report.md`](week_13/weekly-report.md) | **PENDING** |
+| Prince Karki | `princekark` | _Pending independent live QA testing of Week 13 features_ | [`docs/week_13/weekly-report.md`](week_13/weekly-report.md) | **PENDING** |
+| J.N. Taj Oli | `jn-oli` | _Pending manual Light/Dark Desktop/Mobile UI confirmation of Week 13 screens_ | [`docs/week_13/weekly-report.md`](week_13/weekly-report.md) | **PENDING** |
+
 ## Week 12 personal records (P0/P1 Fixes, Brevo SMTP, Final QA & Ownership Reconciliation)
 
 | Member | GitHub login | Week 12 contribution | Evidence (PRs, Commits & Created Documents) | Status |

@@ -26,32 +26,39 @@ test.describe('Mocked UI & Week 12 Regression Checks (Non-Cloud Browser Verifica
     await expect(page.locator('#view-dashboard')).toBeVisible({ timeout: 10000 });
   });
 
-  test('UI-REG-01: Sidebar omits unused Wireframes link and exposes active MVP views', async ({ page }) => {
+  test('UI-REG-01: Sidebar omits unused Wireframes link and exposes active views in new order', async ({ page }) => {
     await expect(page.locator('#sidebar a:has-text("Wireframes")')).toHaveCount(0);
-    await expect(page.locator('.nav-link[data-view="dashboard"]')).toBeVisible();
     await expect(page.locator('.nav-link[data-view="tasks"]')).toBeVisible();
+    await expect(page.locator('.nav-link[data-view="dashboard"]')).toBeVisible();
     await expect(page.locator('.nav-link[data-view="subjects"]')).toBeVisible();
     await expect(page.locator('.nav-link[data-view="analytics"]')).toBeVisible();
     await expect(page.locator('.nav-link[data-view="quiz"]')).toBeVisible();
+    await expect(page.locator('.nav-link[data-view="schedule"]')).toBeVisible();
+    await expect(page.locator('.nav-link[data-view="ai-tutor"]')).toBeVisible();
   });
 
-  test('UI-REG-02 (Issue #79): Subject cards support Enter and Space keyboard toggling with focus retention', async ({ page }) => {
+  test('UI-REG-02 (Issue #79): Subject cards support Enter and Space keyboard toggling with removal confirm & focus retention', async ({ page }) => {
     await navigateToView(page, 'subjects');
 
-    const firstCard = page.locator('#subject-scroll-container .scrollable-subject-card').first();
-    await expect(firstCard).toBeVisible();
-    const initialChecked = await firstCard.getAttribute('aria-checked');
-    const slug = await firstCard.getAttribute('data-subject-slug');
+    // Immediate keyboard selection on an unselected subject
+    const unselectedCard = page.locator('#subject-scroll-container .scrollable-subject-card[aria-checked="false"]').first();
+    await expect(unselectedCard).toBeVisible();
+    const slug = await unselectedCard.getAttribute('data-subject-slug');
 
-    await firstCard.focus();
+    await unselectedCard.focus();
     await page.keyboard.press('Enter');
-    const cardAfterEnter = page.locator(`#subject-scroll-container .scrollable-subject-card[data-subject-slug="${slug}"]`);
-    await expect(cardAfterEnter).toHaveAttribute('aria-checked', initialChecked === 'true' ? 'false' : 'true');
-    await expect(cardAfterEnter).toBeFocused();
+    const cardAfterSelect = page.locator(`#subject-scroll-container .scrollable-subject-card[data-subject-slug="${slug}"]`);
+    await expect(cardAfterSelect).toHaveAttribute('aria-checked', 'true');
+    await expect(cardAfterSelect).toBeFocused();
 
+    // Keyboard deselection opens Remove Subject? confirmation; confirming removes and restores focus
     await page.keyboard.press(' ');
-    await expect(cardAfterEnter).toHaveAttribute('aria-checked', initialChecked);
-    await expect(cardAfterEnter).toBeFocused();
+    const removeModal = page.locator('#subject-remove-modal');
+    await expect(removeModal).toBeVisible();
+    await page.locator('#subject-remove-confirm').click();
+    await expect(removeModal).toBeHidden();
+    await expect(cardAfterSelect).toHaveAttribute('aria-checked', 'false');
+    await expect(cardAfterSelect).toBeFocused();
   });
 
   test('UI-REG-03 (Issue #80): Selected quiz-mode tab updates ARIA state and visual styling', async ({ page }) => {

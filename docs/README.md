@@ -75,6 +75,8 @@ This folder is the project documentation hub. It keeps weekly records, testing e
 | Week 9 | Supabase migration, QA matrix, and demo roadmap | [Week 9 weekly report](week9/weekly-report.md) |
 | Week 10 | Own a Slice, Steward an Area & Study Task Analytics | [Week 10 weekly report](week_10/weekly-report.md) · [Week 10 Slice.md](week_10/Slice.md) · [Full-Stack Changes Model](week_10/FULL_STACK_CHANGES_MODEL.md) |
 | Week 11 | MVP Verification and Goal Freeze Gate | [Week 11 weekly report](week_11/weekly-report.md) · [Feature Freeze Decision](week_11/FEATURE_FREEZE_DECISION.md) · [Repository Audit](week_11/REPOSITORY_AUDIT.md) · [E2E Test Results](week_11/E2E_TEST_RESULTS.md) |
+| Week 12 | P0/P1 Stabilization, Brevo SMTP & Final QA Audit | [Week 12 hub](week_12/README.md) · [Week 12 weekly report](week_12/weekly-report.md) · [MVP Matrix](week_12/MVP_VERIFICATION_MATRIX.md) |
+| Week 13 | Usability Upgrades, Task Descriptions (`014`) & Manual Time Schedule (`015`) | [Week 13 hub](week_13/README.md) · [Week 13 weekly report](week_13/weekly-report.md) · [Feature & Schedule Report](time_schedule/IMPROVEMENTS_AND_TIME_SCHEDULE_REPORT.md) |
 
 ## Current Evidence Trail
 
@@ -106,3 +108,9 @@ This folder is the project documentation hub. It keeps weekly records, testing e
 | [Week 9 Final Demo Roadmap](week9/FINAL_DEMO_ROADMAP.md) | Demo journey, acceptance evidence, and fallback criteria |
 
 The new Week 9 matrix and roadmap are planning/evidence documents; they do not indicate that a fresh live test has been performed.
+
+## Post-MVP Feature Branch (2026-11-26)
+
+| Document | Use it for |
+|---|---|
+| [Improvements & Time Schedule Report](time_schedule/IMPROVEMENTS_AND_TIME_SCHEDULE_REPORT.md) | Feature branch (`feature/manual-time-schedule-and-improvements`) details for Subject Removal Confirmation, Navigation Order, Task Description/Details (`014`), and Manual Time Schedule (`015`), isolated from the frozen Week 12 MVP gate. |
