@@ -54,21 +54,21 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const INDEX_HTML = fs.readFileSync(path.resolve(__dirname, '../../public/index.html'), 'utf8');
 
 describe('Feature 1 & 2 — Navigation order & Subject removal dialog contracts in public/index.html', () => {
-  it('places Study Tasks 1st, Dashboard 2nd, Time Schedule between Quiz & AI Tutor', () => {
+  it('places Subjects & University 1st, Dashboard 2nd, Study Tasks 3rd, and preserves remaining order', () => {
     const navMatch = INDEX_HTML.match(/<nav[^>]*class="side-nav"[^>]*>([\s\S]*?)<\/nav>/);
     expect(navMatch).toBeTruthy();
     const views = Array.from(navMatch[1].matchAll(/data-view="([^"]+)"/g)).map((m) => m[1]);
-    expect(views).toEqual(['tasks', 'dashboard', 'subjects', 'analytics', 'quiz', 'schedule', 'ai-tutor']);
+    expect(views).toEqual(['subjects', 'dashboard', 'tasks', 'analytics', 'quiz', 'schedule', 'ai-tutor']);
 
     const labels = Array.from(navMatch[1].matchAll(/<a [^>]*>([\s\S]*?)<\/a>/g)).map((m) =>
       m[1].replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim(),
     );
     expect(labels).toEqual([
-      'Study Tasks',
-      'Dashboard',
       'Subjects & University',
+      'Dashboard',
+      'Study Tasks',
       'Study Analytics',
-      'Quiz Practice',
+      'Quiz Practice & Results',
       'Time Schedule',
       'AI Tutor',
     ]);

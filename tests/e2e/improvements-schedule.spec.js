@@ -17,6 +17,7 @@ test.describe('Smart Study Companion — 4 Feature Improvements & Time Schedule 
     await expect(page.locator('#view-dashboard')).toBeVisible({ timeout: 10000 });
 
     // Feature 2: Default landing view stays Dashboard; exact 7-item nav order
+    await expect(page.locator('.nav-link[data-view="dashboard"]')).toHaveClass(/is-active/);
     const navViews = await page.locator('.side-nav .nav-link').evaluateAll((els) =>
       els.map((el) => ({
         view: el.getAttribute('data-view'),
@@ -24,14 +25,25 @@ test.describe('Smart Study Companion — 4 Feature Improvements & Time Schedule 
       })),
     );
     expect(navViews).toEqual([
-      { view: 'tasks', text: 'Study Tasks' },
-      { view: 'dashboard', text: 'Dashboard' },
       { view: 'subjects', text: 'Subjects & University' },
+      { view: 'dashboard', text: 'Dashboard' },
+      { view: 'tasks', text: 'Study Tasks' },
       { view: 'analytics', text: 'Study Analytics' },
-      { view: 'quiz', text: 'Quiz Practice' },
+      { view: 'quiz', text: 'Quiz Practice & Results' },
       { view: 'schedule', text: 'Time Schedule' },
       { view: 'ai-tutor', text: 'AI Tutor' },
     ]);
+
+    for (const item of navViews) {
+      await navigateToView(page, item.view);
+      await expect(page.locator(`#view-${item.view}`)).toBeVisible();
+      await expect(page.locator(`.nav-link[data-view="${item.view}"]`)).toHaveClass(/is-active/);
+    }
+
+    await ensureThemeMode(page, 'dark');
+    await navigateToView(page, 'quiz');
+    await expect(page.locator('#view-quiz')).toBeVisible();
+    await ensureThemeMode(page, 'light');
 
     await navigateToView(page, 'subjects');
 
