@@ -68,7 +68,7 @@ describe('Feature 1 & 2 — Navigation order & Subject removal dialog contracts 
       'Dashboard',
       'Subjects & University',
       'Study Analytics',
-      'Quiz Practice & Results',
+      'Quiz Practice',
       'Time Schedule',
       'AI Tutor',
     ]);

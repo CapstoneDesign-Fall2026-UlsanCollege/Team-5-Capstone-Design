@@ -21,7 +21,7 @@ Exact desktop and mobile drawer navigation order:
 2. `Dashboard` (`#dashboard` — preserved as default post-login landing view)
 3. `Subjects & University` (`#subjects`)
 4. `Study Analytics` (`#analytics`)
-5. `Quiz Practice & Results` (`#quiz`)
+5. `Quiz Practice` (`#quiz` — internal quiz flows & modules preserved unchanged from `main`)
 6. `Time Schedule` (`#schedule`)
 7. `AI Tutor` (`#ai-tutor`)
 
