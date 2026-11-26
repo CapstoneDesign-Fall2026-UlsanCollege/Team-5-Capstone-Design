@@ -147,6 +147,7 @@ export async function saveStudentSubjects(studentId, subjects) {
           .delete()
           .eq('student_id', studentId);
         if (clearErr) return { data: null, error: clearErr };
+        localStorage.setItem(`${LOCAL_ENROLLED_KEY}_${studentId}`, JSON.stringify([]));
         return { data: [], error: null };
       }
 
