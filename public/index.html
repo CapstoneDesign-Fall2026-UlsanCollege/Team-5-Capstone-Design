@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="study-analytics-upgrade.css">
     <link rel="stylesheet" href="ai-tutor.css">
+    <link rel="stylesheet" href="time-schedule.css">
 </head>
 <body>
     <div class="ambient" aria-hidden="true">
@@ -35,14 +36,14 @@
             </button>
         </div>
 
-        <nav class="side-nav">
-            <a href="#dashboard" class="nav-link is-active" data-view="dashboard">
-                <i class="fa-solid fa-house"></i>
-                Dashboard
-            </a>
+        <nav class="side-nav" aria-label="Primary navigation">
             <a href="#tasks" class="nav-link" data-view="tasks">
                 <i class="fa-solid fa-list-check"></i>
                 Study Tasks
+            </a>
+            <a href="#dashboard" class="nav-link is-active" data-view="dashboard">
+                <i class="fa-solid fa-house"></i>
+                Dashboard
             </a>
             <a href="#subjects" class="nav-link" data-view="subjects">
                 <i class="fa-solid fa-graduation-cap"></i>
@@ -54,7 +55,11 @@
             </a>
             <a href="#quiz" class="nav-link" data-view="quiz">
                 <i class="fa-solid fa-circle-question"></i>
-                Quiz Practice
+                Quiz Practice &amp; Results
+            </a>
+            <a href="#schedule" class="nav-link" data-view="schedule">
+                <i class="fa-solid fa-calendar-days"></i>
+                Time Schedule
             </a>
             <a href="#ai-tutor" class="nav-link" data-view="ai-tutor">
                 <i class="fa-solid fa-wand-magic-sparkles"></i>
@@ -293,19 +298,32 @@
                     <h2 id="create-task-heading">Add a study task</h2>
                     <p id="create-task-hint" class="muted">Select a subject above or below to quickly create a study task.</p>
                     <form id="create-task-form" class="stack-form">
-                        <label>
+                        <label for="create-task-subject-select">
                             Subject
                             <select id="create-task-subject-select" required></select>
                         </label>
-                        <label>
-                            Task title
-                            <input id="create-task-name" type="text" required placeholder="e.g. Complete chapter 4 problems">
+                        <label for="create-task-name">
+                            Task Name
+                            <input id="create-task-name" type="text" required placeholder="e.g. Complete Chapter 4 Assignment">
                         </label>
-                        <label>
+                        <label for="create-task-description">
+                            Task Description / Details
+                            <textarea
+                                id="create-task-description"
+                                rows="3"
+                                maxlength="1000"
+                                placeholder="Add instructions, important notes, assignment requirements or study goals..."
+                            ></textarea>
+                            <span class="field-meta-row">
+                                <span>Optional</span>
+                                <span id="create-task-description-count" class="char-counter" aria-live="polite">0 / 1000</span>
+                            </span>
+                        </label>
+                        <label for="create-task-deadline">
                             Deadline
                             <input id="create-task-deadline" type="date" required>
                         </label>
-                        <button id="create-task-submit" class="btn-primary" type="submit">Save task</button>
+                        <button id="create-task-submit" class="btn-primary" type="submit">Add Task</button>
                     </form>
                 </article>
 
@@ -555,7 +573,87 @@
             </section>
         </div>
 
-        <!-- VIEW 6: AI TUTOR -->
+        <!-- VIEW 6: MANUAL TIME SCHEDULE & STUDY PLANNER -->
+        <div id="view-schedule" class="canvas custom-scrollbar" hidden>
+            <section class="plan-board schedule-hero">
+                <div class="schedule-hero-copy">
+                    <p class="eyebrow">Manual Study Planner</p>
+                    <h2>Time Schedule</h2>
+                    <p class="muted">Plan your study time, organize your daily activities and build productive study habits.</p>
+                </div>
+                <button id="add-schedule-btn" class="btn-primary" type="button">
+                    <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                    Add Schedule
+                </button>
+            </section>
+
+            <section class="schedule-overview-grid" aria-label="Today schedule overview">
+                <article class="schedule-stat-card">
+                    <p class="schedule-stat-label">Today's Activities</p>
+                    <p id="sched-stat-today-count" class="schedule-stat-value">0</p>
+                    <p class="schedule-stat-meta">Scheduled today</p>
+                </article>
+                <article class="schedule-stat-card">
+                    <p class="schedule-stat-label">Planned Study Time Today</p>
+                    <p id="sched-stat-planned-time" class="schedule-stat-value">0m</p>
+                    <p class="schedule-stat-meta">Total planned duration</p>
+                </article>
+                <article class="schedule-stat-card">
+                    <p class="schedule-stat-label">Completed Today</p>
+                    <p id="sched-stat-completed-count" class="schedule-stat-value">0</p>
+                    <p class="schedule-stat-meta">Finished sessions</p>
+                </article>
+                <article class="schedule-stat-card">
+                    <p class="schedule-stat-label">Upcoming Session</p>
+                    <p id="sched-stat-upcoming-title" class="schedule-stat-value is-compact">No upcoming sessions</p>
+                    <p id="sched-stat-upcoming-meta" class="schedule-stat-meta">Add a session to organize your day.</p>
+                </article>
+            </section>
+
+            <section class="plan-board schedule-board">
+                <div class="schedule-toolbar">
+                    <div class="schedule-view-tabs" role="tablist" aria-label="Schedule view mode">
+                        <button id="schedule-tab-daily" class="schedule-view-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="schedule-daily-panel">
+                            Daily View
+                        </button>
+                        <button id="schedule-tab-weekly" class="schedule-view-tab" type="button" role="tab" aria-selected="false" aria-controls="schedule-weekly-panel">
+                            Weekly View
+                        </button>
+                    </div>
+
+                    <div class="schedule-nav-controls">
+                        <button id="schedule-prev-btn" class="btn-ghost" type="button" aria-label="Previous day or week">
+                            <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+                        </button>
+                        <button id="schedule-today-btn" class="btn-ghost" type="button">Today</button>
+                        <button id="schedule-next-btn" class="btn-ghost" type="button" aria-label="Next day or week">
+                            <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                        </button>
+                        <span id="schedule-range-label" class="schedule-range-label"></span>
+                        <input id="schedule-date-jump" class="schedule-date-jump" type="date" aria-label="Select schedule date">
+                    </div>
+                </div>
+
+                <div id="schedule-daily-panel" role="tabpanel" aria-labelledby="schedule-tab-daily">
+                    <div id="schedule-daily-list" class="schedule-daily-list"></div>
+                    <div id="schedule-empty-state" class="schedule-empty-card" hidden>
+                        <div class="schedule-empty-icon" aria-hidden="true">
+                            <i class="fa-regular fa-calendar-plus"></i>
+                        </div>
+                        <h3>Your schedule is empty</h3>
+                        <p class="muted">Create your own study blocks, revisions, breaks, or personal sessions for any day of the week.</p>
+                        <button id="schedule-empty-add-btn" class="btn-primary" type="button">Add Schedule</button>
+                    </div>
+                </div>
+
+                <div id="schedule-weekly-panel" role="tabpanel" aria-labelledby="schedule-tab-weekly" hidden>
+                    <p id="schedule-weekly-empty" class="muted" hidden style="margin: 0 0 12px;">Your schedule is empty for this week. Click <strong>+ Add Schedule</strong> or any day's <strong>+</strong> button to plan a session.</p>
+                    <div id="schedule-week-grid" class="schedule-week-grid"></div>
+                </div>
+            </section>
+        </div>
+
+        <!-- VIEW 7: AI TUTOR -->
         <div id="view-ai-tutor" class="canvas custom-scrollbar" hidden>
             <section class="ai-tutor-shell" aria-label="AI Tutor workspace">
                 <!-- Left History & Learning Summary Drawer -->
@@ -695,15 +793,28 @@
             </div>
             <form id="task-form">
                 <input type="hidden" id="task-id">
-                <label>
+                <label for="task-subject">
                     Subject
                     <select id="task-subject" required></select>
                 </label>
-                <label>
-                    Task name
+                <label for="task-name">
+                    Task Name
                     <input type="text" id="task-name" required>
                 </label>
-                <label>
+                <label for="task-description">
+                    Task Description / Details
+                    <textarea
+                        id="task-description"
+                        rows="4"
+                        maxlength="1000"
+                        placeholder="Add instructions, important notes, assignment requirements or study goals..."
+                    ></textarea>
+                    <span class="field-meta-row">
+                        <span>Optional</span>
+                        <span id="task-description-count" class="char-counter" aria-live="polite">0 / 1000</span>
+                    </span>
+                </label>
+                <label for="task-deadline">
                     Deadline
                     <input type="datetime-local" id="task-deadline" required>
                 </label>
@@ -712,6 +823,149 @@
                     <button type="submit" class="btn-primary">Save task</button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- Subject Removal Confirmation Modal -->
+    <div id="subject-remove-modal" class="modal" hidden>
+        <div class="modal-backdrop" id="subject-remove-backdrop"></div>
+        <div class="modal-card confirm-card" role="dialog" aria-modal="true" aria-labelledby="subject-remove-title" aria-describedby="subject-remove-copy subject-remove-note">
+            <div class="modal-head">
+                <h2 id="subject-remove-title">Remove Subject?</h2>
+                <button id="subject-remove-close" class="icon-btn" type="button" aria-label="Close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <p id="subject-remove-copy">Are you sure you want to remove <strong id="subject-remove-name"></strong> from your selected subjects?</p>
+            <p id="subject-remove-note" class="muted" style="margin-top: 8px;">Your existing study tasks, quiz history and progress will not be deleted.</p>
+            <div class="modal-actions">
+                <button type="button" id="subject-remove-cancel" class="btn-ghost">Cancel</button>
+                <button type="button" id="subject-remove-confirm" class="btn-danger">Remove Subject</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Manual Time Schedule Create / Edit Modal -->
+    <div id="schedule-modal" class="modal" hidden>
+        <div class="modal-backdrop" id="schedule-modal-backdrop"></div>
+        <div class="modal-card schedule-modal-card" role="dialog" aria-modal="true" aria-labelledby="schedule-modal-title">
+            <div class="modal-head">
+                <h2 id="schedule-modal-title">Add Schedule</h2>
+                <button id="schedule-modal-close" class="icon-btn" type="button" aria-label="Close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <form id="schedule-form" novalidate>
+                <p id="schedule-form-error" class="muted" role="alert" hidden style="color: var(--coral); font-weight: 600; margin: 4px 0 0;"></p>
+
+                <div id="schedule-edit-scope-wrap" hidden>
+                    <label>Apply changes to</label>
+                    <div class="schedule-scope-options">
+                        <label class="schedule-scope-choice">
+                            <input type="radio" name="schedule-edit-scope" value="occurrence" checked>
+                            <span>Only this occurrence</span>
+                        </label>
+                        <label class="schedule-scope-choice">
+                            <input type="radio" name="schedule-edit-scope" value="series">
+                            <span>Entire recurring schedule</span>
+                        </label>
+                    </div>
+                </div>
+
+                <label for="schedule-title">
+                    Activity Title
+                    <input type="text" id="schedule-title" required maxlength="120" placeholder="e.g. Computer Networks Revision">
+                </label>
+
+                <div class="schedule-form-row">
+                    <label for="schedule-subject">
+                        Subject
+                        <select id="schedule-subject"></select>
+                    </label>
+                    <label for="schedule-type">
+                        Activity Type
+                        <select id="schedule-type" required></select>
+                    </label>
+                </div>
+
+                <label for="schedule-date">
+                    Date
+                    <input type="date" id="schedule-date" required>
+                </label>
+
+                <div class="schedule-form-row">
+                    <label for="schedule-start-time">
+                        Start Time
+                        <input type="time" id="schedule-start-time" required>
+                    </label>
+                    <label for="schedule-end-time">
+                        End Time
+                        <input type="time" id="schedule-end-time" required>
+                    </label>
+                </div>
+
+                <label for="schedule-description">
+                    Description / Notes
+                    <textarea id="schedule-description" rows="3" maxlength="1000" placeholder="Optional study goals, chapters, or preparation notes..."></textarea>
+                    <span class="field-meta-row">
+                        <span>Optional</span>
+                        <span id="schedule-description-count" class="char-counter" aria-live="polite">0 / 1000</span>
+                    </span>
+                </label>
+
+                <div class="schedule-form-row">
+                    <label for="schedule-repeat-rule">
+                        Repeat
+                        <select id="schedule-repeat-rule">
+                            <option value="none">Does not repeat</option>
+                            <option value="daily">Every day</option>
+                            <option value="weekly">Every week</option>
+                            <option value="weekdays">Selected weekdays</option>
+                        </select>
+                    </label>
+                    <label for="schedule-repeat-until" id="schedule-repeat-until-wrap" hidden>
+                        Repeat ends (optional)
+                        <input type="date" id="schedule-repeat-until">
+                    </label>
+                </div>
+
+                <div id="schedule-weekdays-group" hidden>
+                    <span style="display: block; font-size: 13px; font-weight: 600; margin-top: 12px;">Selected Weekdays</span>
+                    <div id="schedule-weekdays-picker" class="schedule-weekday-picker"></div>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" id="schedule-modal-cancel" class="btn-ghost">Cancel</button>
+                    <button type="submit" id="schedule-save-btn" class="btn-primary">Save Schedule</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Schedule Conflict Warning Modal -->
+    <div id="schedule-conflict-modal" class="modal" hidden>
+        <div class="modal-backdrop" id="schedule-conflict-backdrop"></div>
+        <div class="modal-card confirm-card" role="dialog" aria-modal="true" aria-labelledby="schedule-conflict-title" aria-describedby="schedule-conflict-message">
+            <h2 id="schedule-conflict-title">Schedule Conflict</h2>
+            <p id="schedule-conflict-message"></p>
+            <div class="modal-actions">
+                <button type="button" id="schedule-conflict-adjust" class="btn-ghost">Adjust Schedule</button>
+                <button type="button" id="schedule-conflict-save" class="btn-primary">Save Anyway</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Schedule Delete Confirmation Modal -->
+    <div id="schedule-delete-modal" class="modal" hidden>
+        <div class="modal-backdrop" id="schedule-delete-backdrop"></div>
+        <div class="modal-card confirm-card" role="dialog" aria-modal="true" aria-labelledby="schedule-delete-title" aria-describedby="schedule-delete-copy">
+            <h2 id="schedule-delete-title">Delete Schedule?</h2>
+            <p id="schedule-delete-copy"></p>
+            <div class="modal-actions">
+                <button type="button" id="schedule-delete-cancel" class="btn-ghost">Cancel</button>
+                <button type="button" id="schedule-delete-single-btn" class="btn-ghost" hidden>Delete This Occurrence</button>
+                <button type="button" id="schedule-delete-series-btn" class="btn-danger">Delete Schedule</button>
+            </div>
         </div>
     </div>
 

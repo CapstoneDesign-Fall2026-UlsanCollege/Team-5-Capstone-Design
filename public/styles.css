@@ -623,6 +623,8 @@ kbd {
 .modal-card {
     position: relative;
     width: min(440px, calc(100% - 32px));
+    max-height: calc(100dvh - 32px);
+    overflow-y: auto;
     border-radius: 24px;
     padding: 22px;
     animation: pop 0.22s ease;
@@ -641,7 +643,9 @@ kbd {
 }
 
 .modal-card input,
-.modal-card select {
+.modal-card select,
+.modal-card textarea,
+.stack-form textarea {
     width: 100%;
     border: 1px solid var(--line);
     background: var(--bg);
@@ -650,6 +654,7 @@ kbd {
     padding: 11px 12px;
     font: inherit;
     transition: border-color 0.15s ease;
+    resize: vertical;
 }
 
 .modal-card select:hover,
@@ -660,10 +665,12 @@ kbd {
 
 .modal-card input:focus-visible,
 .modal-card select:focus-visible,
+.modal-card textarea:focus-visible,
 .quiz-setup select:focus-visible,
 .quiz-setup input:focus-visible,
 .stack-form input:focus-visible,
-.stack-form select:focus-visible {
+.stack-form select:focus-visible,
+.stack-form textarea:focus-visible {
     border-color: var(--teal);
     outline: 2px solid var(--teal);
     outline-offset: 2px;
@@ -757,7 +764,8 @@ html.dark select option {
     h1 { font-size: 24px; overflow-wrap: anywhere; }
 }
 
-.canvas[hidden] { display: none !important; }
+.canvas[hidden],
+[hidden] { display: none !important; }
 
 .create-grid {
     display: grid;

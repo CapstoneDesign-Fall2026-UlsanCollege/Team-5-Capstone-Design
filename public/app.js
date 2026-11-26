@@ -67,6 +67,11 @@ import {
     openAiTutorWithContext,
     resetAiTutorState
 } from './src/ai-tutor-ui.js';
+import { initTimeScheduleController } from './src/time-schedule-ui.js';
+import {
+    MAX_TASK_DESCRIPTION_LENGTH,
+    normalizeOptionalDescription
+} from './src/lib/time-schedule.js';
 import {
     getCountries,
     getUniversities,
@@ -90,6 +95,12 @@ let dbUniversitiesByCountry = {};
 let quizHistory = [];
 let selectedEnrolledSlugs = new Set(['programming', 'data-structures', 'databases']);
 let tasks = [];
+let expandedTaskDescriptions = new Set();
+let scheduleController = null;
+let pendingRemoveSubjectSlug = null;
+let pendingRemoveSubjectTrigger = null;
+let isRemovingSubject = false;
+let lastTaskModalTrigger = null;
 let currentView = 'dashboard';
 let currentFilter = 'all';
 let currentSubjectTab = 'all';
@@ -466,6 +477,7 @@ async function loadUserData() {
                 subject: t.subject ? t.subject.name : (getSubjectName(t.subject_id) || 'General'),
                 subject_id: t.subject_id,
                 name: t.title,
+                description: t.description ?? null,
                 deadline: t.deadline,
                 completed: t.completed
             }));
@@ -473,6 +485,7 @@ async function loadUserData() {
 
         initAcademicHierarchy();
         await loadAndRenderQuizHistory();
+        await scheduleController?.loadSchedules();
         render();
         loadStudyAnalytics(); // Study Analytics 2.0: non-blocking; failures never affect existing analytics
         refreshAiTutorContext();
@@ -507,14 +520,14 @@ function showView(view) {
     if (view === 'create' || view === 'onboarding') view = 'subjects';
     if (view === 'plan') view = 'tasks';
     if (view === 'assistant') view = 'ai-tutor';
-    if (!['dashboard', 'tasks', 'subjects', 'analytics', 'quiz', 'ai-tutor'].includes(view)) {
+    if (!['dashboard', 'tasks', 'subjects', 'analytics', 'quiz', 'schedule', 'ai-tutor'].includes(view)) {
         view = 'dashboard';
     }
 
     currentView = view;
 
     // Show/hide view canvases
-    ['dashboard', 'tasks', 'subjects', 'analytics', 'quiz', 'ai-tutor'].forEach((name) => {
+    ['dashboard', 'tasks', 'subjects', 'analytics', 'quiz', 'schedule', 'ai-tutor'].forEach((name) => {
         const el = document.getElementById(`view-${name}`);
         if (el) el.hidden = (name !== view);
     });
@@ -534,6 +547,7 @@ function showView(view) {
         subjects: 'Subjects & University Onboarding',
         analytics: 'Study Task Analytics & Workload Breakdown',
         quiz: 'Quiz Practice & Results',
+        schedule: 'Time Schedule',
         'ai-tutor': 'AI Tutor'
     };
     const titleEl = document.getElementById('page-title');
@@ -543,7 +557,7 @@ function showView(view) {
     if (searchWrap) searchWrap.hidden = (view !== 'tasks' && view !== 'dashboard');
 
     const addTaskBtn = document.getElementById('add-task-btn');
-    if (addTaskBtn) addTaskBtn.hidden = (view === 'quiz' || view === 'ai-tutor');
+    if (addTaskBtn) addTaskBtn.hidden = (view === 'quiz' || view === 'schedule' || view === 'ai-tutor');
 
     const goPlanBtn = document.getElementById('go-plan-btn');
     if (goPlanBtn) {
@@ -569,6 +583,9 @@ function showView(view) {
     } else if (view === 'subjects') {
         renderSubjectCategoryChips();
         renderScrollableSubjects();
+    } else if (view === 'schedule') {
+        scheduleController?.refreshSubjects();
+        scheduleController?.render();
     } else if (view === 'ai-tutor') {
         refreshAiTutorContext();
     }
@@ -587,7 +604,7 @@ function visibleTasks() {
         if (currentFilter === 'completed' && !task.completed) return false;
         if (currentFilter === 'overdue' && (task.completed || new Date(task.deadline) >= new Date())) return false;
         if (currentSubjectTab !== 'all' && task.subject !== currentSubjectTab) return false;
-        if (query && !`${task.subject} ${task.name}`.toLowerCase().includes(query)) return false;
+        if (query && !`${task.subject} ${task.name} ${task.description || ''}`.toLowerCase().includes(query)) return false;
         return true;
     }).sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
 }
@@ -1060,6 +1077,9 @@ function renderTaskList() {
         `;
         group.tasks.forEach((task) => {
             const isOverdue = !task.completed && new Date(task.deadline) < new Date();
+            const descText = task.description ? String(task.description).trim() : '';
+            const isLongDesc = descText.length > 180 || descText.split('\n').length > 3;
+            const isExpanded = expandedTaskDescriptions.has(String(task.id));
             const card = document.createElement('article');
             card.className = `task-card ${task.completed ? 'is-done' : ''} ${isOverdue ? 'is-overdue' : ''}`;
             card.innerHTML = `
@@ -1074,6 +1094,12 @@ function renderTaskList() {
                         </div>
                         <h3 class="${task.completed ? 'done' : ''}">${escapeHtml(task.name)}</h3>
                         <p>${escapeHtml(task.subject)} · ${formatDate(task.deadline)} · ${relativeDeadline(task.deadline, task.completed)}</p>
+                        ${descText ? `
+                            <div class="task-desc-wrap">
+                                <p class="task-desc ${isLongDesc && !isExpanded ? 'is-clamped' : ''}">${escapeHtml(descText)}</p>
+                                ${isLongDesc ? `<button type="button" class="task-desc-toggle" data-toggle-desc="${escapeHtml(String(task.id))}" aria-expanded="${isExpanded}">${isExpanded ? 'Show less' : 'Show more'}</button>` : ''}
+                            </div>
+                        ` : ''}
                     </div>
                 </div>
                 <div class="task-actions">
@@ -1839,6 +1865,7 @@ function render() {
     renderStudyAnalytics();
     renderQuizHistoryList();
     fillSubjectSelects();
+    scheduleController?.refreshSubjects();
 
     const dateEl = document.getElementById('current-date');
     if (dateEl) {
@@ -1854,10 +1881,12 @@ function render() {
 function openModal(task = null) {
     const modal = document.getElementById('task-modal');
     if (!modal) return;
+    lastTaskModalTrigger = document.activeElement;
     const title = document.getElementById('modal-title');
     const idInput = document.getElementById('task-id');
     const subjectSelect = document.getElementById('task-subject');
     const nameInput = document.getElementById('task-name');
+    const descInput = document.getElementById('task-description');
     const deadlineInput = document.getElementById('task-deadline');
 
     fillSubjectSelects();
@@ -1867,16 +1896,19 @@ function openModal(task = null) {
         idInput.value = task.id;
         subjectSelect.value = task.subject;
         nameInput.value = task.name;
+        if (descInput) descInput.value = task.description || '';
         deadlineInput.value = formatForInput(task.deadline);
     } else {
         title.textContent = 'Add a new task';
         idInput.value = '';
         nameInput.value = '';
+        if (descInput) descInput.value = '';
         const now = new Date();
         now.setDate(now.getDate() + 1);
         deadlineInput.value = formatForInput(now.toISOString());
     }
 
+    if (descInput) descInput.dispatchEvent(new Event('input'));
     modal.hidden = false;
     nameInput.focus();
 }
@@ -1884,6 +1916,10 @@ function openModal(task = null) {
 function closeModal() {
     const modal = document.getElementById('task-modal');
     if (modal) modal.hidden = true;
+    if (lastTaskModalTrigger && typeof lastTaskModalTrigger.focus === 'function' && lastTaskModalTrigger.isConnected) {
+        lastTaskModalTrigger.focus();
+    }
+    lastTaskModalTrigger = null;
 }
 
 // ---- Setup Event Listeners ----
@@ -1958,24 +1994,171 @@ function setupEventListeners() {
 
     // Scrollable Subjects Container clicks & keyboard activation
     const scrollContainer = document.getElementById('subject-scroll-container');
+    const subjectRemoveModal = document.getElementById('subject-remove-modal');
+    const subjectRemoveNameEl = document.getElementById('subject-remove-name');
+    const subjectRemoveCancelBtn = document.getElementById('subject-remove-cancel');
+    const subjectRemoveConfirmBtn = document.getElementById('subject-remove-confirm');
+    const subjectRemoveCloseBtn = document.getElementById('subject-remove-close');
+    const subjectRemoveBackdrop = document.getElementById('subject-remove-backdrop');
+
+    const getSubjectDisplayName = (slug) => {
+        const localMatch = SUBJECTS_CATALOG.find(s => s.slug === slug);
+        if (localMatch) return localMatch.name;
+        const dbMatch = dbSubjects.find(s => s.slug === slug);
+        return dbMatch ? dbMatch.name : slug;
+    };
+
+    const buildSelectedSubjectsPayload = (slugSet) => {
+        const seen = new Set();
+        const payload = [];
+        SUBJECTS_CATALOG.forEach((s) => {
+            if (slugSet.has(s.slug)) {
+                seen.add(s.slug);
+                payload.push(s);
+            }
+        });
+        dbSubjects.forEach((s) => {
+            if (s?.slug && slugSet.has(s.slug) && !seen.has(s.slug)) {
+                seen.add(s.slug);
+                payload.push(s);
+            }
+        });
+        return payload;
+    };
+
+    const restoreSubjectCardFocus = (slug) => {
+        if (!slug) return;
+        const selectorSlug = typeof CSS !== 'undefined' && typeof CSS.escape === 'function'
+            ? CSS.escape(slug)
+            : slug.replace(/"/g, '\\"');
+        scrollContainer?.querySelector(`.scrollable-subject-card[data-subject-slug="${selectorSlug}"]`)?.focus();
+    };
+
+    const closeSubjectRemoveModal = (restoreFocus = true) => {
+        const slugToFocus = pendingRemoveSubjectSlug;
+        const triggerEl = pendingRemoveSubjectTrigger;
+        if (subjectRemoveModal) subjectRemoveModal.hidden = true;
+        pendingRemoveSubjectSlug = null;
+        pendingRemoveSubjectTrigger = null;
+        if (restoreFocus) {
+            if (slugToFocus) {
+                restoreSubjectCardFocus(slugToFocus);
+            } else if (triggerEl && typeof triggerEl.focus === 'function' && triggerEl.isConnected) {
+                triggerEl.focus();
+            }
+        }
+    };
+
+    const openSubjectRemoveModal = (slug, triggerCard = null) => {
+        if (!subjectRemoveModal) return;
+        pendingRemoveSubjectSlug = slug;
+        pendingRemoveSubjectTrigger = triggerCard;
+        if (subjectRemoveNameEl) {
+            subjectRemoveNameEl.textContent = getSubjectDisplayName(slug);
+        }
+        if (subjectRemoveCancelBtn) subjectRemoveCancelBtn.disabled = false;
+        if (subjectRemoveConfirmBtn) {
+            subjectRemoveConfirmBtn.disabled = false;
+            subjectRemoveConfirmBtn.textContent = 'Remove Subject';
+        }
+        subjectRemoveModal.hidden = false;
+        subjectRemoveCancelBtn?.focus();
+    };
+
+    if (subjectRemoveModal) {
+        subjectRemoveModal.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                e.preventDefault();
+                if (!isRemovingSubject) closeSubjectRemoveModal(true);
+                return;
+            }
+            if (e.key !== 'Tab') return;
+            const focusables = [subjectRemoveCloseBtn, subjectRemoveCancelBtn, subjectRemoveConfirmBtn]
+                .filter(el => el && !el.disabled && !el.hidden);
+            if (focusables.length === 0) return;
+            const first = focusables[0];
+            const last = focusables[focusables.length - 1];
+            if (e.shiftKey && document.activeElement === first) {
+                e.preventDefault();
+                last.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+                e.preventDefault();
+                first.focus();
+            }
+        });
+    }
+
+    [subjectRemoveCancelBtn, subjectRemoveCloseBtn, subjectRemoveBackdrop].forEach((el) => {
+        if (el) {
+            el.addEventListener('click', () => {
+                if (!isRemovingSubject) closeSubjectRemoveModal(true);
+            });
+        }
+    });
+
+    if (subjectRemoveConfirmBtn) {
+        subjectRemoveConfirmBtn.addEventListener('click', async () => {
+            if (!pendingRemoveSubjectSlug || isRemovingSubject) return;
+            const targetSlug = pendingRemoveSubjectSlug;
+            const subjectName = getSubjectDisplayName(targetSlug);
+            const previousSlugs = new Set(selectedEnrolledSlugs);
+            const nextSlugs = new Set(previousSlugs);
+            nextSlugs.delete(targetSlug);
+
+            isRemovingSubject = true;
+            if (subjectRemoveCancelBtn) subjectRemoveCancelBtn.disabled = true;
+            subjectRemoveConfirmBtn.disabled = true;
+            subjectRemoveConfirmBtn.textContent = 'Removing...';
+
+            try {
+                if (currentUser?.id) {
+                    const nextList = buildSelectedSubjectsPayload(nextSlugs);
+                    const { error } = await saveStudentSubjects(currentUser.id, nextList);
+                    if (error) {
+                        selectedEnrolledSlugs = previousSlugs;
+                        render();
+                        closeSubjectRemoveModal(true);
+                        toast(`Could not remove "${subjectName}": ${error.message || 'Please try again.'} Previous selection restored.`);
+                        return;
+                    }
+                }
+
+                selectedEnrolledSlugs = nextSlugs;
+                fillQuizSubjects();
+                refreshAiTutorContext();
+                render();
+                closeSubjectRemoveModal(true);
+                toast(`Removed "${subjectName}" from selected subjects. Existing tasks, quiz history, and schedules were kept.`);
+            } catch (err) {
+                selectedEnrolledSlugs = previousSlugs;
+                render();
+                closeSubjectRemoveModal(true);
+                toast(`Could not remove "${subjectName}": ${err?.message || 'Unexpected error.'} Previous selection restored.`);
+            } finally {
+                isRemovingSubject = false;
+                if (subjectRemoveCancelBtn) subjectRemoveCancelBtn.disabled = false;
+                subjectRemoveConfirmBtn.disabled = false;
+                subjectRemoveConfirmBtn.textContent = 'Remove Subject';
+            }
+        });
+    }
+
     const toggleSubjectCard = (card, restoreFocus = false) => {
         const slug = card?.dataset?.subjectSlug;
         if (!slug) return;
 
         if (selectedEnrolledSlugs.has(slug)) {
-            selectedEnrolledSlugs.delete(slug);
-        } else {
-            selectedEnrolledSlugs.add(slug);
+            openSubjectRemoveModal(slug, card);
+            return;
         }
 
+        selectedEnrolledSlugs.add(slug);
         renderScrollableSubjects();
         fillSubjectSelects();
+        scheduleController?.refreshSubjects();
 
         if (restoreFocus) {
-            const selectorSlug = typeof CSS !== 'undefined' && typeof CSS.escape === 'function'
-                ? CSS.escape(slug)
-                : slug.replace(/"/g, '\\"');
-            scrollContainer?.querySelector(`.scrollable-subject-card[data-subject-slug="${selectorSlug}"]`)?.focus();
+            restoreSubjectCardFocus(slug);
         }
     };
 
@@ -1992,6 +2175,21 @@ function setupEventListeners() {
             toggleSubjectCard(card, true);
         });
     }
+
+    const bindTaskDescriptionCounter = (textareaId, counterId) => {
+        const textarea = document.getElementById(textareaId);
+        const counter = document.getElementById(counterId);
+        if (!textarea || !counter) return;
+        const update = () => {
+            const len = textarea.value.length;
+            counter.textContent = `${len} / ${MAX_TASK_DESCRIPTION_LENGTH}`;
+            counter.classList.toggle('is-near-limit', len >= MAX_TASK_DESCRIPTION_LENGTH - 50);
+        };
+        textarea.addEventListener('input', update);
+        update();
+    };
+    bindTaskDescriptionCounter('create-task-description', 'create-task-description-count');
+    bindTaskDescriptionCounter('task-description', 'task-description-count');
 
     // Subject Search & Category Filter
     const subjectSearchInput = document.getElementById('subject-search-input');
@@ -2027,17 +2225,32 @@ function setupEventListeners() {
             e.preventDefault();
             const subject = document.getElementById('create-task-subject-select').value;
             const title = document.getElementById('create-task-name').value.trim();
+            const rawDescription = document.getElementById('create-task-description')?.value || '';
             const deadlineDate = document.getElementById('create-task-deadline').value;
 
             if (!subject || !title || !deadlineDate || !currentUser) return;
 
-            const deadlineIso = new Date(deadlineDate + 'T23:59:59').toISOString();
+            const parsedDeadline = new Date(`${deadlineDate}T23:59:59`);
+            if (Number.isNaN(parsedDeadline.getTime())) {
+                toast('Please choose a valid deadline date.');
+                document.getElementById('create-task-deadline')?.focus();
+                return;
+            }
+            const descCheck = normalizeOptionalDescription(rawDescription, MAX_TASK_DESCRIPTION_LENGTH);
+            if (!descCheck.valid) {
+                toast(descCheck.error);
+                document.getElementById('create-task-description')?.focus();
+                return;
+            }
+
+            const deadlineIso = parsedDeadline.toISOString();
             const subjectId = getSubjectId(subject);
 
             const { data, error } = await apiCreateTask({
                 studentId: currentUser.id,
                 subjectId,
                 title,
+                description: descCheck.value,
                 deadline: deadlineIso
             });
 
@@ -2051,11 +2264,17 @@ function setupEventListeners() {
                 subject,
                 subject_id: subjectId,
                 name: title,
+                description: descCheck.value,
                 deadline: deadlineIso,
                 completed: false
             });
 
             document.getElementById('create-task-name').value = '';
+            const quickDescEl = document.getElementById('create-task-description');
+            if (quickDescEl) {
+                quickDescEl.value = '';
+                quickDescEl.dispatchEvent(new Event('input'));
+            }
             toast('Task created successfully!');
             render();
         });
@@ -2069,9 +2288,16 @@ function setupEventListeners() {
             const id = document.getElementById('task-id').value;
             const subject = document.getElementById('task-subject').value;
             const title = document.getElementById('task-name').value.trim();
+            const rawDescription = document.getElementById('task-description')?.value || '';
             const parsedDeadline = parseDeadlineInputToIso(document.getElementById('task-deadline').value);
 
             if (!title || !currentUser) return;
+            const descCheck = normalizeOptionalDescription(rawDescription, MAX_TASK_DESCRIPTION_LENGTH);
+            if (!descCheck.valid) {
+                toast(descCheck.error);
+                document.getElementById('task-description')?.focus();
+                return;
+            }
             if (!parsedDeadline.ok) {
                 toast(parsedDeadline.error);
                 document.getElementById('task-deadline')?.focus();
@@ -2083,7 +2309,12 @@ function setupEventListeners() {
 
             if (id) {
                 // Edit existing
-                const { error } = await apiUpdateTask(id, { title, deadline, subjectId });
+                const { error } = await apiUpdateTask(id, {
+                    title,
+                    description: descCheck.value,
+                    deadline,
+                    subjectId
+                });
                 if (error) {
                     toast(`Error: ${error.message}`);
                     return;
@@ -2091,6 +2322,7 @@ function setupEventListeners() {
                 const found = tasks.find(t => t.id === id);
                 if (found) {
                     found.name = title;
+                    found.description = descCheck.value;
                     found.subject = subject;
                     found.subject_id = subjectId;
                     found.deadline = deadline;
@@ -2102,6 +2334,7 @@ function setupEventListeners() {
                     studentId: currentUser.id,
                     subjectId,
                     title,
+                    description: descCheck.value,
                     deadline
                 });
                 if (error) {
@@ -2113,6 +2346,7 @@ function setupEventListeners() {
                     subject,
                     subject_id: subjectId,
                     name: title,
+                    description: descCheck.value,
                     deadline,
                     completed: false
                 });
@@ -2135,6 +2369,18 @@ function setupEventListeners() {
     const taskContainer = document.getElementById('task-container');
     if (taskContainer) {
         taskContainer.addEventListener('click', async (e) => {
+            const descToggle = e.target.closest('[data-toggle-desc]');
+            if (descToggle) {
+                const taskId = String(descToggle.dataset.toggleDesc);
+                if (expandedTaskDescriptions.has(taskId)) {
+                    expandedTaskDescriptions.delete(taskId);
+                } else {
+                    expandedTaskDescriptions.add(taskId);
+                }
+                renderTaskList();
+                return;
+            }
+
             // Complete toggle
             const toggleBtn = e.target.closest('.toggle-btn');
             if (toggleBtn) {
@@ -2434,6 +2680,8 @@ function setupEventListeners() {
     const logoutBtn = document.getElementById('logout-btn');
     if (logoutBtn) {
         logoutBtn.addEventListener('click', async () => {
+            expandedTaskDescriptions.clear();
+            scheduleController?.resetSchedulesState();
             resetAiTutorState();
             await signOut();
         });
@@ -2446,6 +2694,12 @@ function setupEventListeners() {
         if (event.key === 'Escape') {
             closeModal();
             closeProfile();
+            const removeSubModal = document.getElementById('subject-remove-modal');
+            if (removeSubModal && !removeSubModal.hidden && !isRemovingSubject) {
+                removeSubModal.hidden = true;
+                pendingRemoveSubjectSlug = null;
+            }
+            scheduleController?.closeOpenModalsOnEscape();
             if (confirmModal) confirmModal.hidden = true;
         }
         if (!typing && event.key === '/') {
@@ -2459,7 +2713,7 @@ function setupEventListeners() {
     // Hash change router
     window.addEventListener('hashchange', () => {
         const view = location.hash.replace('#', '');
-        if (['dashboard', 'tasks', 'subjects', 'analytics', 'quiz', 'ai-tutor', 'assistant', 'create', 'plan', 'onboarding'].includes(view) && view !== currentView) {
+        if (['dashboard', 'tasks', 'subjects', 'analytics', 'quiz', 'schedule', 'ai-tutor', 'assistant', 'create', 'plan', 'onboarding'].includes(view) && view !== currentView) {
             showView(view);
         }
     });
@@ -2545,6 +2799,27 @@ async function init() {
     setupEventListeners();
     initAcademicHierarchy();
     initStudyAnalytics({ toast, getTasks: () => tasks, getStudentId: () => currentUser?.id || null });
+    scheduleController = initTimeScheduleController({
+        getCurrentUser: () => currentUser,
+        getSubjectOptions: () => {
+            const seen = new Set();
+            const list = [];
+            for (const slug of selectedEnrolledSlugs) {
+                const dbMatch = dbSubjects.find(s => s.slug === slug);
+                const catMatch = SUBJECTS_CATALOG.find(s => s.slug === slug);
+                const sub = dbMatch || catMatch;
+                if (sub && !seen.has(slug)) {
+                    seen.add(slug);
+                    list.push({ id: dbMatch?.id || sub.slug, name: sub.name, slug: sub.slug });
+                }
+            }
+            return list;
+        },
+        getAllSubjects: () => [...dbSubjects, ...SUBJECTS_CATALOG],
+        toast,
+        burst,
+        escapeHtml
+    });
     initAiTutor({
         getCurrentUser: () => currentUser,
         getCurrentProfile: () => currentProfile,
@@ -2564,7 +2839,7 @@ async function init() {
     if (deadlineInput) deadlineInput.value = dateInputValue();
 
     const initial = location.hash.replace('#', '');
-    showView(['dashboard', 'tasks', 'subjects', 'analytics', 'quiz', 'ai-tutor', 'assistant'].includes(initial) ? initial : 'dashboard');
+    showView(['dashboard', 'tasks', 'subjects', 'analytics', 'quiz', 'schedule', 'ai-tutor', 'assistant'].includes(initial) ? initial : 'dashboard');
 
     // Load user data from Supabase
     await loadUserData();
