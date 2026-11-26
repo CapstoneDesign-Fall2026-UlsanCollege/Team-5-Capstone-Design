@@ -28,7 +28,7 @@ test.describe('Smart Study Companion — 4 Feature Improvements & Time Schedule 
       { view: 'dashboard', text: 'Dashboard' },
       { view: 'subjects', text: 'Subjects & University' },
       { view: 'analytics', text: 'Study Analytics' },
-      { view: 'quiz', text: 'Quiz Practice & Results' },
+      { view: 'quiz', text: 'Quiz Practice' },
       { view: 'schedule', text: 'Time Schedule' },
       { view: 'ai-tutor', text: 'AI Tutor' },
     ]);
