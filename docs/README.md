@@ -1,21 +1,22 @@
 # Smart Study Companion Documentation
 
-## Current review - Week 12
+## Current review - Week 13
 
-Prepared through 2026-11-25 (**Release Decision: `NO-GO — Pending Live Security and Release Verification.`**). Start with the [Week 12 release-readiness hub](week_12/README.md), the [reconciled Week 12 MVP matrix](week_12/MVP_VERIFICATION_MATRIX.md), the [Release Verification Report](week_12/RELEASE_VERIFICATION_REPORT.md), and the [Week 12 shared report](week_12/weekly-report.md). Week 11 remains a dated historical verification package.
-**Read first:** [Week 12 matrix](week_12/MVP_VERIFICATION_MATRIX.md) → [Week 12 shared report](week_12/weekly-report.md) → [Week 11 Freeze decision](week_11/FEATURE_FREEZE_DECISION.md) → [Ownership ledger](CONTRIBUTION_LEDGER.md).
+Prepared through 2026-11-28. Week 13 feature work is merged through PRs #89-#91, while the release decision remains **`NO-GO - Pending Live Security and Release Verification`**. Merged code does not establish deployed revision identity, live migrations, `DATA-01`, credentialed E2E, or team sign-off.
+
+**Read first:** [Week 13 hub](week_13/README.md) -> [Week 13 shared report](week_13/weekly-report.md) -> [Handoff route](week_13/HANDOFF_ROUTE.md) -> [Peer test notes](Peer%20test%20note.md) -> [Ownership ledger](CONTRIBUTION_LEDGER.md).
 
 ### Project Review
 
-[Week 12 Release Hub](week_12/README.md), [Week 12 Matrix](week_12/MVP_VERIFICATION_MATRIX.md), [Release Verification Report](week_12/RELEASE_VERIFICATION_REPORT.md), [Week 11 Scope Contract](week_11/FEATURE_FREEZE_DECISION.md).
+[Week 13 hub](week_13/README.md), [Week 13 shared report](week_13/weekly-report.md), [Feature and schedule report](time_schedule/IMPROVEMENTS_AND_TIME_SCHEDULE_REPORT.md), and the historical [Week 12 release hub](week_12/README.md).
 
 ### Testing and Evidence
 
-[Week 12 Playwright Report](week_12/PLAYWRIGHT_E2E_REPORT.md), [Week 12 Deployment Check](week_12/DEPLOYMENT_VERIFICATION.md), [Week 11 Evidence Register](week_11/EVIDENCE_REGISTER.md), [Independent Check](week_11/INDEPENDENT_VERIFICATION.md). Unit, browser, live-service and independent results have different proof boundaries.
+[Handoff route](week_13/HANDOFF_ROUTE.md), [Peer test notes](Peer%20test%20note.md), [Week 12 matrix](week_12/MVP_VERIFICATION_MATRIX.md), and [Week 12 Playwright report](week_12/PLAYWRIGHT_E2E_REPORT.md). Local, mocked, UI-observation, live-service, and independent results have different proof boundaries.
 
 ### Setup and Handoff
 
-[Current setup](week5/SETUP_INSTRUCTIONS.md#current-application-setup-2026-11-14), [architecture](week_10/backend-architecture.md#week-11-current-task-boundary), [handoff](week_11/INDEPENDENT_VERIFICATION.md), [demo roadmap](week9/FINAL_DEMO_ROADMAP.md).
+[Current setup](week5/SETUP_INSTRUCTIONS.md#current-application-setup-2026-11-14), [architecture](week_10/backend-architecture.md#week-11-current-task-boundary), [Week 13 uncoached route](week_13/HANDOFF_ROUTE.md), and [demo roadmap](week9/FINAL_DEMO_ROADMAP.md).
 
 ```mermaid
 flowchart LR
@@ -40,7 +41,7 @@ The diagrams describe the intended workflow and review process, not completed te
 
 ## Historical navigation snapshot
 
-The original hub below is retained. Its dates and "current" labels describe its historical snapshot; use the Week 11 routes above for the present review.
+The original hub below is retained. Its dates and "current" labels describe its historical snapshot; use the Week 13 routes above for the present review.
 
 **Team:** Team 5  
 **Term:** Fall 2026  **Last updated:** 2026-11-04

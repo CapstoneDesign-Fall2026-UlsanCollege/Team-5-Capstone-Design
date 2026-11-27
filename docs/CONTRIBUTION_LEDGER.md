@@ -1,5 +1,16 @@
 # Contribution Ledger
 
+## Week 13 handoff documentation audit - 2026-11-28
+
+- Changed files are documentation only.
+- PRs #89-#91 are recorded as merged; deployment remains separately unverified.
+- The first trial and designated retrial are separated by tester and date.
+- No product test is attributed to `RaiPrabin697` in this update.
+- The Prince retrial remains **Blocked** until an actual uncoached result is supplied.
+- Live migrations, `DATA-01`, deployed revision identity, credentialed E2E, and team sign-offs remain unresolved.
+- No credentials, private emails, tokens, or unsupported pass claims are included.
+
+
 ## Week 11 documentation contribution - 2026-11-14
 
 `RaiPrabin697`: prepared the [review package](week_11/README.md), evidence classification, task reproduction instructions and dated documentation reconciliation with automated assistance. This is documentation work, not a fresh application test. Historical unit tests and assisted browser observations are separately attributed in the [register](week_11/EVIDENCE_REGISTER.md). Human review/acceptance and independent repetition remain pending. Other members' historical rows below are unchanged.
@@ -26,7 +37,7 @@ Use both the legal name and the exact GitHub login in report rows. These mapping
 |---|---|---|---|---|
 | Nabin Khadka | `liftupkhadka555-spec` | Delivered all 4 Week 13 features on isolated branch `feature/manual-time-schedule-and-improvements` (`d7a80af`, `bb866c4`, `9eb04d5`): custom Subject Removal Confirmation modal (`#subject-remove-modal`) with Supabase sync & error rollback; reordered desktop/mobile sidebar navigation (`Study Tasks` #1, `Dashboard` #2, `Time Schedule` #6); optional 1,000-char multiline `Task Description / Details` (`014_task_description.sql` + rollback, UI forms, escaped task cards & search); and manual `Time Schedule` study planner (`015_time_schedules.sql` + rollback, pure recurrence/conflict engine `time-schedule.js`, service CRUD `schedules.js`, Daily/Weekly/mobile UI `time-schedule-ui.js`). Added Vitest (`105/105`), PGlite Postgres WASM (`7/7`), and mocked Playwright Desktop/Mobile (`14/14`) checks, captured 12 before/after screenshots, and authored Week 13 & feature reports. | Branch `feature/manual-time-schedule-and-improvements` (`d7a80af`, `bb866c4`, `9eb04d5`), [`docs/week_13/README.md`](week_13/README.md), [`docs/week_13/weekly-report.md`](week_13/weekly-report.md), [`docs/time_schedule/IMPROVEMENTS_AND_TIME_SCHEDULE_REPORT.md`](time_schedule/IMPROVEMENTS_AND_TIME_SCHEDULE_REPORT.md), [`docs/time_schedule/Evidence/`](time_schedule/Evidence/), [`supabase/migrations/014_task_description.sql`](../supabase/migrations/014_task_description.sql), [`supabase/migrations/015_time_schedules.sql`](../supabase/migrations/015_time_schedules.sql), [`tests/db/time-schedule.db.test.js`](../tests/db/time-schedule.db.test.js), [`tests/e2e/improvements-schedule.spec.js`](../tests/e2e/improvements-schedule.spec.js) | **Local build, Vitest, PGlite & mocked Chrome suites `PASS`; PR merge & live cloud apply `NOT RUN`** |
 | Sumit Adhikari | `adronnie` | _Pending personal review & live `014`/`015` / `DATA-01` execution_ | [`docs/week_13/weekly-report.md`](week_13/weekly-report.md) | **PENDING** |
-| Prabin Rai | `RaiPrabin697` | _Pending personal review of Week 13 E2E specs & live rerun_ | [`docs/week_13/weekly-report.md`](week_13/weekly-report.md) | **PENDING** |
+| Prabin Rai | `RaiPrabin697` | Documentation and Handoff Evidence Lead: reconciled PRs #89-#91 as merged, corrected the Quick Add route to **Subjects & University**, defined uncoached Light/Dark acceptance criteria, preserved `jn-oli`'s historical trial, and coordinated `princekark`'s retrial without claiming product-test execution. | [Week 13 hub](week_13/README.md); [Handoff route](week_13/HANDOFF_ROUTE.md); [Peer test notes](Peer%20test%20note.md); [Week 13 report](week_13/weekly-report.md) | **Documentation complete; Prince retrial BLOCKED; live credentialed QA NOT RUN** |
 | Prince Karki | `princekark` | _Pending independent live QA testing of Week 13 features_ | [`docs/week_13/weekly-report.md`](week_13/weekly-report.md) | **PENDING** |
 | J.N. Taj Oli | `jn-oli` | _Pending manual Light/Dark Desktop/Mobile UI confirmation of Week 13 screens_ | [`docs/week_13/weekly-report.md`](week_13/weekly-report.md) | **PENDING** |
 

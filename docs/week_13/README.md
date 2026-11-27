@@ -1,35 +1,59 @@
-# Week 13 — Feature Improvements & Manual Time Schedule Hub
+# Week 13 - Handoff and Feature Verification Hub
 
-**Project:** Smart Study Companion — Team 5 (Ulsan College)  
-**Repository:** https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design  
-**Working Branch:** `feature/manual-time-schedule-and-improvements` (branched from `main` @ `e817132`)  
-**Updated:** November 26, 2026
+**Project:** Smart Study Companion - Team 5  
+**Current source revision:** `f5dcc8c5d93e284c378d746a9a7a7fae327c3d1f`  
+**Updated:** November 28, 2026
 
----
+## Current Status
 
-## Release & Branch Status Boundary
+Week 13 feature work is merged into `main` through [PR #89](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/89), [PR #90](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/90), and [PR #91](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/91).
 
-- **Frozen Core Release Status (`main`):** Preserved at **`NO-GO — Pending Live Security and Release Verification`** from Week 12 (live `DATA-01` RLS, live migrations `009`/`010`/`012`/`013`, Edge Functions, course Vercel SHA, credentialed live Playwright rerun, and `5/5` sign-offs remain open).
-- **Week 13 Feature Branch (`feature/manual-time-schedule-and-improvements`):** Implements four post-freeze usability and planning upgrades alongside local unit, PostgreSQL WASM (`PGlite`), Python, and mocked Playwright verification. Live Supabase Cloud deployment of `014` and `015` remains **`NOT RUN` / pending database release review**.
+The merge confirms repository integration only. It does **not** establish that the same revision is deployed or that live Supabase behavior is verified.
 
----
+**Release decision:** `NO-GO - Pending Live Security and Release Verification`.
 
-## Quick Verification Commands (Local Non-Cloud)
+## Read First
 
-| Check Scope | Command | Recorded Result |
+1. [Week 13 shared report](./weekly-report.md)
+2. [Week 13 handoff route](./HANDOFF_ROUTE.md)
+3. [Peer test notes](../Peer%20test%20note.md)
+4. [Contribution ledger](../CONTRIBUTION_LEDGER.md)
+5. [Feature and schedule report](../time_schedule/IMPROVEMENTS_AND_TIME_SCHEDULE_REPORT.md)
+
+## Evidence Boundaries
+
+| Area | Recorded result | Boundary |
 |---|---|---|
-| **1. Production Bundle & Mirrors** | `npm run build && diff -rq src public/src && diff -rq src/lib Backend/lib && diff -rq src/services Backend/services` | **PASS** (`172ms`, `0` mirror diffs) |
-| **2. Unit & Pure Schedule Engine** | `npx vitest run` | **105 / 105 PASS** across `13` test files |
-| **3. Local PostgreSQL RLS & Rollbacks** | `node --test tests/db/ai-tutor.db.test.js tests/db/time-schedule.db.test.js` | **7 / 7 PASS** (PGlite WASM; not live cloud apply) |
-| **4. Python Integrity Suites** | `python3 tests/run_tests.py && python3 tests/test_ai_quiz.py` | **11 / 11** + **4 / 4 PASS** |
-| **5. Mocked Browser E2E (Desktop & Mobile)** | `./node_modules/.bin/playwright test tests/e2e/ui-regression-mocked.spec.js tests/e2e/improvements-schedule.spec.js --project="Desktop Chrome"` & `improvements-schedule.spec.js --project="Mobile Chrome (Pixel 5)"` | **10 / 10 PASS** (`Desktop Chrome`), **4 / 4 PASS** (`Mobile Chrome`) |
-| **6. Live Cloud Migration & 2-Account E2E** | Apply `014`–`015` live + run credentialed Playwright `DATA-01` / `E2E` | **NOT RUN** (pending live Supabase deployment) |
+| Feature integration | **Merged** | PRs #89-#91 are merged into `main` |
+| Local build and mirror checks | **Pass - historical Week 13 record** | Local repository checks only |
+| Unit tests | **105/105 Pass - historical Week 13 record** | Mocked and local logic; not live Supabase |
+| Local PostgreSQL WASM checks | **7/7 Pass - historical Week 13 record** | PGlite, not the live project |
+| Mocked browser checks | **14/14 Pass - historical Week 13 record** | Mocked routes, not credentialed live E2E |
+| First handoff trial | **Pass with documentation friction** | `jn-oli`, November 25; UI readability only |
+| Prince handoff retrial | **Blocked** | Awaiting an uncoached run by `princekark` |
+| Deployed revision identity | **Unknown** | No verified mapping from the selected site to `f5dcc8c` |
+| Live migrations `009`-`015` | **Not run / unresolved** | No live application receipt |
+| Live `DATA-01` isolation | **Not run / unresolved** | UI separation is not server-side RLS proof |
+| Credentialed live E2E | **Not run / unresolved** | Requires private disposable accounts |
+| Team sign-offs | **Pending** | Do not infer approval from merged PRs |
 
----
+## Handoff Focus
 
-## Week 13 Documents & Evidence
+The current handoff check covers the enrolled-subject dropdown used by **Quick Add / Add a study task**:
 
-1. **[Week 13 Shared Weekly Report](./weekly-report.md)** — Goals, completed features (`014` & `015`), honest test/security tables, member contributions, risks, and bridge tasks.
-2. **[Improvements & Manual Time Schedule Report](../time_schedule/IMPROVEMENTS_AND_TIME_SCHEDULE_REPORT.md)** — Full implementation specification coverage, schema details, and before/after gallery index.
-3. **[Visual Evidence (`docs/time_schedule/Evidence/`)](../time_schedule/Evidence/)** — `3` baseline before captures and `9` verified after captures covering Light/Dark modes and Desktop/Mobile viewports.
-4. **[Updated Contribution Ledger](../CONTRIBUTION_LEDGER.md)** — Week 13 entries reconciled alongside Week 12–Week 6 history.
+`Sign in -> Subjects & University -> Quick Add -> Subject dropdown -> Light and Dark modes`
+
+The dropdown contains enrolled subjects only. Readability in this route does not prove task persistence, migration application, cloud synchronization, or row-level-security isolation.
+
+## Local Verification Record
+
+| Check | Recorded result |
+|---|---|
+| Production bundle and mirrors | **Pass**; `0` mirror differences |
+| Vitest | **105/105 Pass** across `13` files |
+| PGlite PostgreSQL WASM | **7/7 Pass** |
+| Python integrity suites | **11/11 Pass** and **4/4 Pass** |
+| Mocked Playwright | **10/10 desktop Pass**, **4/4 mobile Pass** |
+| Live cloud migration and two-account E2E | **Not run** |
+
+These results are retained as dated local evidence. They are not restated as fresh results and do not change the release decision.
