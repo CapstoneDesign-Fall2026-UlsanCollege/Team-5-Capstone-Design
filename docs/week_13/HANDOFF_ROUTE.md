@@ -34,10 +34,24 @@ This route checks whether a non-author can find and judge the enrolled-subject d
 
 The Subject dropdown contains **enrolled subjects only**. It is not the full subject catalog. If the expected subject is missing, first confirm that it is enrolled before reporting a dropdown defect.
 
+## Expected Results
+
+A successful uncoached handoff meets every criterion below:
+
+- **Navigation:** The tester reaches **Subjects & University** and identifies the Quick Add card without being told where it is.
+- **Closed field:** The current enrolled subject is readable before opening the dropdown.
+- **Open list:** Every visible enrolled-subject option is readable in Light and Dark modes.
+- **Highlighted option:** Text remains distinguishable from its selection background in both modes.
+- **Selection:** The tester can identify and record the selected option.
+- **Understanding:** The tester recognizes that the list contains enrolled subjects rather than the complete catalog.
+- **Evidence:** The receipt records environment, help received, actual result, and sanitized proof.
+
+If any required criterion is missing, do not record a full Pass.
+
 ## Result Labels
 
-- **Pass:** Prince completes the route without coaching and can read the closed field, open options, and highlighted option in both modes.
-- **Fail:** The route is completed, but a required readability or navigation criterion is not met.
+- **Pass:** Prince completes the route without coaching and all expected-result criteria are met.
+- **Fail:** The route is completed, but one or more required criteria are not met.
 - **Blocked:** A prerequisite is unavailable or the tester cannot start or finish the route.
 - **Not run:** No attempt has been made.
 
@@ -59,6 +73,32 @@ The Subject dropdown contains **enrolled subjects only**. It is not the full sub
 | Proof | Sanitized screenshot or other stable evidence link |
 | Remaining friction | Any wording, navigation, or readability issue |
 
+## Receipt Template
+
+| Field | Result |
+|---|---|
+| Tester | `princekark` |
+| Date and time | Pending |
+| URL | Pending |
+| Browser/version | Pending |
+| Source revision | `f5dcc8c5d93e284c378d746a9a7a7fae327c3d1f` planned |
+| Deployed revision | Unknown |
+| Help received | Pending |
+| Light mode actual result | Pending |
+| Dark mode actual result | Pending |
+| Selected option | Pending |
+| Remaining friction | Pending |
+| Proof | Pending |
+| Overall result | **Blocked - retrial not yet performed** |
+
 ## Evidence Boundary
 
-A passing result establishes only that the tester could locate and read this UI path. It does **not** prove task save or reload persistence, Supabase migration application, live cloud synchronization, authenticated cross-account isolation, direct RLS denial, deployed revision identity, or full credentialed end-to-end behavior.
+A passing result establishes only that the tester could locate and read this UI path. It does **not** prove:
+
+- task save or reload persistence;
+- Supabase migration application;
+- live cloud synchronization;
+- authenticated cross-account isolation;
+- direct RLS read, update, or delete denial;
+- deployed revision identity; or
+- full credentialed end-to-end behavior.
