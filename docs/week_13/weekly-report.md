@@ -4,15 +4,15 @@
 **Week:** 13  
 **Date:** November 26, 2026  
 **Repository:** [Team-5-Capstone-Design](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design)  
-**Feature Branch:** `feature/manual-time-schedule-and-improvements` (branched from `main` @ `e817132`)  
-**MVP Core Gate (`main`):** **NO-GO — Pending Live Security and Release Verification** (preserved unchanged from Week 12)  
-**Week 13 Feature Branch Status:** Implemented & locally verified; **live Supabase migrations (`014`, `015`) & live 2-account E2E remain `NOT RUN` pending PR review and live DB deploy**
+**Current source revision:** `f5dcc8c5d93e284c378d746a9a7a7fae327c3d1f`  
+**MVP Core Gate (`main`):** **NO-GO - Pending Live Security and Release Verification**  
+**Week 13 integration status:** Feature work is merged through PRs [#89](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/89), [#90](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/90), and [#91](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/pull/91). Live migrations, deployed revision identity, `DATA-01`, credentialed E2E, and team sign-offs remain unresolved.
 
 ---
 
 ## 1. This Week's Goal
 
-Following the Week 12 bridge plan, Week 13 focused on delivering requested post-MVP usability and personalized planning enhancements on an isolated feature branch (`feature/manual-time-schedule-and-improvements`) while keeping `main` untouched until team review and live release gates complete:
+Week 13 delivered post-MVP usability and planning enhancements that were later merged into `main`. Repository integration is complete, while deployment and live-service verification remain separate unresolved gates:
 
 1. Protect students against accidental subject deselection with an accessible confirmation dialog and Supabase rollback safety.
 2. Reorder sidebar navigation so **Study Tasks** sits first and **Time Schedule** sits between **Quiz Practice** and **AI Tutor**, while keeping Quiz internals unchanged from `main`.
@@ -81,7 +81,7 @@ Following the Week 12 bridge plan, Week 13 focused on delivering requested post-
 |---|---|---|---|---|
 | **Nabin Khadka** | `liftupkhadka555-spec` | Designed and implemented all 4 Week 13 feature enhancements on branch `feature/manual-time-schedule-and-improvements`: custom Subject Removal Confirmation modal (`#subject-remove-modal`) with Supabase sync & error rollback; reordered sidebar navigation (`Study Tasks` first, `Time Schedule` between `Quiz Practice` and `AI Tutor`, keeping Quiz internals unchanged from `main`); optional 1,000-char `Task Description / Details` (`014` SQL migration + rollback, UI forms, escaped multiline rendering & search); and manual `Time Schedule` planner (`015` SQL migration + rollback, pure recurrence/conflict engine `time-schedule.js`, service CRUD `schedules.js`, Daily/Weekly/mobile UI `time-schedule-ui.js`). Authored Vitest (`105/105`), PGlite PostgreSQL WASM (`7/7`), and mocked Playwright Desktop/Mobile suites (`14/14`), captured 12 before/after screenshots, and authored Week 13 + feature reports (`docs/week_13/`, `docs/time_schedule/`). | Branch `feature/manual-time-schedule-and-improvements` (`d7a80af`, `bb866c4`, `9eb04d5`, `647acee`); [Report](../time_schedule/IMPROVEMENTS_AND_TIME_SCHEDULE_REPORT.md); [Evidence](../time_schedule/Evidence/); [`014`](../../supabase/migrations/014_task_description.sql); [`015`](../../supabase/migrations/015_time_schedules.sql); [`time-schedule.db.test.js`](../../tests/db/time-schedule.db.test.js); [`improvements-schedule.spec.js`](../../tests/e2e/improvements-schedule.spec.js) | **Local tests & screenshots verified (`PASS`); PR review & live Supabase deploy pending** |
 | **Sumit Adhikari** | `adronnie` | Database & RLS reviewer target for migrations `014` / `015` alongside pending live `009`/`010`/`012`/`013` application and live `DATA-01` execution. | [`docs/week_12/Sumit-Adhikari-Database-Security-Report.md`](../week_12/Sumit-Adhikari-Database-Security-Report.md) | **PENDING** |
-| **Prabin Rai** | `RaiPrabin697` | Automation QA reviewer target for new Vitest, PGlite, and Playwright E2E regression suites (`improvements-schedule.spec.js`) and live credentialed E2E execution. | [`docs/week_12/Prabin-Rai-Automation-Repair-Report.md`](../week_12/Prabin-Rai-Automation-Repair-Report.md) | **PENDING** |
+| **Prabin Rai** | `RaiPrabin697` | Documentation and Handoff Evidence Lead: reconciled merged PR status with unresolved live gates, corrected the Quick Add navigation route, defined uncoached Light/Dark acceptance criteria, preserved the historical `jn-oli` trial, and coordinated the designated `princekark` retrial. This is documentation and coordination work; Prabin did not execute a product test in this update. | [Handoff route](./HANDOFF_ROUTE.md); [Peer test notes](../Peer%20test%20note.md); [Week 13 hub](./README.md) | **Documentation complete; Prince retrial BLOCKED; live credentialed QA NOT RUN** |
 | **Prince Karki** | `princekark` | Independent QA verification target for live credentialed Task Descriptions, Subject Removal sync, and Time Schedule E2E flows. | [`docs/week_12/PRINCE_KARKI_AUTOMATED_QA_REPORT.md`](../week_12/PRINCE_KARKI_AUTOMATED_QA_REPORT.md) | **PENDING** |
 | **J.N. Taj Oli** | `jn-oli` | UI/UX & responsive Dark/Light manual verification target for reordered navigation, confirmation/conflict modals, and Daily/Weekly mobile Time Schedule views. | [`docs/week_12/JN-Taj-Oli-Responsive-UI-Report.md`](../week_12/JN-Taj-Oli-Responsive-UI-Report.md) | **PENDING** |
 
@@ -96,3 +96,16 @@ Following the Week 12 bridge plan, Week 13 focused on delivering requested post-
 | Run live 2-account `DATA-01` RLS verification covering `tasks.description`, `study_schedules`, and `study_schedule_exceptions` | Sumit / Prince / Prabin | **NOT RUN** |
 | Execute full credentialed Playwright live run (`24` core + Week 13 feature specs) + manual Desktop/Mobile Light/Dark spot-check | Prabin / Prince / J.N. Taj | **NOT RUN** |
 | Update official course Vercel deployment & verify active commit SHA (`Issue #59`) + collect `5/5` sign-offs | Nabin / All Team 5 | **BLOCKED / PENDING** |
+
+
+---
+
+## 7. Documentation and Handoff Reconciliation - November 28, 2026
+
+- PRs #89-#91 are merged into `main`; earlier branch-only and pending-PR wording is historical.
+- The selected site's deployed revision remains **Unknown**.
+- The corrected route is [Subjects & University -> Quick Add -> Subject dropdown](./HANDOFF_ROUTE.md).
+- `jn-oli`'s November 25 observation remains historical evidence.
+- `princekark`'s uncoached retrial is **Blocked** until Prince performs it and supplies an actual result.
+- UI readability does not verify cloud persistence, migrations, `DATA-01`, RLS denial, or credentialed live E2E.
+- The release decision remains **NO-GO - Pending Live Security and Release Verification**.
