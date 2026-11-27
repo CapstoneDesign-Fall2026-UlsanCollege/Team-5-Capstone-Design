@@ -96,3 +96,12 @@ Following the Week 12 bridge plan, Week 13 focused on delivering requested post-
 | Run live 2-account `DATA-01` RLS verification covering `tasks.description`, `study_schedules`, and `study_schedule_exceptions` | Sumit / Prince / Prabin | **NOT RUN** |
 | Execute full credentialed Playwright live run (`24` core + Week 13 feature specs) + manual Desktop/Mobile Light/Dark spot-check | Prabin / Prince / J.N. Taj | **NOT RUN** |
 | Update official course Vercel deployment & verify active commit SHA (`Issue #59`) + collect `5/5` sign-offs | Nabin / All Team 5 | **BLOCKED / PENDING** |
+
+
+## Prabin Rai Documentation and Handoff Update - November 28, 2026
+
+- **Login:** `RaiPrabin697`
+- **Contribution:** Reconciled merged PR status with unresolved live gates, corrected the Quick Add route, defined uncoached Light/Dark acceptance criteria, preserved the historical `jn-oli` trial, and coordinated the `princekark` retrial.
+- **Evidence:** [Handoff route](./HANDOFF_ROUTE.md) and [Peer test notes](../Peer%20test%20note.md).
+- **Boundary:** Documentation and coordination work only; Prabin did not execute a product test in this update.
+- **Status:** Documentation complete; Prince retrial **Blocked**; live credentialed QA **Not run**.
