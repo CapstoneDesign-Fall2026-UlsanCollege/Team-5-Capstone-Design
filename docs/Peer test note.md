@@ -1,42 +1,74 @@
 # Peer Test Notes and Handoff Trial
 
-**Testing person or team:** J.N. Taj Oli (`jn-oli`), signed in as `zaynwoli8`
-**Project tested:** Smart Study Companion — Team 5
-**Date:** 25 November 2026
+## Historical Trial - November 25, 2026
 
-## What we tried
+**Tester:** J.N. Taj Oli (`jn-oli`), signed in privately  
+**Project:** Smart Study Companion - Team 5  
+**Test type:** Non-author UI readability and handoff trial  
+**Tested revision:** Unknown  
+**Deployed revision:** Unknown
 
-1. Turned on **Dark mode**, opened **Quick Add / Add a study task** on **Subjects & University**, and opened the **Subject** dropdown.
-2. Read the open list and the highlighted option. **Computer Networks** was highlighted with dark text on a light bar. **Database Management Systems** was light text on the dark list.
-3. Turned on **Light mode** and opened the same **Subject** dropdown. **Computer Networks** was highlighted with light text on a dark bar. **Database Management Systems** was dark text on a white row.
+### Route Followed
 
-## Area map and handoff
+1. Opened the deployed site and signed in privately.
+2. Opened **Subjects & University**.
+3. Located **Quick Add / Add a study task**.
+4. Opened the **Subject** dropdown in Dark mode.
+5. Repeated the same check in Light mode.
 
-- Area(s) / boundary we followed: UI/UX, responsiveness, and accessibility (`public/index.html`, `public/styles.css`, `public/app.js`). The Quick Add task form crosses into the task-entry flow owned for implementation by Nabin Khadka (`liftupkhadka555-spec`).
-- Current area map link: [Codebase area map](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/blob/main/docs/week_10/AI_USE_AND_CODE_OWNERSHIP_AUDIT.md)
-- Did we locate the check without relying on the steward? Yes. The dropdown was opened from the on-screen **Quick Add** card. The issue steps say **Study Tasks**, while this check used the **Quick Add** card on **Subjects & University Onboarding**.
-- Cross-area dependency or handoff we observed: Sumit Adhikari (`adronnie`) reported Issue #84. Nabin Khadka is the implemented owner. The list only shows subjects already selected for enrollment. This session had **2 subjects selected**, so the open list showed **Computer Networks** and **Database Management Systems**.
+This corrects the earlier written navigation that pointed to **Study Tasks**. The working Quick Add card used for this check is under **Subjects & University**.
 
-## What worked
+### Observations
 
-- In Dark mode, both subject names were readable, and the highlighted option had dark text on a light bar.
-- In Light mode, both subject names were readable, and the highlighted option had light text on a dark bar.
-- The closed **Subject** field also showed **Computer Networks** clearly in both modes.
+- In Dark mode, the enrolled subject names were readable, and the highlighted option used dark text on a light bar.
+- In Light mode, the enrolled subject names were readable, and the highlighted option used light text on a dark bar.
+- The closed Subject field was readable in both modes.
+- The list showed enrolled subjects only. In that session, two enrolled subjects were available.
 
-## What confused us
+### Expected Result
 
-- The issue steps point to the **Tasks** section. The card used for this proof is on **Subjects & University Onboarding**.
-- The open list is limited to enrolled subjects. With two subjects enrolled, the list does not show the full catalog.
+The tester can locate the Quick Add card without guidance and read the closed field, open options, and highlighted option in Light and Dark modes.
 
-## Bugs or problems found
+### Actual Result
 
-| Problem | Severity | Suggested Issue title |
-|---|---|---|
-| No new problem found. The 23 November dark-mode contrast problem was readable in this recheck. | — | [Issue #84-comment](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/84#issuecomment-7138393597) |
+**Pass with documentation friction.** The UI readability criteria were met. The written route was confusing because it named **Study Tasks** instead of **Subjects & University**.
 
-## Handoff trial (required in Week 13)
+### Help Received
 
-- Access or setup path followed: Opened the deployed site, signed in as `zaynwoli8`, and used the **Light mode** / **Dark mode** control in the sidebar.
-- Area map / check path followed: UI/UX area in the Week 10 area map, then the **Quick Add** card and its **Subject** dropdown.
-- Could they run, view, or understand the project without team-member guidance? Yes. The dropdown could be opened and judged from the screen without the fix owner pointing to it.
-- Result and remaining friction: Peer QA passes for the open **Subject** list in Dark mode and Light mode. The remaining friction is that the written steps name **Study Tasks**, while the working card is on **Subjects & University**, and the list shows only enrolled subjects.
+No guidance from the implementation owner was needed to judge the dropdown. The route wording itself required later correction.
+
+### Evidence Boundary
+
+This trial establishes UI readability for the observed session only. It does not establish cloud persistence, migration application, deployed revision identity, or RLS isolation.
+
+### Related Record
+
+[Issue #84 comment](https://github.com/CapstoneDesign-Fall2026-UlsanCollege/Team-5-Capstone-Design/issues/84#issuecomment-7138393597)
+
+## Corrected Route
+
+Use [Week 13 Handoff Route](week_13/HANDOFF_ROUTE.md):
+
+`Sign in -> Subjects & University -> Quick Add / Add a study task -> Subject dropdown -> Light and Dark modes`
+
+## Designated Retrial - Prince Karki
+
+The fresh non-author retrial is tracked separately below so it cannot be confused with J.N. Taj Oli's November 25 historical result.
+
+| Field | Current record |
+|---|---|
+| Tester | Prince Karki (`princekark`) |
+| Date | Pending |
+| URL | Pending |
+| Browser/version | Pending |
+| Tested source SHA | `f5dcc8c5d93e284c378d746a9a7a7fae327c3d1f` planned |
+| Deployed revision | Unknown |
+| Route | [Corrected handoff route](week_13/HANDOFF_ROUTE.md) |
+| Help received | Must be recorded after the attempt |
+| Expected result | Must meet the Light/Dark readability and no-coaching criteria |
+| Actual result | Pending |
+| Result | **Blocked - retrial has not been performed** |
+| Proof | Pending |
+| Remaining friction | Pending |
+
+Do not change the blocked result until `princekark` performs the route and provides the actual observation.
