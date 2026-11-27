@@ -64,11 +64,16 @@ The fresh non-author retrial is tracked separately below so it cannot be confuse
 | Tested source SHA | `f5dcc8c5d93e284c378d746a9a7a7fae327c3d1f` planned |
 | Deployed revision | Unknown |
 | Route | [Corrected handoff route](week_13/HANDOFF_ROUTE.md) |
-| Help received | Must be recorded after the attempt |
-| Expected result | Must meet the Light/Dark readability and no-coaching criteria |
-| Actual result | Pending |
+| Help received | Pending; must be recorded after the attempt |
+| Expected result | Light/Dark readability and no-coaching criteria in the route |
+| Actual result | No retrial observation has been supplied |
 | Result | **Blocked - retrial has not been performed** |
 | Proof | Pending |
 | Remaining friction | Pending |
 
-Do not change the blocked result until `princekark` performs the route and provides the actual observation.
+### Blocker and Next Action
+
+- **Blocker:** `princekark` has not yet performed and reported the uncoached route.
+- **Owner:** Prince Karki (`princekark`) for execution; Prabin Rai (`RaiPrabin697`) for receipt reconciliation.
+- **Next action:** Prince follows the route without coaching and sends the date, URL, browser/version, selected option, Light/Dark observations, help received, sanitized proof, and any remaining friction.
+- **Update rule:** Replace **Blocked** only after the actual observation exists. Do not infer a result from J.N. Taj Oli's historical trial.
