@@ -70,3 +70,10 @@ The fresh non-author retrial is tracked separately below so it cannot be confuse
 | Result | **Blocked - retrial has not been performed** |
 | Proof | Pending |
 | Remaining friction | Pending |
+
+### Blocker and Next Action
+
+- **Blocker:** `princekark` has not yet performed and reported the uncoached route.
+- **Owner:** Prince Karki (`princekark`) for execution; Prabin Rai (`RaiPrabin697`) for receipt reconciliation.
+- **Next action:** Prince follows the route without coaching and sends the date, URL, browser/version, selected option, Light/Dark observations, help received, sanitized proof, and any remaining friction.
+- **Update rule:** Replace **Blocked** only after the actual observation exists. Do not infer a result from J.N. Taj Oli's historical trial.
